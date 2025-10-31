@@ -1135,3 +1135,141 @@ a, button, .package-button, .subscription-button, .cta-button {
         margin-top: 24px;
     }
 }
+
+/* Arsenal de Ferramentas */
+.tools-arsenal {
+    padding: 80px 20px;
+    background: var(--white);
+}
+
+.tools-grid {
+    margin-top: 48px;
+    display: grid;
+    gap: 32px;
+}
+
+.tool-category {
+    background: var(--light-gray);
+    border-radius: 16px;
+    padding: 32px;
+    border-left: 4px solid var(--secondary);
+}
+
+.category-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.tool-list {
+    display: grid;
+    gap: 20px;
+}
+
+.tool-item {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tool-item:hover {
+    transform: translateX(8px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.tool-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary);
+    display: block;
+    margin-bottom: 8px;
+}
+
+.tool-desc {
+    color: var(--gray);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.beta-badge {
+    display: inline-block;
+    background: var(--secondary);
+    color: var(--white);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.tools-note {
+    margin-top: 48px;
+    padding: 24px;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+    border-radius: 12px;
+    border-left: 4px solid var(--secondary);
+}
+
+.tools-note p {
+    margin: 0;
+    color: var(--primary);
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .tools-arsenal {
+        padding: 60px 20px;
+    }
+
+    .tool-category {
+        padding: 24px;
+    }
+
+    .category-title {
+        font-size: 1.3rem;
+    }
+
+    .tool-item {
+        padding: 16px;
+    }
+
+    .tools-note {
+        margin-top: 32px;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tools-arsenal {
+        padding: 48px 16px;
+    }
+
+    .tools-grid {
+        gap: 24px;
+        margin-top: 32px;
+    }
+
+    .tool-category {
+        padding: 20px;
+    }
+
+    .category-title {
+        font-size: 1.2rem;
+        gap: 8px;
+    }
+
+    .tool-name {
+        font-size: 1rem;
+    }
+
+    .tool-desc {
+        font-size: 0.95rem;
+    }
+}

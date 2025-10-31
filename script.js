@@ -6,7 +6,6 @@ const LINKS = {
     vip: 'https://pay.kiwify.com.br/5kxogqi',
 
     // Planos de Assinatura
-    basico: 'https://pay.kiwify.com.br/7M7XddA',
     pro: 'https://pay.kiwify.com.br/NtnupLV',
     vipClube: 'https://pay.kiwify.com.br/O3ax8ZG'
 };
