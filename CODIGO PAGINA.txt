@@ -1,0 +1,82 @@
+// Smooth scroll para links internos
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Animação de entrada dos elementos
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+// Aplicar animação a elementos
+document.querySelectorAll('.pricing-card, .problem-card, .faq-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'all 0.6s ease';
+    observer.observe(el);
+});
+
+// Analytics de cliques (opcional - adicione seu GA4 se quiser)
+document.querySelectorAll('.btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const buttonText = this.textContent.trim();
+        console.log('Clique no botão:', buttonText);
+        // Aqui você pode adicionar Google Analytics ou Facebook Pixel
+        // gtag('event', 'click', { 'event_category': 'button', 'event_label': buttonText });
+    });
+});
+
+// Contador de visitantes (opcional - simples)
+if (!localStorage.getItem('visited')) {
+    localStorage.setItem('visited', 'true');
+    console.log('Novo visitante');
+}
+```
+
+---
+
+## **COMO HOSPEDAR NO GITHUB PAGES**
+
+### **Passo a passo:**
+
+1. **Criar repositório no GitHub:**
+   - Acesse https://github.com
+   - Clique em "New repository"
+   - Nome: `automacao-youtube` (ou qualquer nome)
+   - Marque "Public"
+   - Clique em "Create repository"
+
+2. **Upload dos arquivos:**
+   - Clique em "uploading an existing file"
+   - Arraste os 3 arquivos: `index.html`, `style.css`, `script.js`
+   - Commit changes
+
+3. **Ativar GitHub Pages:**
+   - Vá em "Settings" do repositório
+   - Menu lateral: "Pages"
+   - Source: "Deploy from a branch"
+   - Branch: "main" → folder: "/ (root)"
+   - Salvar
+
+4. **Seu site estará em:**
+```
+   https://seu-usuario.github.io/automacao-youtube/
