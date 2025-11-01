@@ -2,654 +2,910 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <meta name="description" content="Automatize sua produção de conteúdo para YouTube com extensões Chrome + IA. Economize 20+ horas por semana.">
-    <meta name="theme-color" content="#0f172a">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Nardoto - Automação de Conteúdo para YouTube com IA</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Licenças VEO3 - Online</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        /* Tela de Login */
+        .login-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 48px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .login-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .login-subtitle {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 32px;
+        }
+
+        .login-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 14px 16px;
+            font-size: 15px;
+            color: #fff;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: #f59e0b;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 14px 24px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4);
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 14px;
+            margin-top: 12px;
+            display: none;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+            position: relative;
+        }
+
+        .header-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .header-subtitle {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #ef4444;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 8px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 15px;
+            color: #fff;
+            font-family: inherit;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #f59e0b;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 14px 24px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .generated-license {
+            background: rgba(16, 185, 129, 0.15);
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .license-info {
+            color: #10b981;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .license-key {
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #fff;
+            text-align: center;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+
+        .license-credentials {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .credential-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .credential-row:last-child {
+            border-bottom: none;
+        }
+
+        .credential-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        .credential-value {
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .copy-btn {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #60a5fa;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 12px;
+        }
+
+        .copy-btn:hover {
+            background: rgba(59, 130, 246, 0.3);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            color: #10b981;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .license-list {
+            margin-top: 24px;
+        }
+
+        .license-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .license-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .license-item-key {
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .license-item-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .license-item-details {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .loading {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 40px;
+        }
+
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #f59e0b;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .refresh-btn {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #60a5fa;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            float: right;
+        }
+
+        .refresh-btn:hover {
+            background: rgba(59, 130, 246, 0.3);
+        }
+    </style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-badge">Nardoto - O Cara das Automações</div>
-                <h1 class="hero-title">Transforme Sua Produção de Conteúdo com Automação + IA</h1>
-                <p class="hero-subtitle">Sou engenheiro civil que deixou a profissão para viver de YouTube. Desenvolvo extensões Chrome + aplicativos Windows + IA que economizam 20+ horas semanais. Agora vou implementar isso no SEU workflow + tutoriais exclusivos de ferramentas novas.</p>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <span class="stat-number">20+</span>
-                        <span class="stat-label">Horas Economizadas/Semana</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">3</span>
-                        <span class="stat-label">Canais no YouTube</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">100%</span>
-                        <span class="stat-label">Personalizado</span>
-                    </div>
-                </div>
-                <div class="hero-cta">
-                    <a href="#videos" class="cta-button secondary">Ver as Automações em Ação</a>
-                    <a href="#pacotes" class="cta-button">Quero Automatizar Agora</a>
-                </div>
-            </div>
+    <!-- Tela de Login -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-card">
+            <div class="login-title">🔐 Acesso Restrito</div>
+            <div class="login-subtitle">Gerador de Licenças VEO3 - Online com Firebase</div>
+            <input type="password" id="passwordInput" class="login-input" placeholder="Digite a senha de acesso" />
+            <button class="login-btn" onclick="checkPassword()">Entrar</button>
+            <div class="error-message" id="errorMessage">❌ Senha incorreta</div>
         </div>
-    </section>
+    </div>
 
-    <!-- Vídeos de Demonstração -->
-    <section id="videos" class="videos-section">
+    <!-- Dashboard (após login) -->
+    <div class="dashboard" id="dashboard">
         <div class="container">
-            <h2 class="section-title">Veja as Automações em Ação</h2>
-            <p class="section-subtitle">Criando técnicas inovadoras desde o início. Veja como automatizo processos complexos:</p>
-
-            <div class="pioneer-highlight">
-                <h3>🏆 A Técnica Que Virou Padrão na Comunidade</h3>
-                <p>Há mais de 1 ano, criei e <strong>popularizei o uso de arquivos SRT</strong> para gerar áudio automático no CapCut. Hoje, <strong>todo mundo usa essa técnica</strong>. <a href="https://www.youtube.com/watch?v=3gkNT9qb3Ms" target="_blank" rel="noopener">Assista ao vídeo onde tudo começou →</a></p>
+            <div class="header">
+                <h1 class="header-title">🔥 Gerador de Licenças Online</h1>
+                <p class="header-subtitle">VEO3 Automator - Firebase Integrado</p>
+                <button class="logout-btn" onclick="logout()">Sair</button>
             </div>
 
-            <div class="videos-grid">
-                <a href="https://www.youtube.com/watch?v=NSY6u5E354c" target="_blank" rel="noopener" class="video-card-link">
-                    <div class="video-card">
-                        <div class="video-thumbnail">
-                            <img src="https://img.youtube.com/vi/NSY6u5E354c/maxresdefault.jpg" alt="Extensões Nardoto + CapCut">
-                            <div class="play-button">
-                                <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-                                    <circle cx="40" cy="40" r="40" fill="rgba(255,0,0,0.9)"/>
-                                    <path d="M32 26L56 40L32 54V26Z" fill="white"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="video-info">
-                            <h3>Extensões Nardoto + CapCut</h3>
-                            <p>Aula bônus mostrando como uso minhas extensões para acelerar a edição no CapCut</p>
-                            <span class="watch-cta">▶ Assistir no YouTube</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="https://www.youtube.com/watch?v=0Mnl_LKz1l8" target="_blank" rel="noopener" class="video-card-link">
-                    <div class="video-card">
-                        <div class="video-thumbnail">
-                            <img src="https://img.youtube.com/vi/0Mnl_LKz1l8/maxresdefault.jpg" alt="Cursor + IA para Roteiros">
-                            <div class="play-button">
-                                <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-                                    <circle cx="40" cy="40" r="40" fill="rgba(255,0,0,0.9)"/>
-                                    <path d="M32 26L56 40L32 54V26Z" fill="white"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="video-info">
-                            <h3>Cursor + IA para Roteiros</h3>
-                            <p>Como gero roteiros otimizados e organizados em um único prompt usando Cursor</p>
-                            <span class="watch-cta">▶ Assistir no YouTube</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="https://www.youtube.com/watch?v=Zl2rSNarUso" target="_blank" rel="noopener" class="video-card-link">
-                    <div class="video-card">
-                        <div class="video-thumbnail">
-                            <img src="https://img.youtube.com/vi/Zl2rSNarUso/maxresdefault.jpg" alt="Otimização no CapCut">
-                            <div class="play-button">
-                                <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-                                    <circle cx="40" cy="40" r="40" fill="rgba(255,0,0,0.9)"/>
-                                    <path d="M32 26L56 40L32 54V26Z" fill="white"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="video-info">
-                            <h3>Otimização no CapCut</h3>
-                            <p>Técnicas avançadas de automação para produção em massa no CapCut</p>
-                            <span class="watch-cta">▶ Assistir no YouTube</span>
-                        </div>
-                    </div>
-                </a>
+            <!-- Estatísticas -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalLicenses">-</div>
+                    <div class="stat-label">Licenças Geradas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="activeLicenses">-</div>
+                    <div class="stat-label">Licenças Ativas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="todayLicenses">-</div>
+                    <div class="stat-label">Geradas Hoje</div>
+                </div>
             </div>
 
-            <div class="social-proof">
-                <p>💡 <strong>Essas são as mesmas ferramentas (extensões Chrome + aplicativos Windows) que vou implementar no seu workflow.</strong> A diferença? Você não precisa perder tempo configurando - eu mapeio seu processo, automatizo tudo por você + tutoriais exclusivos das ferramentas novas.</p>
+            <!-- Gerador -->
+            <div class="card">
+                <h2 class="card-title">Gerar Nova Licença</h2>
+
+                <div class="form-group">
+                    <label class="form-label">Nome do Cliente</label>
+                    <input type="text" id="clientName" class="form-input" placeholder="João Silva">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="clientEmail" class="form-input" placeholder="joao@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Pacote</label>
+                    <select id="clientPackage" class="form-select">
+                        <option value="essencial">Automação Essencial - R$ 1.497</option>
+                        <option value="acelerada" selected>Automação Acelerada - R$ 2.997</option>
+                        <option value="vip">Automação Total VIP - R$ 4.997</option>
+                    </select>
+                </div>
+
+                <button class="btn" id="generateBtn" onclick="generateLicense()">🔑 Gerar Licença</button>
+
+                <!-- Resultado -->
+                <div class="generated-license" id="generatedResult">
+                    <div class="license-info">✅ Licença Gerada e Salva no Firebase!</div>
+
+                    <div class="license-key" id="generatedKey">XXXX-XXXX-XXXX-XXXX</div>
+
+                    <div class="license-credentials">
+                        <div class="credential-row">
+                            <span class="credential-label">Usuário:</span>
+                            <span class="credential-value" id="generatedUsername">-</span>
+                        </div>
+                        <div class="credential-row">
+                            <span class="credential-label">Senha:</span>
+                            <span class="credential-value" id="generatedPassword">-</span>
+                        </div>
+                        <div class="credential-row">
+                            <span class="credential-label">Pacote:</span>
+                            <span class="credential-value" id="generatedPackage">-</span>
+                        </div>
+                        <div class="credential-row">
+                            <span class="credential-label">Validade:</span>
+                            <span class="credential-value" id="generatedExpiry">-</span>
+                        </div>
+                    </div>
+
+                    <button class="copy-btn" onclick="copyCredentials()">📋 Copiar Credenciais</button>
+                </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Por Que Isso Existe -->
-    <section class="story">
-        <div class="container">
-            <h2 class="section-title">Por Que Compartilho Essas Ferramentas?</h2>
-
-            <div class="story-content">
-                <div class="story-text">
-                    <h3>Onde Tudo Começou - A História Completa do SRT</h3>
-                    <p>Em <strong>abril de 2024</strong>, entrei na Channels pelo <strong>Club</strong>. Depois migrei para a turma <strong>Plus dos Alines 👽</strong>. Mas <strong>compartilhar ferramentas é da minha natureza</strong> - faço isso desde que entrei.</p>
-
-                    <p><strong>A história do SRT:</strong> No ano passado, um amigo me mostrou um código HTML simples que só dividia texto. Eu peguei aquele código e <strong>aperfeiçoei para funcionar com CapCut/SRT</strong> - criando arquivos SRT como blocos de texto para o CapCut gerar áudio de forma automática.</p>
-
-                    <p>Imagina o contexto: época onde <strong>narração com voz neural era só 11Labs ou ferramentas pagas</strong>. Eu cheguei pra galera e falei: <strong>"Olha pessoal, dá pra fazer áudio grande de graça no CapCut!"</strong></p>
-
-                    <h3>O Impacto Foi Tão Grande Que...</h3>
-                    <p><a href="https://www.youtube.com/watch?v=3gkNT9qb3Ms" target="_blank" rel="noopener" style="color: #f59e0b; font-weight: 700;">Postei esse vídeo há mais de 1 ano</a> e compartilhei no Club com <strong>mais de 10 mil pessoas</strong>. Resultado? <strong>Se espalhou como um vírus.</strong></p>
-
-                    <p>Um monte de criadores de conteúdo começaram a divulgar a ferramenta (dando suas modificações, claro). Quem é da época do <strong>Filmora lembra que eles precisaram LIMITAR essa função</strong> porque não deram conta do tráfego de pessoas usando.</p>
-
-                    <p><strong>Até hoje todo mundo usa essa técnica.</strong> Se alguém já sabia dessa função, ficou quietinho. Eu, na minha inocência, fui lá e espalhei essa bomba pra todo mundo. Ainda bem que o CapCut não bloqueou essa função.</p>
-
-                    <h3>Reconhecimento Oficial</h3>
-                    <p>Em <strong>setembro de 2024</strong>, em uma live de premiações, <strong>4 alunos</strong> (2 dos Aliens 👽 + 2 dos Magos 🧙) fomos <strong>reconhecidos pelo Cass e pela equipe Channels</strong> com acesso ao grupo <strong>Gold totalmente gratuito</strong> por compartilhar conhecimento e ajudar a comunidade.</p>
-
-                    <p>Depois dessa live, <strong>isso nunca mais aconteceu</strong>.</p>
-
-                    <h3>E As Ferramentas Foram Evoluindo...</h3>
-                    <p>O SRT foi só o começo. No meio das minhas ferramentas tem <strong>bot que automatiza envio de roteiro para o CapCut gerar o vídeo completo</strong>. Não crio apenas extensões Chrome - também desenvolvo <strong>aplicativos executáveis para Windows</strong> usando <strong>vibe coding</strong>.</p>
-
-                    <p>Minha capacidade <strong>lógica e analítica de engenheiro</strong> me permite mapear processos complexos e transformar em automação. <strong>Desde o início, sempre criei as ferramentas para serem compartilhadas</strong> - por isso me preocupo com visual, usabilidade, experiência do usuário.</p>
-
-                    <p>Eu poderia simplesmente criar algo que funcionasse. Mas fico até de madrugada refinando cada detalhe para que seja profissional e agradável de usar.</p>
-
-                    <h3>O Momento Que Mudou Tudo</h3>
-                    <p>Recentemente, em um <strong>evento de live da Channels</strong>, o <strong>próprio Cassiano</strong> (fundador da Channels) me elogiou publicamente sobre as ferramentas. <a href="https://www.youtube.com/watch?v=dwBE2XJex4M&t=1620s" target="_blank" rel="noopener" style="color: #f59e0b; font-weight: 700;">Você pode ver o momento aos 27 minutos deste vídeo</a>.</p>
-
-                    <p>Mas ele fez um alerta importante:</p>
-
-                    <p><strong>"Uma ferramenta dessas é como uma bomba atômica no mercado. Temos que ter cuidado com o que compartilhamos."</strong></p>
-
-                    <p>Ele disse que se fosse ele, <strong>ficaria quieto</strong>. Mas me elogiou e disse que sou uma <strong>pessoa abundante</strong>. <a href="https://www.youtube.com/watch?v=dwBE2XJex4M&t=1783s" target="_blank" rel="noopener" style="color: #f59e0b; font-weight: 700;">Aos 29:43 você vê membros do Gold comentando sobre isso</a>.</p>
-
-                    <h3>Por Que Agora É Diferente?</h3>
-                    <p>Depois da live do Cassiano, <strong>decidi ser bem mais cuidadoso</strong> com o que compartilho. Do jeito que eu estava fazendo, qualquer um podia pegar meu código e fazer o que quiser.</p>
-
-                    <p>A preocupação é real: <strong>um bot que faz aquele tanto de vídeo automático caindo nas mãos de todo mundo indiscriminadamente pode acender um alerta no Google</strong> e eles bloquearem isso para todo mundo. Não quero repetir o caso do Filmora.</p>
-
-                    <p>Preciso ter <strong>controle sobre quem usa</strong>, entender criptografia, manter exclusividade. <strong>Não é sobre ficar rico</strong> - é sobre ser justo comigo mesmo, reconhecer o esforço, e proteger as ferramentas para que continuem funcionando.</p>
-
-                    <h3>O Impacto Real (Mensagens Que Recebo)</h3>
-                    <p>"Nardoto, você mudou meu processo!", "Economizei horas por semana!", "Não preciso mais pagar editor!" - <strong>recebo essas mensagens direto</strong>. Pessoas que <strong>economizaram com equipe e ElevenLabs</strong> usando as automações que criei.</p>
-
-                    <p>Meu lema: <strong>"Se é repetitivo, dá pra automatizar. E tempo é dinheiro."</strong></p>
-
-                    <h3>A Transição Que Quero Fazer</h3>
-                    <p>Vou ser transparente: ainda <strong>divido meu tempo com a engenharia civil</strong>. É meu ganha pão atual. Mas descobri na programação uma <strong>habilidade que não conhecia</strong> e que mudou minha perspectiva de vida.</p>
-
-                    <p>Cobrar não é sobre valores absurdos. É sobre <strong>manter um controle, ter uma remuneração justa</strong>, e conseguir <strong>paz mental financeira</strong> para fazer a transição completa.</p>
-
-                    <p><strong>A partir de agora:</strong> Vou continuar ajudando - <strong>meu desejo de ajudar continua firme e forte</strong>. Mas de forma <strong>bem mais restrita e controlada</strong>. As ferramentas de alto impacto (as "bombas atômicas" 💣) serão exclusivas para quem investe nos pacotes e assinaturas.</p>
-
-                    <p><strong>Estou fazendo isso do jeito certo</strong>, com responsabilidade e cuidado.</p>
-
-                    <div class="story-disclaimer">
-                        <p><strong>⚠️ Importante:</strong> Este é um projeto <strong>independente</strong>. Não tenho nenhuma ligação oficial com a Channels. Sou apenas um membro Gold com gratidão e vontade de servir - validando se consigo transformar isso em algo sustentável.</p>
+            <!-- Lista de Licenças -->
+            <div class="card">
+                <h2 class="card-title">
+                    Licenças no Firebase
+                    <button class="refresh-btn" onclick="loadLicensesFromFirebase()">🔄 Atualizar</button>
+                </h2>
+                <div class="license-list" id="licenseList">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Carregando licenças do Firebase...
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Depoimentos -->
-    <section class="testimonials">
-        <div class="container">
-            <h2 class="section-title">O Que Os Creators Estão Dizendo</h2>
-            <p class="section-subtitle">Mensagens reais de pessoas que usaram as ferramentas e transformaram seus processos de produção</p>
+    <script>
+        // Configuração do Firebase
+        const FIREBASE_CONFIG = {
+            projectId: "veo3automator",
+            apiKey: "AIzaSyCeh-SnpsmOcpxgJHirM_volJloRuzBzC4",
+            databaseURL: "https://firestore.googleapis.com/v1/projects/veo3automator/databases/(default)/documents"
+        };
 
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <img src="depoimento-1.png" alt="Depoimento de creator sobre ferramentas Nardoto" loading="lazy">
-                </div>
+        // Senha de acesso (MUDE ESTA SENHA!)
+        const ADMIN_PASSWORD = 'nardoto2024';
 
-                <div class="testimonial-card">
-                    <img src="depoimento-2.png" alt="Depoimento de creator sobre automações" loading="lazy">
-                </div>
+        // Dados globais
+        let allLicenses = [];
+        let lastGeneratedLicense = null;
 
-                <div class="testimonial-card">
-                    <img src="depoimento-3.png" alt="Depoimento sobre economia de tempo" loading="lazy">
-                </div>
+        // Verifica se já está logado
+        if (sessionStorage.getItem('veo3_admin_logged') === 'true') {
+            showDashboard();
+        }
 
-                <div class="testimonial-card">
-                    <img src="depoimento-4.png" alt="Feedback positivo sobre extensões Chrome" loading="lazy">
-                </div>
+        // Enter no campo de senha
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
 
-                <div class="testimonial-card">
-                    <img src="depoimento-5.png" alt="Mensagem de agradecimento sobre ferramentas" loading="lazy">
-                </div>
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const errorMessage = document.getElementById('errorMessage');
 
-                <div class="testimonial-card">
-                    <img src="depoimento-6.PNG" alt="Depoimento sobre impacto das automações" loading="lazy">
-                </div>
+            if (password === ADMIN_PASSWORD) {
+                sessionStorage.setItem('veo3_admin_logged', 'true');
+                showDashboard();
+            } else {
+                errorMessage.style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 3000);
+            }
+        }
 
-                <div class="testimonial-card">
-                    <img src="depoimento-7.PNG" alt="Mensagem sobre qualidade das ferramentas" loading="lazy">
-                </div>
-            </div>
-        </div>
-    </section>
+        async function showDashboard() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            await loadLicensesFromFirebase();
+            updateStats();
+        }
 
-    <!-- Arsenal de Ferramentas -->
-    <section id="ferramentas" class="tools-arsenal">
-        <div class="container">
-            <h2 class="section-title">Arsenal de Ferramentas (17+ Ferramentas)</h2>
-            <p class="section-subtitle">Todas as extensões Chrome e aplicativos Windows que você recebe nos pacotes. Desenvolvidas para creators que querem escalar produção sem perder qualidade. E se você usa outras ferramentas, crio automações customizadas também.</p>
+        function logout() {
+            sessionStorage.removeItem('veo3_admin_logged');
+            location.reload();
+        }
 
-            <div class="tools-grid">
-                <!-- Automação Musical -->
-                <div class="tool-category">
-                    <h3 class="category-title">🎵 Automação Musical</h3>
-                    <div class="tool-list">
-                        <div class="tool-item">
-                            <span class="tool-name">Suno Automator</span>
-                            <p class="tool-desc">Envio em massa de músicas no Suno AI. Crie dezenas de faixas simultaneamente.</p>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-name">Suno Auto Download</span>
-                            <p class="tool-desc">Download automático em massa de todas as músicas geradas.</p>
-                        </div>
+        // Gera chave de licença
+        function generateLicenseKey() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            const segments = 4;
+            const segmentLength = 4;
+
+            const key = [];
+            for (let i = 0; i < segments; i++) {
+                let segment = '';
+                for (let j = 0; j < segmentLength; j++) {
+                    segment += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                key.push(segment);
+            }
+
+            return key.join('-');
+        }
+
+        // Gera senha aleatória
+        function generatePassword() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let password = '';
+            for (let i = 0; i < 12; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return password;
+        }
+
+        // Gera licença completa e salva no Firebase
+        async function generateLicense() {
+            const name = document.getElementById('clientName').value.trim();
+            const email = document.getElementById('clientEmail').value.trim();
+            const packageType = document.getElementById('clientPackage').value;
+
+            if (!name || !email) {
+                alert('Por favor, preencha nome e email do cliente!');
+                return;
+            }
+
+            const btn = document.getElementById('generateBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ Gerando e salvando no Firebase...';
+
+            try {
+                const key = generateLicenseKey();
+                const username = name.toLowerCase().replace(/\s+/g, '');
+                const password = generatePassword();
+                const packageName = document.getElementById('clientPackage').options[document.getElementById('clientPackage').selectedIndex].text;
+                const expiryDate = new Date();
+                expiryDate.setMonth(expiryDate.getMonth() + 6); // 6 meses
+
+                const licenseData = {
+                    licenseKey: key,
+                    username: username,
+                    password: password,
+                    name: name,
+                    email: email,
+                    package: packageName,
+                    packageType: packageType,
+                    expiresAt: expiryDate.getTime(),
+                    status: 'active',
+                    deviceFingerprint: null // Será preenchido quando ativar
+                };
+
+                // Salva no Firebase usando REST API
+                const url = `${FIREBASE_CONFIG.databaseURL}/licenses/${key}?key=${FIREBASE_CONFIG.apiKey}`;
+
+                const firebaseDoc = {
+                    fields: {
+                        licenseKey: { stringValue: key },
+                        username: { stringValue: username },
+                        password: { stringValue: password }, // AGORA SALVA A SENHA!
+                        name: { stringValue: name },
+                        email: { stringValue: email },
+                        plan: { stringValue: packageName },
+                        expiresAt: { integerValue: expiryDate.getTime().toString() },
+                        status: { stringValue: 'active' },
+                        deviceFingerprint: { stringValue: '' },
+                        createdAt: { timestampValue: new Date().toISOString() }
+                    }
+                };
+
+                const response = await fetch(url, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(firebaseDoc)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erro ao salvar no Firebase');
+                }
+
+                console.log('✅ Licença salva no Firebase:', key);
+
+                // Mostra resultado
+                lastGeneratedLicense = licenseData;
+                document.getElementById('generatedKey').textContent = key;
+                document.getElementById('generatedUsername').textContent = username;
+                document.getElementById('generatedPassword').textContent = password;
+                document.getElementById('generatedPackage').textContent = packageName;
+                document.getElementById('generatedExpiry').textContent = expiryDate.toLocaleDateString('pt-BR');
+                document.getElementById('generatedResult').style.display = 'block';
+
+                // Atualiza lista
+                await loadLicensesFromFirebase();
+                updateStats();
+
+                // Limpa form
+                document.getElementById('clientName').value = '';
+                document.getElementById('clientEmail').value = '';
+
+                // Scroll para resultado
+                document.getElementById('generatedResult').scrollIntoView({ behavior: 'smooth' });
+
+            } catch (error) {
+                console.error('❌ Erro:', error);
+                alert('Erro ao gerar licença. Verifique sua conexão com a internet.');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '🔑 Gerar Licença';
+            }
+        }
+
+        // Carrega licenças do Firebase
+        async function loadLicensesFromFirebase() {
+            const list = document.getElementById('licenseList');
+            list.innerHTML = '<div class="loading"><div class="spinner"></div>Carregando licenças do Firebase...</div>';
+
+            try {
+                const url = `${FIREBASE_CONFIG.databaseURL}/licenses?key=${FIREBASE_CONFIG.apiKey}`;
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar licenças');
+                }
+
+                const data = await response.json();
+
+                if (!data.documents || data.documents.length === 0) {
+                    list.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); text-align: center; padding: 40px;">Nenhuma licença gerada ainda</p>';
+                    allLicenses = [];
+                    return;
+                }
+
+                // Converte documentos do Firebase
+                allLicenses = data.documents.map(doc => {
+                    const fields = doc.fields;
+                    return {
+                        licenseKey: fields.licenseKey?.stringValue || '',
+                        username: fields.username?.stringValue || '',
+                        password: fields.password?.stringValue || 'Não disponível', // AGORA MOSTRA SENHA!
+                        name: fields.name?.stringValue || '',
+                        email: fields.email?.stringValue || '',
+                        plan: fields.plan?.stringValue || '',
+                        status: fields.status?.stringValue || 'active',
+                        deviceFingerprint: fields.deviceFingerprint?.stringValue || '',
+                        createdAt: fields.createdAt?.timestampValue || new Date().toISOString(),
+                        expiresAt: parseInt(fields.expiresAt?.integerValue || 0),
+                        documentPath: doc.name // Salva o caminho para poder deletar
+                    };
+                });
+
+                // Ordena por data de criação (mais recente primeiro)
+                allLicenses.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+                updateLicenseList();
+
+            } catch (error) {
+                console.error('❌ Erro ao carregar licenças:', error);
+                list.innerHTML = '<p style="color: #ef4444; text-align: center; padding: 40px;">❌ Erro ao carregar licenças do Firebase</p>';
+            }
+        }
+
+        // Atualiza lista de licenças
+        function updateLicenseList() {
+            const list = document.getElementById('licenseList');
+
+            if (allLicenses.length === 0) {
+                list.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); text-align: center; padding: 40px;">Nenhuma licença gerada ainda</p>';
+                return;
+            }
+
+            list.innerHTML = allLicenses.map((license, index) => {
+                const isActivated = license.deviceFingerprint && license.deviceFingerprint.length > 10;
+                const activatedText = isActivated ? '🟢 Ativada' : '⚪ Não Ativada';
+
+                return `
+                <div class="license-item">
+                    <div class="license-item-header">
+                        <div class="license-item-key">${license.licenseKey}</div>
+                        <div class="license-item-status status-active">${activatedText}</div>
+                    </div>
+                    <div class="license-item-details">
+                        <strong>${license.name}</strong> • ${license.email}<br>
+                        ${license.plan} • Usuário: ${license.username}<br>
+                        Senha: <span style="filter: blur(5px);" id="pwd-${index}">${license.password}</span>
+                        <button onclick="togglePassword(${index})" style="margin-left: 10px; padding: 2px 8px; background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 4px; color: #60a5fa; cursor: pointer;">👁️ Ver</button><br>
+                        Criada em: ${new Date(license.createdAt).toLocaleDateString('pt-BR')} às ${new Date(license.createdAt).toLocaleTimeString('pt-BR')}
+                        ${isActivated ? '<br><small>🔒 Vinculada ao fingerprint: ' + license.deviceFingerprint.substring(0, 16) + '...</small>' : ''}
+                        <br>
+                        <button onclick="copyLicenseCredentials(${index})" style="margin-top: 10px; margin-right: 10px; padding: 6px 12px; background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; color: #10b981; cursor: pointer;">📋 Copiar Credenciais</button>
+                        <button onclick="revokeLicense(${index})" style="margin-top: 10px; padding: 6px 12px; background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 6px; color: #ef4444; cursor: pointer;">🗑️ Revogar Licença</button>
                     </div>
                 </div>
+            `;
+            }).join('');
+        }
 
-                <!-- Automação de Vídeo -->
-                <div class="tool-category">
-                    <h3 class="category-title">🎬 Automação de Vídeo</h3>
-                    <div class="tool-list">
-                        <div class="tool-item">
-                            <span class="tool-name">Veo3 Automator</span>
-                            <p class="tool-desc">Envio em massa de prompts no Veo3. Inclui upload de imagens para gerar vídeos com consistência visual.</p>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-name">Wisk Automator</span>
-                            <p class="tool-desc">Envio em massa de prompts no Wisk para geração acelerada de vídeos.</p>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-name">Wisk Mass Download</span>
-                            <p class="tool-desc">Download em massa de imagens do Wisk com os prompts salvos no nome do arquivo.</p>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-name">CapCut Prompt Extractor</span>
-                            <p class="tool-desc">Extrai prompts das imagens geradas no CapCut e envia direto para sua conta na nuvem.</p>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-name">CapCut Script Auto-Sender</span>
-                            <p class="tool-desc">Automatiza envio de script no CapCut: seleciona estilo, voz, insere texto e envia. Economize minutos por vídeo.</p>
-                        </div>
-                    </div>
-                </div>
+        // Atualiza estatísticas
+        function updateStats() {
+            const total = allLicenses.length;
+            const active = allLicenses.filter(l => l.deviceFingerprint && l.deviceFingerprint.length > 10).length;
 
-                <!-- Automação de Voz/Áudio -->
-                <div class="tool-category">
-                    <h3 class="category-title">🎙️ Automação de Voz & Legendas</h3>
-                    <div class="tool-list">
-                        <div class="tool-item">
-                            <span class="tool-name">Google Labs Voice Generator <span class="beta-badge">BETA</span></span>
-                            <p class="tool-desc">Geração e download automático de áudios com voz neural do Google (gratuito). Voz mais realista e emocionada.</p>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-name">Otimizador Gold Aprimorado (SRT)</span>
-                            <p class="tool-desc">A ferramenta que começou tudo. Divide textos por palavras, edita blocos de legendas, gera arquivos SRT para CapCut.</p>
-                        </div>
-                    </div>
-                </div>
+            const today = new Date().toDateString();
+            const todayCount = allLicenses.filter(l => {
+                const created = new Date(l.createdAt).toDateString();
+                return created === today;
+            }).length;
 
-                <!-- Automação de IA (Texto) -->
-                <div class="tool-category">
-                    <h3 class="category-title">🤖 Automação de IA (Prompts em Massa)</h3>
-                    <div class="tool-list">
-                        <div class="tool-item">
-                            <span class="tool-name">Claude Mass Prompter</span>
-                            <p class="tool-desc">Envia e organiza prompts em massa no Claude. Automatize fluxos de criação de roteiros.</p>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-name">Gemini Mass Prompter</span>
-                            <p class="tool-desc">Envio automatizado de prompts no Gemini para processamento em lote.</p>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-name">GPT Mass Prompter</span>
-                            <p class="tool-desc">Automatize envio de prompts no ChatGPT. Escale sua produção de conteúdo.</p>
-                        </div>
-                    </div>
-                </div>
+            document.getElementById('totalLicenses').textContent = total;
+            document.getElementById('activeLicenses').textContent = active;
+            document.getElementById('todayLicenses').textContent = todayCount;
+        }
 
-                <!-- Automação de Imagens -->
-                <div class="tool-category">
-                    <h3 class="category-title">🖼️ Automação de Imagens</h3>
-                    <div class="tool-list">
-                        <div class="tool-item">
-                            <span class="tool-name">Auto Journey (Midjourney)</span>
-                            <p class="tool-desc">Envio em massa de prompts no Midjourney. Gere dezenas de imagens simultaneamente.</p>
-                        </div>
-                    </div>
-                </div>
+        // Copia credenciais
+        function copyCredentials() {
+            if (!lastGeneratedLicense) return;
 
-                <!-- Ferramentas de Produtividade -->
-                <div class="tool-category">
-                    <h3 class="category-title">⚡ Produtividade & Workflows</h3>
-                    <div class="tool-list">
-                        <div class="tool-item">
-                            <span class="tool-name">Multi-Tab Opener</span>
-                            <p class="tool-desc">Abre múltiplas abas simultaneamente. Perfeito para workflows que exigem várias ferramentas abertas ao mesmo tempo.</p>
-                        </div>
-                    </div>
-                </div>
+            const key = lastGeneratedLicense.licenseKey;
+            const username = lastGeneratedLicense.username;
+            const password = lastGeneratedLicense.password;
+            const packageName = lastGeneratedLicense.package;
 
-                <!-- Aplicativos Windows -->
-                <div class="tool-category">
-                    <h3 class="category-title">💻 Aplicativos Windows (Executáveis)</h3>
-                    <div class="tool-list">
-                        <div class="tool-item">
-                            <span class="tool-name">Organizador de Workflows</span>
-                            <p class="tool-desc">Aplicativo desktop que organiza processos complexos, gerencia arquivos e automatiza tarefas repetitivas do Windows.</p>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-name">Batch Processor</span>
-                            <p class="tool-desc">Processa arquivos em lote (renomear, mover, converter) com interface visual intuitiva.</p>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-name">Task Scheduler Pro</span>
-                            <p class="tool-desc">Automatiza tarefas agendadas no Windows com lógica condicional avançada.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            const text = `🎉 Seu acesso ao VEO3 Automator está pronto!
 
-            <div class="tools-note">
-                <p>💡 <strong>Todas essas ferramentas estão incluídas</strong> em qualquer pacote de implementação. Você não precisa escolher - recebe o arsenal completo desde o primeiro dia.</p>
-            </div>
+👤 Usuário: ${username}
+🔑 Senha: ${password}
+🎫 Chave de Licença: ${key}
+📦 Pacote: ${packageName}
 
-            <div class="tools-note" style="margin-top: 24px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%); border-left-color: #10b981;">
-                <p>🛠️ <strong>Usa outras ferramentas?</strong> Nos pacotes de implementação, <strong>crio automações customizadas</strong> para as ferramentas que você já usa no seu workflow. Não importa se não está na lista - se é repetitivo, consigo automatizar.</p>
-                <p style="margin-top: 12px; font-size: 0.95rem; opacity: 0.9;">Exemplos já criados: HeyGen, Descript, Runway, Leonardo AI, Replicate, RunwayML, Adobe Express, entre outros.</p>
-            </div>
-        </div>
-    </section>
+⚙️ COMO INSTALAR:
+1. Extraia a pasta da extensão
+2. Abra Chrome → chrome://extensions
+3. Ative "Modo do desenvolvedor"
+4. Clique em "Carregar sem compactação"
+5. Selecione a pasta extraída
 
-    <!-- Benefícios -->
-    <section class="benefits">
-        <div class="container">
-            <h2 class="section-title">Por que Automatizar com um Engenheiro?</h2>
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-icon">🧠</div>
-                    <h3>Raciocínio Lógico</h3>
-                    <p>Uso pensamento analítico de engenheiro para mapear cada etapa do seu processo e identificar gargalos.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">🛠️</div>
-                    <h3>Soluções Completas</h3>
-                    <p>Extensões Chrome + aplicativos Windows + IA. Ferramentas personalizadas para o SEU workflow específico.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">⚡</div>
-                    <h3>Tempo é Dinheiro</h3>
-                    <p>Se é repetitivo, dá pra automatizar. Economize 20+ horas semanais e foque no que realmente importa.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">📈</div>
-                    <h3>Resultado Permanente</h3>
-                    <p>Menos que 1 mês de editor freelancer. Mas ao invés de custo mensal, você tem ferramentas suas para sempre.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+🚀 COMO ATIVAR:
+1. Abra https://labs.google/fx/tools/flow/
+2. Uma janela de ativação abrirá automaticamente
+3. Cole suas credenciais acima
+4. Após ativar, recarregue a página (F5)
 
-    <!-- Pacotes de Implementação -->
-    <section id="pacotes" class="packages">
-        <div class="container">
-            <!-- Timer de Urgência -->
-            <div class="urgency-timer">
-                <div class="timer-badge">⚡ VAGAS LIMITADAS</div>
-                <h3>Acelere Sua Produção Ainda em 2024</h3>
-                <p>Aproveite o <strong>timing perfeito de fim de ano</strong> para automatizar, criar mais canais e usar estratégias de crescimento com tráfego de canais maiores.</p>
+✅ Pronto! O botão VEO3 aparecerá no canto superior direito.
 
-                <div class="countdown">
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="days">00</span>
-                        <span class="countdown-label">Dias</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="hours">00</span>
-                        <span class="countdown-label">Horas</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="minutes">00</span>
-                        <span class="countdown-label">Minutos</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="seconds">00</span>
-                        <span class="countdown-label">Segundos</span>
-                    </div>
-                </div>
+Suporte: (27) 99913-2594
+https://nardoto.com.br`;
 
-                <p class="timer-footer">Sim, você sabe que isso é marketing 😉 Mas a verdade é: <strong>quanto antes automatizar, mais canais pode criar antes de 2025.</strong></p>
-            </div>
+            navigator.clipboard.writeText(text).then(() => {
+                alert('✅ Credenciais copiadas! Cole no WhatsApp do cliente.');
+            });
+        }
 
-            <h2 class="section-title">Pacotes de Implementação</h2>
-            <p class="section-subtitle">Escolha o nível de suporte ideal para você. Todos incluem 6 meses de Clube de Automação.</p>
+        // Função para mostrar/ocultar senha
+        function togglePassword(index) {
+            const pwdElement = document.getElementById(`pwd-${index}`);
+            if (pwdElement.style.filter === 'blur(5px)') {
+                pwdElement.style.filter = 'none';
+            } else {
+                pwdElement.style.filter = 'blur(5px)';
+            }
+        }
 
-            <div class="packages-grid">
-                <!-- Essencial -->
-                <div class="package-card">
-                    <div class="package-header">
-                        <h3 class="package-name">Automação Essencial</h3>
-                        <div class="package-price">
-                            <span class="price">R$ 1.497</span>
-                            <span class="price-period">pagamento único</span>
-                        </div>
-                    </div>
-                    <div class="package-features">
-                        <div class="feature">✅ 2 sessões de implementação (2h cada)</div>
-                        <div class="feature">✅ Setup básico das ferramentas</div>
-                        <div class="feature">✅ Tutorial personalizado gravado</div>
-                        <div class="feature">✅ Tutoriais exclusivos de uso das ferramentas</div>
-                        <div class="feature">✅ 15 dias de suporte WhatsApp</div>
-                        <div class="feature">✅ 6 meses de Clube de Automação</div>
-                        <div class="feature">✅ Ferramentas suas para sempre</div>
-                    </div>
-                    <p class="package-description">Ideal para quem tem familiaridade com tecnologia e precisa de orientação inicial para começar rápido.</p>
-                    <a href="#" class="package-button" data-package="essencial">Quero Este Pacote</a>
-                </div>
+        // Função para copiar credenciais de uma licença específica
+        function copyLicenseCredentials(index) {
+            const license = allLicenses[index];
 
-                <!-- Acelerada -->
-                <div class="package-card featured">
-                    <div class="badge">⭐ MAIS POPULAR</div>
-                    <div class="package-header">
-                        <h3 class="package-name">Automação Acelerada</h3>
-                        <div class="package-price">
-                            <span class="price">R$ 2.997</span>
-                            <span class="price-period">pagamento único</span>
-                        </div>
-                    </div>
-                    <div class="package-features">
-                        <div class="feature">✅ 4 sessões de implementação</div>
-                        <div class="feature">✅ Setup completo + 3 automações personalizadas</div>
-                        <div class="feature">✅ Processo documentado (SOP)</div>
-                        <div class="feature">✅ Tutoriais exclusivos de ferramentas novas</div>
-                        <div class="feature">✅ 30 dias de suporte prioritário</div>
-                        <div class="feature">✅ 1 sessão extra de refinamento</div>
-                        <div class="feature">✅ 6 meses de Clube de Automação</div>
-                        <div class="feature">✅ Economize 20+ horas semanais</div>
-                    </div>
-                    <p class="package-description">Ideal para quem quer resultado rápido sem complicação. Implementação completa e personalizada.</p>
-                    <a href="#" class="package-button primary" data-package="acelerada">Quero Este Pacote</a>
-                </div>
+            const text = `🎉 Seu acesso ao VEO3 Automator está pronto!
 
-                <!-- Total VIP -->
-                <div class="package-card">
-                    <div class="badge vip">💎 VIP</div>
-                    <div class="package-header">
-                        <h3 class="package-name">Automação Total VIP</h3>
-                        <div class="package-price">
-                            <span class="price">R$ 4.997</span>
-                            <span class="price-period">pagamento único</span>
-                        </div>
-                    </div>
-                    <div class="package-features">
-                        <div class="feature">✅ 6 sessões de implementação</div>
-                        <div class="feature">✅ Análise completa de workflow</div>
-                        <div class="feature">✅ Automações personalizadas ilimitadas</div>
-                        <div class="feature">✅ Documentação profissional</div>
-                        <div class="feature">✅ Tutoriais exclusivos de todas as ferramentas</div>
-                        <div class="feature">✅ Treinamento de equipe</div>
-                        <div class="feature">✅ 60 dias de suporte prioritário</div>
-                        <div class="feature">✅ 3 meses de revisões de otimização</div>
-                        <div class="feature">✅ Consultoria estratégica</div>
-                        <div class="feature">✅ Aprenda a criar suas próprias ferramentas</div>
-                        <div class="feature">✅ 6 meses de Clube de Automação</div>
-                    </div>
-                    <p class="package-description">Transformação completa. Para quem quer profissionalizar de vez e se tornar 100% autônomo.</p>
-                    <a href="#" class="package-button" data-package="vip">Quero Este Pacote</a>
-                </div>
-            </div>
-        </div>
-    </section>
+👤 Usuário: ${license.username}
+🔑 Senha: ${license.password}
+🎫 Chave de Licença: ${license.licenseKey}
+📦 Pacote: ${license.plan}
 
-    <!-- Clube de Automação -->
-    <section id="clube" class="subscription">
-        <div class="container">
-            <h2 class="section-title">Clube de Automação</h2>
-            <p class="section-subtitle">Mantenha suas ferramentas sempre atualizadas. Assinatura mensal opcional (incluída por 6 meses em qualquer pacote).</p>
+⚙️ COMO INSTALAR:
+1. Extraia a pasta da extensão
+2. Abra Chrome → chrome://extensions
+3. Ative "Modo do desenvolvedor"
+4. Clique em "Carregar sem compactação"
+5. Selecione a pasta extraída
 
-            <div class="subscription-grid">
-                <!-- Pro -->
-                <div class="subscription-card featured">
-                    <div class="badge">⭐ RECOMENDADO</div>
-                    <div class="subscription-header">
-                        <h3 class="subscription-name">Clube Pro</h3>
-                        <div class="subscription-price">
-                            <span class="price">R$ 197</span>
-                            <span class="price-period">/mês</span>
-                        </div>
-                    </div>
-                    <div class="subscription-features">
-                        <div class="feature">✅ Extensões sempre atualizadas</div>
-                        <div class="feature">✅ Novas ferramentas mensais</div>
-                        <div class="feature">✅ Área de membros</div>
-                        <div class="feature">✅ Tutoriais exclusivos em vídeo</div>
-                        <div class="feature">✅ Suporte prioritário WhatsApp</div>
-                        <div class="feature">✅ 1 call mensal (30min)</div>
-                        <div class="feature">✅ Acesso antecipado (beta)</div>
-                        <div class="feature">✅ Customizações sob demanda</div>
-                        <div class="feature">✅ Biblioteca de workflows</div>
-                    </div>
-                    <a href="#" class="subscription-button primary" data-plan="pro">Assinar Agora</a>
-                </div>
+🚀 COMO ATIVAR:
+1. Abra https://labs.google/fx/tools/flow/
+2. Uma janela de ativação abrirá automaticamente
+3. Cole suas credenciais acima
+4. Após ativar, recarregue a página (F5)
 
-                <!-- VIP -->
-                <div class="subscription-card">
-                    <div class="badge vip">💎 VIP</div>
-                    <div class="subscription-header">
-                        <h3 class="subscription-name">Clube VIP</h3>
-                        <div class="subscription-price">
-                            <span class="price">R$ 397</span>
-                            <span class="price-period">/mês</span>
-                        </div>
-                    </div>
-                    <div class="subscription-features">
-                        <div class="feature">✅ Tudo do Clube Pro +</div>
-                        <div class="feature">✅ 2 calls mensais (1h cada)</div>
-                        <div class="feature">✅ 1 automação personalizada/mês</div>
-                        <div class="feature">✅ Análise trimestral de workflow</div>
-                        <div class="feature">✅ Suporte 24/7 prioritário</div>
-                        <div class="feature">✅ Consultoria estratégica</div>
-                        <div class="feature">✅ Ferramentas experimentais</div>
-                    </div>
-                    <a href="#" class="subscription-button" data-plan="vip">Assinar Agora</a>
-                </div>
-            </div>
+✅ Pronto! O botão VEO3 aparecerá no canto superior direito.
 
-            <div class="subscription-note">
-                <p>💡 <strong>Importante:</strong> Quem compra qualquer pacote de implementação ganha 6 meses grátis do Clube. As ferramentas continuam suas mesmo sem renovar a assinatura.</p>
-            </div>
-        </div>
-    </section>
+Suporte: (27) 99913-2594
+https://nardoto.com.br`;
 
-    <!-- FAQ -->
-    <section class="faq">
-        <div class="container">
-            <h2 class="section-title">Perguntas Frequentes</h2>
+            navigator.clipboard.writeText(text).then(() => {
+                alert('✅ Credenciais copiadas! Cole no WhatsApp do cliente.');
+            });
+        }
 
-            <div class="faq-grid">
-                <div class="faq-item">
-                    <h3 class="faq-question">Preciso pagar mensalidade depois dos 6 meses?</h3>
-                    <p class="faq-answer">Não é obrigatório. As ferramentas continuam suas para sempre. Você só paga se quiser continuar recebendo novidades mensais e suporte ativo.</p>
-                </div>
+        // Função para revogar licença
+        async function revokeLicense(index) {
+            const license = allLicenses[index];
 
-                <div class="faq-item">
-                    <h3 class="faq-question">Perco acesso às ferramentas após 6 meses?</h3>
-                    <p class="faq-answer">NUNCA. As ferramentas são suas. Você só para de receber atualizações automáticas de novas features. Atualizações críticas você continua recebendo por email.</p>
-                </div>
+            if (!confirm(`⚠️ Tem certeza que deseja REVOGAR a licença:\n\n${license.licenseKey}\n${license.name} - ${license.email}\n\nO cliente perderá acesso IMEDIATAMENTE!`)) {
+                return;
+            }
 
-                <div class="faq-item">
-                    <h3 class="faq-question">E se uma ferramenta parar de funcionar depois dos 6 meses?</h3>
-                    <p class="faq-answer">Você recebe a atualização crítica por email gratuitamente. Só não recebe features novas mensais.</p>
-                </div>
+            try {
+                // Deleta no Firebase
+                const url = `${FIREBASE_CONFIG.databaseURL}/licenses/${license.licenseKey}?key=${FIREBASE_CONFIG.apiKey}`;
 
-                <div class="faq-item">
-                    <h3 class="faq-question">Como funciona o suporte?</h3>
-                    <p class="faq-answer">100% via WhatsApp direto comigo. Sem intermediários, sem bots, sem enrolação. Respondo durante os 6 meses inclusos no pacote.</p>
-                </div>
+                const response = await fetch(url, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
 
-                <div class="faq-item">
-                    <h3 class="faq-question">Isso tem relação com a Channels?</h3>
-                    <p class="faq-answer">Não. É um projeto pessoal meu em fase de validação. As ferramentas do grupo Gold continuam gratuitas normalmente.</p>
-                </div>
+                if (response.ok || response.status === 404) {
+                    alert('✅ Licença revogada com sucesso!');
 
-                <div class="faq-item">
-                    <h3 class="faq-question">Preciso saber programar?</h3>
-                    <p class="faq-answer">Não. Eu implemento tudo para você. No pacote VIP, ensino você a criar suas próprias automações, mas não é obrigatório saber programar.</p>
-                </div>
+                    // Remove da lista local
+                    allLicenses.splice(index, 1);
 
-                <div class="faq-item">
-                    <h3 class="faq-question">Funciona no Mac?</h3>
-                    <p class="faq-answer">Sim! As extensões do Chrome funcionam em qualquer sistema operacional: Windows, Mac ou Linux.</p>
-                </div>
+                    // Atualiza interface
+                    updateLicenseList();
+                    updateStats();
+                } else {
+                    throw new Error('Erro ao revogar licença');
+                }
 
-                <div class="faq-item">
-                    <h3 class="faq-question">Posso usar com minha equipe?</h3>
-                    <p class="faq-answer">Sim! No pacote VIP está incluído treinamento para sua equipe. Nos outros pacotes, podemos ajustar o escopo.</p>
-                </div>
+            } catch (error) {
+                console.error('❌ Erro ao revogar:', error);
+                alert('❌ Erro ao revogar licença. Tente pelo Firebase Console.');
+            }
+        }
 
-                <div class="faq-item">
-                    <h3 class="faq-question">Como tiro dúvidas antes de comprar?</h3>
-                    <p class="faq-answer">Fala comigo direto no WhatsApp! <a href="https://wa.me/5527999132594?text=Olá%20Nardoto!%20Tenho%20algumas%20dúvidas%20sobre%20os%20pacotes%20de%20automação." target="_blank" rel="noopener" style="color: #f59e0b; font-weight: 700;">(27) 99913-2594</a> - Respondo pessoalmente e sem enrolação.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        // Torna funções globais
+        window.togglePassword = togglePassword;
+        window.copyLicenseCredentials = copyLicenseCredentials;
+        window.revokeLicense = revokeLicense;
 
-    <!-- CTA Final -->
-    <section class="cta-final">
-        <div class="container">
-            <h2>Pronto para Automatizar sua Produção?</h2>
-            <p>Vagas limitadas para garantir suporte de qualidade. Comece hoje e economize 20+ horas por semana.</p>
-            <a href="#pacotes" class="cta-button">Escolher Meu Pacote</a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 Nardoto - Automação de Conteúdo para YouTube</p>
-            <p>Desenvolvido por Tharcisio Nardoto | Engenheiro Civil → Creator de Automações</p>
-            <p style="margin-top: 20px;">
-                <a href="https://wa.me/5527999132594?text=Olá%20Nardoto!%20Vim%20pela%20página%20de%20automações%20e%20tenho%20interesse%20em%20saber%20mais." target="_blank" rel="noopener" style="color: #10b981; text-decoration: none; font-weight: 700; font-size: 1.1rem;">
-                    📱 WhatsApp: (27) 99913-2594
-                </a>
-            </p>
-            <p style="margin-top: 10px; opacity: 0.7; font-size: 0.9rem;">Projeto independente em fase de validação - Sem vínculo com Channels</p>
-        </div>
-    </footer>
-
-    <!-- Botão WhatsApp Flutuante -->
-    <a href="https://wa.me/5527999132594?text=Olá%20Nardoto!%20Vim%20pela%20página%20de%20automações%20e%20tenho%20interesse%20em%20saber%20mais." target="_blank" rel="noopener" class="whatsapp-float" aria-label="Falar no WhatsApp">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M16 0C7.164 0 0 7.164 0 16c0 2.832.744 5.488 2.044 7.792L0 32l8.416-2.012C10.664 31.308 13.244 32 16 32c8.836 0 16-7.164 16-16S24.836 0 16 0zm0 29.6c-2.496 0-4.836-.676-6.844-1.848l-.492-.292-5.1 1.22 1.248-4.928-.324-.516A13.484 13.484 0 012.4 16C2.4 8.488 8.488 2.4 16 2.4S29.6 8.488 29.6 16 23.512 29.6 16 29.6z" fill="white"/>
-            <path d="M23.6 18.8c-.4-.2-2.4-1.2-2.8-1.3-.4-.1-.6-.2-.9.2-.3.4-1.1 1.3-1.3 1.6-.2.3-.5.3-.9.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.5.6-.7.2-.2.3-.4.4-.6.1-.3.1-.5 0-.7-.1-.2-.9-2.1-1.2-2.9-.3-.8-.6-.7-.9-.7h-.7c-.3 0-.7.1-1.1.5-.4.4-1.5 1.5-1.5 3.6s1.5 4.2 1.7 4.5c.2.3 3 4.6 7.3 6.4 4.3 1.8 4.3 1.2 5.1 1.1.8-.1 2.4-1 2.7-2 .3-1 .3-1.8.2-2-.1-.2-.3-.3-.7-.5z" fill="white"/>
-        </svg>
-    </a>
-
-    <script src="script.js"></script>
+        console.log('🔥 Gerador Online carregado!');
+    </script>
 </body>
 </html>
