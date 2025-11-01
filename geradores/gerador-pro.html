@@ -829,6 +829,7 @@
         // State
         let selectedLicenseType = 'monthly';
         let licenses = JSON.parse(localStorage.getItem('veo3_licenses_pro')) || [];
+        let lastGeneratedLicense = null; // Armazena a última licença gerada
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
@@ -994,6 +995,7 @@
 
             // Save license locally
             licenses.push(license);
+            lastGeneratedLicense = license; // Salva referência da última licença gerada
             saveLicenses();
 
             // Display generated license
@@ -1041,14 +1043,17 @@
             const expiry = document.getElementById('licenseExpiry').textContent;
 
             // Pega a última licença gerada (que tem username e password)
-            const lastLicense = licenses[licenses.length - 1];
+            if (!lastGeneratedLicense) {
+                alert('Nenhuma licença foi gerada ainda!');
+                return;
+            }
 
             const text = `🎉 LICENÇA VEO3 AUTOMATOR - ${type.toUpperCase()}\n\n` +
                         `🔑 CREDENCIAIS DE ACESSO:\n` +
                         `━━━━━━━━━━━━━━━━━━━━━━\n` +
                         `Chave: ${key}\n` +
-                        `Username: ${lastLicense.username}\n` +
-                        `Senha: ${lastLicense.password}\n\n` +
+                        `Username: ${lastGeneratedLicense.username}\n` +
+                        `Senha: ${lastGeneratedLicense.password}\n\n` +
                         `📅 Válida até: ${expiry}\n\n` +
                         `📝 COMO ATIVAR:\n` +
                         `1. Instale a extensão VEO3 Automator\n` +
