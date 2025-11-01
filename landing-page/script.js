@@ -6,6 +6,7 @@ const LINKS = {
     vip: 'https://pay.kiwify.com.br/5kxogqi',
 
     // Planos de Assinatura
+    mensal: 'https://pay.kiwify.com.br/NtnupLV',
     pro: 'https://pay.kiwify.com.br/NtnupLV',
     vipClube: 'https://pay.kiwify.com.br/O3ax8ZG'
 };
@@ -43,7 +44,7 @@ document.querySelectorAll('.package-button').forEach(button => {
 });
 
 // Configurar links dos botões de assinatura
-document.querySelectorAll('.subscription-button').forEach(button => {
+document.querySelectorAll('.subscription-button:not(.kiwify-direct)').forEach(button => {
     button.addEventListener('click', function(e) {
         e.preventDefault();
         const planType = this.getAttribute('data-plan');
