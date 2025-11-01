@@ -1,0 +1,73 @@
+{
+  "manifest_version": 3,
+  "name": "VEO3 Automator Pro - Privacy First",
+  "version": "2.0.0",
+  "description": "Automação profissional para ferramentas de IA com sistema de licença Privacy-First. Sem rastreamento de uso.",
+
+  "permissions": [
+    "storage",
+    "tabs",
+    "scripting"
+  ],
+
+  "host_permissions": [
+    "*://veo-3.vercel.app/*",
+    "*://suno.ai/*",
+    "*://wisk.com/*",
+    "*://chat.openai.com/*",
+    "*://claude.ai/*",
+    "*://gemini.google.com/*",
+    "*://capcut.com/*",
+    "*://discord.com/*",
+    "*://translate.google.com/*",
+    "*://nardoto.com.br/*"
+  ],
+
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+
+  "content_scripts": [
+    {
+      "matches": [
+        "*://veo-3.vercel.app/*",
+        "*://suno.ai/*",
+        "*://wisk.com/*",
+        "*://chat.openai.com/*",
+        "*://claude.ai/*",
+        "*://gemini.google.com/*",
+        "*://capcut.com/*",
+        "*://discord.com/*",
+        "*://translate.google.com/*"
+      ],
+      "js": [
+        "license-validator.js",
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": ["license-validator.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
