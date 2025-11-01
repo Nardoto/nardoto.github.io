@@ -681,6 +681,20 @@
                     <input type="email" class="form-input" id="clientEmail" placeholder="cliente@email.com">
                 </div>
                 <div class="form-group">
+                    <label class="form-label">🔑 Username (para login)</label>
+                    <input type="text" class="form-input" id="clientUsername" placeholder="joaosilva" required>
+                    <small style="color: rgba(255,255,255,0.5); font-size: 11px; display: block; margin-top: 4px;">
+                        ⚠️ Cliente usa isso para fazer login na extensão
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">🔒 Senha (para login)</label>
+                    <input type="text" class="form-input" id="clientPassword" placeholder="senha123" required>
+                    <small style="color: rgba(255,255,255,0.5); font-size: 11px; display: block; margin-top: 4px;">
+                        ⚠️ Cliente usa isso para fazer login na extensão
+                    </small>
+                </div>
+                <div class="form-group">
                     <label class="form-label">Tag/Categoria</label>
                     <select class="form-select" id="clientTag">
                         <option value="">Sem tag</option>
@@ -817,11 +831,13 @@
         async function generateLicense() {
             const name = document.getElementById('clientName').value;
             const email = document.getElementById('clientEmail').value;
+            const username = document.getElementById('clientUsername').value;
+            const password = document.getElementById('clientPassword').value;
             const tag = document.getElementById('clientTag').value;
             const notes = document.getElementById('clientNotes').value;
 
-            if (!name || !email) {
-                alert('Por favor, preencha nome e email do cliente.');
+            if (!name || !email || !username || !password) {
+                alert('Por favor, preencha nome, email, username e senha do cliente.');
                 return;
             }
 
@@ -847,6 +863,8 @@
                 type: selectedLicenseType,
                 name: name,
                 email: email,
+                username: username, // Salva username
+                password: password, // Salva senha
                 tag: tag,
                 notes: notes,
                 price: config.price,
@@ -866,8 +884,8 @@
                 const firebaseDoc = {
                     fields: {
                         licenseKey: { stringValue: key },
-                        username: { stringValue: name },
-                        password: { stringValue: '' }, // Senha será definida na ativação
+                        username: { stringValue: username }, // Username para login
+                        password: { stringValue: password }, // Senha para login
                         name: { stringValue: name },
                         email: { stringValue: email },
                         plan: { stringValue: planNames[selectedLicenseType] },
@@ -917,6 +935,8 @@
             // Clear form
             document.getElementById('clientName').value = '';
             document.getElementById('clientEmail').value = '';
+            document.getElementById('clientUsername').value = '';
+            document.getElementById('clientPassword').value = '';
             document.getElementById('clientTag').value = '';
             document.getElementById('clientNotes').value = '';
         }
@@ -949,13 +969,26 @@
             const type = document.getElementById('licenseType').textContent;
             const expiry = document.getElementById('licenseExpiry').textContent;
 
-            const text = `LICENÇA ${type.toUpperCase()}\n` +
+            // Pega a última licença gerada (que tem username e password)
+            const lastLicense = licenses[licenses.length - 1];
+
+            const text = `🎉 LICENÇA VEO3 AUTOMATOR - ${type.toUpperCase()}\n\n` +
+                        `🔑 CREDENCIAIS DE ACESSO:\n` +
+                        `━━━━━━━━━━━━━━━━━━━━━━\n` +
                         `Chave: ${key}\n` +
-                        `Válida até: ${expiry}\n\n` +
-                        `🔒 Privacy-First: Sem rastreamento de uso`;
+                        `Username: ${lastLicense.username}\n` +
+                        `Senha: ${lastLicense.password}\n\n` +
+                        `📅 Válida até: ${expiry}\n\n` +
+                        `📝 COMO ATIVAR:\n` +
+                        `1. Instale a extensão VEO3 Automator\n` +
+                        `2. Clique no ícone da extensão\n` +
+                        `3. Digite os 3 dados acima\n` +
+                        `4. Clique em "Ativar Licença"\n\n` +
+                        `🔒 Privacy-First: Sem rastreamento de uso\n` +
+                        `✅ Suas automações, seus dados!`;
 
             navigator.clipboard.writeText(text).then(() => {
-                alert('Credenciais copiadas!');
+                alert('✅ Credenciais completas copiadas!\n\nEnvie para o cliente por WhatsApp ou Email.');
             });
         }
 
