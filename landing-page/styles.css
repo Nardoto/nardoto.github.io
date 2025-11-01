@@ -1374,3 +1374,147 @@ a, button, .package-button, .subscription-button, .cta-button {
         font-size: 0.95rem;
     }
 }
+
+/* Image Modal (Lightbox) */
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content-img {
+    max-width: 95%;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+    animation: zoomIn 0.3s ease;
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    color: #fff;
+    font-size: 48px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10000;
+    line-height: 1;
+    padding: 10px;
+}
+
+.modal-close:hover {
+    color: var(--secondary);
+    transform: rotate(90deg);
+}
+
+.modal-caption {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 20px;
+    text-align: center;
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+}
+
+/* Zoom Overlay nas imagens */
+.tool-image {
+    position: relative;
+    cursor: pointer;
+}
+
+.zoom-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    color: white;
+    padding: 16px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tool-image:hover .zoom-overlay {
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .modal-content-img {
+        max-width: 100%;
+        max-height: 80vh;
+    }
+
+    .modal-close {
+        top: 15px;
+        right: 20px;
+        font-size: 36px;
+    }
+
+    .modal-caption {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+
+    .zoom-overlay {
+        font-size: 13px;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-close {
+        top: 10px;
+        right: 15px;
+        font-size: 32px;
+    }
+
+    .modal-caption {
+        font-size: 14px;
+        padding: 8px 16px;
+        margin-top: 15px;
+    }
+
+    .zoom-overlay {
+        font-size: 12px;
+        padding: 10px;
+    }
+}

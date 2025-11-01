@@ -238,8 +238,9 @@
             <div class="tools-visual-grid">
                 <!-- VEO3 Automator -->
                 <div class="tool-card-visual">
-                    <div class="tool-image">
+                    <div class="tool-image" onclick="openImageModal('print das ferramentas/tool-veo3-automator.png', 'VEO3 Automator')">
                         <img src="print das ferramentas/tool-veo3-automator.png" alt="VEO3 Automator" loading="lazy">
+                        <div class="zoom-overlay">🔍 Clique para ampliar</div>
                     </div>
                     <div class="tool-card-content">
                         <h3 class="tool-card-title">🎬 VEO3 Automator</h3>
@@ -249,8 +250,9 @@
 
                 <!-- Wisk Automator -->
                 <div class="tool-card-visual">
-                    <div class="tool-image">
+                    <div class="tool-image" onclick="openImageModal('print das ferramentas/tool-wisk-automator.png', 'Wisk Automator')">
                         <img src="print das ferramentas/tool-wisk-automator.png" alt="Wisk Automator" loading="lazy">
+                        <div class="zoom-overlay">🔍 Clique para ampliar</div>
                     </div>
                     <div class="tool-card-content">
                         <h3 class="tool-card-title">🎨 Wisk Automator</h3>
@@ -555,6 +557,71 @@
         </svg>
     </a>
 
+    <!-- Modal de Imagem Ampliada -->
+    <div id="imageModal" class="image-modal" onclick="closeImageModal()">
+        <span class="modal-close">&times;</span>
+        <img class="modal-content-img" id="modalImg">
+        <div class="modal-caption" id="modalCaption"></div>
+    </div>
+
     <script src="landing-page/script.js"></script>
+
+    <!-- Script do Lightbox -->
+    <script>
+        function openImageModal(imgSrc, caption) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImg');
+            const modalCaption = document.getElementById('modalCaption');
+
+            modal.style.display = 'flex';
+            modalImg.src = imgSrc;
+            modalCaption.textContent = caption;
+
+            // Previne scroll do body
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Fechar com tecla ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeImageModal();
+            }
+        });
+
+        // Adicionar zoom overlay em todas as imagens das ferramentas
+        document.addEventListener('DOMContentLoaded', function() {
+            const toolImages = document.querySelectorAll('.tool-image');
+            toolImages.forEach((toolImage, index) => {
+                // Se ainda não tem onclick (para as que não adicionamos manualmente)
+                if (!toolImage.onclick) {
+                    const img = toolImage.querySelector('img');
+                    if (img) {
+                        const imgSrc = img.getAttribute('src');
+                        const imgAlt = img.getAttribute('alt');
+
+                        toolImage.onclick = function() {
+                            openImageModal(imgSrc, imgAlt);
+                        };
+
+                        // Adicionar overlay se não existe
+                        if (!toolImage.querySelector('.zoom-overlay')) {
+                            const overlay = document.createElement('div');
+                            overlay.className = 'zoom-overlay';
+                            overlay.textContent = '🔍 Clique para ampliar';
+                            toolImage.appendChild(overlay);
+                        }
+
+                        toolImage.style.cursor = 'pointer';
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
