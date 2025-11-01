@@ -410,6 +410,7 @@
                         id: doc.name.split('/').pop(),
                         name: fields.name?.stringValue || 'Sem nome',
                         email: fields.email?.stringValue || '',
+                        countryCode: fields.countryCode?.stringValue || '+55',
                         phone: fields.phone?.stringValue || '',
                         tools: tools,
                         source: fields.source?.stringValue || 'Desconhecido',
@@ -492,7 +493,7 @@
                         </div>
 
                         <div class="lead-actions">
-                            <button class="btn btn-success btn-small" onclick="copyAndOpenGenerator('${lead.email}', '${lead.name}', '${lead.phone}')">
+                            <button class="btn btn-success btn-small" onclick="copyAndOpenGenerator('${lead.email}', '${lead.name}', '${lead.phone}', '${lead.countryCode}')">
                                 🔑 Gerar Trial 3 Dias
                             </button>
                             <button class="btn btn-info btn-small" onclick="openWhatsApp('${lead.phone}', '${lead.name}')">
@@ -530,11 +531,12 @@
             return sorted.length > 0 ? sorted[0][0] : '-';
         }
 
-        function copyAndOpenGenerator(email, name, phone) {
+        function copyAndOpenGenerator(email, name, phone, countryCode) {
             // Criar URL com parâmetros para preencher automaticamente
             const params = new URLSearchParams({
                 name: name,
                 email: email,
+                countryCode: countryCode || '+55',  // Código do país
                 phone: phone || '',  // Telefone (pode ser vazio)
                 tag: 'test',  // Tag "Teste Interno" para trials
                 autoFill: 'true'  // Flag para indicar preenchimento automático

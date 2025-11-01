@@ -693,7 +693,29 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label">📱 WhatsApp</label>
-                    <input type="tel" class="form-input" id="clientPhone" placeholder="(27) 99999-9999">
+                    <div style="display: flex; gap: 12px;">
+                        <select class="form-select" id="clientCountryCode" style="width: 160px;">
+                            <option value="+55">🇧🇷 Brasil (+55)</option>
+                            <option value="+1">🇺🇸 EUA (+1)</option>
+                            <option value="+351">🇵🇹 Portugal (+351)</option>
+                            <option value="+34">🇪🇸 Espanha (+34)</option>
+                            <option value="+44">🇬🇧 Reino Unido (+44)</option>
+                            <option value="+33">🇫🇷 França (+33)</option>
+                            <option value="+49">🇩🇪 Alemanha (+49)</option>
+                            <option value="+39">🇮🇹 Itália (+39)</option>
+                            <option value="+52">🇲🇽 México (+52)</option>
+                            <option value="+54">🇦🇷 Argentina (+54)</option>
+                            <option value="+56">🇨🇱 Chile (+56)</option>
+                            <option value="+57">🇨🇴 Colômbia (+57)</option>
+                            <option value="+51">🇵🇪 Peru (+51)</option>
+                            <option value="+58">🇻🇪 Venezuela (+58)</option>
+                            <option value="+593">🇪🇨 Equador (+593)</option>
+                            <option value="+598">🇺🇾 Uruguai (+598)</option>
+                            <option value="+595">🇵🇾 Paraguai (+595)</option>
+                            <option value="+591">🇧🇴 Bolívia (+591)</option>
+                        </select>
+                        <input type="tel" class="form-input" id="clientPhone" placeholder="(27) 99999-9999" style="flex: 1;">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">🔑 Username (para login)</label>
@@ -852,11 +874,13 @@
                 setTimeout(() => {
                     const name = urlParams.get('name');
                     const email = urlParams.get('email');
+                    const countryCode = urlParams.get('countryCode');
                     const phone = urlParams.get('phone');
                     const tag = urlParams.get('tag');
 
                     if (name) document.getElementById('clientName').value = name;
                     if (email) document.getElementById('clientEmail').value = email;
+                    if (countryCode) document.getElementById('clientCountryCode').value = countryCode;
                     if (phone) document.getElementById('clientPhone').value = phone;
                     if (tag) document.getElementById('clientTag').value = tag;
 
@@ -947,6 +971,7 @@
         async function generateLicense() {
             const name = document.getElementById('clientName').value;
             const email = document.getElementById('clientEmail').value;
+            const countryCode = document.getElementById('clientCountryCode').value;
             const phone = document.getElementById('clientPhone').value;
             const username = document.getElementById('clientUsername').value;
             const password = document.getElementById('clientPassword').value;
@@ -981,6 +1006,7 @@
                 type: selectedLicenseType,
                 name: name,
                 email: email,
+                countryCode: countryCode || '+55', // Código do país
                 phone: phone, // WhatsApp do cliente
                 username: username, // Salva username
                 password: password, // Salva senha
@@ -1055,6 +1081,7 @@
             // Clear form
             document.getElementById('clientName').value = '';
             document.getElementById('clientEmail').value = '';
+            document.getElementById('clientCountryCode').value = '+55';
             document.getElementById('clientPhone').value = '';
             document.getElementById('clientUsername').value = '';
             document.getElementById('clientPassword').value = '';
@@ -1157,8 +1184,11 @@
             // Remove formatação do telefone (deixa só números)
             const cleanPhone = phone.replace(/\D/g, '');
 
+            // Pega código do país (remove o +)
+            const countryCode = (lastGeneratedLicense.countryCode || '+55').replace('+', '');
+
             // Abre WhatsApp com a mensagem
-            const whatsappUrl = `https://wa.me/55${cleanPhone}?text=${encodeURIComponent(message)}`;
+            const whatsappUrl = `https://wa.me/${countryCode}${cleanPhone}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         }
 
