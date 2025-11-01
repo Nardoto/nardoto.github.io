@@ -748,13 +748,6 @@
     </div>
 
     <script>
-        // Configuração do Firebase (mesma do sistema existente)
-        const FIREBASE_CONFIG = {
-            projectId: "veo3automator",
-            apiKey: "AIzaSyCeh-SnpsmOcpxgJHirM_volJloRuzBzC4",
-            databaseURL: "https://firestore.googleapis.com/v1/projects/veo3automator/databases/(default)/documents"
-        };
-
         // License Configuration
         const LICENSE_CONFIG = {
             trial: {
@@ -814,7 +807,7 @@
         });
 
         // Generate License
-        async function generateLicense() {
+        function generateLicense() {
             const name = document.getElementById('clientName').value;
             const email = document.getElementById('clientEmail').value;
             const tag = document.getElementById('clientTag').value;
@@ -830,15 +823,6 @@
             const config = LICENSE_CONFIG[selectedLicenseType];
             const now = new Date();
             const expiryDate = new Date(now.getTime() + (config.days * 24 * 60 * 60 * 1000));
-
-            // Mapeia tipo de licença para nome do plano (compatível com extensão)
-            const planNames = {
-                'trial': 'Trial (7 dias)',
-                'monthly': 'Mensal',
-                'quarterly': 'Trimestral',
-                'annual': 'Anual',
-                'lifetime': 'Vitalícia'
-            };
 
             // Create license object
             const license = {
@@ -859,51 +843,7 @@
                 // Sem contadores, sem rastreamento, sem telemetria
             };
 
-            try {
-                // 🔥 SALVA NO FIREBASE (compatível com extensão existente)
-                console.log('📤 Salvando licença no Firebase...', key);
-
-                const firebaseDoc = {
-                    fields: {
-                        licenseKey: { stringValue: key },
-                        username: { stringValue: name },
-                        password: { stringValue: '' }, // Senha será definida na ativação
-                        name: { stringValue: name },
-                        email: { stringValue: email },
-                        plan: { stringValue: planNames[selectedLicenseType] },
-                        expiresAt: { integerValue: expiryDate.getTime().toString() },
-                        status: { stringValue: 'active' },
-                        deviceFingerprint: { stringValue: '' }, // Será preenchido na ativação
-                        createdAt: { timestampValue: now.toISOString() },
-                        notes: { stringValue: notes || '' },
-                        tag: { stringValue: tag || '' }
-                    }
-                };
-
-                const url = `${FIREBASE_CONFIG.databaseURL}/licenses/${key}?key=${FIREBASE_CONFIG.apiKey}`;
-
-                const response = await fetch(url, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(firebaseDoc)
-                });
-
-                if (!response.ok) {
-                    throw new Error('Erro ao salvar no Firebase');
-                }
-
-                console.log('✅ Licença salva no Firebase!');
-
-            } catch (error) {
-                console.error('❌ Erro ao salvar no Firebase:', error);
-                alert('⚠️ ATENÇÃO: Licença gerada localmente, mas houve erro ao salvar no Firebase.\n\n' +
-                      'Verifique sua conexão com internet.\n' +
-                      'A licença pode não funcionar na extensão até ser sincronizada.');
-            }
-
-            // Save license locally
+            // Save license
             licenses.push(license);
             saveLicenses();
 
@@ -1006,32 +946,10 @@
         }
 
         // Toggle License Status
-        async function toggleLicense(id) {
+        function toggleLicense(id) {
             const license = licenses.find(l => l.id === id);
             if (license) {
-                const newStatus = license.status === 'active' ? 'suspended' : 'active';
-                license.status = newStatus;
-
-                // Atualiza no Firebase
-                try {
-                    const url = `${FIREBASE_CONFIG.databaseURL}/licenses/${license.key}?key=${FIREBASE_CONFIG.apiKey}&updateMask.fieldPaths=status`;
-                    const response = await fetch(url, {
-                        method: 'PATCH',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            fields: {
-                                status: { stringValue: newStatus }
-                            }
-                        })
-                    });
-
-                    if (response.ok) {
-                        console.log('✅ Status atualizado no Firebase');
-                    }
-                } catch (error) {
-                    console.error('❌ Erro ao atualizar Firebase:', error);
-                }
-
+                license.status = license.status === 'active' ? 'suspended' : 'active';
                 saveLicenses();
                 loadLicenses();
                 updateStats();
@@ -1039,7 +957,7 @@
         }
 
         // Extend License
-        async function extendLicense(id) {
+        function extendLicense(id) {
             const days = prompt('Quantos dias adicionar?', '30');
             if (days) {
                 const license = licenses.find(l => l.id === id);
@@ -1047,27 +965,6 @@
                     const currentExpiry = new Date(license.expiresAt);
                     currentExpiry.setDate(currentExpiry.getDate() + parseInt(days));
                     license.expiresAt = currentExpiry.toISOString();
-
-                    // Atualiza no Firebase
-                    try {
-                        const url = `${FIREBASE_CONFIG.databaseURL}/licenses/${license.key}?key=${FIREBASE_CONFIG.apiKey}&updateMask.fieldPaths=expiresAt`;
-                        const response = await fetch(url, {
-                            method: 'PATCH',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                fields: {
-                                    expiresAt: { integerValue: currentExpiry.getTime().toString() }
-                                }
-                            })
-                        });
-
-                        if (response.ok) {
-                            console.log('✅ Expiração atualizada no Firebase');
-                        }
-                    } catch (error) {
-                        console.error('❌ Erro ao atualizar Firebase:', error);
-                    }
-
                     saveLicenses();
                     loadLicenses();
                     alert(`Licença estendida por ${days} dias!`);
@@ -1076,27 +973,8 @@
         }
 
         // Delete License
-        async function deleteLicense(id) {
+        function deleteLicense(id) {
             if (confirm('Tem certeza que deseja deletar esta licença?')) {
-                const license = licenses.find(l => l.id === id);
-
-                // Deleta no Firebase
-                if (license) {
-                    try {
-                        const url = `${FIREBASE_CONFIG.databaseURL}/licenses/${license.key}?key=${FIREBASE_CONFIG.apiKey}`;
-                        const response = await fetch(url, {
-                            method: 'DELETE',
-                            headers: { 'Content-Type': 'application/json' }
-                        });
-
-                        if (response.ok || response.status === 404) {
-                            console.log('✅ Licença deletada do Firebase');
-                        }
-                    } catch (error) {
-                        console.error('❌ Erro ao deletar do Firebase:', error);
-                    }
-                }
-
                 licenses = licenses.filter(l => l.id !== id);
                 saveLicenses();
                 loadLicenses();
