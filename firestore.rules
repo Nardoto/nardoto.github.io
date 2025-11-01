@@ -2,9 +2,21 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Regra para licenças (já existente - não mexer)
-    match /licenses/{license} {
-      allow read, write: if true;
+    // Regra para licenças - MANTÉM PROTEÇÕES ORIGINAIS
+    match /licenses/{licenseKey} {
+      // Qualquer um pode ler
+      allow read: if true;
+
+      // Pode criar se não existir
+      allow create: if !exists(/databases/$(database)/documents/licenses/$(licenseKey));
+
+      // Pode atualizar APENAS se o fingerprint estiver vazio
+      allow update: if resource.data.deviceFingerprint == ""
+                    || resource.data.deviceFingerprint == null
+                    || !("deviceFingerprint" in resource.data);
+
+      // Permite deletar (para revogar licenças)
+      allow delete: if true;
     }
 
     // NOVA REGRA - Permitir escrita pública na coleção leads
