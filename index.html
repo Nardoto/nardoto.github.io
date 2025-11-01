@@ -566,7 +566,205 @@
         </div>
     </div>
 
+    <!-- Modal de Captura de Lead -->
+    <div id="leadModal" class="lead-modal">
+        <div class="lead-modal-content" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeLeadModal()">&times;</span>
+
+            <div class="lead-modal-header">
+                <div class="lead-icon">🎯</div>
+                <h2 class="lead-title">Falta Pouco!</h2>
+                <p class="lead-subtitle">Preencha seus dados para continuar com a assinatura</p>
+            </div>
+
+            <form id="leadForm" class="lead-form">
+                <input type="hidden" id="leadPlan" name="plan">
+
+                <div class="form-group-lead">
+                    <label for="leadName">Nome Completo *</label>
+                    <input type="text" id="leadName" name="name" required placeholder="Seu nome">
+                </div>
+
+                <div class="form-group-lead">
+                    <label for="leadEmail">Email *</label>
+                    <input type="email" id="leadEmail" name="email" required placeholder="seu@email.com">
+                </div>
+
+                <div class="form-group-lead">
+                    <label for="leadPhone">WhatsApp *</label>
+                    <input type="tel" id="leadPhone" name="phone" required placeholder="(00) 00000-0000">
+                </div>
+
+                <div class="form-note">
+                    ℹ️ Seus dados são seguros e usados apenas para processar sua assinatura
+                </div>
+
+                <button type="submit" class="lead-submit-btn" id="leadSubmitBtn">
+                    <span class="btn-text">Continuar para WhatsApp</span>
+                    <span class="btn-loading" style="display: none;">Enviando...</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
     <script src="landing-page/script.js"></script>
+
+    <!-- Script de Captura de Leads -->
+    <script>
+        // Configuração Firebase
+        const FIREBASE_PROJECT_ID = 'veo3-licenses';
+        const FIREBASE_API_KEY = 'AIzaSyA-nPdEX_J3gPvZXWBFyQ0ZXjkpK0m2234';
+
+        // Abrir modal de lead
+        function openLeadModal(plan, planName) {
+            const modal = document.getElementById('leadModal');
+            const planInput = document.getElementById('leadPlan');
+
+            planInput.value = plan;
+            planInput.setAttribute('data-plan-name', planName);
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Fechar modal de lead
+        function closeLeadModal() {
+            const modal = document.getElementById('leadModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+
+            // Limpar formulário
+            document.getElementById('leadForm').reset();
+        }
+
+        // Máscara de telefone
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneInput = document.getElementById('leadPhone');
+
+            phoneInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+
+                if (value.length <= 11) {
+                    value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
+                    value = value.replace(/(\d)(\d{4})$/, '$1-$2');
+                }
+
+                e.target.value = value;
+            });
+        });
+
+        // Salvar lead no Firebase
+        async function saveLead(leadData) {
+            const url = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT_ID}/databases/(default)/documents/leads?key=${FIREBASE_API_KEY}`;
+
+            const firebaseDoc = {
+                fields: {
+                    name: { stringValue: leadData.name },
+                    email: { stringValue: leadData.email },
+                    phone: { stringValue: leadData.phone },
+                    plan: { stringValue: leadData.plan },
+                    planName: { stringValue: leadData.planName },
+                    createdAt: { timestampValue: new Date().toISOString() },
+                    status: { stringValue: 'novo' }
+                }
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(firebaseDoc)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erro ao salvar dados');
+                }
+
+                return true;
+            } catch (error) {
+                console.error('Erro ao salvar lead:', error);
+                return false;
+            }
+        }
+
+        // Submit do formulário
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('leadForm');
+
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const submitBtn = document.getElementById('leadSubmitBtn');
+                const btnText = submitBtn.querySelector('.btn-text');
+                const btnLoading = submitBtn.querySelector('.btn-loading');
+
+                // Mostrar loading
+                btnText.style.display = 'none';
+                btnLoading.style.display = 'inline';
+                submitBtn.disabled = true;
+
+                // Coletar dados
+                const formData = new FormData(form);
+                const leadData = {
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    plan: formData.get('plan'),
+                    planName: document.getElementById('leadPlan').getAttribute('data-plan-name')
+                };
+
+                console.log('Salvando lead:', leadData);
+
+                // Salvar no Firebase
+                const saved = await saveLead(leadData);
+
+                if (saved) {
+                    // Construir mensagem do WhatsApp
+                    const message = `Olá Nardoto! Acabei de preencher o formulário.\n\n` +
+                                  `Nome: ${leadData.name}\n` +
+                                  `Email: ${leadData.email}\n` +
+                                  `Telefone: ${leadData.phone}\n` +
+                                  `Plano: ${leadData.planName}\n\n` +
+                                  `Gostaria de finalizar minha assinatura!`;
+
+                    const whatsappUrl = `https://wa.me/5527999132594?text=${encodeURIComponent(message)}`;
+
+                    // Fechar modal
+                    closeLeadModal();
+
+                    // Redirecionar para WhatsApp
+                    window.open(whatsappUrl, '_blank');
+                } else {
+                    alert('Erro ao enviar dados. Por favor, tente novamente.');
+                }
+
+                // Restaurar botão
+                btnText.style.display = 'inline';
+                btnLoading.style.display = 'none';
+                submitBtn.disabled = false;
+            });
+
+            // Interceptar cliques nos botões de assinatura
+            const subscriptionButtons = document.querySelectorAll('.subscription-button, .package-button');
+
+            subscriptionButtons.forEach(button => {
+                const originalHref = button.getAttribute('href');
+
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    const plan = button.getAttribute('data-plan');
+                    const planName = button.closest('.subscription-card, .package-card')
+                                           ?.querySelector('.subscription-name, .package-name')
+                                           ?.textContent || 'Plano selecionado';
+
+                    openLeadModal(plan, planName);
+                });
+            });
+        });
+    </script>
 
     <!-- Script do Lightbox -->
     <script>
