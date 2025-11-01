@@ -614,8 +614,19 @@
 
             <!-- License Types -->
             <div class="license-types">
+                <div class="license-type" data-type="trial3days" data-price="0" data-days="3">
+                    <div class="license-type-name">Trial 3 Dias</div>
+                    <div class="license-type-price">GRÁTIS</div>
+                    <div class="license-type-duration">3 dias</div>
+                    <div class="license-type-features">
+                        • Teste rápido<br>
+                        • Validação offline<br>
+                        • Sem cartão
+                    </div>
+                </div>
+
                 <div class="license-type" data-type="trial" data-price="0" data-days="7">
-                    <div class="license-type-name">Trial</div>
+                    <div class="license-type-name">Trial 7 Dias</div>
                     <div class="license-type-price">GRÁTIS</div>
                     <div class="license-type-duration">7 dias</div>
                     <div class="license-type-features">
@@ -771,8 +782,15 @@
 
         // License Configuration
         const LICENSE_CONFIG = {
+            trial3days: {
+                name: 'Trial 3 Dias',
+                price: 0,
+                days: 3,
+                checkFrequency: 'once',
+                color: '#38ef7d'
+            },
             trial: {
-                name: 'Trial',
+                name: 'Trial 7 Dias',
                 price: 0,
                 days: 7,
                 checkFrequency: 'once',
@@ -901,6 +919,7 @@
 
             // Mapeia tipo de licença para nome do plano (compatível com extensão)
             const planNames = {
+                'trial3days': 'Trial (3 dias)',
                 'trial': 'Trial (7 dias)',
                 'monthly': 'Mensal',
                 'quarterly': 'Trimestral',
