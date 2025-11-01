@@ -11,7 +11,13 @@
       "Bash(git push:*)",
       "Bash(git remote set-url:*)",
       "Bash(git pull:*)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(cp:*)",
+      "Bash(git fetch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)"
     ],
     "deny": [],
     "ask": []
