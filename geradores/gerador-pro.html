@@ -682,16 +682,26 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label">🔑 Username (para login)</label>
-                    <input type="text" class="form-input" id="clientUsername" placeholder="joaosilva" required>
-                    <small style="color: rgba(255,255,255,0.5); font-size: 11px; display: block; margin-top: 4px;">
-                        ⚠️ Cliente usa isso para fazer login na extensão
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <input type="text" class="form-input" id="clientUsername" placeholder="joaosilva" readonly style="flex: 1; background: rgba(255,255,255,0.05);">
+                        <button type="button" onclick="generateUsername()" style="background: rgba(245,158,11,0.2); border: 1px solid #f59e0b; color: #f59e0b; padding: 10px 16px; border-radius: 6px; cursor: pointer; font-size: 12px; white-space: nowrap;">
+                            🔄 Gerar
+                        </button>
+                    </div>
+                    <small style="color: rgba(16,185,129,0.8); font-size: 11px; display: block; margin-top: 4px;">
+                        ✨ Gerado automaticamente do nome
                     </small>
                 </div>
                 <div class="form-group">
                     <label class="form-label">🔒 Senha (para login)</label>
-                    <input type="text" class="form-input" id="clientPassword" placeholder="senha123" required>
-                    <small style="color: rgba(255,255,255,0.5); font-size: 11px; display: block; margin-top: 4px;">
-                        ⚠️ Cliente usa isso para fazer login na extensão
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <input type="text" class="form-input" id="clientPassword" placeholder="senha123" readonly style="flex: 1; background: rgba(255,255,255,0.05);">
+                        <button type="button" onclick="generatePassword()" style="background: rgba(245,158,11,0.2); border: 1px solid #f59e0b; color: #f59e0b; padding: 10px 16px; border-radius: 6px; cursor: pointer; font-size: 12px; white-space: nowrap;">
+                            🔄 Gerar
+                        </button>
+                    </div>
+                    <small style="color: rgba(16,185,129,0.8); font-size: 11px; display: block; margin-top: 4px;">
+                        ✨ Gerada automaticamente (forte e segura)
                     </small>
                 </div>
                 <div class="form-group">
@@ -825,7 +835,59 @@
                     selectedLicenseType = this.dataset.type;
                 });
             });
+
+            // Auto-gerar username e senha quando nome mudar
+            document.getElementById('clientName').addEventListener('input', function() {
+                if (this.value.trim()) {
+                    generateUsername();
+                    generatePassword();
+                }
+            });
         });
+
+        // Gera username automaticamente do nome
+        function generateUsername() {
+            const name = document.getElementById('clientName').value.trim();
+            if (!name) return;
+
+            // Remove acentos, espaços, caracteres especiais e coloca em lowercase
+            let username = name
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '') // Remove acentos
+                .replace(/[^a-z0-9]/g, '') // Remove caracteres especiais
+                .substring(0, 20); // Limita a 20 caracteres
+
+            // Adiciona números aleatórios se username ficar muito curto
+            if (username.length < 5) {
+                username += Math.floor(Math.random() * 1000);
+            }
+
+            document.getElementById('clientUsername').value = username;
+        }
+
+        // Gera senha aleatória forte
+        function generatePassword() {
+            const length = 12;
+            const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*';
+            let password = '';
+
+            // Garante pelo menos 1 maiúscula, 1 minúscula, 1 número, 1 especial
+            password += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.charAt(Math.floor(Math.random() * 26));
+            password += 'abcdefghijklmnopqrstuvwxyz'.charAt(Math.floor(Math.random() * 26));
+            password += '0123456789'.charAt(Math.floor(Math.random() * 10));
+            password += '@#$%&*'.charAt(Math.floor(Math.random() * 6));
+
+            // Completa o resto
+            for (let i = password.length; i < length; i++) {
+                password += charset.charAt(Math.floor(Math.random() * charset.length));
+            }
+
+            // Embaralha
+            password = password.split('').sort(() => Math.random() - 0.5).join('');
+
+            document.getElementById('clientPassword').value = password;
+        }
 
         // Generate License
         async function generateLicense() {
