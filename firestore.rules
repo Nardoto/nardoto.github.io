@@ -1,0 +1,22 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Regra para licenças (já existente - não mexer)
+    match /licenses/{license} {
+      allow read, write: if true;
+    }
+
+    // NOVA REGRA - Permitir escrita pública na coleção leads
+    match /leads/{lead} {
+      allow read: if true;  // Qualquer um pode ler
+      allow create: if true;  // Qualquer um pode criar novo lead
+      allow update, delete: if false;  // Ninguém pode editar/deletar (só admin via console)
+    }
+
+    // Bloquear tudo que não foi especificado
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
