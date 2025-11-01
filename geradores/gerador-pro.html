@@ -839,22 +839,29 @@
             // Auto-preencher dados vindos do painel de leads
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('autoFill') === 'true') {
-                const name = urlParams.get('name');
-                const email = urlParams.get('email');
-                const tag = urlParams.get('tag');
+                // Auto-login (pula a tela de senha)
+                sessionStorage.setItem('veo3_admin_logged', 'true');
+                showDashboard();
 
-                if (name) document.getElementById('clientName').value = name;
-                if (email) document.getElementById('clientEmail').value = email;
-                if (tag) document.getElementById('clientTag').value = tag;
+                // Aguarda um pouco para garantir que o dashboard está visível
+                setTimeout(() => {
+                    const name = urlParams.get('name');
+                    const email = urlParams.get('email');
+                    const tag = urlParams.get('tag');
 
-                // Gerar username e senha automaticamente
-                if (name) {
-                    generateUsername();
-                    generatePassword();
-                }
+                    if (name) document.getElementById('clientName').value = name;
+                    if (email) document.getElementById('clientEmail').value = email;
+                    if (tag) document.getElementById('clientTag').value = tag;
 
-                // Scroll para o formulário
-                document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Gerar username e senha automaticamente
+                    if (name) {
+                        generateUsername();
+                        generatePassword();
+                    }
+
+                    // Scroll para o formulário
+                    document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 300);
             }
 
             // License type selection
