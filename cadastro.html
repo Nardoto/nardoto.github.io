@@ -260,6 +260,26 @@
             border-top: 1px solid rgba(245, 158, 11, 0.3);
         }
 
+        .view-plans-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: 2px solid var(--secondary);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .view-plans-link:hover {
+            background: rgba(245, 158, 11, 0.1);
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+        }
+
         .submit-btn {
             width: 100%;
             background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
@@ -410,6 +430,13 @@
             <div class="logo">🚀</div>
             <h1 class="title">Cadastre seu Interesse</h1>
             <p class="subtitle">Preencha os dados abaixo e vamos conversar sobre como automatizar sua produção de conteúdo</p>
+            <div style="margin-top: 20px;">
+                <a href="https://nardoto.com.br/" target="_blank" class="view-plans-link">
+                    <span>🎯</span>
+                    <span>Ver Planos, Ferramentas e Preços</span>
+                    <span>→</span>
+                </a>
+            </div>
         </div>
 
         <!-- Aviso Exclusividade Gold -->
