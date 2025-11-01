@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Licenças - VEO3 Automator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .header-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .header-subtitle {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 8px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 15px;
+            color: #fff;
+            font-family: inherit;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #f59e0b;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 14px 24px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        }
+
+        .generated-license {
+            background: rgba(16, 185, 129, 0.15);
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .license-info {
+            color: #10b981;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .license-key {
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #fff;
+            text-align: center;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+
+        .license-credentials {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .credential-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .credential-row:last-child {
+            border-bottom: none;
+        }
+
+        .credential-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        .credential-value {
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .copy-btn {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #60a5fa;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 12px;
+        }
+
+        .copy-btn:hover {
+            background: rgba(59, 130, 246, 0.3);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            color: #10b981;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .license-list {
+            margin-top: 24px;
+        }
+
+        .license-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .license-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .license-item-key {
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .license-item-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .license-item-details {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="header-title">🔐 Gerador de Licenças</h1>
+            <p class="header-subtitle">VEO3 Automator - Painel Administrativo</p>
+        </div>
+
+        <!-- Estatísticas -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalLicenses">0</div>
+                <div class="stat-label">Licenças Geradas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="activeLicenses">0</div>
+                <div class="stat-label">Licenças Ativas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="todayRevenue">R$ 0</div>
+                <div class="stat-label">Receita Hoje</div>
+            </div>
+        </div>
+
+        <!-- Gerador -->
+        <div class="card">
+            <h2 class="card-title">Gerar Nova Licença</h2>
+
+            <div class="form-group">
+                <label class="form-label">Nome do Cliente</label>
+                <input type="text" id="clientName" class="form-input" placeholder="João Silva">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Email</label>
+                <input type="email" id="clientEmail" class="form-input" placeholder="joao@email.com">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Pacote</label>
+                <select id="clientPackage" class="form-select">
+                    <option value="essencial">Automação Essencial - R$ 1.497</option>
+                    <option value="acelerada" selected>Automação Acelerada - R$ 2.997</option>
+                    <option value="vip">Automação Total VIP - R$ 4.997</option>
+                </select>
+            </div>
+
+            <button class="btn" onclick="generateLicense()">🔑 Gerar Licença</button>
+
+            <!-- Resultado -->
+            <div class="generated-license" id="generatedResult">
+                <div class="license-info">✅ Licença Gerada com Sucesso!</div>
+
+                <div class="license-key" id="generatedKey">XXXX-XXXX-XXXX-XXXX</div>
+
+                <div class="license-credentials">
+                    <div class="credential-row">
+                        <span class="credential-label">Usuário:</span>
+                        <span class="credential-value" id="generatedUsername">-</span>
+                    </div>
+                    <div class="credential-row">
+                        <span class="credential-label">Senha:</span>
+                        <span class="credential-value" id="generatedPassword">-</span>
+                    </div>
+                    <div class="credential-row">
+                        <span class="credential-label">Pacote:</span>
+                        <span class="credential-value" id="generatedPackage">-</span>
+                    </div>
+                    <div class="credential-row">
+                        <span class="credential-label">Validade:</span>
+                        <span class="credential-value" id="generatedExpiry">-</span>
+                    </div>
+                </div>
+
+                <button class="copy-btn" onclick="copyCredentials()">📋 Copiar Credenciais</button>
+            </div>
+        </div>
+
+        <!-- Lista de Licenças -->
+        <div class="card">
+            <h2 class="card-title">Licenças Geradas</h2>
+            <div class="license-list" id="licenseList">
+                <p style="color: rgba(255, 255, 255, 0.5); text-align: center; padding: 40px;">
+                    Nenhuma licença gerada ainda
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Armazenamento local das licenças
+        let licenses = JSON.parse(localStorage.getItem('veo3_licenses') || '[]');
+
+        // Gera chave de licença
+        function generateLicenseKey() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            const segments = 4;
+            const segmentLength = 4;
+
+            const key = [];
+            for (let i = 0; i < segments; i++) {
+                let segment = '';
+                for (let j = 0; j < segmentLength; j++) {
+                    segment += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                key.push(segment);
+            }
+
+            return key.join('-');
+        }
+
+        // Gera senha aleatória
+        function generatePassword() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let password = '';
+            for (let i = 0; i < 12; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return password;
+        }
+
+        // Gera licença completa
+        function generateLicense() {
+            const name = document.getElementById('clientName').value.trim();
+            const email = document.getElementById('clientEmail').value.trim();
+            const packageType = document.getElementById('clientPackage').value;
+
+            if (!name || !email) {
+                alert('Por favor, preencha nome e email do cliente!');
+                return;
+            }
+
+            const key = generateLicenseKey();
+            const username = name.toLowerCase().replace(/\s+/g, '');
+            const password = generatePassword();
+            const packageName = document.getElementById('clientPackage').options[document.getElementById('clientPackage').selectedIndex].text;
+            const expiryDate = new Date();
+            expiryDate.setMonth(expiryDate.getMonth() + 6); // 6 meses
+
+            const license = {
+                key: key,
+                username: username,
+                password: password,
+                name: name,
+                email: email,
+                package: packageName,
+                packageType: packageType,
+                createdAt: new Date().toISOString(),
+                expiresAt: expiryDate.toISOString(),
+                status: 'active',
+                deviceFingerprint: null
+            };
+
+            // Salva
+            licenses.unshift(license);
+            localStorage.setItem('veo3_licenses', JSON.stringify(licenses));
+
+            // Mostra resultado
+            document.getElementById('generatedKey').textContent = key;
+            document.getElementById('generatedUsername').textContent = username;
+            document.getElementById('generatedPassword').textContent = password;
+            document.getElementById('generatedPackage').textContent = packageName;
+            document.getElementById('generatedExpiry').textContent = expiryDate.toLocaleDateString('pt-BR');
+            document.getElementById('generatedResult').style.display = 'block';
+
+            // Atualiza lista
+            updateLicenseList();
+            updateStats();
+
+            // Limpa form
+            document.getElementById('clientName').value = '';
+            document.getElementById('clientEmail').value = '';
+
+            // Scroll para resultado
+            document.getElementById('generatedResult').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Copia credenciais
+        function copyCredentials() {
+            const key = document.getElementById('generatedKey').textContent;
+            const username = document.getElementById('generatedUsername').textContent;
+            const password = document.getElementById('generatedPassword').textContent;
+            const packageName = document.getElementById('generatedPackage').textContent;
+
+            const text = `🔐 VEO3 Automator - Suas Credenciais
+
+📧 Usuário: ${username}
+🔑 Senha: ${password}
+🎟️ Chave de Licença: ${key}
+📦 Pacote: ${packageName}
+
+Para ativar:
+1. Instale a extensão VEO3 Automator
+2. Ao abrir, insira estas credenciais
+3. A licença ficará vinculada ao seu computador
+
+Suporte: (27) 99913-2594
+https://nardoto.com.br`;
+
+            navigator.clipboard.writeText(text).then(() => {
+                alert('✅ Credenciais copiadas! Cole no WhatsApp do cliente.');
+            });
+        }
+
+        // Atualiza lista de licenças
+        function updateLicenseList() {
+            const list = document.getElementById('licenseList');
+
+            if (licenses.length === 0) {
+                list.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); text-align: center; padding: 40px;">Nenhuma licença gerada ainda</p>';
+                return;
+            }
+
+            list.innerHTML = licenses.map(license => `
+                <div class="license-item">
+                    <div class="license-item-header">
+                        <div class="license-item-key">${license.key}</div>
+                        <div class="license-item-status status-active">${license.status === 'active' ? 'Ativa' : 'Inativa'}</div>
+                    </div>
+                    <div class="license-item-details">
+                        <strong>${license.name}</strong> • ${license.email} • ${license.package}<br>
+                        Criada em: ${new Date(license.createdAt).toLocaleDateString('pt-BR')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Atualiza estatísticas
+        function updateStats() {
+            document.getElementById('totalLicenses').textContent = licenses.length;
+            document.getElementById('activeLicenses').textContent = licenses.filter(l => l.status === 'active').length;
+
+            // Calcula receita (mock)
+            const packagePrices = {
+                'essencial': 1497,
+                'acelerada': 2997,
+                'vip': 4997
+            };
+
+            const todayLicenses = licenses.filter(l => {
+                const created = new Date(l.createdAt);
+                const today = new Date();
+                return created.toDateString() === today.toDateString();
+            });
+
+            const todayRevenue = todayLicenses.reduce((sum, l) => sum + (packagePrices[l.packageType] || 0), 0);
+            document.getElementById('todayRevenue').textContent = `R$ ${todayRevenue.toLocaleString('pt-BR')}`;
+        }
+
+        // Inicializa ao carregar
+        updateLicenseList();
+        updateStats();
+
+        console.log('🔐 Gerador de Licenças carregado!');
+        console.log('📊 Total de licenças:', licenses.length);
+    </script>
+</body>
+</html>
