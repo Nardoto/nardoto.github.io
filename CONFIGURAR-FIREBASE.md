@@ -6,7 +6,7 @@ Cadastro dando erro 403 - Firebase bloqueando escrita na coleção "leads"
 ## ✅ Solução em 4 CLIQUES:
 
 ### 1️⃣ Abrir Firebase Console (CLIQUE AQUI)
-**Link direto:** https://console.firebase.google.com/project/veo3-licenses/firestore/rules
+**Link direto:** https://console.firebase.google.com/project/veo3automator/firestore/rules
 
 ### 2️⃣ Abrir o arquivo firestore.rules
 Está na mesma pasta deste arquivo (`firestore.rules`)

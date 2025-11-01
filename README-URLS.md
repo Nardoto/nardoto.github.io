@@ -84,7 +84,7 @@ Leva 2 minutos. Depois volta aqui.
 ## ⚙️ CONFIGURAÇÕES ADICIONAIS
 
 ### Firebase Console (para ajustar regras, ver dados)
-- https://console.firebase.google.com/project/veo3-licenses/firestore
+- https://console.firebase.google.com/project/veo3automator/firestore
 
 ### GitHub Pages (para ver status do deploy)
 - https://github.com/Nardoto/nardoto.github.io/settings/pages
