@@ -1196,29 +1196,40 @@
                 return;
             }
 
-            console.log('🗑️ Deletando licença:', license.key);
+            console.log('🗑️ Marcando licença como deletada:', license.key);
 
-            // Deleta no Firebase primeiro
+            // Marca como deletada no Firebase (não apaga, apenas muda status)
             try {
                 const url = `${FIREBASE_CONFIG.databaseURL}/licenses/${license.key}?key=${FIREBASE_CONFIG.apiKey}`;
-                console.log('📤 DELETE URL:', url);
+                console.log('📤 PATCH URL:', url);
+
+                const firebaseDoc = {
+                    fields: {
+                        status: { stringValue: 'deleted' },
+                        deletedAt: { timestampValue: new Date().toISOString() }
+                    }
+                };
 
                 const response = await fetch(url, {
-                    method: 'DELETE'
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(firebaseDoc)
                 });
 
                 console.log('📥 Response status:', response.status);
 
-                if (response.ok || response.status === 404) {
-                    console.log('✅ Licença deletada do Firebase!');
+                if (response.ok) {
+                    console.log('✅ Licença marcada como deletada no Firebase!');
                 } else {
                     const errorText = await response.text();
-                    console.error('❌ Erro ao deletar:', errorText);
+                    console.error('❌ Erro ao marcar como deletada:', errorText);
                     throw new Error(`Erro HTTP: ${response.status}`);
                 }
             } catch (error) {
-                console.error('❌ Erro ao deletar do Firebase:', error);
-                alert('⚠️ ATENÇÃO: Erro ao deletar do Firebase.\n\nA licença será removida localmente, mas pode ainda estar ativa no sistema.\n\nErro: ' + error.message);
+                console.error('❌ Erro ao atualizar no Firebase:', error);
+                alert('⚠️ ATENÇÃO: Erro ao deletar no Firebase.\n\nA licença será removida localmente, mas pode ainda estar ativa no sistema.\n\nErro: ' + error.message);
             }
 
             // Remove localmente
