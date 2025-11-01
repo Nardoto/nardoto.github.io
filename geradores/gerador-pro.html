@@ -692,6 +692,10 @@
                     <input type="email" class="form-input" id="clientEmail" placeholder="cliente@email.com">
                 </div>
                 <div class="form-group">
+                    <label class="form-label">📱 WhatsApp</label>
+                    <input type="tel" class="form-input" id="clientPhone" placeholder="(27) 99999-9999">
+                </div>
+                <div class="form-group">
                     <label class="form-label">🔑 Username (para login)</label>
                     <input type="text" class="form-input" id="clientUsername" placeholder="joaosilva" readonly style="background: rgba(255,255,255,0.05);">
                     <small style="color: rgba(16,185,129,0.8); font-size: 11px; display: block; margin-top: 4px;">
@@ -744,8 +748,9 @@
                         </div>
                     </div>
                 </div>
-                <div style="text-align: center; margin-top: 20px;">
+                <div style="text-align: center; margin-top: 20px; display: flex; gap: 12px; justify-content: center;">
                     <button class="copy-btn" onclick="copyLicense()">📋 Copiar Credenciais</button>
+                    <button class="copy-btn" onclick="sendViaWhatsApp()" style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);">📱 Enviar via WhatsApp</button>
                 </div>
             </div>
         </div>
@@ -847,10 +852,12 @@
                 setTimeout(() => {
                     const name = urlParams.get('name');
                     const email = urlParams.get('email');
+                    const phone = urlParams.get('phone');
                     const tag = urlParams.get('tag');
 
                     if (name) document.getElementById('clientName').value = name;
                     if (email) document.getElementById('clientEmail').value = email;
+                    if (phone) document.getElementById('clientPhone').value = phone;
                     if (tag) document.getElementById('clientTag').value = tag;
 
                     // Gerar username e senha automaticamente
@@ -879,6 +886,16 @@
                     generateUsername();
                     generatePassword();
                 }
+            });
+
+            // Máscara de telefone
+            document.getElementById('clientPhone').addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length <= 11) {
+                    value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
+                    value = value.replace(/(\d)(\d{4})$/, '$1-$2');
+                }
+                e.target.value = value;
             });
         });
 
@@ -930,6 +947,7 @@
         async function generateLicense() {
             const name = document.getElementById('clientName').value;
             const email = document.getElementById('clientEmail').value;
+            const phone = document.getElementById('clientPhone').value;
             const username = document.getElementById('clientUsername').value;
             const password = document.getElementById('clientPassword').value;
             const tag = document.getElementById('clientTag').value;
@@ -963,6 +981,7 @@
                 type: selectedLicenseType,
                 name: name,
                 email: email,
+                phone: phone, // WhatsApp do cliente
                 username: username, // Salva username
                 password: password, // Salva senha
                 tag: tag,
@@ -1036,6 +1055,7 @@
             // Clear form
             document.getElementById('clientName').value = '';
             document.getElementById('clientEmail').value = '';
+            document.getElementById('clientPhone').value = '';
             document.getElementById('clientUsername').value = '';
             document.getElementById('clientPassword').value = '';
             document.getElementById('clientTag').value = '';
@@ -1094,6 +1114,46 @@
             navigator.clipboard.writeText(text).then(() => {
                 alert('✅ Credenciais completas copiadas!\n\nEnvie para o cliente por WhatsApp ou Email.');
             });
+        }
+
+        // Send via WhatsApp
+        function sendViaWhatsApp() {
+            if (!lastGeneratedLicense) {
+                alert('Nenhuma licença foi gerada ainda!');
+                return;
+            }
+
+            const phone = lastGeneratedLicense.phone;
+            if (!phone) {
+                alert('❌ Telefone não foi informado!\n\nPor favor, preencha o campo de WhatsApp antes de gerar a licença.');
+                return;
+            }
+
+            const key = document.getElementById('licenseKey').textContent;
+            const type = document.getElementById('licenseType').textContent;
+            const expiry = document.getElementById('licenseExpiry').textContent;
+
+            const message = `🎉 *LICENÇA VEO3 AUTOMATOR - ${type.toUpperCase()}*\n\n` +
+                          `🔑 *CREDENCIAIS DE ACESSO:*\n` +
+                          `━━━━━━━━━━━━━━━━━━━━━━\n` +
+                          `*Chave:* ${key}\n` +
+                          `*Username:* ${lastGeneratedLicense.username}\n` +
+                          `*Senha:* ${lastGeneratedLicense.password}\n\n` +
+                          `📅 *Válida até:* ${expiry}\n\n` +
+                          `📝 *COMO ATIVAR:*\n` +
+                          `1. Instale a extensão VEO3 Automator\n` +
+                          `2. Clique no ícone da extensão\n` +
+                          `3. Digite os 3 dados acima\n` +
+                          `4. Clique em "Ativar Licença"\n\n` +
+                          `🔒 Privacy-First: Sem rastreamento de uso\n` +
+                          `✅ Suas automações, seus dados!`;
+
+            // Remove formatação do telefone (deixa só números)
+            const cleanPhone = phone.replace(/\D/g, '');
+
+            // Abre WhatsApp com a mensagem
+            const whatsappUrl = `https://wa.me/55${cleanPhone}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
         }
 
         // Load Licenses
