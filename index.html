@@ -622,8 +622,11 @@
             toolImages.forEach((toolImage) => {
                 const img = toolImage.querySelector('img');
                 if (img) {
-                    const imgSrc = img.getAttribute('src');
+                    let imgSrc = img.getAttribute('src');
                     const imgAlt = img.getAttribute('alt');
+
+                    // Codificar espaços na URL
+                    imgSrc = imgSrc.replace(/ /g, '%20');
 
                     // Adicionar overlay se não existe
                     if (!toolImage.querySelector('.zoom-overlay')) {
@@ -637,7 +640,7 @@
                     toolImage.style.cursor = 'pointer';
                     toolImage.addEventListener('click', function(e) {
                         e.preventDefault();
-                        console.log('Clicked on:', imgAlt);
+                        console.log('Clicked on:', imgAlt, 'with src:', imgSrc);
                         openImageModal(imgSrc, imgAlt);
                     });
                 }
