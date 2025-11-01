@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            width: 380px;
+            min-height: 500px;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: #fff;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .header .subtitle {
+            margin-top: 4px;
+            font-size: 11px;
+            opacity: 0.9;
+        }
+
+        /* Login Screen */
+        .login-screen {
+            padding: 24px;
+            display: none;
+        }
+
+        .login-screen.active {
+            display: block;
+        }
+
+        .login-icon {
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            color: #fff;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+            text-align: center;
+            transition: all 0.2s;
+            box-sizing: border-box;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            margin-top: 20px;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 12px;
+        }
+
+        .btn-danger {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            margin-top: 12px;
+        }
+
+        .alert {
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            font-size: 12px;
+            display: none;
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #10b981;
+        }
+
+        /* Dashboard Screen */
+        .dashboard-screen {
+            display: none;
+        }
+
+        .dashboard-screen.active {
+            display: block;
+        }
+
+        .user-info {
+            background: rgba(255, 255, 255, 0.05);
+            margin: 16px;
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .user-email {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .license-box {
+            margin: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .license-box h3 {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0 0 12px 0;
+        }
+
+        .license-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 13px;
+        }
+
+        .license-item:last-child {
+            border-bottom: none;
+        }
+
+        .license-label {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .license-value {
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .badge-active {
+            background: #10b981;
+            color: white;
+        }
+
+        .badge-trial {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .badge-expiring {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .badge-expired {
+            background: #ef4444;
+            color: white;
+        }
+
+        .privacy-box {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            margin: 16px;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+        }
+
+        .privacy-box strong {
+            color: #10b981;
+        }
+
+        .actions {
+            padding: 0 16px 16px;
+        }
+
+        .link-text {
+            text-align: center;
+            font-size: 12px;
+            margin-top: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .link-text a {
+            color: #f59e0b;
+            text-decoration: none;
+        }
+
+        .link-text a:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 16px 0;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 16px;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>VEO3 Automator Pro</h1>
+        <div class="subtitle">Privacy-First System</div>
+    </div>
+
+    <!-- Login Screen -->
+    <div class="login-screen active" id="loginScreen">
+        <div class="login-icon">🔐</div>
+
+        <div id="loginAlert" class="alert alert-error"></div>
+
+        <form onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label class="form-label">Email</label>
+                <input
+                    type="email"
+                    id="loginEmail"
+                    class="form-input"
+                    placeholder="seu@email.com"
+                    required
+                    autocomplete="email"
+                >
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Senha</label>
+                <div class="password-wrapper">
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        class="form-input"
+                        placeholder="Sua senha"
+                        required
+                        autocomplete="current-password"
+                    >
+                    <span class="password-toggle" onclick="togglePassword()">👁️</span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="loginBtn">
+                Entrar
+            </button>
+        </form>
+
+        <div class="link-text">
+            Não tem licença?<br>
+            <a href="https://nardoto.com.br" target="_blank">Comprar agora</a>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="privacy-box">
+            <strong>🔒 100% Privado</strong><br>
+            Não rastreamos • Não salvamos prompts • Validação local
+        </div>
+    </div>
+
+    <!-- Dashboard Screen -->
+    <div class="dashboard-screen" id="dashboardScreen">
+        <div class="user-info">
+            <div class="user-name" id="userName">Carregando...</div>
+            <div class="user-email" id="userEmail"></div>
+        </div>
+
+        <div class="license-box">
+            <h3>📄 Informações da Licença</h3>
+            <div class="license-item">
+                <span class="license-label">Status:</span>
+                <span id="licenseStatus"></span>
+            </div>
+            <div class="license-item">
+                <span class="license-label">Tipo:</span>
+                <span class="license-value" id="licenseType"></span>
+            </div>
+            <div class="license-item">
+                <span class="license-label">Válida até:</span>
+                <span class="license-value" id="licenseExpiry"></span>
+            </div>
+            <div class="license-item">
+                <span class="license-label">Dias restantes:</span>
+                <span class="license-value" id="licenseDays" style="color: #10b981;"></span>
+            </div>
+        </div>
+
+        <div class="privacy-box">
+            <strong>✅ Seus dados protegidos:</strong><br>
+            • Sem rastreamento de uso<br>
+            • Sem coleta de prompts<br>
+            • Validação 100% local
+        </div>
+
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="refreshLicense()">
+                🔄 Atualizar Licença
+            </button>
+            <button class="btn btn-danger" onclick="handleLogout()">
+                🚪 Sair
+            </button>
+        </div>
+
+        <div class="link-text">
+            <a href="https://nardoto.com.br" target="_blank">Suporte</a>
+        </div>
+    </div>
+
+    <script src="popup-novo.js"></script>
+</body>
+</html>
