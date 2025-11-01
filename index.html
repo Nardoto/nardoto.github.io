@@ -435,7 +435,7 @@
                         <div class="feature">✅ Tutoriais exclusivos em vídeo</div>
                         <div class="feature">✅ Cancele quando quiser</div>
                     </div>
-                    <a href="https://wa.me/5527999132594?text=Olá%20Nardoto!%20Tenho%20interesse%20na%20assinatura%20mensal%20do%20VEO3%20Automator%20(R$%20197/mês)." target="_blank" rel="noopener" class="subscription-button" data-plan="mensal">Assinar Agora</a>
+                    <a href="https://pay.kiwify.com.br/NtnupLV" target="_blank" rel="noopener" class="subscription-button kiwify-direct">Assinar Agora</a>
                 </div>
 
                 <!-- Anual -->
@@ -462,7 +462,7 @@
                         <div class="feature">✅ Tutoriais exclusivos em vídeo</div>
                         <div class="feature">✅ Economize comparado ao mensal</div>
                     </div>
-                    <a href="https://wa.me/5527999132594?text=Olá%20Nardoto!%20Tenho%20interesse%20no%20pagamento%20anual%20do%20VEO3%20Automator.%20Gostaria%20de%20saber%20o%20valor." target="_blank" rel="noopener" class="subscription-button primary" data-plan="anual">Quero Este Plano</a>
+                    <a href="https://wa.me/5527999132594?text=Olá%20Nardoto!%20Tenho%20interesse%20no%20pagamento%20anual%20do%20VEO3%20Automator.%20Gostaria%20de%20conversar%20sobre%20valores%20e%20condições." target="_blank" rel="noopener" class="subscription-button primary" data-plan="anual">Falar no WhatsApp</a>
                 </div>
             </div>
 
@@ -746,12 +746,10 @@
                 submitBtn.disabled = false;
             });
 
-            // Interceptar cliques nos botões de assinatura
-            const subscriptionButtons = document.querySelectorAll('.subscription-button, .package-button');
+            // Interceptar cliques nos botões de assinatura (exceto Kiwify)
+            const subscriptionButtons = document.querySelectorAll('.subscription-button:not(.kiwify-direct), .package-button');
 
             subscriptionButtons.forEach(button => {
-                const originalHref = button.getAttribute('href');
-
                 button.addEventListener('click', function(e) {
                     e.preventDefault();
 
