@@ -558,10 +558,12 @@
     </a>
 
     <!-- Modal de Imagem Ampliada -->
-    <div id="imageModal" class="image-modal" onclick="closeImageModal()">
-        <span class="modal-close">&times;</span>
-        <img class="modal-content-img" id="modalImg">
-        <div class="modal-caption" id="modalCaption"></div>
+    <div id="imageModal" class="image-modal">
+        <span class="modal-close" onclick="closeImageModal(event)">&times;</span>
+        <div class="modal-content-wrapper">
+            <img class="modal-content-img" id="modalImg" onclick="event.stopPropagation()">
+            <div class="modal-caption" id="modalCaption"></div>
+        </div>
     </div>
 
     <script src="landing-page/script.js"></script>
@@ -569,23 +571,41 @@
     <!-- Script do Lightbox -->
     <script>
         function openImageModal(imgSrc, caption) {
+            console.log('Opening modal with:', imgSrc, caption);
             const modal = document.getElementById('imageModal');
             const modalImg = document.getElementById('modalImg');
             const modalCaption = document.getElementById('modalCaption');
 
-            modal.style.display = 'flex';
-            modalImg.src = imgSrc;
-            modalCaption.textContent = caption;
-
-            // Previne scroll do body
-            document.body.style.overflow = 'hidden';
+            if (modal && modalImg) {
+                modalImg.src = imgSrc;
+                modalCaption.textContent = caption;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
         }
 
-        function closeImageModal() {
+        function closeImageModal(event) {
+            if (event) {
+                event.stopPropagation();
+            }
             const modal = document.getElementById('imageModal');
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
         }
+
+        // Fechar ao clicar no fundo escuro
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('imageModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        closeImageModal();
+                    }
+                });
+            }
+        });
 
         // Fechar com tecla ESC
         document.addEventListener('keydown', function(event) {
@@ -594,31 +614,32 @@
             }
         });
 
-        // Adicionar zoom overlay em todas as imagens das ferramentas
+        // Adicionar zoom overlay e click handler em todas as imagens
         document.addEventListener('DOMContentLoaded', function() {
             const toolImages = document.querySelectorAll('.tool-image');
-            toolImages.forEach((toolImage, index) => {
-                // Se ainda não tem onclick (para as que não adicionamos manualmente)
-                if (!toolImage.onclick) {
-                    const img = toolImage.querySelector('img');
-                    if (img) {
-                        const imgSrc = img.getAttribute('src');
-                        const imgAlt = img.getAttribute('alt');
+            console.log('Found', toolImages.length, 'tool images');
 
-                        toolImage.onclick = function() {
-                            openImageModal(imgSrc, imgAlt);
-                        };
+            toolImages.forEach((toolImage) => {
+                const img = toolImage.querySelector('img');
+                if (img) {
+                    const imgSrc = img.getAttribute('src');
+                    const imgAlt = img.getAttribute('alt');
 
-                        // Adicionar overlay se não existe
-                        if (!toolImage.querySelector('.zoom-overlay')) {
-                            const overlay = document.createElement('div');
-                            overlay.className = 'zoom-overlay';
-                            overlay.textContent = '🔍 Clique para ampliar';
-                            toolImage.appendChild(overlay);
-                        }
-
-                        toolImage.style.cursor = 'pointer';
+                    // Adicionar overlay se não existe
+                    if (!toolImage.querySelector('.zoom-overlay')) {
+                        const overlay = document.createElement('div');
+                        overlay.className = 'zoom-overlay';
+                        overlay.textContent = '🔍 Clique para ampliar';
+                        toolImage.appendChild(overlay);
                     }
+
+                    // Adicionar click handler
+                    toolImage.style.cursor = 'pointer';
+                    toolImage.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        console.log('Clicked on:', imgAlt);
+                        openImageModal(imgSrc, imgAlt);
+                    });
                 }
             });
         });
