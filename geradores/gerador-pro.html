@@ -1186,31 +1186,48 @@
 
         // Delete License
         async function deleteLicense(id) {
-            if (confirm('Tem certeza que deseja deletar esta licença?')) {
-                const license = licenses.find(l => l.id === id);
-
-                // Deleta no Firebase
-                if (license) {
-                    try {
-                        const url = `${FIREBASE_CONFIG.databaseURL}/licenses/${license.key}?key=${FIREBASE_CONFIG.apiKey}`;
-                        const response = await fetch(url, {
-                            method: 'DELETE',
-                            headers: { 'Content-Type': 'application/json' }
-                        });
-
-                        if (response.ok || response.status === 404) {
-                            console.log('✅ Licença deletada do Firebase');
-                        }
-                    } catch (error) {
-                        console.error('❌ Erro ao deletar do Firebase:', error);
-                    }
-                }
-
-                licenses = licenses.filter(l => l.id !== id);
-                saveLicenses();
-                loadLicenses();
-                updateStats();
+            if (!confirm('Tem certeza que deseja deletar esta licença?\n\nEla será removida do Firebase e não poderá mais ser usada.')) {
+                return;
             }
+
+            const license = licenses.find(l => l.id === id);
+            if (!license) {
+                alert('❌ Licença não encontrada!');
+                return;
+            }
+
+            console.log('🗑️ Deletando licença:', license.key);
+
+            // Deleta no Firebase primeiro
+            try {
+                const url = `${FIREBASE_CONFIG.databaseURL}/licenses/${license.key}?key=${FIREBASE_CONFIG.apiKey}`;
+                console.log('📤 DELETE URL:', url);
+
+                const response = await fetch(url, {
+                    method: 'DELETE'
+                });
+
+                console.log('📥 Response status:', response.status);
+
+                if (response.ok || response.status === 404) {
+                    console.log('✅ Licença deletada do Firebase!');
+                } else {
+                    const errorText = await response.text();
+                    console.error('❌ Erro ao deletar:', errorText);
+                    throw new Error(`Erro HTTP: ${response.status}`);
+                }
+            } catch (error) {
+                console.error('❌ Erro ao deletar do Firebase:', error);
+                alert('⚠️ ATENÇÃO: Erro ao deletar do Firebase.\n\nA licença será removida localmente, mas pode ainda estar ativa no sistema.\n\nErro: ' + error.message);
+            }
+
+            // Remove localmente
+            licenses = licenses.filter(l => l.id !== id);
+            saveLicenses();
+            loadLicenses();
+            updateStats();
+
+            alert('✅ Licença deletada com sucesso!');
         }
 
         // Update Stats
