@@ -836,6 +836,27 @@
             loadLicenses();
             updateStats();
 
+            // Auto-preencher dados vindos do painel de leads
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('autoFill') === 'true') {
+                const name = urlParams.get('name');
+                const email = urlParams.get('email');
+                const tag = urlParams.get('tag');
+
+                if (name) document.getElementById('clientName').value = name;
+                if (email) document.getElementById('clientEmail').value = email;
+                if (tag) document.getElementById('clientTag').value = tag;
+
+                // Gerar username e senha automaticamente
+                if (name) {
+                    generateUsername();
+                    generatePassword();
+                }
+
+                // Scroll para o formulário
+                document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
             // License type selection
             document.querySelectorAll('.license-type').forEach(card => {
                 card.addEventListener('click', function() {

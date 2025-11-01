@@ -531,15 +531,18 @@
         }
 
         function copyAndOpenGenerator(email, name) {
-            // Abrir gerador em nova aba
-            const generatorUrl = 'geradores/gerador-pro.html';
+            // Criar URL com parâmetros para preencher automaticamente
+            const params = new URLSearchParams({
+                name: name,
+                email: email,
+                tag: 'test',  // Tag "Teste Interno" para trials
+                autoFill: 'true'  // Flag para indicar preenchimento automático
+            });
+
+            const generatorUrl = `geradores/gerador-pro.html?${params.toString()}`;
             window.open(generatorUrl, '_blank');
 
-            // Copiar dados
-            const data = `Email: ${email}\nNome: ${name}`;
-            navigator.clipboard.writeText(data);
-
-            showToast('✅ Gerador aberto! Email copiado. Cole no gerador e escolha Trial 3 Dias.');
+            showToast('✅ Gerador aberto com dados preenchidos! Selecione "Trial 3 Dias" e gere a licença.');
         }
 
         function openWhatsApp(phone, name) {
