@@ -43,8 +43,8 @@ document.querySelectorAll('.package-button').forEach(button => {
     });
 });
 
-// Configurar links dos botões de assinatura
-document.querySelectorAll('.subscription-button:not(.kiwify-direct)').forEach(button => {
+// Configurar links dos botões de assinatura (ignorar botões diretos)
+document.querySelectorAll('.subscription-button:not(.kiwify-direct):not(.no-intercept)').forEach(button => {
     button.addEventListener('click', function(e) {
         e.preventDefault();
         const planType = this.getAttribute('data-plan');
