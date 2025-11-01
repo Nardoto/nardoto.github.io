@@ -1373,10 +1373,10 @@
                 return l.status === 'active' && expiry > now;
             });
 
-            const trials = active.filter(l => l.type === 'trial');
+            const trials = active.filter(l => l.type === 'trial' || l.type === 'trial3days');
 
             const monthlyRevenue = active.reduce((sum, l) => {
-                if (l.type !== 'trial') {
+                if (l.type !== 'trial' && l.type !== 'trial3days') {
                     const config = LICENSE_CONFIG[l.type];
                     // Calculate monthly equivalent
                     return sum + (config.price / (config.days / 30));
