@@ -745,6 +745,13 @@
                     <label class="form-label">Notas (Opcional)</label>
                     <input type="text" class="form-input" id="clientNotes" placeholder="Observações internas">
                 </div>
+                <div class="form-group">
+                    <label class="form-label">📢 Mensagem para o Cliente (Opcional)</label>
+                    <textarea class="form-input" id="clientMessage" placeholder="Ex: Sua licença está perto de expirar. Renove até 15/02 para manter acesso." style="min-height: 80px; resize: vertical; font-family: inherit; line-height: 1.5;"></textarea>
+                    <small style="color: rgba(16,185,129,0.8); font-size: 11px; display: block; margin-top: 4px;">
+                        💡 Esta mensagem aparecerá na extensão do cliente
+                    </small>
+                </div>
             </div>
 
             <button class="generate-btn" onclick="generateLicense()">
@@ -803,6 +810,7 @@
                         <th>Ativada?</th>
                         <th>Expira em</th>
                         <th>Tag</th>
+                        <th>Mensagem</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -995,6 +1003,7 @@
             const password = document.getElementById('clientPassword').value;
             const tag = document.getElementById('clientTag').value;
             const notes = document.getElementById('clientNotes').value;
+            const message = document.getElementById('clientMessage').value;
 
             if (!name || !email || !username || !password) {
                 alert('Por favor, preencha nome, email, username e senha do cliente.');
@@ -1030,6 +1039,7 @@
                 password: password, // Salva senha
                 tag: tag,
                 notes: notes,
+                message: message, // Mensagem para o cliente
                 price: config.price,
                 createdAt: now.toISOString(),
                 expiresAt: expiryDate.toISOString(),
@@ -1057,7 +1067,9 @@
                         deviceFingerprint: { stringValue: '' }, // Será preenchido na ativação
                         createdAt: { timestampValue: now.toISOString() },
                         notes: { stringValue: notes || '' },
-                        tag: { stringValue: tag || '' }
+                        tag: { stringValue: tag || '' },
+                        message: { stringValue: message || '' }, // Mensagem para o cliente
+                        messageUpdatedAt: { timestampValue: message ? now.toISOString() : '' } // Timestamp da mensagem
                     }
                 };
 
@@ -1246,6 +1258,8 @@
                         password: fields.password?.stringValue || '',
                         tag: fields.tag?.stringValue || '',
                         notes: fields.notes?.stringValue || '',
+                        message: fields.message?.stringValue || '',
+                        messageUpdatedAt: fields.messageUpdatedAt?.timestampValue || null,
                         price: parseFloat(fields.price?.doubleValue || fields.price?.integerValue || 0),
                         createdAt: fields.createdAt?.timestampValue || new Date().toISOString(),
                         expiresAt: fields.expiresAt?.timestampValue ||
@@ -1327,6 +1341,12 @@
                     <td>${activationBadge}</td>
                     <td>${daysLeft > 0 ? `${daysLeft} dias` : 'Expirada'}</td>
                     <td>${license.tag ? `<span class="badge">${license.tag}</span>` : '-'}</td>
+                    <td>
+                        ${license.message ?
+                            `<button class="action-btn" onclick="viewMessage('${license.id}')" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">📢 Ver</button>` :
+                            `<button class="action-btn" onclick="addMessage('${license.id}')" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">➕ Adicionar</button>`
+                        }
+                    </td>
                     <td>
                         <button class="action-btn" onclick="toggleLicense('${license.id}')">
                             ${license.status === 'suspended' ? 'Ativar' : 'Suspender'}
@@ -1617,6 +1637,100 @@
                 alert(`✅ ${successCount} licença(s) deletada(s) com sucesso!`);
             } else {
                 alert(`⚠️ Deleção concluída:\n\n✅ ${successCount} deletadas\n❌ ${errorCount} com erro\n\nAlgumas licenças podem não ter sido removidas do Firebase.`);
+            }
+        }
+
+        // View Message
+        function viewMessage(id) {
+            const license = licenses.find(l => l.id === id);
+            if (!license) return;
+
+            const edit = confirm(`📢 MENSAGEM PARA O CLIENTE:\n\n"${license.message}"\n\n━━━━━━━━━━━━━━━━━━━━\n\nClique em OK para EDITAR ou CANCELAR para REMOVER`);
+
+            if (edit) {
+                addMessage(id); // Editar
+            } else {
+                // Remover mensagem
+                if (confirm('🗑️ Tem certeza que deseja REMOVER esta mensagem?\n\nO cliente não verá mais nenhum aviso.')) {
+                    updateMessage(id, '');
+                }
+            }
+        }
+
+        // Add/Edit Message
+        async function addMessage(id) {
+            const license = licenses.find(l => l.id === id);
+            if (!license) return;
+
+            const currentMessage = license.message || '';
+            const newMessage = prompt(
+                `📢 MENSAGEM PARA O CLIENTE\n\n` +
+                `Esta mensagem aparecerá na extensão do usuário.\n` +
+                `Use para: avisar de renovação, manutenção, etc.\n\n` +
+                `Digite a mensagem:`,
+                currentMessage
+            );
+
+            if (newMessage === null) return; // Cancelou
+
+            if (newMessage.trim() === '') {
+                alert('⚠️ Mensagem vazia não foi salva.');
+                return;
+            }
+
+            await updateMessage(id, newMessage.trim());
+        }
+
+        // Update Message in Firebase
+        async function updateMessage(id, message) {
+            const license = licenses.find(l => l.id === id);
+            if (!license) {
+                alert('❌ Licença não encontrada!');
+                return;
+            }
+
+            console.log(`📢 ${message ? 'Atualizando' : 'Removendo'} mensagem para licença:`, license.key);
+
+            try {
+                const url = `${FIREBASE_CONFIG.databaseURL}/licenses/${license.key}?key=${FIREBASE_CONFIG.apiKey}`;
+
+                const firebaseDoc = {
+                    fields: {
+                        message: { stringValue: message },
+                        messageUpdatedAt: { timestampValue: message ? new Date().toISOString() : '' }
+                    }
+                };
+
+                const response = await fetch(url, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(firebaseDoc)
+                });
+
+                if (response.ok) {
+                    console.log('✅ Mensagem atualizada no Firebase');
+
+                    // Atualiza localmente
+                    license.message = message;
+                    license.messageUpdatedAt = message ? new Date().toISOString() : null;
+
+                    saveLicenses();
+                    loadLicenses();
+
+                    if (message) {
+                        alert(`✅ Mensagem enviada com sucesso!\n\n"${message}"\n\nO cliente verá esta mensagem na próxima vez que usar a extensão.`);
+                    } else {
+                        alert('✅ Mensagem removida com sucesso!');
+                    }
+                } else {
+                    console.error('❌ Erro ao atualizar no Firebase');
+                    alert('❌ Erro ao salvar mensagem no Firebase.');
+                }
+            } catch (error) {
+                console.error('❌ Erro ao atualizar mensagem:', error);
+                alert('❌ Erro ao salvar mensagem. Verifique sua conexão.');
             }
         }
 
