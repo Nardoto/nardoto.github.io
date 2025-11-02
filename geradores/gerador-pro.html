@@ -787,6 +787,7 @@
                         <th>Cliente</th>
                         <th>Tipo</th>
                         <th>Status</th>
+                        <th>Ativada?</th>
                         <th>Expira em</th>
                         <th>Tag</th>
                         <th>Ações</th>
@@ -1237,7 +1238,8 @@
                         expiresAt: fields.expiresAt?.timestampValue || new Date().toISOString(),
                         status: fields.status?.stringValue || 'active',
                         checkFrequency: fields.checkFrequency?.stringValue || 'never',
-                        lastCheck: fields.lastCheck?.timestampValue || null
+                        lastCheck: fields.lastCheck?.timestampValue || null,
+                        deviceFingerprint: fields.deviceFingerprint?.stringValue || ''
                     };
                 });
 
@@ -1291,6 +1293,12 @@
                     statusText = 'Expirada';
                 }
 
+                // Verifica se foi ativada pelo usuário
+                const isActivated = license.deviceFingerprint && license.deviceFingerprint.length > 0;
+                const activationBadge = isActivated
+                    ? '<span class="license-status active">✓ Sim</span>'
+                    : '<span class="license-status suspended">✗ Não</span>';
+
                 row.innerHTML = `
                     <td style="font-family: monospace; font-size: 12px;">${license.key}</td>
                     <td>
@@ -1299,6 +1307,7 @@
                     </td>
                     <td>${LICENSE_CONFIG[license.type].name}</td>
                     <td><span class="license-status ${statusClass}">${statusText}</span></td>
+                    <td>${activationBadge}</td>
                     <td>${daysLeft > 0 ? `${daysLeft} dias` : 'Expirada'}</td>
                     <td>${license.tag ? `<span class="badge">${license.tag}</span>` : '-'}</td>
                     <td>
