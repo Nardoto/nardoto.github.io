@@ -781,13 +781,21 @@
         <div class="license-list">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <h2 class="form-title" style="margin: 0;">📊 Licenças Geradas</h2>
-                <button onclick="deleteAllExpired()" style="padding: 10px 20px; background: linear-gradient(135deg, #ff4757 0%, #c0392b 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
-                    🗑️ Limpar Expiradas
-                </button>
+                <div style="display: flex; gap: 12px;">
+                    <button onclick="deleteSelected()" style="padding: 10px 20px; background: linear-gradient(135deg, #e67e22 0%, #d35400 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
+                        ☑️ Deletar Selecionadas
+                    </button>
+                    <button onclick="deleteAllExpired()" style="padding: 10px 20px; background: linear-gradient(135deg, #ff4757 0%, #c0392b 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
+                        🗑️ Limpar Expiradas
+                    </button>
+                </div>
             </div>
             <table class="license-table">
                 <thead>
                     <tr>
+                        <th style="width: 40px;">
+                            <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll()" style="cursor: pointer; width: 18px; height: 18px;">
+                        </th>
                         <th>Licença</th>
                         <th>Cliente</th>
                         <th>Tipo</th>
@@ -1306,6 +1314,9 @@
                     : '<span class="license-status suspended">✗ Não</span>';
 
                 row.innerHTML = `
+                    <td style="text-align: center;">
+                        <input type="checkbox" class="license-checkbox" data-license-id="${license.id}" style="cursor: pointer; width: 18px; height: 18px;">
+                    </td>
                     <td style="font-family: monospace; font-size: 12px;">${license.key}</td>
                     <td>
                         <div>${license.name}</div>
@@ -1523,6 +1534,89 @@
                 alert(`✅ ${successCount} licença(s) deletada(s) com sucesso!`);
             } else {
                 alert(`⚠️ Limpeza concluída:\n\n✅ ${successCount} deletadas\n❌ ${errorCount} com erro\n\nAlgumas licenças podem não ter sido removidas do Firebase.`);
+            }
+        }
+
+        // Toggle Select All Checkboxes
+        function toggleSelectAll() {
+            const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+            const checkboxes = document.querySelectorAll('.license-checkbox');
+
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
+        }
+
+        // Delete Selected Licenses
+        async function deleteSelected() {
+            const checkboxes = document.querySelectorAll('.license-checkbox:checked');
+
+            if (checkboxes.length === 0) {
+                alert('⚠️ Nenhuma licença selecionada!\n\nMarque as licenças que deseja deletar.');
+                return;
+            }
+
+            const selectedIds = Array.from(checkboxes).map(cb => cb.getAttribute('data-license-id'));
+            const selectedLicenses = licenses.filter(l => selectedIds.includes(l.id));
+
+            if (!confirm(`🗑️ Deletar ${selectedLicenses.length} licença(s) selecionada(s)?\n\nElas serão removidas do Firebase e não poderão mais ser usadas.\n\nEsta ação não pode ser desfeita.`)) {
+                return;
+            }
+
+            console.log(`🗑️ Deletando ${selectedLicenses.length} licenças selecionadas...`);
+
+            let successCount = 0;
+            let errorCount = 0;
+
+            // Deleta cada licença selecionada
+            for (const license of selectedLicenses) {
+                try {
+                    const url = `${FIREBASE_CONFIG.databaseURL}/licenses/${license.key}?key=${FIREBASE_CONFIG.apiKey}`;
+
+                    const firebaseDoc = {
+                        fields: {
+                            status: { stringValue: 'deleted' },
+                            deletedAt: { timestampValue: new Date().toISOString() }
+                        }
+                    };
+
+                    const response = await fetch(url, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(firebaseDoc)
+                    });
+
+                    if (response.ok) {
+                        console.log('✅ Licença deletada:', license.key);
+                        successCount++;
+
+                        // Remove localmente
+                        licenses = licenses.filter(l => l.id !== license.id);
+                    } else {
+                        console.error('❌ Erro ao deletar:', license.key);
+                        errorCount++;
+                    }
+                } catch (error) {
+                    console.error('❌ Erro ao deletar licença:', error);
+                    errorCount++;
+                }
+            }
+
+            // Atualiza UI
+            saveLicenses();
+            loadLicenses();
+            updateStats();
+
+            // Desmarca o checkbox "Selecionar Todas"
+            document.getElementById('selectAllCheckbox').checked = false;
+
+            // Mostra resultado
+            if (errorCount === 0) {
+                alert(`✅ ${successCount} licença(s) deletada(s) com sucesso!`);
+            } else {
+                alert(`⚠️ Deleção concluída:\n\n✅ ${successCount} deletadas\n❌ ${errorCount} com erro\n\nAlgumas licenças podem não ter sido removidas do Firebase.`);
             }
         }
 
