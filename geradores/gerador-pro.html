@@ -859,7 +859,11 @@
         let lastGeneratedLicense = null; // Armazena a última licença gerada
 
         // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Carregar do Firebase primeiro
+            await loadLicensesFromFirebase();
+
+            // Depois renderiza na tela
             loadLicenses();
             updateStats();
 
@@ -1192,7 +1196,78 @@
             window.open(whatsappUrl, '_blank');
         }
 
-        // Load Licenses
+        // Load Licenses from Firebase
+        async function loadLicensesFromFirebase() {
+            try {
+                console.log('📥 Carregando licenças do Firebase...');
+                const url = `${FIREBASE_CONFIG.databaseURL}/licenses?key=${FIREBASE_CONFIG.apiKey}`;
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    console.log('⚠️ Erro ao carregar do Firebase, usando localStorage');
+                    return;
+                }
+
+                const data = await response.json();
+
+                if (!data.documents || data.documents.length === 0) {
+                    console.log('📭 Nenhuma licença no Firebase');
+                    return;
+                }
+
+                // Converter documentos do Firebase para formato local
+                const firebaseLicenses = data.documents.map(doc => {
+                    const fields = doc.fields;
+                    const name = doc.name.split('/').pop(); // Pega a chave da licença
+
+                    return {
+                        id: fields.id?.stringValue || Date.now().toString(),
+                        key: name,
+                        type: fields.type?.stringValue || 'monthly',
+                        name: fields.name?.stringValue || '',
+                        email: fields.email?.stringValue || '',
+                        countryCode: fields.countryCode?.stringValue || '+55',
+                        phone: fields.phone?.stringValue || '',
+                        username: fields.username?.stringValue || '',
+                        password: fields.password?.stringValue || '',
+                        tag: fields.tag?.stringValue || '',
+                        notes: fields.notes?.stringValue || '',
+                        price: parseFloat(fields.price?.doubleValue || fields.price?.integerValue || 0),
+                        createdAt: fields.createdAt?.timestampValue || new Date().toISOString(),
+                        expiresAt: fields.expiresAt?.timestampValue || new Date().toISOString(),
+                        status: fields.status?.stringValue || 'active',
+                        checkFrequency: fields.checkFrequency?.stringValue || 'never',
+                        lastCheck: fields.lastCheck?.timestampValue || null
+                    };
+                });
+
+                // Mesclar com localStorage (prioriza Firebase)
+                const localLicenses = JSON.parse(localStorage.getItem('veo3_licenses_pro')) || [];
+
+                // Criar mapa de licenças por chave
+                const licenseMap = new Map();
+
+                // Adiciona locais primeiro
+                localLicenses.forEach(lic => licenseMap.set(lic.key, lic));
+
+                // Sobrescreve/adiciona do Firebase (prioridade)
+                firebaseLicenses.forEach(lic => licenseMap.set(lic.key, lic));
+
+                // Converte de volta para array
+                licenses = Array.from(licenseMap.values());
+
+                // Salva no localStorage para backup
+                saveLicenses();
+
+                console.log(`✅ ${licenses.length} licenças carregadas (Firebase + localStorage)`);
+
+            } catch (error) {
+                console.error('❌ Erro ao carregar do Firebase:', error);
+                console.log('📂 Usando apenas localStorage');
+            }
+        }
+
+        // Load Licenses (Renderizar na tela)
         function loadLicenses() {
             const tbody = document.getElementById('licenseTableBody');
             tbody.innerHTML = '';
