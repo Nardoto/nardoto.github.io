@@ -498,13 +498,14 @@
         .action-btn {
             background: transparent;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 6px;
-            padding: 6px 12px;
-            font-size: 12px;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 10px;
             color: rgba(255, 255, 255, 0.6);
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-right: 8px;
+            margin-right: 4px;
+            white-space: nowrap;
         }
 
         .action-btn:hover {
@@ -1343,16 +1344,16 @@
                     <td>${license.tag ? `<span class="badge">${license.tag}</span>` : '-'}</td>
                     <td>
                         ${license.message ?
-                            `<button class="action-btn" onclick="viewMessage('${license.id}')" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">📢 Ver</button>` :
-                            `<button class="action-btn" onclick="addMessage('${license.id}')" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">➕ Adicionar</button>`
+                            `<button class="action-btn" onclick="viewMessage('${license.id}')" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">📢</button>` :
+                            `<button class="action-btn" onclick="addMessage('${license.id}')" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">➕</button>`
                         }
                     </td>
-                    <td>
+                    <td style="white-space: nowrap;">
                         <button class="action-btn" onclick="toggleLicense('${license.id}')">
-                            ${license.status === 'suspended' ? 'Ativar' : 'Suspender'}
+                            ${license.status === 'suspended' ? '▶️' : '⏸️'}
                         </button>
-                        <button class="action-btn" onclick="extendLicense('${license.id}')">Estender</button>
-                        <button class="action-btn" onclick="deleteLicense('${license.id}')">Deletar</button>
+                        <button class="action-btn" onclick="extendLicense('${license.id}')">⏰</button>
+                        <button class="action-btn" onclick="deleteLicense('${license.id}')">🗑️</button>
                     </td>
                 `;
                 tbody.appendChild(row);
@@ -1480,6 +1481,9 @@
             // Remove localmente
             licenses = licenses.filter(l => l.id !== id);
             saveLicenses();
+
+            // Recarrega do Firebase para garantir sincronização
+            await loadLicensesFromFirebase();
             loadLicenses();
             updateStats();
 
@@ -1544,8 +1548,8 @@
                 }
             }
 
-            // Atualiza UI
-            saveLicenses();
+            // Atualiza UI - Recarrega do Firebase
+            await loadLicensesFromFirebase();
             loadLicenses();
             updateStats();
 
@@ -1624,8 +1628,8 @@
                 }
             }
 
-            // Atualiza UI
-            saveLicenses();
+            // Atualiza UI - Recarrega do Firebase
+            await loadLicensesFromFirebase();
             loadLicenses();
             updateStats();
 
