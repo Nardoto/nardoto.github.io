@@ -694,28 +694,28 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label">📱 WhatsApp</label>
-                    <div style="display: flex; gap: 12px;">
-                        <select class="form-select" id="clientCountryCode" style="width: 160px;">
-                            <option value="+55">🇧🇷 Brasil (+55)</option>
-                            <option value="+1">🇺🇸 EUA (+1)</option>
-                            <option value="+351">🇵🇹 Portugal (+351)</option>
-                            <option value="+34">🇪🇸 Espanha (+34)</option>
-                            <option value="+44">🇬🇧 Reino Unido (+44)</option>
-                            <option value="+33">🇫🇷 França (+33)</option>
-                            <option value="+49">🇩🇪 Alemanha (+49)</option>
-                            <option value="+39">🇮🇹 Itália (+39)</option>
-                            <option value="+52">🇲🇽 México (+52)</option>
-                            <option value="+54">🇦🇷 Argentina (+54)</option>
-                            <option value="+56">🇨🇱 Chile (+56)</option>
-                            <option value="+57">🇨🇴 Colômbia (+57)</option>
-                            <option value="+51">🇵🇪 Peru (+51)</option>
-                            <option value="+58">🇻🇪 Venezuela (+58)</option>
-                            <option value="+593">🇪🇨 Equador (+593)</option>
-                            <option value="+598">🇺🇾 Uruguai (+598)</option>
-                            <option value="+595">🇵🇾 Paraguai (+595)</option>
-                            <option value="+591">🇧🇴 Bolívia (+591)</option>
+                    <div style="display: flex; gap: 8px;">
+                        <select class="form-select" id="clientCountryCode" style="width: 90px; font-size: 12px;">
+                            <option value="+55">BR +55</option>
+                            <option value="+1">US +1</option>
+                            <option value="+351">PT +351</option>
+                            <option value="+34">ES +34</option>
+                            <option value="+44">UK +44</option>
+                            <option value="+33">FR +33</option>
+                            <option value="+49">DE +49</option>
+                            <option value="+39">IT +39</option>
+                            <option value="+52">MX +52</option>
+                            <option value="+54">AR +54</option>
+                            <option value="+56">CL +56</option>
+                            <option value="+57">CO +57</option>
+                            <option value="+51">PE +51</option>
+                            <option value="+58">VE +58</option>
+                            <option value="+593">EC +593</option>
+                            <option value="+598">UY +598</option>
+                            <option value="+595">PY +595</option>
+                            <option value="+591">BO +591</option>
                         </select>
-                        <input type="tel" class="form-input" id="clientPhone" placeholder="(27) 99999-9999" style="flex: 1;">
+                        <input type="tel" class="form-input" id="clientPhone" placeholder="(027) 99999-9999" style="flex: 1;">
                     </div>
                 </div>
                 <div class="form-group">
@@ -808,7 +808,6 @@
                         <th>Cliente</th>
                         <th>Tipo</th>
                         <th>Status</th>
-                        <th>Ativada?</th>
                         <th>Expira em</th>
                         <th>Tag</th>
                         <th>Mensagem</th>
@@ -1311,22 +1310,29 @@
                 const now = new Date();
                 const daysLeft = Math.ceil((expiryDate - now) / (1000 * 60 * 60 * 24));
 
-                let statusClass = 'active';
-                let statusText = 'Ativa';
+                // Verifica se foi ativada pelo usuário
+                const isActivated = license.deviceFingerprint && license.deviceFingerprint.length > 0;
 
-                if (license.status === 'suspended') {
+                let statusClass = 'suspended';
+                let statusText = 'Inativa';
+
+                if (!isActivated) {
+                    // Não foi ativada ainda
+                    statusClass = 'suspended';
+                    statusText = 'Inativa';
+                } else if (license.status === 'suspended') {
+                    // Foi suspensa manualmente
                     statusClass = 'suspended';
                     statusText = 'Suspensa';
                 } else if (daysLeft < 0) {
+                    // Expirou
                     statusClass = 'expired';
                     statusText = 'Expirada';
+                } else {
+                    // Está ativa e dentro da validade
+                    statusClass = 'active';
+                    statusText = 'Ativa';
                 }
-
-                // Verifica se foi ativada pelo usuário
-                const isActivated = license.deviceFingerprint && license.deviceFingerprint.length > 0;
-                const activationBadge = isActivated
-                    ? '<span class="license-status active">✓ Sim</span>'
-                    : '<span class="license-status suspended">✗ Não</span>';
 
                 row.innerHTML = `
                     <td style="text-align: center;">
@@ -1339,7 +1345,6 @@
                     </td>
                     <td>${LICENSE_CONFIG[license.type].name}</td>
                     <td><span class="license-status ${statusClass}">${statusText}</span></td>
-                    <td>${activationBadge}</td>
                     <td>${daysLeft > 0 ? `${daysLeft} dias` : 'Expirada'}</td>
                     <td>${license.tag ? `<span class="badge">${license.tag}</span>` : '-'}</td>
                     <td>
