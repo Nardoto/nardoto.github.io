@@ -10,18 +10,17 @@ service cloud.firestore {
       // Pode criar se não existir
       allow create: if !exists(/databases/$(database)/documents/licenses/$(licenseKey));
 
-      // Permite UPDATE em 3 casos:
-      // 1. Primeira ativação (deviceFingerprint vazio)
-      // 2. Admin deletando licença (status -> deleted)
-      // 3. Admin atualizando campos administrativos (message, expiresAt, status)
+      // Permite UPDATE em 2 casos:
+      // 1. Primeira ativação (deviceFingerprint vazio) - cliente ativando
+      // 2. NÃO está mudando o deviceFingerprint - admin gerenciando
       allow update: if
         // Caso 1: Primeira ativação (fingerprint vazio)
         (resource.data.deviceFingerprint == "" ||
          resource.data.deviceFingerprint == null ||
          !("deviceFingerprint" in resource.data))
         ||
-        // Caso 2 e 3: Admin atualizando (permite mudança em campos admin)
-        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'deletedAt', 'message', 'messageUpdatedAt', 'expiresAt', 'notes', 'tag']));
+        // Caso 2: Admin gerenciando (não muda deviceFingerprint)
+        (request.resource.data.deviceFingerprint == resource.data.deviceFingerprint);
 
       // Permite deletar (para revogar licenças)
       allow delete: if true;
