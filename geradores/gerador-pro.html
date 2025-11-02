@@ -779,7 +779,12 @@
 
         <!-- License List -->
         <div class="license-list">
-            <h2 class="form-title">📊 Licenças Geradas</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 class="form-title" style="margin: 0;">📊 Licenças Geradas</h2>
+                <button onclick="deleteAllExpired()" style="padding: 10px 20px; background: linear-gradient(135deg, #ff4757 0%, #c0392b 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
+                    🗑️ Limpar Expiradas
+                </button>
+            </div>
             <table class="license-table">
                 <thead>
                     <tr>
@@ -1235,7 +1240,8 @@
                         notes: fields.notes?.stringValue || '',
                         price: parseFloat(fields.price?.doubleValue || fields.price?.integerValue || 0),
                         createdAt: fields.createdAt?.timestampValue || new Date().toISOString(),
-                        expiresAt: fields.expiresAt?.timestampValue || new Date().toISOString(),
+                        expiresAt: fields.expiresAt?.timestampValue ||
+                                   (fields.expiresAt?.integerValue ? new Date(parseInt(fields.expiresAt.integerValue)).toISOString() : new Date().toISOString()),
                         status: fields.status?.stringValue || 'active',
                         checkFrequency: fields.checkFrequency?.stringValue || 'never',
                         lastCheck: fields.lastCheck?.timestampValue || null,
@@ -1447,6 +1453,77 @@
             updateStats();
 
             alert('✅ Licença deletada com sucesso!');
+        }
+
+        // Delete All Expired Licenses
+        async function deleteAllExpired() {
+            const now = new Date();
+            const expiredLicenses = licenses.filter(l => {
+                const expiry = new Date(l.expiresAt);
+                return expiry < now;
+            });
+
+            if (expiredLicenses.length === 0) {
+                alert('✅ Não há licenças expiradas para deletar!');
+                return;
+            }
+
+            if (!confirm(`🗑️ Deletar ${expiredLicenses.length} licença(s) expirada(s)?\n\nElas serão removidas do Firebase e não poderão mais ser usadas.\n\nEsta ação não pode ser desfeita.`)) {
+                return;
+            }
+
+            console.log(`🗑️ Deletando ${expiredLicenses.length} licenças expiradas...`);
+
+            let successCount = 0;
+            let errorCount = 0;
+
+            // Deleta cada licença expirada
+            for (const license of expiredLicenses) {
+                try {
+                    const url = `${FIREBASE_CONFIG.databaseURL}/licenses/${license.key}?key=${FIREBASE_CONFIG.apiKey}`;
+
+                    const firebaseDoc = {
+                        fields: {
+                            status: { stringValue: 'deleted' },
+                            deletedAt: { timestampValue: new Date().toISOString() }
+                        }
+                    };
+
+                    const response = await fetch(url, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(firebaseDoc)
+                    });
+
+                    if (response.ok) {
+                        console.log('✅ Licença deletada:', license.key);
+                        successCount++;
+
+                        // Remove localmente
+                        licenses = licenses.filter(l => l.id !== license.id);
+                    } else {
+                        console.error('❌ Erro ao deletar:', license.key);
+                        errorCount++;
+                    }
+                } catch (error) {
+                    console.error('❌ Erro ao deletar licença:', error);
+                    errorCount++;
+                }
+            }
+
+            // Atualiza UI
+            saveLicenses();
+            loadLicenses();
+            updateStats();
+
+            // Mostra resultado
+            if (errorCount === 0) {
+                alert(`✅ ${successCount} licença(s) deletada(s) com sucesso!`);
+            } else {
+                alert(`⚠️ Limpeza concluída:\n\n✅ ${successCount} deletadas\n❌ ${errorCount} com erro\n\nAlgumas licenças podem não ter sido removidas do Firebase.`);
+            }
         }
 
         // Update Stats
