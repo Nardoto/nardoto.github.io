@@ -774,13 +774,19 @@
                     <div class="license-info-item">
                         <div class="license-info-label">Status</div>
                         <div class="license-info-value">
-                            <span class="license-status active">Ativa</span>
+                            <span class="license-status suspended" id="licenseStatusDisplay">⏳ Aguardando Ativação</span>
                         </div>
                     </div>
                 </div>
                 <div style="text-align: center; margin-top: 20px; display: flex; gap: 12px; justify-content: center;">
                     <button class="copy-btn" onclick="copyLicense()">📋 Copiar Credenciais</button>
                     <button class="copy-btn" onclick="sendViaWhatsApp()" style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);">📱 Enviar via WhatsApp</button>
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 8px;">
+                    <div style="color: #f59e0b; font-weight: 600; margin-bottom: 8px;">⚠️ Importante:</div>
+                    <div style="color: rgba(255, 255, 255, 0.8); font-size: 14px; line-height: 1.6;">
+                        Esta licença foi gerada mas ainda <strong>não está ativa</strong>. O cliente precisa fazer login na extensão com o username e senha fornecidos para ativar a licença. Somente após a ativação o status mudará para "✅ Ativa".
+                    </div>
                 </div>
             </div>
         </div>
@@ -1051,7 +1057,7 @@
                 price: config.price,
                 createdAt: now.toISOString(),
                 expiresAt: expiryDate.toISOString(),
-                status: 'active',
+                status: 'inactive', // Inicia como inativa, só ativa quando cliente usar
                 checkFrequency: config.checkFrequency,
                 lastCheck: null,
                 // Privacy-first: NÃO salvamos dados de uso
@@ -1073,7 +1079,7 @@
                         phone: { stringValue: `${countryCode}${phone}` }, // Adiciona telefone completo
                         plan: { stringValue: planNames[selectedLicenseType] },
                         expiresAt: { integerValue: expiryDate.getTime().toString() },
-                        status: { stringValue: 'active' },
+                        status: { stringValue: 'inactive' }, // Inicia como inativa até cliente ativar
                         deviceFingerprint: { stringValue: '' }, // Será preenchido na ativação
                         createdAt: { timestampValue: now.toISOString() },
                         notes: { stringValue: notes || '' },
@@ -1325,28 +1331,30 @@
                 const now = new Date();
                 const daysLeft = Math.ceil((expiryDate - now) / (1000 * 60 * 60 * 24));
 
-                // Verifica se foi ativada pelo usuário
-                const isActivated = license.deviceFingerprint && license.deviceFingerprint.length > 0;
-
+                // Verifica status da licença
                 let statusClass = 'suspended';
                 let statusText = 'Inativa';
 
-                if (!isActivated) {
-                    // Não foi ativada ainda
+                if (license.status === 'inactive') {
+                    // Ainda não foi ativada pelo cliente
                     statusClass = 'suspended';
-                    statusText = 'Inativa';
+                    statusText = '⏳ Aguardando Ativação';
                 } else if (license.status === 'suspended') {
                     // Foi suspensa manualmente
                     statusClass = 'suspended';
-                    statusText = 'Suspensa';
+                    statusText = '⚠️ Suspensa';
                 } else if (daysLeft < 0) {
                     // Expirou
                     statusClass = 'expired';
-                    statusText = 'Expirada';
-                } else {
+                    statusText = '❌ Expirada';
+                } else if (license.status === 'active') {
                     // Está ativa e dentro da validade
                     statusClass = 'active';
-                    statusText = 'Ativa';
+                    statusText = '✅ Ativa';
+                } else {
+                    // Status desconhecido
+                    statusClass = 'suspended';
+                    statusText = '❓ ' + (license.status || 'Desconhecido');
                 }
 
                 row.innerHTML = `
@@ -2083,10 +2091,15 @@
         // Update Stats
         function updateStats() {
             const now = new Date();
+
+            // Licenças ativas (status 'active' e não expiradas)
             const active = licenses.filter(l => {
                 const expiry = new Date(l.expiresAt);
                 return l.status === 'active' && expiry > now;
             });
+
+            // Licenças aguardando ativação (status 'inactive')
+            const pending = licenses.filter(l => l.status === 'inactive');
 
             const trials = active.filter(l => l.type === 'trial' || l.type === 'trial3days');
 
@@ -2100,7 +2113,7 @@
             }, 0);
 
             document.getElementById('totalLicenses').textContent = licenses.length;
-            document.getElementById('activeLicenses').textContent = active.length;
+            document.getElementById('activeLicenses').textContent = `${active.length}${pending.length > 0 ? ` (${pending.length} aguardando)` : ''}`;
             document.getElementById('trialLicenses').textContent = trials.length;
             document.getElementById('monthlyRevenue').textContent = `R$ ${monthlyRevenue.toFixed(0)}`;
         }
