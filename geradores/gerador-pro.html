@@ -1073,10 +1073,11 @@
                     }
                 };
 
-                const url = `${FIREBASE_CONFIG.databaseURL}/licenses/${key}?key=${FIREBASE_CONFIG.apiKey}`;
+                // Usar POST com documentId para criar novo documento
+                const url = `${FIREBASE_CONFIG.databaseURL}/licenses?documentId=${key}&key=${FIREBASE_CONFIG.apiKey}`;
 
                 const response = await fetch(url, {
-                    method: 'PATCH',
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -1084,15 +1085,39 @@
                 });
 
                 if (!response.ok) {
-                    throw new Error('Erro ao salvar no Firebase');
-                }
+                    const errorText = await response.text();
+                    console.error('Detalhes do erro:', errorText);
 
-                console.log('✅ Licença salva no Firebase!');
+                    // Se o documento já existe (409), tentar atualizar com PATCH
+                    if (response.status === 409 || errorText.includes('already exists')) {
+                        console.log('Documento já existe, tentando atualizar...');
+                        const updateUrl = `${FIREBASE_CONFIG.databaseURL}/licenses/${key}?key=${FIREBASE_CONFIG.apiKey}`;
+
+                        const updateResponse = await fetch(updateUrl, {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(firebaseDoc)
+                        });
+
+                        if (!updateResponse.ok) {
+                            const updateErrorText = await updateResponse.text();
+                            console.error('Erro ao atualizar:', updateErrorText);
+                            throw new Error('Erro ao atualizar licença existente no Firebase');
+                        }
+                        console.log('✅ Licença atualizada no Firebase!');
+                    } else {
+                        throw new Error(`Erro ao salvar no Firebase: ${response.status} - ${errorText}`);
+                    }
+                } else {
+                    console.log('✅ Licença criada no Firebase!');
+                }
 
             } catch (error) {
                 console.error('❌ Erro ao salvar no Firebase:', error);
                 alert('⚠️ ATENÇÃO: Licença gerada localmente, mas houve erro ao salvar no Firebase.\n\n' +
-                      'Verifique sua conexão com internet.\n' +
+                      'Detalhes: ' + error.message + '\n\n' +
                       'A licença pode não funcionar na extensão até ser sincronizada.');
             }
 
