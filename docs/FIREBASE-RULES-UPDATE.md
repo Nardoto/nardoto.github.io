@@ -12,9 +12,11 @@ Novas regras do Firebase que **PROTEGEM** os dados durante a ativação.
 
 ## 📋 COMO ATUALIZAR AS REGRAS
 
-### ⚠️ IMPORTANTE - CORREÇÃO 403 ERROR
+### ⚠️ IMPORTANTE - CORREÇÃO 403 ERROR (VERSÃO SIMPLIFICADA)
 
-**Se você recebeu erro 403 ao tentar ativar**, foi porque a primeira versão das regras estava muito restritiva. A versão abaixo JÁ ESTÁ CORRIGIDA!
+**Se você recebeu erro 403 ao tentar ativar**, use a versão SIMPLIFICADA das regras abaixo.
+
+**ATENÇÃO:** Esta versão permite que a extensão modifique campos durante ativação, mas ainda protege contra uso em múltiplos dispositivos (fingerprint único).
 
 ### 1. Acesse o Firebase Console
 - Vá para: https://console.firebase.google.com
@@ -43,37 +45,23 @@ service cloud.firestore {
       allow create: if !exists(/databases/$(database)/documents/licenses/$(licenseKey));
 
       // Permite UPDATE em 2 casos:
-      // CASO 1: Primeira ativação pelo cliente
-      // CASO 2: Admin gerenciando (não muda deviceFingerprint de licença já ativada)
+      // CASO 1: Primeira ativação pelo cliente (fingerprint vazio -> preenchido)
+      // CASO 2: Admin gerenciando (não muda deviceFingerprint já existente)
       allow update: if
-        // Caso 1: Cliente ativando pela primeira vez
+        // Caso 1: Primeira ativação - permite tudo se fingerprint estava vazio
         (
-          // Fingerprint está vazio no banco
           (resource.data.deviceFingerprint == "" ||
            resource.data.deviceFingerprint == null ||
            !("deviceFingerprint" in resource.data))
           &&
-          // Deve estar setando um deviceFingerprint válido
           request.resource.data.deviceFingerprint != "" &&
           request.resource.data.deviceFingerprint != null
-          &&
-          // Status deve mudar para 'active'
-          request.resource.data.status == 'active'
-          &&
-          // PROTEÇÃO: Campos importantes não podem ser modificados na ativação
-          // (Permite incluir no request, mas não pode modificar se já existem)
-          (!("name" in resource.data) || request.resource.data.name == resource.data.name) &&
-          (!("email" in resource.data) || request.resource.data.email == resource.data.email) &&
-          (!("phone" in resource.data) || request.resource.data.phone == resource.data.phone) &&
-          (!("username" in resource.data) || request.resource.data.username == resource.data.username) &&
-          (!("password" in resource.data) || request.resource.data.password == resource.data.password) &&
-          (!("type" in resource.data) || request.resource.data.type == resource.data.type) &&
-          (!("plan" in resource.data) || request.resource.data.plan == resource.data.plan) &&
-          (!("licenseKey" in resource.data) || request.resource.data.licenseKey == resource.data.licenseKey)
         )
         ||
-        // Caso 2: Admin gerenciando (não muda deviceFingerprint de licença já ativada)
+        // Caso 2: Admin ou renovação - não muda fingerprint existente
         (
+          resource.data.deviceFingerprint != "" &&
+          resource.data.deviceFingerprint != null &&
           request.resource.data.deviceFingerprint == resource.data.deviceFingerprint
         );
 
