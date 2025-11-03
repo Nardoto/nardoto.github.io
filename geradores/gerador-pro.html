@@ -799,6 +799,9 @@
                     <button onclick="deleteAllExpired()" style="padding: 10px 20px; background: linear-gradient(135deg, #ff4757 0%, #c0392b 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
                         🗑️ Limpar Expiradas
                     </button>
+                    <button onclick="deleteEverythingFromFirebase()" style="padding: 10px 20px; background: linear-gradient(135deg, #000000 0%, #434343 100%); color: white; border: 2px solid #ff0000; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;" title="APAGAR TUDO DO FIREBASE DEFINITIVAMENTE!">
+                        🔥 LIMPAR TUDO FIREBASE
+                    </button>
                 </div>
             </div>
             <table class="license-table">
@@ -1855,24 +1858,17 @@
             let successCount = 0;
             let errorCount = 0;
 
-            // Deleta cada licença selecionada
+            // Deleta cada licença selecionada (DELETE REAL do Firebase)
             for (const license of selectedLicenses) {
                 try {
                     const url = `${FIREBASE_CONFIG.databaseURL}/licenses/${license.key}?key=${FIREBASE_CONFIG.apiKey}`;
 
-                    const firebaseDoc = {
-                        fields: {
-                            status: { stringValue: 'deleted' },
-                            deletedAt: { timestampValue: new Date().toISOString() }
-                        }
-                    };
-
+                    // Usa DELETE para remover completamente do Firebase
                     const response = await fetch(url, {
-                        method: 'PATCH',
+                        method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(firebaseDoc)
+                        }
                     });
 
                     if (response.ok) {
@@ -1904,6 +1900,92 @@
                 alert(`✅ ${successCount} licença(s) deletada(s) com sucesso!`);
             } else {
                 alert(`⚠️ Deleção concluída:\n\n✅ ${successCount} deletadas\n❌ ${errorCount} com erro\n\nAlgumas licenças podem não ter sido removidas do Firebase.`);
+            }
+        }
+
+        // FUNÇÃO ESPECIAL: Deletar TUDO do Firebase definitivamente
+        async function deleteEverythingFromFirebase() {
+            const confirmMsg = `⚠️⚠️⚠️ ATENÇÃO TOTAL ⚠️⚠️⚠️\n\n` +
+                `Esta ação irá APAGAR DEFINITIVAMENTE todas as licenças do Firebase!\n\n` +
+                `❌ ISSO NÃO PODE SER DESFEITO!\n` +
+                `❌ TODAS as licenças serão perdidas!\n` +
+                `❌ TODOS os clientes perderão acesso!\n\n` +
+                `Digite "APAGAR TUDO" para confirmar:`;
+
+            const confirmation = prompt(confirmMsg);
+
+            if (confirmation !== "APAGAR TUDO") {
+                alert('❌ Operação cancelada. Nada foi deletado.');
+                return;
+            }
+
+            console.log('🔥 INICIANDO LIMPEZA TOTAL DO FIREBASE...');
+
+            try {
+                // Primeiro, carrega todas as licenças do Firebase
+                const url = `${FIREBASE_CONFIG.databaseURL}/licenses?key=${FIREBASE_CONFIG.apiKey}`;
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error('Erro ao buscar licenças');
+                }
+
+                const data = await response.json();
+
+                if (!data.documents || data.documents.length === 0) {
+                    alert('✅ Firebase já está vazio! Nenhuma licença encontrada.');
+                    licenses = [];
+                    loadLicenses();
+                    updateStats();
+                    return;
+                }
+
+                console.log(`🔥 Encontradas ${data.documents.length} licenças para deletar...`);
+
+                let deletedCount = 0;
+                let errorCount = 0;
+
+                // Deleta cada documento individualmente
+                for (const doc of data.documents) {
+                    try {
+                        const licenseKey = doc.name.split('/').pop();
+                        const deleteUrl = `${FIREBASE_CONFIG.databaseURL}/licenses/${licenseKey}?key=${FIREBASE_CONFIG.apiKey}`;
+
+                        const deleteResponse = await fetch(deleteUrl, {
+                            method: 'DELETE'
+                        });
+
+                        if (deleteResponse.ok || deleteResponse.status === 404) {
+                            console.log(`✅ Deletada: ${licenseKey}`);
+                            deletedCount++;
+                        } else {
+                            console.error(`❌ Erro ao deletar: ${licenseKey}`);
+                            errorCount++;
+                        }
+                    } catch (error) {
+                        console.error('❌ Erro:', error);
+                        errorCount++;
+                    }
+                }
+
+                // Limpa array local
+                licenses = [];
+
+                // Atualiza interface
+                loadLicenses();
+                updateStats();
+
+                // Mostra resultado
+                const resultMsg = `🔥 LIMPEZA COMPLETA!\n\n` +
+                    `✅ ${deletedCount} licenças deletadas\n` +
+                    `${errorCount > 0 ? `❌ ${errorCount} erros\n` : ''}` +
+                    `\nO Firebase está limpo!`;
+
+                alert(resultMsg);
+
+            } catch (error) {
+                console.error('❌ Erro crítico:', error);
+                alert('❌ Erro ao limpar Firebase:\n' + error.message);
             }
         }
 
