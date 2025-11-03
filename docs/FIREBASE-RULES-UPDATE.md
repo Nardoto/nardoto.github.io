@@ -12,6 +12,10 @@ Novas regras do Firebase que **PROTEGEM** os dados durante a ativação.
 
 ## 📋 COMO ATUALIZAR AS REGRAS
 
+### ⚠️ IMPORTANTE - CORREÇÃO 403 ERROR
+
+**Se você recebeu erro 403 ao tentar ativar**, foi porque a primeira versão das regras estava muito restritiva. A versão abaixo JÁ ESTÁ CORRIGIDA!
+
 ### 1. Acesse o Firebase Console
 - Vá para: https://console.firebase.google.com
 - Selecione o projeto: **veo3automator**
@@ -39,8 +43,8 @@ service cloud.firestore {
       allow create: if !exists(/databases/$(database)/documents/licenses/$(licenseKey));
 
       // Permite UPDATE em 2 casos:
-      // CASO 1: Primeira ativação pelo cliente (apenas muda status, deviceFingerprint, activatedAt)
-      // CASO 2: Admin gerenciando (pode mudar qualquer coisa EXCETO deviceFingerprint)
+      // CASO 1: Primeira ativação pelo cliente
+      // CASO 2: Admin gerenciando (não muda deviceFingerprint de licença já ativada)
       allow update: if
         // Caso 1: Cliente ativando pela primeira vez
         (
@@ -49,15 +53,23 @@ service cloud.firestore {
            resource.data.deviceFingerprint == null ||
            !("deviceFingerprint" in resource.data))
           &&
-          // Cliente só pode mudar estes 3 campos:
-          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'deviceFingerprint', 'activatedAt'])
-          &&
           // Deve estar setando um deviceFingerprint válido
           request.resource.data.deviceFingerprint != "" &&
           request.resource.data.deviceFingerprint != null
           &&
           // Status deve mudar para 'active'
           request.resource.data.status == 'active'
+          &&
+          // PROTEÇÃO: Campos importantes não podem ser modificados na ativação
+          // (Permite incluir no request, mas não pode modificar se já existem)
+          (!("name" in resource.data) || request.resource.data.name == resource.data.name) &&
+          (!("email" in resource.data) || request.resource.data.email == resource.data.email) &&
+          (!("phone" in resource.data) || request.resource.data.phone == resource.data.phone) &&
+          (!("username" in resource.data) || request.resource.data.username == resource.data.username) &&
+          (!("password" in resource.data) || request.resource.data.password == resource.data.password) &&
+          (!("type" in resource.data) || request.resource.data.type == resource.data.type) &&
+          (!("plan" in resource.data) || request.resource.data.plan == resource.data.plan) &&
+          (!("licenseKey" in resource.data) || request.resource.data.licenseKey == resource.data.licenseKey)
         )
         ||
         // Caso 2: Admin gerenciando (não muda deviceFingerprint de licença já ativada)
