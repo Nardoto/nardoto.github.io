@@ -1033,7 +1033,7 @@
 
             // Create license object
             const license = {
-                id: Date.now().toString(),
+                id: key, // Usa a licenseKey como ID único
                 key: key,
                 type: selectedLicenseType,
                 name: name,
@@ -1280,7 +1280,7 @@
                     const name = doc.name.split('/').pop(); // Pega a chave da licença
 
                     return {
-                        id: fields.id?.stringValue || Date.now().toString(),
+                        id: name, // Usa a licenseKey como ID único
                         key: name,
                         type: fields.type?.stringValue || 'monthly',
                         name: fields.name?.stringValue || '',
@@ -1661,37 +1661,67 @@
 
         // Extend License
         async function extendLicense(id) {
-            const days = prompt('Quantos dias adicionar?', '30');
-            if (days) {
-                const license = licenses.find(l => l.id === id);
-                if (license) {
-                    const currentExpiry = new Date(license.expiresAt);
-                    currentExpiry.setDate(currentExpiry.getDate() + parseInt(days));
-                    license.expiresAt = currentExpiry.toISOString();
+            const license = licenses.find(l => l.id === id);
+            if (!license) {
+                alert('❌ Licença não encontrada!');
+                return;
+            }
 
-                    // Atualiza no Firebase
-                    try {
-                        const url = `${FIREBASE_CONFIG.databaseURL}/licenses/${license.key}?key=${FIREBASE_CONFIG.apiKey}&updateMask.fieldPaths=expiresAt`;
-                        const response = await fetch(url, {
-                            method: 'PATCH',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                fields: {
-                                    expiresAt: { integerValue: currentExpiry.getTime().toString() }
-                                }
-                            })
-                        });
+            const currentExpiry = new Date(license.expiresAt);
+            const currentDate = currentExpiry.toLocaleDateString('pt-BR');
 
-                        if (response.ok) {
-                            console.log('✅ Expiração atualizada no Firebase');
+            const days = prompt(
+                `⏰ EXTENDER LICENÇA\n\n` +
+                `Licença: ${license.key}\n` +
+                `Cliente: ${license.name || '(sem nome)'}\n` +
+                `Expira atualmente em: ${currentDate}\n\n` +
+                `Quantos dias adicionar?`,
+                '30'
+            );
+
+            if (!days || parseInt(days) <= 0) return;
+
+            const newExpiry = new Date(currentExpiry);
+            newExpiry.setDate(newExpiry.getDate() + parseInt(days));
+            const newDate = newExpiry.toLocaleDateString('pt-BR');
+
+            console.log(`⏰ Extendendo licença ${license.key} de ${currentDate} para ${newDate}`);
+
+            // Atualiza no Firebase
+            try {
+                const url = `${FIREBASE_CONFIG.databaseURL}/licenses/${license.key}?key=${FIREBASE_CONFIG.apiKey}&updateMask.fieldPaths=expiresAt`;
+                const response = await fetch(url, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        fields: {
+                            expiresAt: { integerValue: newExpiry.getTime().toString() }
                         }
-                    } catch (error) {
-                        console.error('❌ Erro ao atualizar Firebase:', error);
-                    }
+                    })
+                });
 
-                        loadLicenses();
-                    alert(`Licença estendida por ${days} dias!`);
+                if (response.ok) {
+                    console.log(`✅ Expiração da licença ${license.key} atualizada no Firebase`);
+                    license.expiresAt = newExpiry.toISOString();
+
+                    await loadLicensesFromFirebase();
+                    loadLicenses();
+                    updateStats();
+
+                    alert(`✅ Licença estendida com sucesso!\n\n` +
+                          `De: ${currentDate}\n` +
+                          `Para: ${newDate}\n` +
+                          `(+${days} dias)`);
+                } else {
+                    const error = await response.json();
+                    console.error('❌ Erro do Firebase:', error);
+                    alert(`❌ Erro ao extender licença!\n\n` +
+                          `Status: ${response.status}\n` +
+                          `Verifique o console para mais detalhes.`);
                 }
+            } catch (error) {
+                console.error('❌ Erro ao atualizar Firebase:', error);
+                alert(`❌ Erro ao conectar com Firebase!\n\n${error.message}`);
             }
         }
 
