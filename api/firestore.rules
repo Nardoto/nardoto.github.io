@@ -2,7 +2,7 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Regra para licenças - PROTEÇÃO CONTRA USO INDEVIDO
+    // Regra para licenças - PROTEÇÃO CONTRA USO INDEVIDO E PRESERVAÇÃO DE DADOS
     match /licenses/{licenseKey} {
       // Qualquer um pode ler
       allow read: if true;
@@ -11,16 +11,31 @@ service cloud.firestore {
       allow create: if !exists(/databases/$(database)/documents/licenses/$(licenseKey));
 
       // Permite UPDATE em 2 casos:
-      // 1. Primeira ativação (deviceFingerprint vazio) - cliente ativando
-      // 2. NÃO está mudando o deviceFingerprint - admin gerenciando
+      // CASO 1: Primeira ativação pelo cliente (apenas muda status, deviceFingerprint, activatedAt)
+      // CASO 2: Admin gerenciando (pode mudar qualquer coisa EXCETO deviceFingerprint)
       allow update: if
-        // Caso 1: Primeira ativação (fingerprint vazio)
-        (resource.data.deviceFingerprint == "" ||
-         resource.data.deviceFingerprint == null ||
-         !("deviceFingerprint" in resource.data))
+        // Caso 1: Cliente ativando pela primeira vez
+        (
+          // Fingerprint está vazio no banco
+          (resource.data.deviceFingerprint == "" ||
+           resource.data.deviceFingerprint == null ||
+           !("deviceFingerprint" in resource.data))
+          &&
+          // Cliente só pode mudar estes 3 campos:
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'deviceFingerprint', 'activatedAt'])
+          &&
+          // Deve estar setando um deviceFingerprint válido
+          request.resource.data.deviceFingerprint != "" &&
+          request.resource.data.deviceFingerprint != null
+          &&
+          // Status deve mudar para 'active'
+          request.resource.data.status == 'active'
+        )
         ||
-        // Caso 2: Admin gerenciando (não muda deviceFingerprint)
-        (request.resource.data.deviceFingerprint == resource.data.deviceFingerprint);
+        // Caso 2: Admin gerenciando (não muda deviceFingerprint de licença já ativada)
+        (
+          request.resource.data.deviceFingerprint == resource.data.deviceFingerprint
+        );
 
       // Permite deletar (para revogar licenças)
       allow delete: if true;
