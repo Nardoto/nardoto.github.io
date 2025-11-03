@@ -452,7 +452,7 @@
 
         <div class="actions">
             <button class="btn btn-primary" onclick="loadLeads()">🔄 Atualizar</button>
-            <button class="btn btn-secondary" onclick="window.open('../geradores/gerador-pro.html', '_blank')">🔑 Abrir Gerador</button>
+            <button class="btn btn-secondary" onclick="window.open(window.location.origin + '/geradores/gerador-pro.html', '_blank')">🔑 Abrir Gerador</button>
         </div>
 
         <div id="leadsContainer">
@@ -677,7 +677,9 @@
                 autoFill: 'true'  // Flag para indicar preenchimento automático
             });
 
-            const generatorUrl = `../geradores/gerador-pro.html?${params.toString()}`;
+            // Usar caminho absoluto para garantir que funcione
+            const baseUrl = window.location.origin;
+            const generatorUrl = `${baseUrl}/geradores/gerador-pro.html?${params.toString()}`;
             window.open(generatorUrl, '_blank');
 
             showToast('✅ Gerador aberto com dados preenchidos! Lead marcado como licenciado.');
