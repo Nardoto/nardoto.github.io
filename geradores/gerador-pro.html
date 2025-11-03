@@ -799,23 +799,14 @@
                     <button onclick="clearLocalStorage()" style="padding: 10px 20px; background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;" title="Limpar cache local e recarregar do Firebase">
                         🧹 Limpar Cache
                     </button>
-                    <button onclick="deleteSelected()" style="padding: 10px 20px; background: linear-gradient(135deg, #e67e22 0%, #d35400 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
-                        ☑️ Deletar Selecionadas
-                    </button>
                     <button onclick="deleteAllExpired()" style="padding: 10px 20px; background: linear-gradient(135deg, #ff4757 0%, #c0392b 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
                         🗑️ Limpar Expiradas
-                    </button>
-                    <button onclick="deleteEverythingFromFirebase()" style="padding: 10px 20px; background: linear-gradient(135deg, #000000 0%, #434343 100%); color: white; border: 2px solid #ff0000; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;" title="APAGAR TUDO DO FIREBASE DEFINITIVAMENTE!">
-                        🔥 LIMPAR TUDO FIREBASE
                     </button>
                 </div>
             </div>
             <table class="license-table">
                 <thead>
                     <tr>
-                        <th style="width: 40px;">
-                            <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll()" style="cursor: pointer; width: 18px; height: 18px;">
-                        </th>
                         <th>Licença</th>
                         <th>Cliente</th>
                         <th>Tipo</th>
@@ -1362,9 +1353,6 @@
                 }
 
                 row.innerHTML = `
-                    <td style="text-align: center;">
-                        <input type="checkbox" class="license-checkbox" data-license-id="${license.id}" style="cursor: pointer; width: 18px; height: 18px;">
-                    </td>
                     <td style="font-family: monospace; font-size: 12px;">${license.key}</td>
                     <td>
                         <div style="display: flex; align-items: center; gap: 8px;">
@@ -1384,11 +1372,12 @@
                         }
                     </td>
                     <td style="white-space: nowrap;">
-                        <button class="action-btn" onclick="toggleLicense('${license.id}')">
+                        <button class="action-btn" onclick="viewLicenseDetails('${license.id}')" style="padding: 4px 8px; font-size: 11px;" title="Ver detalhes">ℹ️</button>
+                        <button class="action-btn" onclick="toggleLicense('${license.id}')" style="padding: 4px 8px; font-size: 11px;" title="${license.status === 'suspended' ? 'Reativar' : 'Pausar'}">
                             ${license.status === 'suspended' ? '▶️' : '⏸️'}
                         </button>
-                        <button class="action-btn" onclick="extendLicense('${license.id}')">⏰</button>
-                        <button class="action-btn" onclick="deleteLicense('${license.id}')">🗑️</button>
+                        <button class="action-btn" onclick="extendLicense('${license.id}')" style="padding: 4px 8px; font-size: 11px;" title="Extender">⏰</button>
+                        <button class="action-btn" onclick="deleteLicense('${license.id}')" style="padding: 4px 8px; font-size: 11px;" title="Deletar">🗑️</button>
                     </td>
                 `;
                 tbody.appendChild(row);
@@ -2172,6 +2161,176 @@
             document.getElementById('dashboardContainer').classList.remove('active');
             document.getElementById('adminPassword').value = '';
         }
+        // View License Details - Modal com TODAS as informações do Firebase
+        function viewLicenseDetails(id) {
+            const license = licenses.find(l => l.id === id);
+            if (!license) return;
+
+            const createdDate = license.createdAt ? new Date(license.createdAt).toLocaleString('pt-BR') : '-';
+            const activatedDate = license.activatedAt ? new Date(license.activatedAt).toLocaleString('pt-BR') : '-';
+            const expiresDate = license.expiresAt ? new Date(license.expiresAt).toLocaleString('pt-BR') : '-';
+            const messageUpdatedDate = license.messageUpdatedAt ? new Date(license.messageUpdatedAt).toLocaleString('pt-BR') : '-';
+
+            const hasFingerprint = license.deviceFingerprint && license.deviceFingerprint !== '';
+            const fingerprintDisplay = hasFingerprint ?
+                `${license.deviceFingerprint.substring(0, 16)}... <span style="color: #10b981;">✓ Vinculada</span>` :
+                `<span style="color: #f59e0b;">⚠️ Não vinculada</span>`;
+
+            const modalHTML = `
+                <div id="detailsModal" style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.85);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 10000;
+                    backdrop-filter: blur(5px);
+                " onclick="if(event.target.id === 'detailsModal') this.remove()">
+                    <div style="
+                        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+                        border-radius: 16px;
+                        padding: 30px;
+                        max-width: 800px;
+                        width: 90%;
+                        max-height: 90vh;
+                        overflow-y: auto;
+                        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+                        border: 1px solid rgba(255, 255, 255, 0.1);
+                    " onclick="event.stopPropagation()">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                            <h2 style="margin: 0; color: white; font-size: 24px;">📋 Detalhes da Licença</h2>
+                            <button onclick="document.getElementById('detailsModal').remove()" style="
+                                background: transparent;
+                                border: none;
+                                color: white;
+                                font-size: 28px;
+                                cursor: pointer;
+                                line-height: 1;
+                                padding: 0;
+                                width: 32px;
+                                height: 32px;
+                            ">×</button>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <!-- Coluna 1 -->
+                            <div style="display: flex; flex-direction: column; gap: 15px;">
+                                <div>
+                                    <div style="color: #94a3b8; font-size: 12px; margin-bottom: 5px;">🔑 CHAVE DE LICENÇA</div>
+                                    <div style="color: white; font-family: monospace; font-size: 16px; font-weight: 600;">${license.key}</div>
+                                </div>
+
+                                <div>
+                                    <div style="color: #94a3b8; font-size: 12px; margin-bottom: 5px;">👤 NOME DO CLIENTE</div>
+                                    <div style="color: white; font-size: 14px;">${license.name || '(sem nome)'}</div>
+                                </div>
+
+                                <div>
+                                    <div style="color: #94a3b8; font-size: 12px; margin-bottom: 5px;">📧 EMAIL</div>
+                                    <div style="color: white; font-size: 14px;">${license.email || '(sem email)'}</div>
+                                </div>
+
+                                <div>
+                                    <div style="color: #94a3b8; font-size: 12px; margin-bottom: 5px;">📱 TELEFONE</div>
+                                    <div style="color: white; font-size: 14px;">${license.phone || '(sem telefone)'}</div>
+                                </div>
+
+                                <div>
+                                    <div style="color: #94a3b8; font-size: 12px; margin-bottom: 5px;">🔐 USERNAME (LOGIN)</div>
+                                    <div style="color: white; font-size: 14px; font-family: monospace;">${license.username || '-'}</div>
+                                </div>
+
+                                <div>
+                                    <div style="color: #94a3b8; font-size: 12px; margin-bottom: 5px;">🔒 SENHA (LOGIN)</div>
+                                    <div style="color: white; font-size: 14px; font-family: monospace;">${license.password || '-'}</div>
+                                </div>
+
+                                <div>
+                                    <div style="color: #94a3b8; font-size: 12px; margin-bottom: 5px;">🏷️ TAG/CATEGORIA</div>
+                                    <div style="color: white; font-size: 14px;">${license.tag ? `<span class="badge">${license.tag}</span>` : '-'}</div>
+                                </div>
+                            </div>
+
+                            <!-- Coluna 2 -->
+                            <div style="display: flex; flex-direction: column; gap: 15px;">
+                                <div>
+                                    <div style="color: #94a3b8; font-size: 12px; margin-bottom: 5px;">📦 TIPO DE LICENÇA</div>
+                                    <div style="color: white; font-size: 14px;">${LICENSE_CONFIG[license.type].name}</div>
+                                </div>
+
+                                <div>
+                                    <div style="color: #94a3b8; font-size: 12px; margin-bottom: 5px;">💎 PLANO</div>
+                                    <div style="color: white; font-size: 14px;">${license.plan || 'Mensal'}</div>
+                                </div>
+
+                                <div>
+                                    <div style="color: #94a3b8; font-size: 12px; margin-bottom: 5px;">📊 STATUS</div>
+                                    <div style="color: white; font-size: 14px;">${license.status || 'active'}</div>
+                                </div>
+
+                                <div>
+                                    <div style="color: #94a3b8; font-size: 12px; margin-bottom: 5px;">📅 CRIADA EM</div>
+                                    <div style="color: white; font-size: 14px;">${createdDate}</div>
+                                </div>
+
+                                <div>
+                                    <div style="color: #94a3b8; font-size: 12px; margin-bottom: 5px;">✅ ATIVADA EM</div>
+                                    <div style="color: white; font-size: 14px;">${activatedDate}</div>
+                                </div>
+
+                                <div>
+                                    <div style="color: #94a3b8; font-size: 12px; margin-bottom: 5px;">⏰ EXPIRA EM</div>
+                                    <div style="color: white; font-size: 14px;">${expiresDate}</div>
+                                </div>
+
+                                <div>
+                                    <div style="color: #94a3b8; font-size: 12px; margin-bottom: 5px;">💻 DEVICE FINGERPRINT</div>
+                                    <div style="color: white; font-size: 12px; font-family: monospace;">${fingerprintDisplay}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Notas e Mensagem (largura completa) -->
+                        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div style="margin-bottom: 15px;">
+                                <div style="color: #94a3b8; font-size: 12px; margin-bottom: 5px;">📝 NOTAS INTERNAS</div>
+                                <div style="color: white; font-size: 14px; background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 8px; min-height: 40px;">
+                                    ${license.notes || '(sem notas)'}
+                                </div>
+                            </div>
+
+                            <div>
+                                <div style="color: #94a3b8; font-size: 12px; margin-bottom: 5px;">💬 MENSAGEM PARA O CLIENTE</div>
+                                <div style="color: white; font-size: 14px; background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 8px; min-height: 40px;">
+                                    ${license.message || '(sem mensagem)'}
+                                </div>
+                                ${license.messageUpdatedAt ? `<div style="color: #94a3b8; font-size: 11px; margin-top: 5px;">Última atualização: ${messageUpdatedDate}</div>` : ''}
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 25px; text-align: right;">
+                            <button onclick="document.getElementById('detailsModal').remove()" style="
+                                padding: 12px 24px;
+                                background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+                                color: white;
+                                border: none;
+                                border-radius: 8px;
+                                cursor: pointer;
+                                font-weight: 600;
+                                font-size: 14px;
+                            ">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+        }
+
     </script>
 
     </div> <!-- Fim do dashboard-container -->
