@@ -790,6 +790,9 @@
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <h2 class="form-title" style="margin: 0;">📊 Licenças Geradas</h2>
                 <div style="display: flex; gap: 12px;">
+                    <button onclick="repairLicensesInFirebase()" style="padding: 10px 20px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
+                        🔧 Reparar Dados
+                    </button>
                     <button onclick="deleteSelected()" style="padding: 10px 20px; background: linear-gradient(135deg, #e67e22 0%, #d35400 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
                         ☑️ Deletar Selecionadas
                     </button>
@@ -888,6 +891,18 @@
             // Depois renderiza na tela
             loadLicenses();
             updateStats();
+
+            // Executa reparo automático das licenças após 2 segundos
+            setTimeout(async () => {
+                console.log('🔄 Verificando se há licenças para reparar...');
+                const needsRepair = licenses.some(l => !l.name || !l.type);
+                if (needsRepair) {
+                    console.log('⚠️ Encontradas licenças que precisam de reparo!');
+                    await repairLicensesInFirebase();
+                } else {
+                    console.log('✅ Todas as licenças já possuem dados completos!');
+                }
+            }, 2000);
 
             // Auto-preencher dados vindos do painel de leads
             const urlParams = new URLSearchParams(window.location.search);
@@ -1057,10 +1072,12 @@
                 const firebaseDoc = {
                     fields: {
                         licenseKey: { stringValue: key },
+                        type: { stringValue: selectedLicenseType }, // Adiciona tipo de licença
                         username: { stringValue: username }, // Username para login
                         password: { stringValue: password }, // Senha para login
                         name: { stringValue: name },
                         email: { stringValue: email },
+                        phone: { stringValue: `${countryCode}${phone}` }, // Adiciona telefone completo
                         plan: { stringValue: planNames[selectedLicenseType] },
                         expiresAt: { integerValue: expiryDate.getTime().toString() },
                         status: { stringValue: 'active' },
@@ -1388,6 +1405,74 @@
                 `;
                 tbody.appendChild(row);
             });
+        }
+
+        // Função para reparar licenças no Firebase (adiciona campos faltantes)
+        async function repairLicensesInFirebase() {
+            console.log('🔧 Iniciando reparo de licenças no Firebase...');
+
+            let repairedCount = 0;
+
+            for (const license of licenses) {
+                if (!license.key) continue;
+
+                try {
+                    // Verifica se a licença tem todos os campos necessários
+                    if (!license.name || !license.type) {
+                        console.log(`🔄 Reparando licença ${license.key}...`);
+
+                        const firebaseDoc = {
+                            fields: {
+                                licenseKey: { stringValue: license.key },
+                                type: { stringValue: license.type || 'monthly' },
+                                name: { stringValue: license.name || '' },
+                                email: { stringValue: license.email || '' },
+                                phone: { stringValue: license.phone || '' },
+                                username: { stringValue: license.username || '' },
+                                password: { stringValue: license.password || '' },
+                                plan: { stringValue: license.plan || 'Mensal' },
+                                expiresAt: { integerValue: new Date(license.expiresAt).getTime().toString() },
+                                status: { stringValue: license.status || 'active' },
+                                deviceFingerprint: { stringValue: license.deviceFingerprint || '' },
+                                createdAt: { timestampValue: license.createdAt || new Date().toISOString() },
+                                notes: { stringValue: license.notes || '' },
+                                tag: { stringValue: license.tag || '' },
+                                message: { stringValue: license.message || '' },
+                                messageUpdatedAt: { timestampValue: license.messageUpdatedAt || '' }
+                            }
+                        };
+
+                        const url = `${FIREBASE_CONFIG.databaseURL}/licenses/${license.key}?key=${FIREBASE_CONFIG.apiKey}`;
+
+                        const response = await fetch(url, {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(firebaseDoc)
+                        });
+
+                        if (response.ok) {
+                            console.log(`✅ Licença ${license.key} reparada!`);
+                            repairedCount++;
+                        } else {
+                            console.error(`❌ Erro ao reparar licença ${license.key}`);
+                        }
+                    }
+                } catch (error) {
+                    console.error(`❌ Erro ao reparar licença ${license.key}:`, error);
+                }
+            }
+
+            if (repairedCount > 0) {
+                console.log(`✅ ${repairedCount} licenças reparadas no Firebase!`);
+                alert(`✅ ${repairedCount} licenças foram reparadas no Firebase!`);
+                // Recarrega as licenças do Firebase
+                await loadLicensesFromFirebase();
+                loadLicenses();
+            } else {
+                console.log('✅ Todas as licenças já estão corretas!');
+            }
         }
 
         // Toggle License Status
