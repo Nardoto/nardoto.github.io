@@ -153,6 +153,18 @@
             border: 1px solid rgba(16, 185, 129, 0.3);
         }
 
+        .badge-contacted {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .badge-licensed {
+            background: rgba(168, 85, 247, 0.2);
+            color: #a855f7;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
         .lead-info {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -226,6 +238,16 @@
         .btn-success:hover {
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: #fff;
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
         }
 
         .btn-info {
@@ -312,6 +334,68 @@
             display: flex;
         }
 
+        .search-box {
+            position: relative;
+            max-width: 400px;
+            margin: 0 0 20px 0;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .status-indicators {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .status-indicator {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .status-contacted {
+            background: rgba(59, 130, 246, 0.15);
+            color: #3b82f6;
+        }
+
+        .status-licensed {
+            background: rgba(168, 85, 247, 0.15);
+            color: #a855f7;
+        }
+
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 24px;
@@ -331,6 +415,10 @@
 
             .btn, .btn-small {
                 width: 100%;
+            }
+
+            .search-box {
+                max-width: 100%;
             }
         }
     </style>
@@ -357,9 +445,14 @@
             </div>
         </div>
 
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" id="searchInput" placeholder="Pesquisar por nome, email ou telefone..." onkeyup="filterLeads()">
+        </div>
+
         <div class="actions">
             <button class="btn btn-primary" onclick="loadLeads()">🔄 Atualizar</button>
-            <button class="btn btn-secondary" onclick="window.open('geradores/gerador-pro.html', '_blank')">🔑 Abrir Gerador</button>
+            <button class="btn btn-secondary" onclick="window.open('../geradores/gerador-pro.html', '_blank')">🔑 Abrir Gerador</button>
         </div>
 
         <div id="leadsContainer">
@@ -379,6 +472,10 @@
         // Configuração Firebase
         const FIREBASE_PROJECT_ID = 'veo3automator';
         const FIREBASE_API_KEY = 'AIzaSyA-nPdEX_J3gPvZXWBFyQ0ZXjkpK0m2234';
+
+        // Variáveis globais
+        let allLeads = [];
+        let leadStatuses = JSON.parse(localStorage.getItem('leadStatuses') || '{}');
 
         // Carregar leads
         async function loadLeads() {
@@ -423,6 +520,9 @@
                 // Ordenar por data (mais recentes primeiro)
                 leads.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
+                // Armazenar leads globalmente
+                allLeads = leads;
+
                 // Renderizar leads
                 renderLeads(leads);
 
@@ -454,11 +554,27 @@
 
                 const date = new Date(lead.createdAt).toLocaleString('pt-BR');
 
+                // Verificar status do lead
+                const status = leadStatuses[lead.id] || {};
+                const isContacted = status.contacted || false;
+                const isLicensed = status.licensed || false;
+
+                // Determinar badge
+                let badgeClass = 'badge-new';
+                let badgeText = 'Novo';
+                if (isLicensed) {
+                    badgeClass = 'badge-licensed';
+                    badgeText = 'Licenciado';
+                } else if (isContacted) {
+                    badgeClass = 'badge-contacted';
+                    badgeText = 'Contactado';
+                }
+
                 return `
-                    <div class="lead-card">
+                    <div class="lead-card" data-lead-id="${lead.id}">
                         <div class="lead-header">
                             <div class="lead-name">${lead.name}</div>
-                            <div class="lead-badge badge-new">${lead.status}</div>
+                            <div class="lead-badge ${badgeClass}">${badgeText}</div>
                         </div>
 
                         <div class="lead-info">
@@ -492,13 +608,26 @@
                             <div class="tools-tags">${toolsHtml}</div>
                         </div>
 
+                        ${(isContacted || isLicensed) ? `
+                        <div class="status-indicators">
+                            ${isContacted ? '<span class="status-indicator status-contacted">✓ Contactado</span>' : ''}
+                            ${isLicensed ? '<span class="status-indicator status-licensed">✓ Licença Gerada</span>' : ''}
+                        </div>
+                        ` : ''}
+
                         <div class="lead-actions">
-                            <button class="btn btn-success btn-small" onclick="copyAndOpenGenerator('${lead.email}', '${lead.name}', '${lead.phone}', '${lead.countryCode}')">
+                            <button class="btn btn-success btn-small" onclick="copyAndOpenGenerator('${lead.id}', '${lead.email}', '${lead.name}', '${lead.phone}', '${lead.countryCode}')">
                                 🔑 Gerar Trial 3 Dias
                             </button>
+                            ${!isContacted ? `
+                            <button class="btn btn-warning btn-small" onclick="markAsContacted('${lead.id}', '${lead.phone}', '${lead.name}')">
+                                ✓ Marcar Contactado
+                            </button>
+                            ` : `
                             <button class="btn btn-info btn-small" onclick="openWhatsApp('${lead.phone}', '${lead.name}')">
                                 💬 Abrir WhatsApp
                             </button>
+                            `}
                             <button class="btn btn-secondary btn-small" onclick="copyData('${lead.email}', '${lead.name}', '${lead.phone}')">
                                 📋 Copiar Dados
                             </button>
@@ -531,7 +660,13 @@
             return sorted.length > 0 ? sorted[0][0] : '-';
         }
 
-        function copyAndOpenGenerator(email, name, phone, countryCode) {
+        function copyAndOpenGenerator(leadId, email, name, phone, countryCode) {
+            // Marcar como licença gerada
+            if (!leadStatuses[leadId]) leadStatuses[leadId] = {};
+            leadStatuses[leadId].licensed = true;
+            leadStatuses[leadId].licensedAt = new Date().toISOString();
+            localStorage.setItem('leadStatuses', JSON.stringify(leadStatuses));
+
             // Criar URL com parâmetros para preencher automaticamente
             const params = new URLSearchParams({
                 name: name,
@@ -542,10 +677,13 @@
                 autoFill: 'true'  // Flag para indicar preenchimento automático
             });
 
-            const generatorUrl = `geradores/gerador-pro.html?${params.toString()}`;
+            const generatorUrl = `../geradores/gerador-pro.html?${params.toString()}`;
             window.open(generatorUrl, '_blank');
 
-            showToast('✅ Gerador aberto com dados preenchidos! Selecione "Trial 3 Dias" e gere a licença.');
+            showToast('✅ Gerador aberto com dados preenchidos! Lead marcado como licenciado.');
+
+            // Recarregar a lista para atualizar o status
+            setTimeout(() => renderLeads(allLeads), 1000);
         }
 
         function openWhatsApp(phone, name) {
@@ -570,6 +708,58 @@
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
+        }
+
+        // Marcar como contactado
+        function markAsContacted(leadId, phone, name) {
+            if (!leadStatuses[leadId]) leadStatuses[leadId] = {};
+            leadStatuses[leadId].contacted = true;
+            leadStatuses[leadId].contactedAt = new Date().toISOString();
+            localStorage.setItem('leadStatuses', JSON.stringify(leadStatuses));
+
+            showToast('✓ Lead marcado como contactado!');
+
+            // Recarregar a lista para atualizar o status
+            renderLeads(allLeads);
+
+            // Abrir WhatsApp
+            openWhatsApp(phone, name);
+        }
+
+        // Filtrar leads pela pesquisa
+        function filterLeads() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+
+            if (searchInput === '') {
+                renderLeads(allLeads);
+                return;
+            }
+
+            const filteredLeads = allLeads.filter(lead => {
+                return lead.name.toLowerCase().includes(searchInput) ||
+                       lead.email.toLowerCase().includes(searchInput) ||
+                       lead.phone.includes(searchInput) ||
+                       (lead.planName && lead.planName.toLowerCase().includes(searchInput)) ||
+                       lead.tools.some(tool => tool.toLowerCase().includes(searchInput));
+            });
+
+            renderLeads(filteredLeads);
+
+            // Atualizar estatísticas com leads filtrados
+            const today = new Date().toDateString();
+            const newToday = filteredLeads.filter(l => new Date(l.createdAt).toDateString() === today).length;
+            const mostUsed = getMostUsedTool(filteredLeads);
+            updateStats(filteredLeads.length, newToday, mostUsed);
+        }
+
+        // Limpar status (função auxiliar para debug)
+        function clearStatuses() {
+            if (confirm('Tem certeza que deseja limpar todos os status salvos?')) {
+                localStorage.removeItem('leadStatuses');
+                leadStatuses = {};
+                renderLeads(allLeads);
+                showToast('Status limpos com sucesso!');
+            }
         }
 
         // Carregar ao abrir a página
