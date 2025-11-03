@@ -1084,10 +1084,14 @@
                         createdAt: { timestampValue: now.toISOString() },
                         notes: { stringValue: notes || '' },
                         tag: { stringValue: tag || '' },
-                        message: { stringValue: message || '' }, // Mensagem para o cliente
-                        messageUpdatedAt: { timestampValue: message ? now.toISOString() : '' } // Timestamp da mensagem
+                        message: { stringValue: message || '' } // Mensagem para o cliente
                     }
                 };
+
+                // Adiciona messageUpdatedAt apenas se houver mensagem
+                if (message && message.trim() !== '') {
+                    firebaseDoc.fields.messageUpdatedAt = { timestampValue: now.toISOString() };
+                }
 
                 // Usar POST com documentId para criar novo documento
                 const url = `${FIREBASE_CONFIG.databaseURL}/licenses?documentId=${key}&key=${FIREBASE_CONFIG.apiKey}`;
@@ -1463,8 +1467,8 @@
                                 createdAt: fields.createdAt || { timestampValue: new Date().toISOString() },
                                 notes: fields.notes || { stringValue: '' },
                                 tag: fields.tag || { stringValue: '' },
-                                message: fields.message || { stringValue: '' },
-                                messageUpdatedAt: fields.messageUpdatedAt || { timestampValue: '' }
+                                message: fields.message || { stringValue: '' }
+                                // messageUpdatedAt removido - será adicionado condicionalmente
                             }
                         };
 
@@ -2051,10 +2055,14 @@
 
                 const firebaseDoc = {
                     fields: {
-                        message: { stringValue: message },
-                        messageUpdatedAt: { timestampValue: message ? new Date().toISOString() : '' }
+                        message: { stringValue: message }
                     }
                 };
+
+                // Adiciona messageUpdatedAt apenas se houver mensagem
+                if (message && message.trim() !== '') {
+                    firebaseDoc.fields.messageUpdatedAt = { timestampValue: new Date().toISOString() };
+                }
 
                 const response = await fetch(url, {
                     method: 'PATCH',
