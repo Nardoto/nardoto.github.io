@@ -790,8 +790,11 @@
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <h2 class="form-title" style="margin: 0;">📊 Licenças Geradas</h2>
                 <div style="display: flex; gap: 12px;">
-                    <button onclick="repairLicensesInFirebase()" style="padding: 10px 20px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
-                        🔧 Reparar Dados
+                    <button onclick="repairLicensesInFirebase()" style="padding: 10px 20px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;" title="Adiciona campo 'name' em todas as licenças">
+                        🔧 Reparar Campos
+                    </button>
+                    <button onclick="editAllNames()" style="padding: 10px 20px; background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;" title="Editar nomes das licenças sem nome">
+                        📝 Add Nomes
                     </button>
                     <button onclick="deleteSelected()" style="padding: 10px 20px; background: linear-gradient(135deg, #e67e22 0%, #d35400 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;">
                         ☑️ Deletar Selecionadas
@@ -1382,8 +1385,11 @@
                     </td>
                     <td style="font-family: monospace; font-size: 12px;">${license.key}</td>
                     <td>
-                        <div>${license.name}</div>
-                        <div style="font-size: 12px; opacity: 0.6;">${license.email}</div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span>${license.name || '(sem nome)'}</span>
+                            <button onclick="editLicenseName('${license.id}')" style="background: transparent; border: none; color: #f59e0b; cursor: pointer; font-size: 14px; padding: 0;" title="Editar nome">✏️</button>
+                        </div>
+                        <div style="font-size: 12px; opacity: 0.6;">${license.email || '(sem email)'}</div>
                     </td>
                     <td>${LICENSE_CONFIG[license.type].name}</td>
                     <td><span class="license-status ${statusClass}">${statusText}</span></td>
@@ -1407,71 +1413,231 @@
             });
         }
 
-        // Função para reparar licenças no Firebase (adiciona campos faltantes)
-        async function repairLicensesInFirebase() {
-            console.log('🔧 Iniciando reparo de licenças no Firebase...');
+        // Função para adicionar campo 'name' em TODAS as licenças no Firebase
+        async function addNameFieldToAllLicenses() {
+            console.log('🔧 Adicionando campo name em todas as licenças do Firebase...');
 
-            let repairedCount = 0;
+            let updatedCount = 0;
+            let errorCount = 0;
 
-            for (const license of licenses) {
-                if (!license.key) continue;
+            // Primeiro, busca todas as licenças do Firebase
+            try {
+                const url = `${FIREBASE_CONFIG.databaseURL}/licenses?key=${FIREBASE_CONFIG.apiKey}`;
+                const response = await fetch(url);
 
-                try {
-                    // Verifica se a licença tem todos os campos necessários
-                    if (!license.name || !license.type) {
-                        console.log(`🔄 Reparando licença ${license.key}...`);
+                if (!response.ok) {
+                    alert('❌ Erro ao buscar licenças do Firebase!');
+                    return;
+                }
 
-                        const firebaseDoc = {
+                const data = await response.json();
+
+                if (!data.documents || data.documents.length === 0) {
+                    alert('📭 Nenhuma licença encontrada no Firebase!');
+                    return;
+                }
+
+                // Para cada licença no Firebase
+                for (const doc of data.documents) {
+                    const licenseKey = doc.name.split('/').pop();
+                    const fields = doc.fields;
+
+                    try {
+                        console.log(`🔄 Atualizando licença ${licenseKey}...`);
+
+                        // Prepara os campos para atualização
+                        const updateDoc = {
                             fields: {
-                                licenseKey: { stringValue: license.key },
-                                type: { stringValue: license.type || 'monthly' },
-                                name: { stringValue: license.name || '' },
-                                email: { stringValue: license.email || '' },
-                                phone: { stringValue: license.phone || '' },
-                                username: { stringValue: license.username || '' },
-                                password: { stringValue: license.password || '' },
-                                plan: { stringValue: license.plan || 'Mensal' },
-                                expiresAt: { integerValue: new Date(license.expiresAt).getTime().toString() },
-                                status: { stringValue: license.status || 'active' },
-                                deviceFingerprint: { stringValue: license.deviceFingerprint || '' },
-                                createdAt: { timestampValue: license.createdAt || new Date().toISOString() },
-                                notes: { stringValue: license.notes || '' },
-                                tag: { stringValue: license.tag || '' },
-                                message: { stringValue: license.message || '' },
-                                messageUpdatedAt: { timestampValue: license.messageUpdatedAt || '' }
+                                licenseKey: { stringValue: licenseKey },
+                                type: fields.type || { stringValue: 'monthly' },
+                                name: fields.name || { stringValue: '' }, // Adiciona campo name vazio se não existir
+                                email: fields.email || { stringValue: '' },
+                                phone: fields.phone || { stringValue: '' },
+                                username: fields.username || { stringValue: '' },
+                                password: fields.password || { stringValue: '' },
+                                plan: fields.plan || { stringValue: 'Mensal' },
+                                expiresAt: fields.expiresAt || { integerValue: new Date().getTime().toString() },
+                                status: fields.status || { stringValue: 'active' },
+                                deviceFingerprint: fields.deviceFingerprint || { stringValue: '' },
+                                createdAt: fields.createdAt || { timestampValue: new Date().toISOString() },
+                                notes: fields.notes || { stringValue: '' },
+                                tag: fields.tag || { stringValue: '' },
+                                message: fields.message || { stringValue: '' },
+                                messageUpdatedAt: fields.messageUpdatedAt || { timestampValue: '' }
                             }
                         };
 
-                        const url = `${FIREBASE_CONFIG.databaseURL}/licenses/${license.key}?key=${FIREBASE_CONFIG.apiKey}`;
+                        const updateUrl = `${FIREBASE_CONFIG.databaseURL}/licenses/${licenseKey}?key=${FIREBASE_CONFIG.apiKey}`;
 
-                        const response = await fetch(url, {
+                        const updateResponse = await fetch(updateUrl, {
                             method: 'PATCH',
                             headers: {
                                 'Content-Type': 'application/json'
                             },
-                            body: JSON.stringify(firebaseDoc)
+                            body: JSON.stringify(updateDoc)
                         });
 
-                        if (response.ok) {
-                            console.log(`✅ Licença ${license.key} reparada!`);
-                            repairedCount++;
+                        if (updateResponse.ok) {
+                            console.log(`✅ Licença ${licenseKey} atualizada!`);
+                            updatedCount++;
                         } else {
-                            console.error(`❌ Erro ao reparar licença ${license.key}`);
+                            console.error(`❌ Erro ao atualizar licença ${licenseKey}`);
+                            errorCount++;
                         }
+
+                    } catch (error) {
+                        console.error(`❌ Erro ao processar licença ${licenseKey}:`, error);
+                        errorCount++;
+                    }
+                }
+
+                // Mostra resultado
+                if (errorCount === 0) {
+                    alert(`✅ Sucesso!\n\n${updatedCount} licenças atualizadas com campo 'name'!`);
+                } else {
+                    alert(`⚠️ Processo concluído com avisos:\n\n✅ ${updatedCount} atualizadas\n❌ ${errorCount} com erro`);
+                }
+
+                // Recarrega as licenças
+                await loadLicensesFromFirebase();
+                loadLicenses();
+
+            } catch (error) {
+                console.error('❌ Erro ao processar licenças:', error);
+                alert('❌ Erro ao processar licenças! Verifique o console.');
+            }
+        }
+
+        // Função para reparar licenças no Firebase (adiciona campos faltantes)
+        async function repairLicensesInFirebase() {
+            // Chama a nova função que adiciona o campo 'name'
+            await addNameFieldToAllLicenses();
+        }
+
+        // Função para editar nomes em massa (licenças sem nome)
+        async function editAllNames() {
+            const licensesWithoutName = licenses.filter(l => !l.name || l.name === '');
+
+            if (licensesWithoutName.length === 0) {
+                alert('✅ Todas as licenças já possuem nomes!');
+                return;
+            }
+
+            if (!confirm(`Existem ${licensesWithoutName.length} licenças sem nome.\n\nDeseja adicionar os nomes agora?`)) {
+                return;
+            }
+
+            let updatedCount = 0;
+
+            for (const license of licensesWithoutName) {
+                const username = license.username || '';
+                const promptMessage = username ?
+                    `Digite o nome completo para:\n\nLicença: ${license.key}\nUsuário: ${username}` :
+                    `Digite o nome completo para:\n\nLicença: ${license.key}`;
+
+                const newName = prompt(promptMessage, username);
+
+                if (newName === null) {
+                    // Usuário cancelou, perguntar se quer continuar
+                    if (!confirm('Deseja continuar com as próximas licenças?')) {
+                        break;
+                    }
+                    continue;
+                }
+
+                if (newName.trim() === '') {
+                    continue; // Pula para a próxima
+                }
+
+                try {
+                    // Atualiza no Firebase
+                    const url = `${FIREBASE_CONFIG.databaseURL}/licenses/${license.key}?key=${FIREBASE_CONFIG.apiKey}&updateMask.fieldPaths=name`;
+
+                    const response = await fetch(url, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            fields: {
+                                name: { stringValue: newName.trim() }
+                            }
+                        })
+                    });
+
+                    if (response.ok) {
+                        console.log(`✅ Nome atualizado para ${license.key}`);
+                        license.name = newName.trim();
+                        updatedCount++;
+                    } else {
+                        console.error(`❌ Erro ao atualizar ${license.key}`);
                     }
                 } catch (error) {
-                    console.error(`❌ Erro ao reparar licença ${license.key}:`, error);
+                    console.error(`❌ Erro ao atualizar ${license.key}:`, error);
                 }
             }
 
-            if (repairedCount > 0) {
-                console.log(`✅ ${repairedCount} licenças reparadas no Firebase!`);
-                alert(`✅ ${repairedCount} licenças foram reparadas no Firebase!`);
-                // Recarrega as licenças do Firebase
-                await loadLicensesFromFirebase();
+            if (updatedCount > 0) {
+                saveLicenses();
                 loadLicenses();
-            } else {
-                console.log('✅ Todas as licenças já estão corretas!');
+                alert(`✅ ${updatedCount} nomes atualizados com sucesso!`);
+            }
+        }
+
+        // Função para editar o nome de uma licença
+        async function editLicenseName(id) {
+            const license = licenses.find(l => l.id === id);
+            if (!license) {
+                alert('❌ Licença não encontrada!');
+                return;
+            }
+
+            const newName = prompt('Digite o nome completo do cliente:', license.name || '');
+
+            if (newName === null) {
+                return; // Usuário cancelou
+            }
+
+            if (newName.trim() === '') {
+                alert('⚠️ Por favor, digite um nome válido!');
+                return;
+            }
+
+            console.log(`📝 Atualizando nome da licença ${license.key}...`);
+
+            try {
+                // Atualiza no Firebase
+                const url = `${FIREBASE_CONFIG.databaseURL}/licenses/${license.key}?key=${FIREBASE_CONFIG.apiKey}&updateMask.fieldPaths=name`;
+
+                const response = await fetch(url, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        fields: {
+                            name: { stringValue: newName.trim() }
+                        }
+                    })
+                });
+
+                if (response.ok) {
+                    console.log('✅ Nome atualizado no Firebase');
+
+                    // Atualiza localmente
+                    license.name = newName.trim();
+                    saveLicenses();
+                    loadLicenses();
+
+                    alert(`✅ Nome atualizado com sucesso!`);
+                } else {
+                    const errorText = await response.text();
+                    console.error('❌ Erro ao atualizar nome:', errorText);
+                    alert(`❌ Erro ao atualizar nome no Firebase!`);
+                }
+            } catch (error) {
+                console.error('❌ Erro ao atualizar nome:', error);
+                alert(`❌ Erro ao atualizar nome: ${error.message}`);
             }
         }
 
