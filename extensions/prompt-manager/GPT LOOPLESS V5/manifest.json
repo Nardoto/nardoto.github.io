@@ -1,0 +1,49 @@
+{
+  "manifest_version": 3,
+  "name": "GPT LoopLess 5.0",
+  "version": "5.0",
+  "description": "🎯 Organizador profissional de prompts com auto play exclusivo para ChatGPT",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://chatgpt.com/*",
+    "https://chat.openai.com/*"
+  ],
+  "icons": {
+    "16": "icons/iconLOGO.png",
+    "48": "icons/iconLOGO.png",
+    "128": "icons/iconLOGO.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://chat.openai.com/*"
+      ],
+      "js": [
+        "chatgpt_handler.js",
+        "content.js"
+      ],
+      "css": ["sidebar.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "sidebar.html",
+        "sidebar-script.js",
+        "icons/iconLOGO.png"
+      ],
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://chat.openai.com/*"
+      ]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}

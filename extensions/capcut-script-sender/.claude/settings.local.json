@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(start \"C:\\Users\\tharc\\Videos\\extenções\\CAPCUT VIDEOS - Copia\\icons\\gerar-png.html\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

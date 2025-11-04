@@ -1,0 +1,448 @@
+/* Estilos do Painel de Automação CapCut */
+
+/* Ocultar o container de prompts do CapCut */
+#promptsContainer,
+.prompts-container {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+#capcut-automation-panel {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    background:
+        linear-gradient(to left, rgba(255, 255, 255, 0.08) 0px, transparent 60px),
+        linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    z-index: 999999;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 15px 10px 15px;
+    gap: 10px;
+    border-right: 3px solid rgba(255, 255, 255, 0.4);
+    box-shadow:
+        0 2px 15px rgba(0, 0, 0, 0.3),
+        inset -60px 0 40px -20px rgba(255, 255, 255, 0.15);
+}
+
+#capcut-automation-panel.panel-expanded {
+    height: auto;
+    min-height: 280px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 20px 15px 20px 20px;
+    background:
+        linear-gradient(to left, rgba(255, 255, 255, 0.08) 0px, transparent 60px),
+        linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+#capcut-automation-panel.hidden {
+    transform: translateY(-100%);
+}
+
+/* Botão toggle integrado à barra */
+#capcut-toggle-button {
+    position: fixed !important;
+    top: 80px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 60px !important;
+    height: 30px !important;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 0 0 15px 15px !important;
+    cursor: pointer !important;
+    font-size: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 2147483647 !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3) !important;
+    transition: all 0.3s ease !important;
+    font-weight: bold !important;
+    padding-top: 5px !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+#capcut-toggle-button:hover {
+    background: linear-gradient(135deg, #7688f1 0%, #8559b3 100%);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+#capcut-toggle-button.panel-visible {
+    top: 80px !important;
+    display: flex !important;
+}
+
+#capcut-toggle-button:not(.panel-visible) {
+    top: 0px !important;
+    border-radius: 0 0 15px 15px;
+    display: flex !important;
+}
+
+.creator-badge {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.5px;
+}
+
+.input-section {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+.panel-expanded .input-section {
+    align-items: flex-start;
+}
+
+.input-section label {
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+#script-input {
+    flex: 0 0 auto;
+    width: 500px;
+    height: 40px;
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.98);
+    color: #333;
+    font-size: 13px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    resize: vertical;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    line-height: 1.4;
+}
+
+#script-input.expanded {
+    height: auto;
+    min-height: 160px;
+}
+
+#script-input:focus {
+    outline: none;
+    border-color: white;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+
+#script-input::placeholder {
+    color: #999;
+    font-weight: 400;
+}
+
+.expand-btn {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #667eea;
+    width: 36px;
+    height: 40px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.expand-btn:hover {
+    background: white;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.expand-btn:active {
+    transform: scale(0.98);
+}
+
+/* Contador de palavras */
+.word-counter {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 4px 10px;
+    background: #ffffff;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.word-counter.status-ok {
+    background: #e8f5e9;
+    border-color: #81c784;
+}
+
+.word-counter.status-warning {
+    background: #fff9e6;
+    border-color: #ffb74d;
+}
+
+.word-counter.status-error {
+    background: #ffebee;
+    border-color: #e57373;
+}
+
+.counter-info {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    justify-content: center;
+}
+
+.counter-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: #333;
+}
+
+.counter-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: #667eea;
+    min-width: 25px;
+    text-align: center;
+}
+
+.word-counter.status-ok .counter-value {
+    color: #2e7d32;
+}
+
+.word-counter.status-warning .counter-value {
+    color: #f57c00;
+}
+
+.word-counter.status-error .counter-value {
+    color: #d32f2f;
+}
+
+.counter-separator {
+    font-size: 11px;
+    font-weight: 600;
+    color: #666;
+}
+
+.counter-max {
+    font-size: 11px;
+    font-weight: 600;
+    color: #555;
+}
+
+.counter-status {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 9px;
+    color: #333;
+    justify-content: center;
+}
+
+.status-icon {
+    font-size: 10px;
+    flex-shrink: 0;
+}
+
+.status-text {
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+/* Seção de estilo */
+.style-section {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.style-section label {
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+#style-select {
+    padding: 6px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.98);
+    color: #333;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#style-select:focus {
+    outline: none;
+    border-color: white;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Seção de voz */
+.voice-section {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.voice-section label {
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+#voice-select {
+    padding: 6px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.98);
+    color: #333;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#voice-select:focus {
+    outline: none;
+    border-color: white;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.execute-btn {
+    padding: 8px 20px;
+    background: white;
+    color: #667eea;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+    flex-shrink: 0;
+    height: 36px;
+}
+
+.execute-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    background: #f8f8f8;
+}
+
+.execute-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.execute-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.status-message {
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    white-space: nowrap;
+    display: none;
+    flex-shrink: 0;
+}
+
+.status-message.visible {
+    display: block;
+}
+
+.status-message.info {
+    background: rgba(33, 150, 243, 0.3);
+    border-left: 4px solid #2196F3;
+}
+
+.status-message.success {
+    background: rgba(76, 175, 80, 0.3);
+    border-left: 4px solid #4CAF50;
+}
+
+.status-message.error {
+    background: rgba(244, 67, 54, 0.3);
+    border-left: 4px solid #F44336;
+}
+
+/* Animação de entrada */
+@keyframes slideInTop {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+#capcut-automation-panel {
+    animation: slideInTop 0.4s ease-out;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 1024px) {
+    #capcut-automation-panel {
+        height: auto;
+        min-height: 70px;
+        padding: 10px 40px 10px 15px;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    #script-input {
+        width: 220px;
+    }
+
+    .panel-title {
+        display: none;
+    }
+
+    .word-counter {
+        width: 100%;
+        order: 3;
+    }
+
+    .counter-status .status-text {
+        font-size: 10px;
+    }
+}

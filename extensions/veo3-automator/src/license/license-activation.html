@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VEO3 Automator - Ativação de Licença</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .activation-container {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .logo-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.9;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-subtitle {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 500;
+        }
+
+        .activation-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: 0.2px;
+        }
+
+        .form-input {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 12px 14px;
+            font-size: 14px;
+            color: #fff;
+            transition: all 0.2s ease;
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+            letter-spacing: normal;
+            text-transform: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(102, 126, 234, 0.5);
+            background: rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-input.error {
+            border-color: #ef4444;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .activate-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 14px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .activate-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .activate-button:active {
+            transform: translateY(0);
+        }
+
+        .activate-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .activate-button.loading .button-text {
+            display: none;
+        }
+
+        .activate-button.loading .loading-spinner {
+            display: block;
+        }
+
+        .message {
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            display: none;
+            margin-top: 16px;
+            letter-spacing: 0.2px;
+        }
+
+        .message.success {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 3px solid rgba(16, 185, 129, 0.6);
+            color: rgba(16, 185, 129, 0.95);
+        }
+
+        .message.error {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 3px solid rgba(239, 68, 68, 0.6);
+            color: rgba(239, 68, 68, 0.95);
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.4);
+            text-align: center;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        .help-link {
+            color: rgba(102, 126, 234, 0.8);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .help-link:hover {
+            text-decoration: underline;
+            color: rgba(102, 126, 234, 1);
+        }
+
+        .divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 32px 0;
+        }
+
+        .admin-message {
+            display: flex;
+            gap: 16px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.15) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            animation: slideIn 0.4s ease-out;
+        }
+
+        .admin-message-icon {
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        .admin-message-content {
+            flex: 1;
+        }
+
+        .admin-message-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: rgba(147, 197, 253, 1);
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .admin-message-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            white-space: pre-wrap;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .info-box {
+            background: rgba(102, 126, 234, 0.08);
+            border-left: 3px solid rgba(102, 126, 234, 0.4);
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+        }
+
+        .info-box-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(102, 126, 234, 0.9);
+            margin-bottom: 6px;
+            letter-spacing: 0.2px;
+        }
+
+        .info-box-text {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.6;
+        }
+
+        /* Terms Checkbox */
+        .terms-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 14px;
+            background: rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            margin-top: 16px;
+        }
+
+        .terms-checkbox {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #667eea;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .terms-text {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        .terms-link {
+            color: #667eea;
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .terms-link:hover {
+            color: #8b9eea;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 80vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: -0.3px;
+        }
+
+        .modal-close {
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: rgba(239, 68, 68, 0.9);
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: rgba(239, 68, 68, 0.4);
+        }
+
+        .modal-body {
+            padding: 24px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .modal-body h3 {
+            color: rgba(102, 126, 234, 0.95);
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 18px;
+            margin-bottom: 10px;
+            letter-spacing: 0.2px;
+        }
+
+        .modal-body h3:first-child {
+            margin-top: 0;
+        }
+
+        .modal-body p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        .modal-body ul {
+            margin-left: 18px;
+            margin-bottom: 10px;
+        }
+
+        .modal-body li {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            line-height: 1.7;
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="activation-container">
+        <div class="logo">
+            <div class="logo-icon">🎬</div>
+            <div class="logo-text">VEO3 Automator</div>
+            <div class="logo-subtitle">por Nardoto</div>
+        </div>
+
+        <div class="info-box">
+            <div class="info-box-title">🔒 Ativação Única</div>
+            <div class="info-box-text">
+                Esta licença ficará vinculada a este computador. Você recebeu suas credenciais por email ou WhatsApp após a compra.
+            </div>
+        </div>
+
+        <form class="activation-form" id="activationForm">
+            <div class="form-group">
+                <label class="form-label" for="username">Usuário</label>
+                <input
+                    type="text"
+                    id="username"
+                    class="form-input"
+                    placeholder="Seu nome de usuário"
+                    required
+                    autocomplete="off"
+                    style="text-transform: none; letter-spacing: normal; font-family: 'Inter', sans-serif;">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="password">Senha</label>
+                <input
+                    type="password"
+                    id="password"
+                    class="form-input"
+                    placeholder="Sua senha"
+                    required
+                    autocomplete="off"
+                    style="letter-spacing: normal; font-family: 'Inter', sans-serif;">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="licenseKey">Chave de Licença</label>
+                <input
+                    type="text"
+                    id="licenseKey"
+                    class="form-input"
+                    placeholder="XXXX-XXXX-XXXX-XXXX"
+                    required
+                    maxlength="19"
+                    autocomplete="off">
+            </div>
+
+            <div class="terms-container">
+                <input type="checkbox" id="termsCheckbox" class="terms-checkbox" required>
+                <label for="termsCheckbox" class="terms-text">
+                    Li e aceito os <span class="terms-link" id="openTermsLink1">Termos de Uso</span> e a <span class="terms-link" id="openTermsLink2">Política de Privacidade</span>
+                </label>
+            </div>
+
+            <button type="submit" class="activate-button" id="activateButton">
+                <span class="button-text">Ativar Licença</span>
+                <div class="loading-spinner"></div>
+            </button>
+        </form>
+
+        <div class="message" id="message"></div>
+
+        <!-- Admin Message -->
+        <div class="admin-message" id="adminMessage" style="display: none;">
+            <div class="admin-message-icon">📢</div>
+            <div class="admin-message-content">
+                <div class="admin-message-title">Mensagem do Administrador</div>
+                <div class="admin-message-text" id="adminMessageText"></div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="help-text">
+            Não recebeu suas credenciais?<br>
+            Entre em contato: <a href="https://wa.me/5527999132594" class="help-link" target="_blank">(27) 99913-2594</a>
+        </div>
+    </div>
+
+    <!-- Modal de Termos -->
+    <div class="modal" id="termsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">📜 Termos de Uso e Política de Privacidade</div>
+                <button class="modal-close" id="closeModalBtn">✕</button>
+            </div>
+            <div class="modal-body">
+                <h3>1. Aceitação dos Termos</h3>
+                <p>
+                    Ao utilizar o VEO3 Automator, você concorda com estes termos de uso.
+                    Se você não concorda com qualquer parte destes termos, não deve usar o software.
+                </p>
+
+                <h3>2. Licença de Uso</h3>
+                <p>
+                    A licença adquirida é <strong>pessoal e intransferível</strong>, vinculada a um único computador.
+                    É proibido compartilhar, revender ou distribuir sua licença.
+                </p>
+                <ul>
+                    <li>Uma licença = Um computador</li>
+                    <li>Uso comercial permitido</li>
+                    <li>Não é permitido engenharia reversa</li>
+                    <li>Atualizações incluídas durante vigência</li>
+                </ul>
+
+                <h3>3. Privacidade - Sistema Privacy-First</h3>
+                <p>
+                    <strong>🔒 Seu compromisso com sua privacidade:</strong>
+                </p>
+                <ul>
+                    <li><strong>NÃO</strong> rastreamos quantas vezes você usa a extensão</li>
+                    <li><strong>NÃO</strong> coletamos ou armazenamos seus prompts</li>
+                    <li><strong>NÃO</strong> monitoramos qual conteúdo você gera</li>
+                    <li><strong>NÃO</strong> salvamos seus horários de uso</li>
+                    <li><strong>NÃO</strong> coletamos dados de analytics ou telemetria</li>
+                </ul>
+                <p>
+                    <strong>✅ O que fazemos:</strong>
+                </p>
+                <ul>
+                    <li>Validamos apenas se sua licença está ativa e válida</li>
+                    <li>Verificamos a data de expiração da licença</li>
+                    <li>Vinculamos a licença ao dispositivo (para evitar uso em múltiplos PCs)</li>
+                </ul>
+
+                <h3>4. Dados Coletados</h3>
+                <p>
+                    Os únicos dados armazenados são:
+                </p>
+                <ul>
+                    <li>Email (para identificação da licença)</li>
+                    <li>Chave de licença</li>
+                    <li>Device fingerprint (para vincular ao computador)</li>
+                    <li>Data de validade da licença</li>
+                </ul>
+                <p>
+                    <strong>Nenhum dado de uso, conteúdo gerado ou atividade é coletado.</strong>
+                </p>
+
+                <h3>5. Responsabilidade de Uso</h3>
+                <p>
+                    Você é responsável por:
+                </p>
+                <ul>
+                    <li>Usar o software de forma ética e legal</li>
+                    <li>Respeitar os termos das plataformas onde usa a automação (VEO3, Suno, etc)</li>
+                    <li>Não usar para spam, abuso ou atividades ilícitas</li>
+                    <li>Manter suas credenciais seguras</li>
+                </ul>
+
+                <h3>6. Limitação de Garantia</h3>
+                <p>
+                    O software é fornecido "como está". Não garantimos:
+                </p>
+                <ul>
+                    <li>Funcionamento ininterrupto (as APIs de terceiros podem mudar)</li>
+                    <li>Compatibilidade futura com mudanças nas plataformas</li>
+                    <li>Resultados específicos de uso</li>
+                </ul>
+
+                <h3>7. Reembolso e Cancelamento</h3>
+                <ul>
+                    <li>Período de garantia: 7 dias após a compra</li>
+                    <li>Não há reembolso após ativação da licença vitalícia</li>
+                    <li>Licenças mensais/anuais podem ser canceladas a qualquer momento</li>
+                </ul>
+
+                <h3>8. Suporte</h3>
+                <p>
+                    Suporte técnico disponível via:
+                </p>
+                <ul>
+                    <li>WhatsApp: (27) 99913-2594</li>
+                    <li>Email: tharcisionardoto@gmail.com</li>
+                    <li>Site: nardoto.com.br</li>
+                </ul>
+
+                <h3>9. Modificações nos Termos</h3>
+                <p>
+                    Podemos atualizar estes termos periodicamente.
+                    Você será notificado de mudanças significativas.
+                </p>
+
+                <h3>10. Lei Aplicável</h3>
+                <p>
+                    Estes termos são regidos pelas leis brasileiras.
+                    Foro: Comarca do Espírito Santo, Brasil.
+                </p>
+
+                <div style="margin-top: 32px; padding: 20px; background: rgba(16,185,129,0.1); border-radius: 12px; border: 1px solid rgba(16,185,129,0.3);">
+                    <p style="color: #10b981; font-weight: 600; margin-bottom: 8px;">
+                        ✅ Filosofia Privacy-First
+                    </p>
+                    <p style="color: rgba(255,255,255,0.8);">
+                        "Seus dados são seus. Ponto final."<br>
+                        Nós não rastreamos, não vendemos dados e não invadimos sua privacidade.
+                        Use com tranquilidade!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functions
+        function openTermsModal() {
+            document.getElementById('termsModal').classList.add('active');
+        }
+
+        function closeTermsModal() {
+            document.getElementById('termsModal').classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('termsModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeTermsModal();
+            }
+        });
+    </script>
+
+    <script src="device-fingerprint.js"></script>
+    <script src="firebase-api.js"></script>
+    <script src="license-system.js"></script>
+    <script src="license-activation-script.js"></script>
+</body>
+</html>

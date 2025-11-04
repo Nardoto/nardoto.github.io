@@ -1,0 +1,278 @@
+{
+  "extensionName": {
+    "message": "SUNO LoopLess Download",
+    "description": "Nombre de la extensión"
+  },
+  "extensionDescription": {
+    "message": "Descarga múltiples canciones de Suno de forma optimizada y eficiente.",
+    "description": "Descripción de la extensión"
+  },
+  "version": {
+    "message": "v5.5",
+    "description": "Versión de la extensión"
+  },
+  "distributedBy": {
+    "message": "Distribuido por:",
+    "description": "Texto distribuido por"
+  },
+  "developedBy": {
+    "message": "Desarrollado por:",
+    "description": "Texto desarrollado por"
+  },
+  "selected": {
+    "message": "seleccionadas",
+    "description": "Etiqueta del contador"
+  },
+  "selectAll": {
+    "message": "Seleccionar Todas",
+    "description": "Botón seleccionar todas"
+  },
+  "deselectPage": {
+    "message": "Deseleccionar Página",
+    "description": "Botón deseleccionar página"
+  },
+  "clearAll": {
+    "message": "Limpiar Todo",
+    "description": "Botón limpiar todo"
+  },
+  "download": {
+    "message": "Descargar",
+    "description": "Botón de descarga principal"
+  },
+  "refresh": {
+    "message": "Actualizar",
+    "description": "Botón actualizar"
+  },
+  "donate": {
+    "message": "Apoyar ❤️",
+    "description": "Botón apoyar"
+  },
+  "help": {
+    "message": "Ayuda",
+    "description": "Botón ayuda"
+  },
+  "downloadSrt": {
+    "message": "Descargar Letra SRT",
+    "description": "Botón descargar SRT"
+  },
+  "downloadMusic": {
+    "message": "Descargar Música",
+    "description": "Botón descargar música"
+  },
+  "preparingDownload": {
+    "message": "Preparando descarga de música...",
+    "description": "Mensaje preparando descarga"
+  },
+  "downloadStarted": {
+    "message": "Descarga iniciada:",
+    "description": "Descarga iniciada"
+  },
+  "downloadError": {
+    "message": "Error al descargar música:",
+    "description": "Error en la descarga"
+  },
+  "noSelection": {
+    "message": "Ninguna música seleccionada",
+    "description": "Ninguna selección"
+  },
+  "extractingLyrics": {
+    "message": "Extrayendo letras con timing...",
+    "description": "Extrayendo letras"
+  },
+  "helpTitle": {
+    "message": "SUNO LoopLess Download v5.5",
+    "description": "Título de ayuda"
+  },
+  "helpHowToUse": {
+    "message": "Cómo usar:",
+    "description": "Cómo usar"
+  },
+  "helpStep1": {
+    "message": "1. Navega por las páginas de música de Suno",
+    "description": "Paso 1"
+  },
+  "helpStep2": {
+    "message": "2. Marca las canciones deseadas con los checkboxes",
+    "description": "Paso 2"
+  },
+  "helpStep3": {
+    "message": "3. Usa \"Descargar\" para descargar las seleccionadas",
+    "description": "Paso 3"
+  },
+  "helpStep4": {
+    "message": "4. En páginas individuales, usa los botones \"SRT\" y \"MP3\"",
+    "description": "Paso 4"
+  },
+  "helpTips": {
+    "message": "Consejos:",
+    "description": "Consejos"
+  },
+  "helpTip1": {
+    "message": "• Configura Chrome para no preguntar dónde guardar",
+    "description": "Consejo 1"
+  },
+  "helpTip2": {
+    "message": "• Las selecciones se mantienen entre páginas",
+    "description": "Consejo 2"
+  },
+  "helpTip3": {
+    "message": "• Usa \"Limpiar Todo\" para resetear todo",
+    "description": "Consejo 3"
+  },
+  "helpTip4": {
+    "message": "• El botón \"MP3\" descarga música individual",
+    "description": "Consejo 4"
+  },
+  "helpTip5": {
+    "message": "• El botón \"SRT\" descarga letras con timing",
+    "description": "Consejo 5"
+  },
+  "close": {
+    "message": "Cerrar",
+    "description": "Botón cerrar"
+  },
+  "donateTitle": {
+    "message": "¡Gracias por tu apoyo!",
+    "description": "Título donación"
+  },
+  "donatePixKey": {
+    "message": "Clave PIX:",
+    "description": "Clave PIX"
+  },
+  "donateWhatsApp": {
+    "message": "WhatsApp:",
+    "description": "WhatsApp"
+  },
+  "donateMessage": {
+    "message": "Cualquier cantidad es bienvenida.",
+    "description": "Mensaje donación"
+  },
+  "donateQuote": {
+    "message": "Los sueños son lo más real que existe.",
+    "description": "Frase inspiradora"
+  },
+  "donateGratitude": {
+    "message": "¡Gratitud! 🙏",
+    "description": "Gratitud"
+  },
+  "topbarClosed": {
+    "message": "Barra superior cerrada",
+    "description": "Log barra cerrada"
+  },
+  "topbarOpened": {
+    "message": "Barra superior abierta",
+    "description": "Log barra abierta"
+  },
+  "cancel": {
+    "message": "Cancelar",
+    "description": "Botón cancelar"
+  },
+  "completed": {
+    "message": "completados",
+    "description": "Etiqueta completados"
+  },
+  "downloading": {
+    "message": "Descargando",
+    "description": "Etiqueta descargando"
+  },
+  "processing": {
+    "message": "Procesando...",
+    "description": "Etiqueta procesando"
+  },
+  "srtDownloadError": {
+    "message": "Error al descargar SRT:",
+    "description": "Error descarga SRT"
+  },
+  "downloadFailed": {
+    "message": "Error al iniciar la descarga",
+    "description": "Fallo genérico de descarga"
+  },
+  "failed": {
+    "message": "Falló",
+    "description": "Etiqueta falló"
+  },
+  "srtDownloaded": {
+    "message": "SRT descargado:",
+    "description": "Toast SRT descargado"
+  },
+  "startingDownloads": {
+    "message": "Iniciando descargas...",
+    "description": "Mensaje inicio descargas"
+  },
+  "helpFeatures": {
+    "message": "Funciones:",
+    "description": "Título funciones"
+  },
+  "helpFeature1": {
+    "message": "• Descarga por lotes de múltiples canciones",
+    "description": "Función 1"
+  },
+  "helpFeature2": {
+    "message": "• Extracción de letras con tiempo (SRT)",
+    "description": "Función 2"
+  },
+  "helpFeature3": {
+    "message": "• Selección persistente entre páginas",
+    "description": "Función 3"
+  },
+  "helpFeature4": {
+    "message": "• Interfaz simple e intuitiva",
+    "description": "Función 4"
+  },
+  "startTour": {
+    "message": "🎯 Tour Interactivo",
+    "description": "Botón iniciar tour"
+  },
+  "helpTip6": {
+    "message": "• Funciona en listas, perfiles y páginas individuales",
+    "description": "Consejo 6"
+  },
+  "tourStep01Title": { "message": "🎵 Panel Principal", "description": "Tour paso 1 título" },
+  "tourStep01Content": { "message": "¡Bienvenido! Este es el panel de la extensión SUNO LoopLess Download.", "description": "Tour paso 1 contenido" },
+  "tourStep02Title": { "message": "🎨 Pestaña CREATE", "description": "Tour paso 2 título" },
+  "tourStep02Content": { "message": "Haz clic en CREATE para empezar.", "description": "Tour paso 2 contenido" },
+  "tourStep03Title": { "message": "🔄 Actualizar", "description": "Tour paso 3 título" },
+  "tourStep03Content": { "message": "Si no aparecen los checkboxes, haz clic aquí. Si persiste, cambia de página.", "description": "Tour paso 3 contenido" },
+  "tourStep04Title": { "message": "☑️ Checkbox Individual", "description": "Tour paso 4 título" },
+  "tourStep04Content": { "message": "La casilla de selección en cada canción para marcar qué bajar.", "description": "Tour paso 4 contenido" },
+  "tourStep05Title": { "message": "✅ Seleccionar Todas", "description": "Tour paso 5 título" },
+  "tourStep05Content": { "message": "Marca todas las canciones de la página actual.", "description": "Tour paso 5 contenido" },
+  "tourStep06Title": { "message": "🔄 Navegación", "description": "Tour paso 6 título" },
+  "tourStep06Content": { "message": "Puedes navegar y seguir seleccionando. ¡Se guarda!", "description": "Tour paso 6 contenido" },
+  "tourStep07Title": { "message": "❌ Deseleccionar Página", "description": "Tour paso 7 título" },
+  "tourStep07Content": { "message": "Limpia solo la selección de esta página. Las otras permanecen.", "description": "Tour paso 7 contenido" },
+  "tourStep08Title": { "message": "🗑️ Limpiar Todo", "description": "Tour paso 8 título" },
+  "tourStep08Content": { "message": "Limpia la selección de TODAS las páginas.", "description": "Tour paso 8 contenido" },
+  "tourStep09Title": { "message": "⬇️ Descargar Seleccionadas", "description": "Tour paso 9 título" },
+  "tourStep09Content": { "message": "TIP: Desactiva 'preguntar dónde guardar' en Chrome.", "description": "Tour paso 9 contenido" },
+  "tourStep10Title": { "message": "🎵 Botones MP3/Lyric", "description": "Tour paso 10 título" },
+  "tourStep10Content": { "message": "Botones individuales en cada canción para descarga rápida.", "description": "Tour paso 10 contenido" },
+  "tourStep11Title": { "message": "🎵 Haz clic en el Nombre", "description": "Tour paso 11 título" },
+  "tourStep11Content": { "message": "Haz clic en el TÍTULO de una canción para abrir su página.", "description": "Tour paso 11 contenido" },
+  "tourStep12Title": { "message": "🎵 Botón MP3", "description": "Tour paso 12 título" },
+  "tourStep12Content": { "message": "En la página de la canción: descarga solo esa canción como MP3.", "description": "Tour paso 12 contenido" },
+  "tourStep13Title": { "message": "📝 Botón Lyric", "description": "Tour paso 13 título" },
+  "tourStep13Content": { "message": "Descarga la letra sincronizada (karaoke) como SRT.", "description": "Tour paso 13 contenido" },
+  "tourStep14Title": { "message": "▶️ Botón Play", "description": "Tour paso 14 título" },
+  "tourStep14Content": { "message": "Haz clic en PLAY para iniciar el reproductor.", "description": "Tour paso 14 contenido" },
+  "tourStep15Title": { "message": "🎵 Descarga en el Player", "description": "Tour paso 15 título" },
+  "tourStep15Content": { "message": "Con la canción sonando, usa el botón de la barra del player.", "description": "Tour paso 15 contenido" },
+  "tourStep16Title": { "message": "📚 Otras Páginas", "description": "Tour paso 16 título" },
+  "tourStep16Content": { "message": "Funciona en Library, perfiles y cualquier página de Suno.", "description": "Tour paso 16 contenido" },
+  "tourStep17Title": { "message": "❤️ Apoyar el Proyecto", "description": "Tour paso 17 título" },
+  "tourStep17Content": { "message": "¿Te gusta? Haz clic para apoyar el desarrollo.", "description": "Tour paso 17 contenido" },
+  "tourStep18Title": { "message": "🎉 ¡Tour Completo!", "description": "Tour paso 18 título" },
+  "tourStep18Content": { "message": "Ya conoces todo. Considera desactivar el aviso de guardar de Chrome.", "description": "Tour paso 18 contenido" },
+  "tourWaitingForClick": { "message": "⏳ Esperando tu clic...", "description": "Tour esperando clic" },
+  "tourContinue": { "message": "Continuar →", "description": "Botón continuar" },
+  "tourFinish": { "message": "🎉 Finalizar Tour", "description": "Botón finalizar tour" },
+  "langLabel": { "message": "Idioma:", "description": "Etiqueta del selector de idioma" },
+  "languageEnglish": { "message": "Inglés", "description": "Nombre del idioma: Inglés" },
+  "languagePortugueseBR": { "message": "Portugués (BR)", "description": "Nombre del idioma: Portugués de Brasil" },
+  "languageSpanish": { "message": "Español", "description": "Nombre del idioma: Español" },
+  "languageFrench": { "message": "Francés", "description": "Nombre del idioma: Francés" },
+  "openSuno": { "message": "Abrir Suno.com", "description": "Botón abrir Suno" },
+  "clearCache": { "message": "Limpiar Caché", "description": "Botón limpiar caché" },
+  "exportStats": { "message": "Exportar Estadísticas", "description": "Botón exportar estadísticas" },
+  "resetAll": { "message": "Resetear Todo", "description": "Botón resetear todo" }
+}

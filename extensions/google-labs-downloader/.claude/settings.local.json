@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm:*)",
+      "Bash(dir /s /b \"c:\\Users\\tharc\\Videos\\extenções\\baixar videos veo3\\Labs-Downloader\")",
+      "Bash(findstr:*)",
+      "Bash(powershell:*)",
+      "Bash(dir nul:*)",
+      "Bash(del \"\\.\\c:\\Users\\tharc\\Videos\\extenções\\baixar videos veo3\\Labs-Downloader\\nul\")",
+      "Bash(cmd /c 'del \"\"\\\\.\\c:\\Users\\tharc\\Videos\\extenções\\baixar videos veo3\\Labs-Downloader\\nul\"\"')",
+      "Bash(cmd /c \"rmdir /s /q \"\"\\\\?\\c:\\Users\\tharc\\Videos\\extenções\\baixar videos veo3\\Labs-Downloader\\nul\"\"\")",
+      "Bash(dir:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

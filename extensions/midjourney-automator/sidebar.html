@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Midjourney Automator</title>
+</head>
+<body>
+    <div id="midjourney-content">
+
+
+        <!-- Cabeçalho limpo -->
+        <div class="flow-header">
+            <div class="header-content">
+                <h1 class="header-title">Midjourney Automator</h1>
+                <p class="header-subtitle">Automatize a criação de imagens com IA</p>
+                <p class="header-credit">Desenvolvido por <strong>Nardoto</strong></p>
+
+                <!-- Abas de navegação movidas para o cabeçalho -->
+                <div class="header-tabs">
+                    <button id="openInstructionsModalBtn" class="header-tab-btn">📖 Como Usar</button>
+                    <button id="openDonationModalBtn" class="header-tab-btn">💚 Apoie o Projeto</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Container principal -->
+        <div class="flow-main">
+            <!-- Input de texto para vídeo - COLADO NO FUNDO -->
+            <div class="video-input-section">
+                <div class="input-header">
+                    <div class="input-title">
+                        <span>Prompts para Midjourney</span>
+                    </div>
+                    <div class="editor-controls">
+                        <button id="findReplaceBtn" class="editor-btn">🔍 Localizar e Substituir</button>
+                    </div>
+                </div>
+
+                <!-- Barra de localizar e substituir -->
+                <div class="find-replace-bar hidden" id="findReplaceBar">
+                    <div class="find-replace-row">
+                        <input type="text" id="findInput" placeholder="Localizar..." class="find-input">
+                        <button id="findPrevBtn" class="find-btn">⬆</button>
+                        <button id="findNextBtn" class="find-btn">⬇</button>
+                        <span id="findCount" class="find-count">0/0</span>
+                    </div>
+                    <div class="find-replace-row">
+                        <input type="text" id="replaceInput" placeholder="Substituir por..." class="replace-input">
+                        <button id="replaceBtn" class="replace-btn">Substituir</button>
+                        <button id="replaceAllBtn" class="replace-btn">Substituir Tudo</button>
+                        <button id="closeFindBtn" class="close-btn">✕</button>
+                    </div>
+                </div>
+
+                <div class="input-container">
+                    <textarea id="inputText" placeholder="Cole aqui todos os seus prompts para Midjourney... (formatação removida, quebras de linha mantidas)" wrap="soft" spellcheck="false"></textarea>
+                    <div class="formatting-help">
+                        <span>✨ Formatação é removida automaticamente - quebras de linha são mantidas para separar prompts</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Botão Processar - COLADO NO FUNDO -->
+            <button class="submit-btn" id="processBtn" title="Processar Prompts">
+                Processar Prompts
+            </button>
+
+            <!-- Botões de controle -->
+            <div class="control-buttons">
+                <button id="clearTextBtn" class="control-btn">Limpar</button>
+                <button id="autoInsertBtn" class="control-btn primary">Gerar Todos</button>
+                <button id="stopAutoBtn" class="control-btn stop hidden">Parar</button>
+            </div>
+
+
+            <!-- Lista de Prompts -->
+            <div class="prompts-section">
+                <h3 class="prompts-title">Lista de Prompts</h3>
+            </div>
+
+            <!-- Configuração de delay humanizado -->
+            <div class="delay-config hidden" id="automationContainer">
+                <div class="delay-section">
+                    <h4 class="delay-title">⏱️ Configurações de Tempo</h4>
+
+                    <div class="delay-item">
+                        <label for="delayInput">Delay base entre prompts:</label>
+                        <input type="number" id="delayInput" min="3" max="30" value="8" class="delay-input">
+                        <span class="delay-unit">segundos</span>
+                    </div>
+
+                    <div class="delay-info">
+                        <span class="delay-description">
+                            ⚡ <strong>Progresso em Tempo Real:</strong><br>
+                            • Prompts analisados: <span id="totalAnalyzed">0</span><br>
+                            • Enviados: <span id="totalSent">0</span><br>
+                            • Faltam: <span id="remaining">0</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progresso da automação -->
+            <div class="progress-info hidden" id="progressInfo">
+                <div class="progress-item">
+                    <span class="progress-label">Processando:</span>
+                    <span id="currentSong" class="progress-value">-</span>
+                </div>
+                <div class="progress-item">
+                    <span class="progress-label">Progresso:</span>
+                    <span id="progressCount" class="progress-value">0</span>
+                    <span class="progress-separator">de</span>
+                    <span id="totalCount" class="progress-value">0</span>
+                </div>
+            </div>
+
+            <!-- Status -->
+            <div class="status-container hidden" id="statusContainer">
+                <span id="statusText">Aguardando...</span>
+            </div>
+
+            <!-- Lista de prompts -->
+            <div class="video-list" id="song-card-list">
+                <!-- Os cards de prompts serão inseridos aqui dinamicamente -->
+            </div>
+
+            <!-- Rodapé -->
+            <div class="flow-footer">
+                <p class="author-credit">Desenvolvido por <strong>Nardoto</strong></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

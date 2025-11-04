@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Ícone</title>
+</head>
+<body>
+    <canvas id="canvas" width="128" height="128"></canvas>
+    <br>
+    <button onclick="downloadIcon()">Baixar Ícone</button>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Fundo com gradiente
+        const gradient = ctx.createLinearGradient(0, 0, 128, 128);
+        gradient.addColorStop(0, '#667eea');
+        gradient.addColorStop(1, '#764ba2');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, 128, 128);
+
+        // Desenhar múltiplas "abas" estilizadas
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+
+        // Aba 1 (atrás)
+        ctx.fillRect(15, 35, 50, 60);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+        ctx.fillRect(15, 25, 50, 10);
+
+        // Aba 2 (meio)
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+        ctx.fillRect(40, 30, 50, 65);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.fillRect(40, 20, 50, 10);
+
+        // Aba 3 (frente)
+        ctx.fillStyle = 'rgba(255, 255, 255, 1)';
+        ctx.fillRect(65, 25, 50, 70);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+        ctx.fillRect(65, 15, 50, 10);
+
+        // Adicionar sombras para profundidade
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+        ctx.shadowBlur = 5;
+        ctx.shadowOffsetX = 2;
+        ctx.shadowOffsetY = 2;
+
+        // Símbolo de "múltiplo" (+)
+        ctx.shadowColor = 'transparent';
+        ctx.fillStyle = '#667eea';
+        ctx.font = 'bold 40px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('+', 100, 80);
+
+        function downloadIcon() {
+            const link = document.createElement('a');
+            link.download = 'icon.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        // Baixar automaticamente
+        setTimeout(() => {
+            downloadIcon();
+            alert('Ícone baixado! Substitua o icon.png na pasta da extensão.');
+        }, 500);
+    </script>
+</body>
+</html>

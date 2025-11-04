@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(del chatgpt_handler.js gemini_handler.js gemini-fix.js)",
+      "Bash(cmd /c \"del /F chatgpt_handler.js gemini_handler.js gemini-fix.js test.html test-switch.html test-orange.html test-text-color.html test-new-colors.html test-final-colors.html test-light-bg.html\")",
+      "Bash(dir /B *.js)",
+      "Read(//c/Users/tharc/Videos/extenções/VEO3 LOOPLESS - back up/**)"
+    ],
+    "defaultMode": "acceptEdits"
+  }
+}

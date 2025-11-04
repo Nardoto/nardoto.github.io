@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 400px;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .prompts-container {
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-bottom: 15px;
+    }
+    .prompt-item {
+      background: #f5f5f5;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      word-wrap: break-word;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .prompt-image {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 5px;
+      flex-shrink: 0;
+    }
+    .prompt-content {
+      flex: 1;
+    }
+    .prompt-text {
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .prompt-meta {
+      font-size: 12px;
+      color: #666;
+      margin-top: 5px;
+    }
+    .buttons {
+      display: flex;
+      gap: 10px;
+    }
+    button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 13px;
+      background-color: #000 !important;
+      color: #fff !important;
+      transition: opacity 0.2s;
+    }
+    button:hover {
+      opacity: 0.85;
+      background-color: #000 !important;
+    }
+    button:active {
+      opacity: 0.7;
+    }
+    .status {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 12px;
+      color: #666;
+    }
+    .empty-state {
+      text-align: center;
+      color: #999;
+      font-style: italic;
+    }
+    .export-options {
+      margin-bottom: 15px;
+    }
+    .export-options label {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 5px;
+      color: #333;
+    }
+    .export-options input {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .pin-control {
+      text-align: center;
+      margin-top: 10px;
+    }
+    #pinSidePanelBtn {
+      width: auto;
+      min-width: 32px;
+      height: 28px;
+      padding: 4px 8px;
+      font-size: 16px;
+      background-color: #000 !important;
+      color: white !important;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #pinSidePanelBtn:hover {
+      background-color: #000 !important;
+      opacity: 0.85;
+      transform: translateY(-1px);
+    }
+    #pinSidePanelBtn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 11px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h2>CapCut Prompt Extractor</h2>
+    <div class="pin-control">
+      <button id="pinSidePanelBtn" title="Fixar no painel lateral">📌</button>
+    </div>
+  </div>
+  <p style="text-align: center; margin-top: -15px; margin-bottom: 20px; font-size: 13px;">Clique em <b>Extrair Todos</b> para buscar os prompts das imagens geradas.</p>
+
+  <div style="display: flex; justify-content: center; margin-bottom: 10px;">
+    <button id="togglePromptsBtn" style="padding: 8px 16px; font-size: 13px;">
+      <span id="toggleIcon">▼</span> <span id="promptCount">0 prompts extraídos</span>
+    </button>
+  </div>
+
+  <div class="prompts-container" id="promptsContainer" style="display: none;">
+    <div class="empty-state">Nenhum prompt extraído ainda</div>
+  </div>
+  
+  <div class="export-options">
+    <div style="text-align: center; margin-bottom: 10px; font-size: 11px; color: #666;">
+      💾 Todas as configurações são salvas automaticamente
+    </div>
+    <label for="filenameInput">Nome do Arquivo TXT (opcional):</label>
+    <div style="display: flex; gap: 5px; align-items: center;">
+      <input type="text" id="filenameInput" placeholder="Ex: prompts_projeto_carro" title="Este nome será usado para o arquivo TXT e nome do projeto no editor" style="flex: 1;">
+      <button id="forceNameBtn" title="Forçar substituição do nome no editor do CapCut" style="flex: 0 0 auto; padding: 8px 12px; font-size: 12px;">🔄 Forçar</button>
+    </div>
+    <label for="linePrefixInput" style="margin-top: 10px;">Prefixo da Linha (opcional):</label>
+    <input type="text" id="linePrefixInput" placeholder="Ex: Cena" title="Prefixo para a numeração dos prompts (Cena_1, Cena_2...)">
+    <label for="promptPrefixInput" style="margin-top: 10px;">Prefixo do Prompt (opcional):</label>
+    <input type="text" id="promptPrefixInput" placeholder="Ex: cena cinematica hyper realista" title="Texto adicionado antes de cada prompt">
+  </div>
+  
+  <div class="buttons">
+  <button id="extractAllBtn">🔍 Extrair Todos</button>
+  <button id="stopBtn" style="display: none;">🛑 Parar</button>
+  <button id="exportTxtBtn">📄 Exportar TXT</button>
+  <button id="clearBtn">🗑️ Limpar</button>
+  </div>
+  
+  <div class="join-txt-section" style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
+    <h3>Juntar Arquivos TXT</h3>
+    <input type="file" id="txtFileInput" multiple accept=".txt" style="margin-bottom: 10px;">
+    <button id="joinTxtFilesBtn" style="width: 100%;">🔗 Juntar e Baixar</button>
+  </div>
+
+  <div id="progressContainer" style="display: none; margin-top: 15px;">
+    <div id="progressText" style="font-size: 12px; margin-bottom: 5px; text-align: center;"></div>
+    <div style="background-color: #e0e0e0; border-radius: 5px; padding: 2px;">
+      <div id="progressBar" style="width: 0%; height: 10px; background-color: #673AB7; border-radius: 3px; transition: width 0.5s ease;"></div>
+    </div>
+    <div id="progressFails" style="font-size: 12px; margin-top: 5px; text-align: center; color: #f44336;"></div>
+  </div>
+
+  <div class="status" id="status"></div>
+  
+  <div class="footer">
+    Desenvolvido por <b>Nardoto</b> distribuído por <b>LoopLess</b>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

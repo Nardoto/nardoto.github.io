@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "Midjourney Automator",
+  "version": "2.0",
+  "description": "Automatiza o envio de prompts para o Midjourney. Desenvolvido por Nardoto.",
+  "author": "Nardoto",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://www.midjourney.com/*",
+    "https://*.midjourney.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.midjourney.com/*",
+        "https://*.midjourney.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "sidebar.css"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "sidebar.html",
+        "icons/*"
+      ],
+      "matches": [
+        "https://www.midjourney.com/*",
+        "https://*.midjourney.com/*"
+      ]
+    }
+  ]
+}

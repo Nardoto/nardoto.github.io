@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Otimizador Gold</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>Otimizador Gold</h2>
+    <div id="widthControl" aria-label="Controle de largura do popup">
+        <label for="popupWidth">Largura do popup (px):</label>
+        <input type="range" id="popupWidth" min="320" max="800" step="10" value="360">
+        <span id="popupWidthValue">360px</span>
+        <button id="pinSidePanelBtn" title="Fixar no painel lateral">📌</button>
+    </div>
+    <div id="form">
+        <input type="text" id="fileName" placeholder="Nome do arquivo" />
+        
+        <!-- Linha superior: Checkboxes + Redefinir -->
+        <div style="display: flex; align-items: center; gap: 8px; margin: 3px 0; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 3px;">
+                <label for="filterNumbers" style="margin: 0; font-size: 12px;">Filtrar números:</label>
+                <input type="checkbox" id="filterNumbers" style="width: auto; cursor: pointer;">
+            </div>
+            <div style="display: flex; align-items: center; gap: 3px;">
+                <label for="clearTextAfterExport" style="margin: 0; font-size: 12px;">Limpar texto após exportar:</label>
+                <input type="checkbox" id="clearTextAfterExport" style="width: auto; cursor: pointer;">
+            </div>
+            <div style="display: flex; align-items: center; gap: 3px;">
+                <label for="autoTitleOnDivide" style="margin: 0; font-size: 12px;">Inserir título ao dividir:</label>
+                <input type="checkbox" id="autoTitleOnDivide" style="width: auto; cursor: pointer;">
+            </div>
+            <div style="display: flex; align-items: center; gap: 3px;">
+                <label for="ignoreText" style="margin: 0; font-size: 12px;">Ignorar texto:</label>
+                <input type="text" id="ignoreText" placeholder="palavra ou frase" style="width: 180px; padding: 3px; font-size: 12px;">
+            </div>
+            <button id="resetBtn" style="background-color: #dc3545; color: white; border: none; border-radius: 3px; padding: 3px 6px; font-size: 10px; cursor: pointer; height: 20px;">Redefinir</button>
+        </div>
+        
+        <textarea id="textInput" rows="8" placeholder="Insira o texto aqui..." style="margin: 3px 0;"></textarea>
+        
+        <!-- Linha de Caracteres: 4 elementos -->
+        <div style="display: flex; align-items: end; gap: 4px; margin: 3px 0;">
+            <div style="display: flex; flex-direction: column; gap: 1px;">
+                <label style="font-size: 10px; color: var(--text-color-dark); margin: 0;">Caracteres por bloco:</label>
+                <input type="number" id="charCount" placeholder="490" value="490" style="width: 60px; padding: 3px; font-size: 10px;">
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 1px;">
+                <label style="font-size: 10px; color: var(--text-color-dark); margin: 0;">Caracteres por segundo:</label>
+                <input type="number" id="readingRate" min="10" max="50" step="1" value="14" style="width: 40px; padding: 3px; font-size: 10px;">
+            </div>
+            <button id="divideByCharsBtn" style="height: 24px; font-size: 10px; padding: 3px 5px;">Dividir por Caracteres</button>
+            <button id="exportSrtBtn" style="height: 24px; font-size: 10px; padding: 3px 5px;">Exportar para SRT</button>
+    <button id="addTitleBlockBtn" style="height: 24px; font-size: 10px; padding: 3px 5px; background: #007bff; color: white;">Bloco do Título</button>
+        </div>
+        
+        <!-- Linha de Palavras: 3 elementos -->
+        <div style="display: flex; align-items: end; gap: 4px; margin: 3px 0;">
+            <div style="display: flex; flex-direction: column; gap: 1px;">
+                <label style="font-size: 10px; color: var(--text-color-dark); margin: 0;">Palavras por bloco:</label>
+                <input type="number" id="wordCount" placeholder="50" value="50" style="width: 60px; padding: 3px; font-size: 10px;">
+            </div>
+            <button id="divideByWordsBtn" style="background-color: #6c757d; color: white; font-size: 10px; padding: 3px 5px; height: 24px; opacity: 0.8;">Dividir por Palavras</button>
+            <button id="exportPdfBtn" style="height: 24px; font-size: 10px; padding: 3px 5px;">Exportar para TXT</button>
+        </div>
+        
+        <span id="readingRateValue" style="font-size: 9px; color: var(--text-color-dark); display: none;">14 c/s</span>
+        
+        <!-- Espaçamento entre áudios oculto -->
+        <input type="hidden" id="speed" value="1">
+        <span id="speedValue" style="display:none;">1.0x</span>
+        
+        <!-- Juntar SRTs -->
+        <div style="display: flex; flex-direction: column; gap: 4px; width: 100%; margin-top: 6px;">
+            <label for="srtFiles" style="font-size: 10px; color: var(--text-color-dark); margin: 0;">Selecionar vários arquivos SRT:</label>
+            <input type="file" id="srtFiles" accept=".srt" multiple style="width: 100%; padding: 6px; font-size: 12px;">
+            <div style="display:flex; gap: 6px;">
+                <button id="mergeSrtsBtn" style="height: 24px; font-size: 10px; padding: 3px 5px;">Juntar SRTs</button>
+                <button id="cancelMergeBtn" style="height: 24px; font-size: 10px; padding: 3px 5px; background-color:#6c757d;">Cancelar</button>
+            </div>
+            <div id="mergeStatus" style="font-size: 10px; color: var(--text-color-dark);"></div>
+            <div id="mergePreview" style="font-size: 10px; color: var(--text-color-dark);"></div>
+        </div>
+    </div>
+    <div id="preview"></div>
+    <div id="totalInfo"></div>
+    <div id="blocks"></div>
+    <p id="thanks">O sonho é a coisa mais real que Existe! Gratidão</p>
+
+    <script src="script.js"></script>
+    <script src="srt-merge.js"></script>
+</body>
+</html>

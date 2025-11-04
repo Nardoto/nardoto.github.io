@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "Gemini LoopLess 2.5",
+  "version": "2.5",
+  "description": "Organizador profissional de prompts para o Gemini. Distribuído por LOOPLESS. Desenvolvido por Nardoto.",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://gemini.google.com/*"
+  ],
+  "icons": {
+  "16": "icons/iconLOGO.png",
+  "48": "icons/iconLOGO.png",
+  "128": "icons/iconLOGO.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://gemini.google.com/*"],
+      "js": ["gemini-fix.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["https://gemini.google.com/*"],
+      "js": [
+        "gemini_handler.js",
+        "content.js"
+      ],
+      "css": ["sidebar.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "sidebar.html",
+        "sidebar-script.js",
+        "icons/*"
+      ],
+      "matches": ["https://gemini.google.com/*"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}

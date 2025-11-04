@@ -1,0 +1,275 @@
+/* sidebar.css - Versão Final com Estilo para Modais */
+:root {
+    --suno-automator-accent-orange: #FF6B35;
+    --suno-automator-accent-orange-hover: #FF5722;
+    /* Gradientes para botões */
+    --suno-automator-gradient-orange-pink: linear-gradient(135deg, #FF6B35 0%, #FF4FCB 100%);
+    --suno-automator-gradient-orange-pink-hover: linear-gradient(135deg, #FF7D4F 0%, #FF66D6 100%);
+    --suno-automator-gradient-green-blue: linear-gradient(135deg, #34A853 0%, #1E90FF 100%);
+    --suno-automator-gradient-green-blue-hover: linear-gradient(135deg, #3CC062 0%, #3AA0FF 100%);
+    --suno-automator-bg-dark: #121212;
+    --suno-automator-card-bg-dark: #1E1E1E;
+    --suno-automator-text-light: #E0E0E0;
+    --suno-automator-text-hint: #8A8A8A;
+    --suno-automator-border-dark: #333333;
+    --suno-automator-secondary-btn-bg: #2C2C2C;
+    --suno-automator-secondary-btn-hover: #383838;
+    --suno-automator-width: 400px;
+    --suno-automator-z-index: 999999;
+}
+
+#suno-automator-sidebar {
+    position: fixed !important; top: 0 !important; right: 0 !important;
+    width: var(--suno-automator-width) !important; height: 100vh !important;
+    background: var(--suno-automator-bg-dark) !important;
+    border-left: 1px solid var(--suno-automator-border-dark) !important;
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.3) !important;
+    z-index: var(--suno-automator-z-index) !important;
+    transform: translateX(100%) !important;
+    transition: transform 0.3s ease !important;
+    overflow-y: auto !important;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif !important;
+    box-sizing: border-box !important;
+    color: var(--suno-automator-text-light) !important;
+}
+
+#suno-automator-sidebar.open { transform: translateX(0) !important; }
+
+#suno-automator-toggle {
+    position: fixed !important; top: 50% !important; right: 0 !important;
+    transform: translateY(-50%) !important;
+    z-index: calc(var(--suno-automator-z-index) - 1) !important;
+    background: var(--suno-automator-gradient-orange-pink) !important;
+    background-size: 200% 200% !important;
+    color: white !important;
+    border: none !important;
+    width: 40px !important; height: 120px !important;
+    border-top-left-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+    cursor: pointer !important;
+    box-shadow: -2px 2px 8px rgba(0,0,0,0.2) !important;
+    font-size: 24px !important;
+    display: flex !important; align-items: center !important; justify-content: center !important;
+    transition: all 0.3s ease !important;
+}
+#suno-automator-toggle:hover {
+    background: var(--suno-automator-gradient-orange-pink-hover) !important;
+    background-position: 100% 0 !important;
+}
+body.suno-automator-sidebar-open #suno-automator-toggle { right: var(--suno-automator-width) !important; }
+
+#suno-automator-sidebar #suno-automator-content { padding: 1.5rem !important; }
+body.suno-automator-sidebar-open {
+    margin-right: var(--suno-automator-width) !important;
+    transition: margin-right 0.3s ease !important;
+}
+
+#suno-automator-sidebar * { box-sizing: border-box !important; }
+#suno-automator-sidebar h1 {
+    font-size: 1.5rem !important; font-weight: 600 !important;
+    margin: 0 0 0.5rem 0 !important; color: var(--suno-automator-text-light) !important;
+    text-align: center !important;
+}
+#suno-automator-sidebar .tagline {
+    font-size: 0.9rem !important; color: var(--suno-automator-text-hint) !important;
+    margin-bottom: 1.5rem !important; text-align: center !important;
+}
+#suno-automator-sidebar .instructions {
+    background: var(--suno-automator-card-bg-dark) !important; padding: 1rem !important;
+    border-radius: 8px !important; margin-bottom: 1.5rem !important;
+    border-left: 3px solid var(--suno-automator-accent-orange) !important;
+}
+#suno-automator-sidebar .instructions h3 {
+    color: var(--suno-automator-text-light) !important; margin: 0 0 0.5rem 0 !important;
+    font-size: 1rem !important;
+}
+#suno-automator-sidebar .instructions ol {
+    margin: 0 0 0 1rem !important; padding-left: 0 !important;
+    color: var(--suno-automator-text-hint) !important;
+}
+#suno-automator-sidebar textarea {
+    width: 100% !important; height: 120px !important;
+    background: var(--suno-automator-secondary-btn-bg) !important;
+    border: 1px solid var(--suno-automator-border-dark) !important;
+    border-radius: 12px !important;
+    color: var(--suno-automator-text-light) !important;
+    padding: 0.75rem !important; font-size: 0.9rem !important;
+    resize: vertical !important; margin-bottom: 1rem !important;
+}
+#suno-automator-sidebar textarea:focus {
+    outline: none !important; border-color: var(--suno-automator-accent-orange) !important;
+}
+#suno-automator-sidebar button {
+    padding: 0.75rem 1rem !important; color: white !important;
+    border: none !important; border-radius: 999px !important;
+    font-size: 0.9rem !important; font-weight: 600 !important;
+    cursor: pointer !important; transition: all 0.2s ease !important;
+}
+#suno-automator-sidebar button:hover { transform: translateY(-1px) !important; opacity: 0.9; }
+#suno-automator-sidebar .button-container {
+    display: flex !important; gap: 0.5rem !important; margin-bottom: 1rem !important;
+}
+#suno-automator-sidebar .success-btn {
+    background: var(--suno-automator-gradient-orange-pink) !important; flex-grow: 1 !important;
+    background-size: 200% 200% !important;
+}
+#suno-automator-sidebar .success-btn:hover { background: var(--suno-automator-gradient-orange-pink-hover) !important; background-position: 100% 0 !important; }
+#suno-automator-sidebar .clear-btn {
+    background: var(--suno-automator-secondary-btn-bg) !important; flex-shrink: 0;
+    color: var(--suno-automator-text-hint) !important;
+}
+#suno-automator-sidebar .clear-btn:hover { background: var(--suno-automator-secondary-btn-hover) !important; }
+#suno-automator-sidebar .status-container {
+    background: var(--suno-automator-card-bg-dark) !important; padding: 1rem !important;
+    border-radius: 8px !important; margin: 1rem 0 !important;
+    border: 1px solid var(--suno-automator-border-dark) !important;
+}
+#suno-automator-sidebar .status-container h4 {
+    color: var(--suno-automator-text-light) !important; margin: 0 0 0.5rem 0 !important;
+    font-size: 1rem !important;
+}
+#suno-automator-sidebar .hidden { display: none !important; }
+
+#song-card-list { list-style: none !important; padding: 0 !important; margin: 1.5rem 0 0 0 !important; }
+.song-card {
+    background: var(--suno-automator-card-bg-dark) !important;
+    border: 1px solid var(--suno-automator-border-dark) !important;
+    border-radius: 8px !important; padding: 1rem !important; margin-bottom: 0.75rem !important;
+    display: grid !important; grid-template-areas: "title button" "style button" !important;
+    grid-template-columns: 1fr auto !important; gap: 0.25rem 1rem !important;
+    align-items: center !important; transition: all 0.2s ease !important;
+}
+.song-card:hover { border-color: var(--suno-automator-accent-orange) !important; }
+.song-card .card-title {
+    grid-area: title !important; font-weight: 600 !important;
+    color: var(--suno-automator-text-light) !important;
+    margin: 0 !important; white-space: nowrap !important; overflow: hidden !important;
+    text-overflow: ellipsis !important; font-size: 0.95rem !important;
+}
+.song-card .card-style {
+    grid-area: style !important; font-size: 0.8rem !important;
+    color: var(--suno-automator-text-hint) !important;
+    margin: 0 !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important;
+}
+.song-card .insert-btn {
+    grid-area: button !important;
+    background: var(--suno-automator-secondary-btn-bg) !important;
+    color: var(--suno-automator-text-light) !important;
+    font-size: 0.8rem !important; padding: 0.5rem 1rem !important; width: auto !important;
+    margin: 0 !important; font-weight: 600 !important;
+}
+.song-card .insert-btn:hover { background: var(--suno-automator-secondary-btn-hover) !important; }
+.song-card.processed { background-color: #283328 !important; border-color: #34a853 !important; }
+.song-card.processed .card-title { color: #34a853 !important; }
+.song-card.processed .insert-btn { 
+    background: var(--suno-automator-gradient-green-blue) !important; 
+    background-size: 200% 200% !important;
+    color: white !important; 
+    cursor: not-allowed !important; 
+}
+.song-card.processed .insert-btn:hover { background: var(--suno-automator-gradient-green-blue-hover) !important; background-position: 100% 0 !important; }
+.song-card.processing {
+    border-color: var(--suno-automator-accent-orange) !important;
+    animation: pulse 1.5s infinite !important;
+}
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+.automation-container {
+    margin: 1rem 0 !important; padding: 1rem !important;
+    background: var(--suno-automator-card-bg-dark) !important;
+    border-radius: 8px !important; border: 1px solid var(--suno-automator-border-dark) !important;
+}
+.delay-config { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+.delay-config label { font-size: 0.85rem; font-weight: 500; color: var(--suno-automator-text-hint); }
+.delay-input {
+    width: 60px; padding: 0.25rem 0.5rem; border: 1px solid var(--suno-automator-border-dark);
+    border-radius: 4px; background: var(--suno-automator-bg-dark); color: var(--suno-automator-text-light);
+}
+.auto-btn { background: var(--suno-automator-gradient-orange-pink) !important; background-size: 200% 200% !important; }
+.auto-btn:hover { background: var(--suno-automator-gradient-orange-pink-hover) !important; background-position: 100% 0 !important; }
+.stop-btn {
+    background: #dc3545 !important; width: 100% !important; padding: 0.75rem !important;
+    font-size: 0.95rem !important; font-weight: 600 !important; margin-top: 0.5rem !important;
+}
+.stop-btn:hover { background: #c82333 !important; }
+.progress-info {
+    margin-top: 1rem !important; padding: 0.75rem !important;
+    background: var(--suno-automator-bg-dark) !important;
+    border-radius: 6px !important; text-align: center !important;
+}
+
+/* --- ESTILOS ADICIONADOS PARA O RODAPÉ E MODAIS --- */
+
+#suno-automator-sidebar .footer {
+    margin-top: 1.5rem !important; padding-top: 1.5rem !important;
+    border-top: 1px solid var(--suno-automator-border-dark) !important;
+    font-size: 0.8rem !important; color: var(--suno-automator-text-hint) !important;
+    text-align: center !important;
+}
+#suno-automator-sidebar .footer-buttons {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+#suno-automator-sidebar .footer-btn {
+    background: transparent !important;
+    color: var(--suno-automator-text-hint) !important;
+    border: 1px solid var(--suno-automator-border-dark) !important;
+    padding: 0.25rem 0.75rem !important;
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
+    border-radius: 999px !important;
+}
+#suno-automator-sidebar .footer-btn:hover {
+    background: var(--suno-automator-secondary-btn-bg) !important;
+    color: var(--suno-automator-text-light) !important;
+    border-color: var(--suno-automator-text-light) !important;
+}
+#suno-automator-sidebar .author-credit {
+    margin: 0 !important;
+    font-size: 0.9rem !important; /* Aumenta o tamanho da fonte */
+}
+
+/* Fundo do Modal */
+#suno-automator-modal-bg {
+    position: fixed !important; top: 0 !important; left: 0 !important;
+    width: 100vw !important; height: 100vh !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    z-index: calc(var(--suno-automator-z-index) + 10) !important;
+    display: flex !important; align-items: center !important; justify-content: center !important;
+}
+
+/* Caixa do Modal */
+.suno-automator-modal {
+    background: var(--suno-automator-card-bg-dark) !important;
+    color: var(--suno-automator-text-light) !important;
+    padding: 2rem !important;
+    border-radius: 12px !important;
+    border: 1px solid var(--suno-automator-border-dark) !important;
+    width: 90% !important;
+    max-width: 500px !important;
+    text-align: center !important;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.5) !important;
+}
+.suno-automator-modal h2 {
+    color: var(--suno-automator-text-light) !important;
+    margin: 0 0 1rem 0 !important;
+}
+.suno-automator-modal p {
+    margin: 0.5rem 0 !important;
+    line-height: 1.6 !important;
+    color: var(--suno-automator-text-hint) !important;
+}
+.suno-automator-modal strong {
+    color: var(--suno-automator-text-light) !important;
+    word-break: break-all;
+}
+.suno-automator-modal .modal-close-btn {
+    background: var(--suno-automator-secondary-btn-bg) !important;
+    color: var(--suno-automator-text-light) !important;
+    margin-top: 1.5rem !important;
+    padding: 0.5rem 1.5rem !important;
+}
+.suno-automator-modal .modal-close-btn:hover {
+    background: var(--suno-automator-secondary-btn-hover) !important;
+}
