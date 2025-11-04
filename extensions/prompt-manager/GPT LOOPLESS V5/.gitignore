@@ -1,7 +1,0 @@
-# Local AI tool caches
-.claude/
-
-# OS/editor cruft
-.DS_Store
-Thumbs.db
-.vscode/
