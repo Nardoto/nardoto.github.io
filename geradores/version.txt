@@ -1,0 +1,5 @@
+v3.1.0 - Build 20251107
+Última atualização: 07/11/2025 às 16:44
+Botões incluídos:
+- Desvincular Dispositivo
+- Corrigir Plano

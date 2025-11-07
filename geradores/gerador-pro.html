@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Licenças PRO - Sistema Privacy-First</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Gerador de Licenças PRO v3.1.0 - Sistema Privacy-First</title>
     <style>
         * {
             margin: 0;
@@ -582,7 +585,10 @@
     <!-- Dashboard -->
     <div class="dashboard">
         <div class="dashboard-header">
-            <h1 class="dashboard-title">Gerador de Licenças PRO</h1>
+            <div style="display: flex; align-items: center; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <h1 class="dashboard-title" style="margin: 0;">Gerador de Licenças PRO</h1>
+                <span style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);">v3.1.0 ✓</span>
+            </div>
             <p class="dashboard-subtitle">Sistema de licenças com privacidade total - Nenhum rastreamento de uso</p>
         </div>
 
@@ -885,6 +891,14 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', async () => {
+            // Banner de versão no console
+            console.log('%c🎉 Gerador de Licenças PRO v3.1.0 - Build 20251107 ', 'background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 10px 20px; border-radius: 8px; font-size: 16px; font-weight: bold;');
+            console.log('%c✅ Novidades v3.1.0:', 'color: #10b981; font-weight: bold; font-size: 14px;');
+            console.log('  🔓 Botão "Desvincular Dispositivo" - Remove vinculação de fingerprint');
+            console.log('  🔧 Botão "Corrigir Plano" - Corrige plano baseado no tipo de licença');
+            console.log('  🐛 Corrigido bug: licenças vitalícias mostrando plano "Mensal"');
+            console.log('%cData: 05/11/2024', 'color: #94a3b8; font-size: 12px;');
+
             // Carregar do Firebase primeiro
             await loadLicensesFromFirebase();
 
@@ -1439,6 +1453,18 @@
                     try {
                         console.log(`🔄 Atualizando licença ${licenseKey}...`);
 
+                        // Mapeia tipo de licença para nome do plano (CORREÇÃO DO BUG)
+                        const typeValue = fields.type?.stringValue || 'monthly';
+                        const planNames = {
+                            'trial3days': 'Trial (3 dias)',
+                            'trial': 'Trial (7 dias)',
+                            'monthly': 'Mensal',
+                            'quarterly': 'Trimestral',
+                            'annual': 'Anual',
+                            'lifetime': 'Vitalícia'
+                        };
+                        const correctPlan = planNames[typeValue] || 'Mensal';
+
                         // Prepara os campos para atualização
                         const updateDoc = {
                             fields: {
@@ -1449,9 +1475,9 @@
                                 phone: fields.phone || { stringValue: '' },
                                 username: fields.username || { stringValue: '' },
                                 password: fields.password || { stringValue: '' },
-                                plan: fields.plan || { stringValue: 'Mensal' },
+                                plan: fields.plan || { stringValue: correctPlan }, // CORRIGIDO: usa plano correto baseado no tipo
                                 expiresAt: fields.expiresAt || { integerValue: new Date().getTime().toString() },
-                                status: fields.status || { stringValue: 'active' },
+                                status: fields.status || { stringValue: 'inactive' }, // CORRIGIDO: inactive por padrão
                                 deviceFingerprint: fields.deviceFingerprint || { stringValue: '' },
                                 createdAt: fields.createdAt || { timestampValue: new Date().toISOString() },
                                 notes: fields.notes || { stringValue: '' },
@@ -2342,7 +2368,31 @@
                             </div>
                         </div>
 
-                        <div style="margin-top: 25px; text-align: right;">
+                        <div style="margin-top: 25px; display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                            <div style="display: flex; gap: 10px;">
+                                ${hasFingerprint ? `
+                                <button onclick="unlinkDevice('${license.key}')" style="
+                                    padding: 12px 24px;
+                                    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+                                    color: white;
+                                    border: none;
+                                    border-radius: 8px;
+                                    cursor: pointer;
+                                    font-weight: 600;
+                                    font-size: 14px;
+                                ">🔓 Desvincular Dispositivo</button>
+                                ` : ''}
+                                <button onclick="fixLicensePlan('${license.key}', '${license.type}')" style="
+                                    padding: 12px 24px;
+                                    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+                                    color: white;
+                                    border: none;
+                                    border-radius: 8px;
+                                    cursor: pointer;
+                                    font-weight: 600;
+                                    font-size: 14px;
+                                ">🔧 Corrigir Plano</button>
+                            </div>
                             <button onclick="document.getElementById('detailsModal').remove()" style="
                                 padding: 12px 24px;
                                 background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
@@ -2361,8 +2411,116 @@
             document.body.insertAdjacentHTML('beforeend', modalHTML);
         }
 
+        // Fix License Plan - Corrige o campo 'plan' baseado no 'type'
+        async function fixLicensePlan(licenseKey, licenseType) {
+            const planNames = {
+                'trial3days': 'Trial (3 dias)',
+                'trial': 'Trial (7 dias)',
+                'monthly': 'Mensal',
+                'quarterly': 'Trimestral',
+                'annual': 'Anual',
+                'lifetime': 'Vitalícia'
+            };
+
+            const correctPlan = planNames[licenseType] || 'Mensal';
+
+            if (!confirm(`🔧 CORRIGIR PLANO\n\nLicença: ${licenseKey}\nTipo: ${licenseType}\nPlano Correto: ${correctPlan}\n\nDeseja corrigir o campo 'plan' no Firebase?`)) {
+                return;
+            }
+
+            try {
+                // Atualiza APENAS o campo 'plan' no Firebase
+                const url = `${FIREBASE_CONFIG.databaseURL}/licenses/${licenseKey}?key=${FIREBASE_CONFIG.apiKey}&updateMask.fieldPaths=plan`;
+
+                const firebaseDoc = {
+                    fields: {
+                        plan: { stringValue: correctPlan }
+                    }
+                };
+
+                const response = await fetch(url, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(firebaseDoc)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erro ao corrigir plano');
+                }
+
+                alert(`✅ Plano corrigido com sucesso!\n\nLicença: ${licenseKey}\nPlano: ${correctPlan}`);
+
+                // Fecha o modal
+                const modal = document.getElementById('detailsModal');
+                if (modal) modal.remove();
+
+                // Recarrega a lista de licenças
+                await loadLicensesFromFirebase();
+
+            } catch (error) {
+                console.error('❌ Erro ao corrigir plano:', error);
+                alert('❌ Erro ao corrigir plano. Tente novamente ou use o Firebase Console.');
+            }
+        }
+
+        // Unlink Device - Remove vinculação de dispositivo (permite reativação)
+        async function unlinkDevice(licenseKey) {
+            if (!confirm(`⚠️ ATENÇÃO!\n\nDeseja DESVINCULAR o dispositivo desta licença?\n\nLicença: ${licenseKey}\n\nO cliente poderá ativar a licença novamente em qualquer dispositivo.\n\nEsta ação é útil quando:\n• Cliente trocou de computador\n• Cliente formatou o PC\n• Problemas de fingerprint\n\nContinuar?`)) {
+                return;
+            }
+
+            try {
+                console.log('🔓 Desvinculando dispositivo da licença:', licenseKey);
+
+                // Atualiza no Firebase - limpa o deviceFingerprint E reativa o status
+                const url = `${FIREBASE_CONFIG.databaseURL}/licenses/${licenseKey}?key=${FIREBASE_CONFIG.apiKey}&updateMask.fieldPaths=deviceFingerprint&updateMask.fieldPaths=status`;
+
+                const firebaseDoc = {
+                    fields: {
+                        deviceFingerprint: { stringValue: '' }, // Limpa o fingerprint
+                        status: { stringValue: 'active' } // Reativa a licença
+                    }
+                };
+
+                console.log('📤 URL:', url);
+                console.log('📦 Payload:', JSON.stringify(firebaseDoc));
+
+                const response = await fetch(url, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(firebaseDoc)
+                });
+
+                console.log('📥 Status da resposta:', response.status);
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('❌ Erro do Firebase:', errorText);
+                    throw new Error(`Firebase retornou erro: ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log('✅ Resposta do Firebase:', result);
+
+                alert(`✅ Dispositivo desvinculado com sucesso!\n\nLicença: ${licenseKey}\nStatus: Reativada\n\nO cliente já pode ativar a licença novamente.`);
+
+                // Fecha o modal
+                const modal = document.getElementById('detailsModal');
+                if (modal) modal.remove();
+
+                // Recarrega a lista de licenças
+                await loadLicensesFromFirebase();
+
+            } catch (error) {
+                console.error('❌ Erro completo ao desvincular dispositivo:', error);
+                alert(`❌ Erro ao desvincular dispositivo.\n\nDetalhes: ${error.message}\n\nVerifique o Console (F12) para mais informações.\n\nOu use o Firebase Console diretamente.`);
+            }
+        }
+
     </script>
 
     </div> <!-- Fim do dashboard-container -->
 </body>
-</html>
+</html><!-- Cache refresh: 1762557413 -->
