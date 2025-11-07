@@ -1,0 +1,13 @@
+Deploy Test v3.1.0
+Timestamp: 2025-11-07 18:30
+Status: Aguardando deploy do GitHub Pages
+
+Este arquivo confirma que a v3.1.0 foi enviada para o GitHub.
+Quando este arquivo aparecer em https://nardoto.com.br/deploy-test-v3.1.0.txt,
+significa que o deploy foi concluído e o gerador estará atualizado.
+
+Mudanças incluídas:
+- Badge v3.1.0 no header
+- Botão Desvincular Dispositivo
+- Botão Corrigir Plano
+- Correção do bug Mensal/Vitalícia
