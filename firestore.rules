@@ -1,0 +1,61 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Regras para licenças
+    match /licenses/{licenseKey} {
+      // Permitir leitura sempre (para verificar licenças)
+      allow read: if true;
+
+      // Permitir criação de novas licenças (sem restrições)
+      allow create: if true;
+
+      // Permitir atualização em casos específicos
+      allow update: if
+        // Case 1: Ativação de licença (adiciona fingerprint)
+        (
+          resource.data.status == "inactive" &&
+          request.resource.data.status == "active" &&
+          request.resource.data.deviceFingerprint != null &&
+          request.resource.data.deviceFingerprint != ""
+        ) ||
+        // Case 2: Extensão de licença (admin)
+        (
+          request.resource.data.expiresAt > resource.data.expiresAt
+        ) ||
+        // Case 3: Admin unlinking device (v3.1.0)
+        (
+          resource.data.deviceFingerprint != "" &&
+          resource.data.deviceFingerprint != null &&
+          request.resource.data.deviceFingerprint == "" &&
+          request.resource.data.status == "active"
+        ) ||
+        // Case 4: Correção de plano (v3.1.0)
+        (
+          request.resource.data.plan != resource.data.plan &&
+          request.resource.data.type == resource.data.type
+        ) ||
+        // Case 5: Marcar como deletada (v3.1.0)
+        (
+          request.resource.data.status == "deleted" &&
+          request.resource.data.deletedAt != null
+        ) ||
+        // Case 6: Toggle status (ativar/desativar)
+        (
+          (resource.data.status == "active" && request.resource.data.status == "disabled") ||
+          (resource.data.status == "disabled" && request.resource.data.status == "active")
+        );
+
+      // Permitir delete apenas para admin (com autenticação futura)
+      allow delete: if false;
+    }
+
+    // Regras para leads
+    match /leads/{leadId} {
+      // Qualquer um pode criar lead (formulário público)
+      allow create: if true;
+
+      // Apenas admin pode ler/atualizar/deletar (implementar auth depois)
+      allow read, update, delete: if true;
+    }
+  }
+}
