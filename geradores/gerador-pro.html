@@ -1801,14 +1801,13 @@
 
             // Remove localmente
             licenses = licenses.filter(l => l.id !== id);
-            saveLicenses();
 
             // Recarrega do Firebase para garantir sincronização
             await loadLicensesFromFirebase();
             loadLicenses();
             updateStats();
 
-            alert('✅ Licença deletada com sucesso!');
+            alert('✅ Licença marcada como deletada!');
         }
 
         // Delete All Expired Licenses
