@@ -1,0 +1,320 @@
+{
+  "meta": {
+    "name": "Vexa AI Style",
+    "description": "Design system extraído das referências visuais da pasta design/",
+    "version": "1.0.0",
+    "createdAt": "2025-11-26"
+  },
+
+  "colors": {
+    "primary": {
+      "main": "#E85A2A",
+      "light": "#F07040",
+      "dark": "#D4522A",
+      "description": "Laranja vibrante - cor principal para CTAs e destaques"
+    },
+    "background": {
+      "dark": "#0A0A0A",
+      "darkAlt": "#111111",
+      "darkGradientStart": "#0A0A0A",
+      "darkGradientEnd": "#1A1410",
+      "light": "#FFFFFF",
+      "lightAlt": "#F9F9F9",
+      "warmDark": "#1A1410",
+      "description": "Fundos escuros predominantes com variações"
+    },
+    "text": {
+      "primary": "#FFFFFF",
+      "secondary": "#9CA3AF",
+      "muted": "#6B7280",
+      "dark": "#1F2937",
+      "darkSecondary": "#4B5563",
+      "description": "Texto branco em fundos escuros, escuro em fundos claros"
+    },
+    "accent": {
+      "orange": "#E85A2A",
+      "orangeHover": "#F07040",
+      "warmBrown": "#2D1810",
+      "description": "Cores de destaque e hover states"
+    },
+    "ui": {
+      "border": "rgba(255, 255, 255, 0.1)",
+      "borderLight": "rgba(0, 0, 0, 0.1)",
+      "cardDark": "#1A1A1A",
+      "cardLight": "#FFFFFF",
+      "badgeBg": "rgba(255, 255, 255, 0.1)",
+      "badgeBorder": "rgba(255, 255, 255, 0.2)",
+      "description": "Cores para elementos de interface"
+    },
+    "gradient": {
+      "hero": "radial-gradient(ellipse at center top, #2D1810 0%, #0A0A0A 70%)",
+      "heroAlt": "linear-gradient(180deg, #1A1410 0%, #0A0A0A 100%)",
+      "cta": "linear-gradient(135deg, #E85A2A 0%, #D4522A 100%)",
+      "warmGlow": "radial-gradient(ellipse at 50% 0%, rgba(232, 90, 42, 0.15) 0%, transparent 50%)",
+      "description": "Gradientes para hero e seções especiais"
+    }
+  },
+
+  "typography": {
+    "fontFamily": {
+      "heading": "'DM Serif Display', Georgia, serif",
+      "body": "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+      "mono": "'JetBrains Mono', 'Fira Code', monospace"
+    },
+    "fontSize": {
+      "hero": "4rem",
+      "h1": "3.5rem",
+      "h2": "2.5rem",
+      "h3": "1.75rem",
+      "h4": "1.25rem",
+      "body": "1rem",
+      "bodyLarge": "1.125rem",
+      "small": "0.875rem",
+      "tiny": "0.75rem"
+    },
+    "fontWeight": {
+      "light": 300,
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700,
+      "black": 900
+    },
+    "lineHeight": {
+      "tight": 1.1,
+      "heading": 1.2,
+      "body": 1.6,
+      "relaxed": 1.8
+    },
+    "letterSpacing": {
+      "tight": "-0.02em",
+      "normal": "0",
+      "wide": "0.05em",
+      "wider": "0.1em"
+    }
+  },
+
+  "spacing": {
+    "xs": "4px",
+    "sm": "8px",
+    "md": "16px",
+    "lg": "24px",
+    "xl": "32px",
+    "xxl": "48px",
+    "xxxl": "64px",
+    "section": "80px",
+    "sectionMobile": "60px"
+  },
+
+  "borderRadius": {
+    "sm": "4px",
+    "md": "8px",
+    "lg": "12px",
+    "xl": "16px",
+    "xxl": "20px",
+    "pill": "50px",
+    "full": "9999px"
+  },
+
+  "shadows": {
+    "sm": "0 2px 8px rgba(0, 0, 0, 0.1)",
+    "md": "0 4px 16px rgba(0, 0, 0, 0.15)",
+    "lg": "0 8px 32px rgba(0, 0, 0, 0.2)",
+    "xl": "0 16px 48px rgba(0, 0, 0, 0.25)",
+    "glow": "0 0 40px rgba(232, 90, 42, 0.3)",
+    "glowStrong": "0 0 60px rgba(232, 90, 42, 0.5)",
+    "card": "0 4px 20px rgba(0, 0, 0, 0.08)",
+    "cardHover": "0 12px 40px rgba(0, 0, 0, 0.15)"
+  },
+
+  "transitions": {
+    "fast": "0.15s ease",
+    "normal": "0.3s ease",
+    "slow": "0.5s ease",
+    "bounce": "0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)"
+  },
+
+  "sections": {
+    "hero": {
+      "background": "radial-gradient(ellipse at center top, #2D1810 0%, #0A0A0A 70%)",
+      "textColor": "#FFFFFF",
+      "subtitleColor": "#9CA3AF",
+      "badgeBg": "rgba(255, 255, 255, 0.1)",
+      "badgeBorder": "rgba(255, 255, 255, 0.2)",
+      "ctaBackground": "#E85A2A",
+      "ctaHover": "#F07040",
+      "padding": "120px 20px 80px"
+    },
+    "videos": {
+      "background": "#FFFFFF",
+      "titleColor": "#1F2937",
+      "textColor": "#4B5563",
+      "cardBg": "#FFFFFF",
+      "cardShadow": "0 4px 20px rgba(0, 0, 0, 0.08)",
+      "padding": "80px 20px"
+    },
+    "story": {
+      "background": "#F9F9F9",
+      "cardBg": "#FFFFFF",
+      "titleColor": "#1F2937",
+      "textColor": "#4B5563",
+      "highlightBg": "linear-gradient(135deg, rgba(232, 90, 42, 0.1) 0%, rgba(232, 90, 42, 0.05) 100%)",
+      "highlightBorder": "#E85A2A",
+      "padding": "80px 20px"
+    },
+    "testimonials": {
+      "background": "#F9F9F9",
+      "cardBg": "#FFFFFF",
+      "cardShadow": "0 4px 20px rgba(0, 0, 0, 0.08)",
+      "padding": "80px 20px"
+    },
+    "tools": {
+      "background": "#FFFFFF",
+      "cardBg": "#FFFFFF",
+      "cardBorder": "rgba(0, 0, 0, 0.05)",
+      "categoryBg": "#F9F9F9",
+      "categoryBorder": "#E85A2A",
+      "padding": "80px 20px"
+    },
+    "benefits": {
+      "background": "#FFFFFF",
+      "cardBg": "#F9F9F9",
+      "iconColor": "#E85A2A",
+      "titleColor": "#1F2937",
+      "textColor": "#4B5563",
+      "padding": "80px 20px"
+    },
+    "ctaTest": {
+      "background": "linear-gradient(135deg, #E85A2A 0%, #D4522A 100%)",
+      "textColor": "#FFFFFF",
+      "buttonBg": "#FFFFFF",
+      "buttonText": "#E85A2A",
+      "padding": "60px 20px"
+    },
+    "pricing": {
+      "background": "#0A0A0A",
+      "cardBg": "#1A1A1A",
+      "cardBorder": "rgba(255, 255, 255, 0.1)",
+      "featuredBorder": "#E85A2A",
+      "priceColor": "#E85A2A",
+      "textColor": "#FFFFFF",
+      "mutedColor": "#9CA3AF",
+      "buttonBg": "#E85A2A",
+      "padding": "80px 20px"
+    },
+    "faq": {
+      "background": "#F9F9F9",
+      "cardBg": "#FFFFFF",
+      "questionColor": "#1F2937",
+      "answerColor": "#4B5563",
+      "padding": "80px 20px"
+    },
+    "footer": {
+      "background": "#0A0A0A",
+      "textColor": "#9CA3AF",
+      "linkColor": "#E85A2A",
+      "padding": "40px 20px"
+    }
+  },
+
+  "components": {
+    "button": {
+      "primary": {
+        "background": "#E85A2A",
+        "color": "#FFFFFF",
+        "hoverBg": "#F07040",
+        "borderRadius": "8px",
+        "padding": "16px 32px",
+        "fontWeight": 600,
+        "shadow": "0 4px 16px rgba(232, 90, 42, 0.3)"
+      },
+      "secondary": {
+        "background": "transparent",
+        "color": "#FFFFFF",
+        "border": "1px solid rgba(255, 255, 255, 0.3)",
+        "hoverBg": "rgba(255, 255, 255, 0.1)",
+        "borderRadius": "8px",
+        "padding": "16px 32px"
+      },
+      "outline": {
+        "background": "transparent",
+        "color": "#E85A2A",
+        "border": "1px solid #E85A2A",
+        "hoverBg": "rgba(232, 90, 42, 0.1)",
+        "borderRadius": "8px"
+      }
+    },
+    "badge": {
+      "background": "rgba(255, 255, 255, 0.1)",
+      "border": "1px solid rgba(255, 255, 255, 0.2)",
+      "color": "#FFFFFF",
+      "borderRadius": "50px",
+      "padding": "8px 20px",
+      "fontSize": "0.875rem"
+    },
+    "card": {
+      "background": "#FFFFFF",
+      "backgroundDark": "#1A1A1A",
+      "borderRadius": "16px",
+      "shadow": "0 4px 20px rgba(0, 0, 0, 0.08)",
+      "hoverShadow": "0 12px 40px rgba(0, 0, 0, 0.15)",
+      "padding": "32px",
+      "border": "1px solid rgba(0, 0, 0, 0.05)"
+    },
+    "input": {
+      "background": "rgba(255, 255, 255, 0.05)",
+      "border": "1px solid rgba(255, 255, 255, 0.1)",
+      "focusBorder": "#E85A2A",
+      "color": "#FFFFFF",
+      "placeholder": "rgba(255, 255, 255, 0.3)",
+      "borderRadius": "8px",
+      "padding": "14px 16px"
+    },
+    "stat": {
+      "numberColor": "#E85A2A",
+      "labelColor": "#9CA3AF",
+      "numberSize": "3rem",
+      "labelSize": "0.875rem"
+    }
+  },
+
+  "breakpoints": {
+    "xs": "480px",
+    "sm": "640px",
+    "md": "768px",
+    "lg": "1024px",
+    "xl": "1280px",
+    "xxl": "1536px"
+  },
+
+  "cssVariables": {
+    "comment": "Variáveis CSS prontas para usar no :root",
+    "root": {
+      "--primary": "#E85A2A",
+      "--primary-light": "#F07040",
+      "--primary-dark": "#D4522A",
+      "--bg-dark": "#0A0A0A",
+      "--bg-dark-alt": "#111111",
+      "--bg-warm": "#1A1410",
+      "--bg-light": "#FFFFFF",
+      "--bg-light-alt": "#F9F9F9",
+      "--text-primary": "#FFFFFF",
+      "--text-secondary": "#9CA3AF",
+      "--text-muted": "#6B7280",
+      "--text-dark": "#1F2937",
+      "--text-dark-secondary": "#4B5563",
+      "--border-light": "rgba(255, 255, 255, 0.1)",
+      "--border-dark": "rgba(0, 0, 0, 0.1)",
+      "--card-dark": "#1A1A1A",
+      "--shadow-glow": "0 0 40px rgba(232, 90, 42, 0.3)",
+      "--radius-sm": "4px",
+      "--radius-md": "8px",
+      "--radius-lg": "12px",
+      "--radius-xl": "16px",
+      "--radius-pill": "50px",
+      "--font-heading": "'DM Serif Display', Georgia, serif",
+      "--font-body": "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+      "--transition": "0.3s ease"
+    }
+  }
+}
