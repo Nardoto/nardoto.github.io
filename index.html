@@ -505,84 +505,90 @@
             <h2 class="section-title" style="color: var(--text-dark);">Como Funciona o Fluxo de Produção</h2>
             <p class="section-subtitle" style="color: var(--text-dark-secondary);">Dois caminhos, um objetivo: produzir vídeos em escala</p>
 
-            <!-- Workflow 1 -->
-            <div style="margin-top: 48px;">
-                <h3 style="color: var(--primary); text-align: center; font-size: 1.3rem; margin-bottom: 32px;">🎬 Fluxo 1: Controle Total (VEO3 + CapCut Desktop)</h3>
+            <!-- Workflows lado a lado em desktop, vertical em mobile -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 48px; margin-top: 48px;">
 
-                <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px;">
-                    <div style="background: white; padding: 20px 24px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; min-width: 140px;">
-                        <div style="font-size: 2rem; margin-bottom: 8px;">📝</div>
-                        <p style="color: var(--text-dark); font-weight: 600; font-size: 0.9rem; margin: 0;">Mass Prompters</p>
-                        <p style="color: var(--text-dark-secondary); font-size: 0.75rem; margin-top: 4px;">Gera roteiros com IA</p>
-                    </div>
+                <!-- Workflow 1 -->
+                <div>
+                    <h3 style="color: var(--primary); text-align: center; font-size: 1.2rem; margin-bottom: 24px;">🎬 Fluxo 1: Controle Total</h3>
+                    <p style="color: var(--text-dark-secondary); text-align: center; font-size: 0.85rem; margin-bottom: 24px;">(VEO3 + CapCut Desktop)</p>
 
-                    <div style="color: var(--primary); font-size: 1.5rem;">→</div>
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                        <div style="background: white; padding: 16px 20px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; width: 100%; max-width: 220px;">
+                            <div style="font-size: 1.5rem; margin-bottom: 6px;">📝</div>
+                            <p style="color: var(--text-dark); font-weight: 600; font-size: 0.85rem; margin: 0;">Mass Prompters</p>
+                            <p style="color: var(--text-dark-secondary); font-size: 0.7rem; margin-top: 4px;">Gera roteiros com IA</p>
+                        </div>
 
-                    <div style="background: white; padding: 20px 24px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; min-width: 140px;">
-                        <div style="font-size: 2rem; margin-bottom: 8px;">⚡</div>
-                        <p style="color: var(--text-dark); font-weight: 600; font-size: 0.9rem; margin: 0;">Otimizador Gold</p>
-                        <p style="color: var(--text-dark-secondary); font-size: 0.75rem; margin-top: 4px;">Converte para SRT</p>
-                    </div>
+                        <div style="color: var(--primary); font-size: 1.2rem;">↓</div>
 
-                    <div style="color: var(--primary); font-size: 1.5rem;">→</div>
+                        <div style="background: white; padding: 16px 20px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; width: 100%; max-width: 220px;">
+                            <div style="font-size: 1.5rem; margin-bottom: 6px;">⚡</div>
+                            <p style="color: var(--text-dark); font-weight: 600; font-size: 0.85rem; margin: 0;">Otimizador Gold</p>
+                            <p style="color: var(--text-dark-secondary); font-size: 0.7rem; margin-top: 4px;">Converte para SRT</p>
+                        </div>
 
-                    <div style="background: white; padding: 20px 24px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; min-width: 140px;">
-                        <div style="font-size: 2rem; margin-bottom: 8px;">🎬</div>
-                        <p style="color: var(--text-dark); font-weight: 600; font-size: 0.9rem; margin: 0;">VEO3 / Wisk</p>
-                        <p style="color: var(--text-dark-secondary); font-size: 0.75rem; margin-top: 4px;">Gera vídeos e imagens</p>
-                    </div>
+                        <div style="color: var(--primary); font-size: 1.2rem;">↓</div>
 
-                    <div style="color: var(--primary); font-size: 1.5rem;">→</div>
+                        <div style="background: white; padding: 16px 20px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; width: 100%; max-width: 220px;">
+                            <div style="font-size: 1.5rem; margin-bottom: 6px;">🎬</div>
+                            <p style="color: var(--text-dark); font-weight: 600; font-size: 0.85rem; margin: 0;">VEO3 / Wisk</p>
+                            <p style="color: var(--text-dark-secondary); font-size: 0.7rem; margin-top: 4px;">Gera vídeos e imagens</p>
+                        </div>
 
-                    <div style="background: white; padding: 20px 24px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; min-width: 140px;">
-                        <div style="font-size: 2rem; margin-bottom: 8px;">🎙️</div>
-                        <p style="color: var(--text-dark); font-weight: 600; font-size: 0.9rem; margin: 0;">CapCut Desktop</p>
-                        <p style="color: var(--text-dark-secondary); font-size: 0.75rem; margin-top: 4px;">Gera áudio e legenda</p>
-                    </div>
+                        <div style="color: var(--primary); font-size: 1.2rem;">↓</div>
 
-                    <div style="color: var(--primary); font-size: 1.5rem;">→</div>
+                        <div style="background: white; padding: 16px 20px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; width: 100%; max-width: 220px;">
+                            <div style="font-size: 1.5rem; margin-bottom: 6px;">🎙️</div>
+                            <p style="color: var(--text-dark); font-weight: 600; font-size: 0.85rem; margin: 0;">CapCut Desktop</p>
+                            <p style="color: var(--text-dark-secondary); font-size: 0.7rem; margin-top: 4px;">Gera áudio e legenda</p>
+                        </div>
 
-                    <div style="background: linear-gradient(135deg, var(--primary), #D4522A); padding: 20px 24px; border-radius: 12px; text-align: center; min-width: 140px;">
-                        <div style="font-size: 2rem; margin-bottom: 8px;">✅</div>
-                        <p style="color: white; font-weight: 600; font-size: 0.9rem; margin: 0;">Sincronizador</p>
-                        <p style="color: rgba(255,255,255,0.8); font-size: 0.75rem; margin-top: 4px;">Junta tudo automático</p>
+                        <div style="color: var(--primary); font-size: 1.2rem;">↓</div>
+
+                        <div style="background: linear-gradient(135deg, var(--primary), #D4522A); padding: 16px 20px; border-radius: 12px; text-align: center; width: 100%; max-width: 220px;">
+                            <div style="font-size: 1.5rem; margin-bottom: 6px;">✅</div>
+                            <p style="color: white; font-weight: 600; font-size: 0.85rem; margin: 0;">Sincronizador</p>
+                            <p style="color: rgba(255,255,255,0.8); font-size: 0.7rem; margin-top: 4px;">Junta tudo automático</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Workflow 2 -->
-            <div style="margin-top: 64px;">
-                <h3 style="color: var(--primary); text-align: center; font-size: 1.3rem; margin-bottom: 32px;">🤖 Fluxo 2: CapCut AI (100% Automático)</h3>
+                <!-- Workflow 2 -->
+                <div>
+                    <h3 style="color: var(--primary); text-align: center; font-size: 1.2rem; margin-bottom: 24px;">🤖 Fluxo 2: CapCut AI</h3>
+                    <p style="color: var(--text-dark-secondary); text-align: center; font-size: 0.85rem; margin-bottom: 24px;">(100% Automático)</p>
 
-                <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px;">
-                    <div style="background: white; padding: 20px 24px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; min-width: 140px;">
-                        <div style="font-size: 2rem; margin-bottom: 8px;">📝</div>
-                        <p style="color: var(--text-dark); font-weight: 600; font-size: 0.9rem; margin: 0;">Mass Prompters</p>
-                        <p style="color: var(--text-dark-secondary); font-size: 0.75rem; margin-top: 4px;">Gera roteiros com IA</p>
-                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                        <div style="background: white; padding: 16px 20px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; width: 100%; max-width: 220px;">
+                            <div style="font-size: 1.5rem; margin-bottom: 6px;">📝</div>
+                            <p style="color: var(--text-dark); font-weight: 600; font-size: 0.85rem; margin: 0;">Mass Prompters</p>
+                            <p style="color: var(--text-dark-secondary); font-size: 0.7rem; margin-top: 4px;">Gera roteiros com IA</p>
+                        </div>
 
-                    <div style="color: var(--primary); font-size: 1.5rem;">→</div>
+                        <div style="color: var(--primary); font-size: 1.2rem;">↓</div>
 
-                    <div style="background: white; padding: 20px 24px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; min-width: 140px;">
-                        <div style="font-size: 2rem; margin-bottom: 8px;">📤</div>
-                        <p style="color: var(--text-dark); font-weight: 600; font-size: 0.9rem; margin: 0;">Script Sender</p>
-                        <p style="color: var(--text-dark-secondary); font-size: 0.75rem; margin-top: 4px;">Envia em múltiplas abas</p>
-                    </div>
+                        <div style="background: white; padding: 16px 20px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; width: 100%; max-width: 220px;">
+                            <div style="font-size: 1.5rem; margin-bottom: 6px;">📤</div>
+                            <p style="color: var(--text-dark); font-weight: 600; font-size: 0.85rem; margin: 0;">Script Sender</p>
+                            <p style="color: var(--text-dark-secondary); font-size: 0.7rem; margin-top: 4px;">Envia em múltiplas abas</p>
+                        </div>
 
-                    <div style="color: var(--primary); font-size: 1.5rem;">→</div>
+                        <div style="color: var(--primary); font-size: 1.2rem;">↓</div>
 
-                    <div style="background: white; padding: 20px 24px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; min-width: 140px;">
-                        <div style="font-size: 2rem; margin-bottom: 8px;">🎬</div>
-                        <p style="color: var(--text-dark); font-weight: 600; font-size: 0.9rem; margin: 0;">CapCut AI</p>
-                        <p style="color: var(--text-dark-secondary); font-size: 0.75rem; margin-top: 4px;">Gera vídeo completo</p>
-                    </div>
+                        <div style="background: white; padding: 16px 20px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; width: 100%; max-width: 220px;">
+                            <div style="font-size: 1.5rem; margin-bottom: 6px;">🎬</div>
+                            <p style="color: var(--text-dark); font-weight: 600; font-size: 0.85rem; margin: 0;">CapCut AI</p>
+                            <p style="color: var(--text-dark-secondary); font-size: 0.7rem; margin-top: 4px;">Gera vídeo completo</p>
+                        </div>
 
-                    <div style="color: var(--primary); font-size: 1.5rem;">→</div>
+                        <div style="color: var(--primary); font-size: 1.2rem;">↓</div>
 
-                    <div style="background: linear-gradient(135deg, var(--primary), #D4522A); padding: 20px 24px; border-radius: 12px; text-align: center; min-width: 140px;">
-                        <div style="font-size: 2rem; margin-bottom: 8px;">♻️</div>
-                        <p style="color: white; font-weight: 600; font-size: 0.9rem; margin: 0;">Prompt Extractor</p>
-                        <p style="color: rgba(255,255,255,0.8); font-size: 0.75rem; margin-top: 4px;">Reutiliza os prompts</p>
+                        <div style="background: linear-gradient(135deg, var(--primary), #D4522A); padding: 16px 20px; border-radius: 12px; text-align: center; width: 100%; max-width: 220px;">
+                            <div style="font-size: 1.5rem; margin-bottom: 6px;">♻️</div>
+                            <p style="color: white; font-weight: 600; font-size: 0.85rem; margin: 0;">Prompt Extractor</p>
+                            <p style="color: rgba(255,255,255,0.8); font-size: 0.7rem; margin-top: 4px;">Reutiliza os prompts</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -614,30 +620,80 @@
             <h2 class="section-title">Acesso Completo</h2>
             <p class="section-subtitle">Todas as ferramentas em um único plano</p>
 
-            <div style="max-width: 500px; margin: 48px auto 0;">
-                <div class="subscription-card featured" style="text-align: center;">
-                    <div class="badge">🔥 R$ 250 OFF NO 1º MÊS</div>
+            <!-- Opções de Pagamento -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 48px; max-width: 1000px; margin-left: auto; margin-right: auto;">
+
+                <!-- Opção 1: Kiwify -->
+                <div class="subscription-card" style="text-align: center; position: relative;">
                     <div class="subscription-header">
-                        <h3 class="subscription-name">VEO3 Automator</h3>
+                        <h3 class="subscription-name">Kiwify Checkout</h3>
                         <div class="subscription-price">
-                            <span style="text-decoration: line-through; color: var(--text-muted); font-size: 1.2rem;">R$ 1.000</span>
+                            <span style="text-decoration: line-through; color: var(--text-muted); font-size: 1rem;">R$ 1.000</span>
                             <span class="price">R$ 750</span>
                             <span class="price-period">no 1º mês</span>
                         </div>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 8px;">Depois R$ 1.000/mês • Cancele quando quiser</p>
+                        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 8px;">Depois R$ 1.000/mês</p>
                     </div>
-                    <div class="subscription-features" style="text-align: left;">
-                        <div class="feature"><strong>🎯 O que você recebe:</strong></div>
-                        <div class="feature">✅ Navegador dedicado com tudo instalado</div>
-                        <div class="feature">✅ 11 extensões de automação</div>
-                        <div class="feature">✅ 4 apps web (tradutor, gerador de áudio, etc.)</div>
-                        <div class="feature">✅ Atualizações automáticas incluídas</div>
-                        <div class="feature">✅ Novas ferramentas que eu criar no período</div>
-                        <div class="feature">✅ Suporte direto via WhatsApp</div>
-                        <div class="feature">✅ Tutoriais em vídeo de cada ferramenta</div>
+                    <div class="subscription-features" style="text-align: left; font-size: 0.9rem;">
+                        <div class="feature">💳 Cartão de crédito</div>
+                        <div class="feature">📄 Boleto bancário</div>
+                        <div class="feature">📱 Pix (via Kiwify)</div>
+                        <div class="feature" style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-light);">✅ 11 extensões + 4 apps</div>
+                        <div class="feature">✅ Navegador dedicado</div>
+                        <div class="feature">✅ Suporte via WhatsApp</div>
                     </div>
-                    <a href="https://pay.kiwify.com.br/YbjHybp" target="_blank" rel="noopener" class="subscription-button primary no-intercept" style="margin-top: 24px;">Assinar com Desconto</a>
+                    <a href="https://pay.kiwify.com.br/YbjHybp" target="_blank" rel="noopener" class="subscription-button primary no-intercept" style="margin-top: 20px;">Assinar via Kiwify</a>
                 </div>
+
+                <!-- Opção 2: Pix Direto -->
+                <div class="subscription-card featured" style="text-align: center; position: relative;">
+                    <div class="badge">💰 MAIS BARATO</div>
+                    <div class="subscription-header">
+                        <h3 class="subscription-name">Pix Direto</h3>
+                        <div class="subscription-price">
+                            <span class="price" style="color: var(--primary);">R$ 700</span>
+                            <span class="price-period">no 1º mês</span>
+                        </div>
+                        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 8px;">Economize R$ 50!</p>
+                    </div>
+                    <div class="subscription-features" style="text-align: left; font-size: 0.9rem;">
+                        <div class="feature">📱 Pix direto para mim</div>
+                        <div class="feature">⚡ Liberação imediata</div>
+                        <div class="feature">💬 Atendimento pessoal</div>
+                        <div class="feature" style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-light);">✅ 11 extensões + 4 apps</div>
+                        <div class="feature">✅ Navegador dedicado</div>
+                        <div class="feature">✅ Suporte via WhatsApp</div>
+                    </div>
+                    <a href="https://wa.me/5527999132594?text=Olá%20Nardoto!%20Quero%20assinar%20via%20Pix%20Direto%20por%20R$%20700." target="_blank" rel="noopener" class="subscription-button primary no-intercept" style="margin-top: 20px;">Pagar via Pix</a>
+                </div>
+
+                <!-- Opção 3: Pacote Completo -->
+                <div class="subscription-card" style="text-align: center; position: relative; border: 2px solid var(--primary);">
+                    <div class="badge" style="background: linear-gradient(135deg, #D4522A, #E85A2A);">🎁 PACOTE COMPLETO</div>
+                    <div class="subscription-header">
+                        <h3 class="subscription-name">Tudo Incluso</h3>
+                        <div class="subscription-price">
+                            <span class="price" style="color: var(--primary);">R$ 1.500</span>
+                            <span class="price-period">único</span>
+                        </div>
+                        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 8px;">Economia de R$ 1.250!</p>
+                    </div>
+                    <div class="subscription-features" style="text-align: left; font-size: 0.9rem;">
+                        <div class="feature"><strong style="color: var(--primary);">Inclui:</strong></div>
+                        <div class="feature">✅ Assinatura 1º mês (ferramentas)</div>
+                        <div class="feature">✅ Mentoria individual 2h</div>
+                        <div class="feature">✅ App CapCut Auto Sync</div>
+                        <div class="feature" style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-light); font-size: 0.8rem; color: var(--text-muted);">Windows e Mac inclusos</div>
+                    </div>
+                    <a href="https://wa.me/5527999132594?text=Olá%20Nardoto!%20Quero%20o%20Pacote%20Completo%20por%20R$%201.500%20(assinatura%20+%20mentoria%20+%20CapCut%20Auto%20Sync)." target="_blank" rel="noopener" class="subscription-button primary no-intercept" style="margin-top: 20px;">Quero o Pacote</a>
+                </div>
+            </div>
+
+            <!-- Nota sobre o que está incluído -->
+            <div style="max-width: 700px; margin: 32px auto 0; padding: 20px; background: var(--bg-dark); border-radius: 12px; text-align: center;">
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0;">
+                    <strong style="color: var(--text-primary);">🎯 Todas as opções incluem:</strong> Navegador dedicado, 11 extensões, 4 apps web, atualizações automáticas e suporte via WhatsApp.
+                </p>
             </div>
 
             <!-- Upsell - CapCut Sync -->
