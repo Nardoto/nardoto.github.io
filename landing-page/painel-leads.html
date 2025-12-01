@@ -645,6 +645,31 @@
         <span id="toastMessage">Dados copiados!</span>
     </div>
 
+    <!-- Modal de WhatsApp Individual -->
+    <div class="modal-overlay" id="whatsAppModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>💬 Enviar WhatsApp</h2>
+                <button class="modal-close" onclick="closeWhatsAppModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-info">
+                    <span class="info-badge">👤 <span id="whatsAppLeadName">Nome</span></span>
+                </div>
+
+                <div class="message-preview">
+                    <label>Mensagem (edite se quiser):</label>
+                    <textarea id="whatsAppMessage" rows="12"></textarea>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" onclick="closeWhatsAppModal()">Cancelar</button>
+                    <button class="btn btn-success" onclick="sendWhatsApp()">📱 Enviar WhatsApp</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal de Disparo em Massa -->
     <div class="modal-overlay" id="massWhatsAppModal" style="display: none;">
         <div class="modal-content">
@@ -843,7 +868,7 @@ Me responde aqui quando instalar que eu libero seu teste!</textarea>
                                 ✓ Marcar Contactado
                             </button>
                             ` : `
-                            <button class="btn btn-info btn-small" onclick="openWhatsApp('${lead.phone}', '${lead.name}')">
+                            <button class="btn btn-info btn-small" onclick="openWhatsApp('${lead.id}', '${lead.phone}', '${lead.name}')">
                                 💬 Abrir WhatsApp
                             </button>
                             `}
@@ -907,11 +932,72 @@ Me responde aqui quando instalar que eu libero seu teste!</textarea>
             setTimeout(() => renderLeads(allLeads), 1000);
         }
 
-        function openWhatsApp(phone, name) {
-            const cleanPhone = phone.replace(/\D/g, '');
-            const message = `Olá ${name}! Vi que você se cadastrou no VEO3 Automator. Vamos conversar sobre como posso te ajudar?`;
-            window.open(`https://wa.me/55${cleanPhone}?text=${encodeURIComponent(message)}`, '_blank');
+        // Variáveis para o modal de WhatsApp individual
+        let currentWhatsAppLead = null;
+
+        // Template padrão da mensagem
+        const defaultWhatsAppMessage = `Olá {nome}! tudo bem?
+
+Quero te dar um *TESTE GRÁTIS de 10 dias* para você experimentar:
+
+*Nardoto Browser* - navegador com 13 extensões de automação
+Atualizações automáticas do navegador e extensões
+Sem rastreamento de dados
+
+Baixe aqui: https://nardoto.com.br/navegador.html
+assim que baixar ja faz seu acesso ao nardoto labs pra liberar o acesso as extensões.
+
+Quer ativar seu teste? Me responde aqui!`;
+
+        function openWhatsApp(leadId, phone, name) {
+            const firstName = name.split(' ')[0];
+
+            // Guardar dados do lead atual
+            currentWhatsAppLead = { leadId, phone, name, firstName };
+
+            // Preencher o modal
+            document.getElementById('whatsAppLeadName').textContent = name;
+            document.getElementById('whatsAppMessage').value = defaultWhatsAppMessage.replace(/{nome}/g, firstName);
+
+            // Abrir modal
+            document.getElementById('whatsAppModal').style.display = 'flex';
         }
+
+        function closeWhatsAppModal() {
+            document.getElementById('whatsAppModal').style.display = 'none';
+            currentWhatsAppLead = null;
+        }
+
+        function sendWhatsApp() {
+            if (!currentWhatsAppLead) return;
+
+            const { leadId, phone } = currentWhatsAppLead;
+            const message = document.getElementById('whatsAppMessage').value;
+            const cleanPhone = phone.replace(/\D/g, '');
+
+            // Marcar como contactado
+            if (leadId) {
+                if (!leadStatuses[leadId]) leadStatuses[leadId] = {};
+                leadStatuses[leadId].contacted = true;
+                leadStatuses[leadId].contactedAt = new Date().toISOString();
+                localStorage.setItem('leadStatuses', JSON.stringify(leadStatuses));
+            }
+
+            // Abrir WhatsApp
+            window.open(`https://wa.me/55${cleanPhone}?text=${encodeURIComponent(message)}`, '_blank');
+
+            // Fechar modal e atualizar lista
+            closeWhatsAppModal();
+            showToast('✓ Lead marcado como contactado!');
+            renderLeads(allLeads);
+        }
+
+        // Fechar modal ao clicar fora
+        document.getElementById('whatsAppModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeWhatsAppModal();
+            }
+        });
 
         function copyData(email, name, phone) {
             const data = `Nome: ${name}\nEmail: ${email}\nWhatsApp: ${phone}`;
@@ -1139,8 +1225,7 @@ Me responde aqui quando instalar que eu libero seu teste!</textarea>
         // Carregar ao abrir a página
         loadLeads();
 
-        // Auto-atualizar a cada 30 segundos
-        setInterval(loadLeads, 30000);
+        // Auto-atualização removida para não interromper o usuário
     </script>
 </body>
 </html>
