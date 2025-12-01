@@ -401,14 +401,23 @@
             margin-bottom: 12px;
         }
 
-        .message-template-content {
+        .message-template-textarea {
+            width: 100%;
             background: rgba(0, 0, 0, 0.3);
             padding: 16px;
             border-radius: 8px;
             font-size: 13px;
-            color: rgba(255, 255, 255, 0.8);
-            white-space: pre-wrap;
+            color: rgba(255, 255, 255, 0.9);
             line-height: 1.5;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            resize: vertical;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .message-template-textarea:focus {
+            outline: none;
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
         }
 
         /* Modal */
@@ -630,8 +639,8 @@
 
         <!-- Mensagem padrão do WhatsApp -->
         <div class="message-template-box">
-            <div class="message-template-title">📱 Mensagem padrão ao clicar em "Abrir WhatsApp":</div>
-            <div class="message-template-content">Olá {nome}! tudo bem?
+            <div class="message-template-title">📱 Mensagem padrão ao clicar em "Abrir WhatsApp": <small style="color: rgba(255,255,255,0.5);">(editável - salva automaticamente)</small></div>
+            <textarea id="messageTemplate" class="message-template-textarea" rows="12">Olá {nome}! tudo bem?
 
 Quero te dar um *TESTE GRÁTIS de 10 dias* para você experimentar:
 
@@ -642,7 +651,8 @@ Sem rastreamento de dados
 Baixe aqui: https://nardoto.com.br/navegador.html
 assim que baixar ja faz seu acesso ao nardoto labs pra liberar o acesso as extensões.
 
-Quer ativar seu teste? Me responde aqui!</div>
+Quer ativar seu teste? Me responde aqui!</textarea>
+            <small style="color: rgba(255,255,255,0.5); display: block; margin-top: 8px;">Use <code style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; padding: 2px 6px; border-radius: 4px;">{nome}</code> para inserir o primeiro nome do lead</small>
         </div>
 
         <div id="leadsContainer">
@@ -851,10 +861,23 @@ assim que baixar ja faz seu acesso ao nardoto labs pra liberar o acesso as exten
 
 Quer ativar seu teste? Me responde aqui!`;
 
+        // Carregar mensagem salva ou usar padrão
+        const savedMessage = localStorage.getItem('whatsappMessageTemplate');
+        const messageTextarea = document.getElementById('messageTemplate');
+        if (savedMessage) {
+            messageTextarea.value = savedMessage;
+        }
+
+        // Salvar mensagem ao editar
+        messageTextarea.addEventListener('input', function() {
+            localStorage.setItem('whatsappMessageTemplate', this.value);
+        });
+
         function openWhatsApp(leadId, phone, name) {
             const firstName = name.split(' ')[0];
             const cleanPhone = phone.replace(/\D/g, '');
-            const message = defaultWhatsAppMessage.replace(/{nome}/g, firstName);
+            const messageTemplate = document.getElementById('messageTemplate').value;
+            const message = messageTemplate.replace(/{nome}/g, firstName);
 
             // Marcar como contactado
             if (leadId) {
