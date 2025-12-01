@@ -159,12 +159,6 @@
             border: 1px solid rgba(59, 130, 246, 0.3);
         }
 
-        .badge-licensed {
-            background: rgba(168, 85, 247, 0.2);
-            color: #a855f7;
-            border: 1px solid rgba(168, 85, 247, 0.3);
-        }
-
         .lead-info {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -391,25 +385,30 @@
             color: #3b82f6;
         }
 
-        .status-licensed {
-            background: rgba(168, 85, 247, 0.15);
-            color: #a855f7;
+        /* Caixa de mensagem template */
+        .message-template-box {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
         }
 
-        /* Checkbox de seleção */
-        .lead-checkbox {
-            position: absolute;
-            top: 24px;
-            right: 24px;
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            accent-color: #f59e0b;
+        .message-template-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #f59e0b;
+            margin-bottom: 12px;
         }
 
-        .lead-card.selected {
-            border-color: #f59e0b;
-            background: rgba(245, 158, 11, 0.1);
+        .message-template-content {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
+            white-space: pre-wrap;
+            line-height: 1.5;
         }
 
         /* Modal */
@@ -602,7 +601,7 @@
     <div class="container">
         <div class="header">
             <h1>🎯 Painel de Leads</h1>
-            <p>Gerencie os cadastros de interesse e gere licenças de trial</p>
+            <p>Gerencie os cadastros de interesse</p>
         </div>
 
         <div class="stats" id="stats">
@@ -627,9 +626,23 @@
 
         <div class="actions">
             <button class="btn btn-primary" onclick="loadLeads()">🔄 Atualizar</button>
-            <button class="btn btn-secondary" onclick="window.open(window.location.origin + '/geradores/gerador-pro.html', '_blank')">🔑 Abrir Gerador</button>
-            <button class="btn btn-secondary" onclick="toggleSelectAll()" id="selectAllBtn">☑️ Selecionar Todos</button>
-            <button class="btn btn-success" onclick="openMassWhatsApp()" id="massWhatsAppBtn" style="display: none;">📱 Disparar WhatsApp (<span id="selectedCount">0</span>)</button>
+        </div>
+
+        <!-- Mensagem padrão do WhatsApp -->
+        <div class="message-template-box">
+            <div class="message-template-title">📱 Mensagem padrão ao clicar em "Abrir WhatsApp":</div>
+            <div class="message-template-content">Olá {nome}! tudo bem?
+
+Quero te dar um *TESTE GRÁTIS de 10 dias* para você experimentar:
+
+*Nardoto Browser* - navegador com 13 extensões de automação
+Atualizações automáticas do navegador e extensões
+Sem rastreamento de dados
+
+Baixe aqui: https://nardoto.com.br/navegador.html
+assim que baixar ja faz seu acesso ao nardoto labs pra liberar o acesso as extensões.
+
+Quer ativar seu teste? Me responde aqui!</div>
         </div>
 
         <div id="leadsContainer">
@@ -645,68 +658,6 @@
         <span id="toastMessage">Dados copiados!</span>
     </div>
 
-    <!-- Modal de WhatsApp Individual -->
-    <div class="modal-overlay" id="whatsAppModal" style="display: none;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>💬 Enviar WhatsApp</h2>
-                <button class="modal-close" onclick="closeWhatsAppModal()">✕</button>
-            </div>
-            <div class="modal-body">
-                <div class="modal-info">
-                    <span class="info-badge">👤 <span id="whatsAppLeadName">Nome</span></span>
-                </div>
-
-                <div class="message-preview">
-                    <label>Mensagem (edite se quiser):</label>
-                    <textarea id="whatsAppMessage" rows="12"></textarea>
-                </div>
-
-                <div class="modal-actions">
-                    <button class="btn btn-secondary" onclick="closeWhatsAppModal()">Cancelar</button>
-                    <button class="btn btn-success" onclick="sendWhatsApp()">📱 Enviar WhatsApp</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal de Disparo em Massa -->
-    <div class="modal-overlay" id="massWhatsAppModal" style="display: none;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>📱 Disparar WhatsApp em Massa</h2>
-                <button class="modal-close" onclick="closeMassWhatsAppModal()">✕</button>
-            </div>
-            <div class="modal-body">
-                <div class="modal-info">
-                    <span class="info-badge">📊 <span id="modalSelectedCount">0</span> leads selecionados</span>
-                    <span class="info-badge warning">⚠️ Máximo 10 abas por vez</span>
-                </div>
-
-                <div class="message-preview">
-                    <label>Mensagem (personalize se quiser):</label>
-                    <textarea id="massMessage" rows="12">Olá {nome}!
-
-Vi que você se interessou pelas ferramentas de automação.
-
-Quero te dar um *TESTE GRÁTIS de 10 dias* para você experimentar o Nardoto Browser - navegador com 13 extensões de automação pré-instaladas.
-
-*Como ativar:*
-1. Baixe o navegador: https://nardoto.com.br/navegador.html
-2. Instale normalmente
-3. Faça cadastro no Nardoto Labs com seu email do Google para liberar o acesso
-
-Me responde aqui quando instalar que eu libero seu teste!</textarea>
-                    <small>Use <code>{nome}</code> para personalizar com o nome do lead</small>
-                </div>
-
-                <div class="modal-actions">
-                    <button class="btn btn-secondary" onclick="closeMassWhatsAppModal()">Cancelar</button>
-                    <button class="btn btn-success" onclick="startMassDispatch()">🚀 Iniciar Disparo</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script>
         // Configuração Firebase
@@ -716,7 +667,6 @@ Me responde aqui quando instalar que eu libero seu teste!</textarea>
         // Variáveis globais
         let allLeads = [];
         let leadStatuses = JSON.parse(localStorage.getItem('leadStatuses') || '{}');
-        let selectedLeads = new Map(); // Map de leadId -> {phone, name, countryCode}
 
         // Carregar leads
         async function loadLeads() {
@@ -798,24 +748,17 @@ Me responde aqui quando instalar que eu libero seu teste!</textarea>
                 // Verificar status do lead
                 const status = leadStatuses[lead.id] || {};
                 const isContacted = status.contacted || false;
-                const isLicensed = status.licensed || false;
 
                 // Determinar badge
                 let badgeClass = 'badge-new';
                 let badgeText = 'Novo';
-                if (isLicensed) {
-                    badgeClass = 'badge-licensed';
-                    badgeText = 'Licenciado';
-                } else if (isContacted) {
+                if (isContacted) {
                     badgeClass = 'badge-contacted';
                     badgeText = 'Contactado';
                 }
 
-                const isSelected = selectedLeads.has(lead.id);
-
                 return `
-                    <div class="lead-card ${isSelected ? 'selected' : ''}" data-lead-id="${lead.id}">
-                        <input type="checkbox" class="lead-checkbox" ${isSelected ? 'checked' : ''} onchange="toggleLeadSelection('${lead.id}', '${lead.phone}', '${lead.name.replace(/'/g, "\\'")}', '${lead.countryCode}')">
+                    <div class="lead-card" data-lead-id="${lead.id}">
                         <div class="lead-header">
                             <div class="lead-name">${lead.name}</div>
                             <div class="lead-badge ${badgeClass}">${badgeText}</div>
@@ -852,26 +795,16 @@ Me responde aqui quando instalar que eu libero seu teste!</textarea>
                             <div class="tools-tags">${toolsHtml}</div>
                         </div>
 
-                        ${(isContacted || isLicensed) ? `
+                        ${isContacted ? `
                         <div class="status-indicators">
-                            ${isContacted ? '<span class="status-indicator status-contacted">✓ Contactado</span>' : ''}
-                            ${isLicensed ? '<span class="status-indicator status-licensed">✓ Licença Gerada</span>' : ''}
+                            <span class="status-indicator status-contacted">✓ Contactado</span>
                         </div>
                         ` : ''}
 
                         <div class="lead-actions">
-                            <button class="btn btn-success btn-small" onclick="copyAndOpenGenerator('${lead.id}', '${lead.email}', '${lead.name}', '${lead.phone}', '${lead.countryCode}')">
-                                🔑 Gerar Trial 3 Dias
-                            </button>
-                            ${!isContacted ? `
-                            <button class="btn btn-warning btn-small" onclick="markAsContacted('${lead.id}', '${lead.phone}', '${lead.name}')">
-                                ✓ Marcar Contactado
-                            </button>
-                            ` : `
                             <button class="btn btn-info btn-small" onclick="openWhatsApp('${lead.id}', '${lead.phone}', '${lead.name}')">
                                 💬 Abrir WhatsApp
                             </button>
-                            `}
                             <button class="btn btn-secondary btn-small" onclick="copyData('${lead.email}', '${lead.name}', '${lead.phone}')">
                                 📋 Copiar Dados
                             </button>
@@ -904,37 +837,6 @@ Me responde aqui quando instalar que eu libero seu teste!</textarea>
             return sorted.length > 0 ? sorted[0][0] : '-';
         }
 
-        function copyAndOpenGenerator(leadId, email, name, phone, countryCode) {
-            // Marcar como licença gerada
-            if (!leadStatuses[leadId]) leadStatuses[leadId] = {};
-            leadStatuses[leadId].licensed = true;
-            leadStatuses[leadId].licensedAt = new Date().toISOString();
-            localStorage.setItem('leadStatuses', JSON.stringify(leadStatuses));
-
-            // Criar URL com parâmetros para preencher automaticamente
-            const params = new URLSearchParams({
-                name: name,
-                email: email,
-                countryCode: countryCode || '+55',  // Código do país
-                phone: phone || '',  // Telefone (pode ser vazio)
-                tag: 'test',  // Tag "Teste Interno" para trials
-                autoFill: 'true'  // Flag para indicar preenchimento automático
-            });
-
-            // Usar caminho absoluto para garantir que funcione
-            const baseUrl = window.location.origin;
-            const generatorUrl = `${baseUrl}/geradores/gerador-pro.html?${params.toString()}`;
-            window.open(generatorUrl, '_blank');
-
-            showToast('✅ Gerador aberto com dados preenchidos! Lead marcado como licenciado.');
-
-            // Recarregar a lista para atualizar o status
-            setTimeout(() => renderLeads(allLeads), 1000);
-        }
-
-        // Variáveis para o modal de WhatsApp individual
-        let currentWhatsAppLead = null;
-
         // Template padrão da mensagem
         const defaultWhatsAppMessage = `Olá {nome}! tudo bem?
 
@@ -951,29 +853,8 @@ Quer ativar seu teste? Me responde aqui!`;
 
         function openWhatsApp(leadId, phone, name) {
             const firstName = name.split(' ')[0];
-
-            // Guardar dados do lead atual
-            currentWhatsAppLead = { leadId, phone, name, firstName };
-
-            // Preencher o modal
-            document.getElementById('whatsAppLeadName').textContent = name;
-            document.getElementById('whatsAppMessage').value = defaultWhatsAppMessage.replace(/{nome}/g, firstName);
-
-            // Abrir modal
-            document.getElementById('whatsAppModal').style.display = 'flex';
-        }
-
-        function closeWhatsAppModal() {
-            document.getElementById('whatsAppModal').style.display = 'none';
-            currentWhatsAppLead = null;
-        }
-
-        function sendWhatsApp() {
-            if (!currentWhatsAppLead) return;
-
-            const { leadId, phone } = currentWhatsAppLead;
-            const message = document.getElementById('whatsAppMessage').value;
             const cleanPhone = phone.replace(/\D/g, '');
+            const message = defaultWhatsAppMessage.replace(/{nome}/g, firstName);
 
             // Marcar como contactado
             if (leadId) {
@@ -983,21 +864,13 @@ Quer ativar seu teste? Me responde aqui!`;
                 localStorage.setItem('leadStatuses', JSON.stringify(leadStatuses));
             }
 
-            // Abrir WhatsApp
+            // Abrir WhatsApp direto
             window.open(`https://wa.me/55${cleanPhone}?text=${encodeURIComponent(message)}`, '_blank');
 
-            // Fechar modal e atualizar lista
-            closeWhatsAppModal();
+            // Atualizar lista
             showToast('✓ Lead marcado como contactado!');
             renderLeads(allLeads);
         }
-
-        // Fechar modal ao clicar fora
-        document.getElementById('whatsAppModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeWhatsAppModal();
-            }
-        });
 
         function copyData(email, name, phone) {
             const data = `Nome: ${name}\nEmail: ${email}\nWhatsApp: ${phone}`;
@@ -1017,21 +890,6 @@ Quer ativar seu teste? Me responde aqui!`;
             }, 3000);
         }
 
-        // Marcar como contactado
-        function markAsContacted(leadId, phone, name) {
-            if (!leadStatuses[leadId]) leadStatuses[leadId] = {};
-            leadStatuses[leadId].contacted = true;
-            leadStatuses[leadId].contactedAt = new Date().toISOString();
-            localStorage.setItem('leadStatuses', JSON.stringify(leadStatuses));
-
-            showToast('✓ Lead marcado como contactado!');
-
-            // Recarregar a lista para atualizar o status
-            renderLeads(allLeads);
-
-            // Abrir WhatsApp
-            openWhatsApp(phone, name);
-        }
 
         // Filtrar leads pela pesquisa
         function filterLeads() {
@@ -1068,159 +926,6 @@ Quer ativar seu teste? Me responde aqui!`;
                 showToast('Status limpos com sucesso!');
             }
         }
-
-        // ==========================================
-        // FUNÇÕES DE SELEÇÃO E DISPARO EM MASSA
-        // ==========================================
-
-        // Alternar seleção de um lead
-        function toggleLeadSelection(leadId, phone, name, countryCode) {
-            if (selectedLeads.has(leadId)) {
-                selectedLeads.delete(leadId);
-            } else {
-                selectedLeads.set(leadId, { phone, name, countryCode });
-            }
-            updateSelectionUI();
-
-            // Atualizar visual do card
-            const card = document.querySelector(`[data-lead-id="${leadId}"]`);
-            if (card) {
-                card.classList.toggle('selected', selectedLeads.has(leadId));
-            }
-        }
-
-        // Atualizar interface de seleção
-        function updateSelectionUI() {
-            const count = selectedLeads.size;
-            const btn = document.getElementById('massWhatsAppBtn');
-            const countSpan = document.getElementById('selectedCount');
-
-            countSpan.textContent = count;
-            btn.style.display = count > 0 ? 'inline-flex' : 'none';
-
-            // Atualizar botão de selecionar todos
-            const selectAllBtn = document.getElementById('selectAllBtn');
-            if (count === allLeads.length && count > 0) {
-                selectAllBtn.textContent = '☐ Desmarcar Todos';
-            } else {
-                selectAllBtn.textContent = '☑️ Selecionar Todos';
-            }
-        }
-
-        // Selecionar/Desmarcar todos
-        function toggleSelectAll() {
-            if (selectedLeads.size === allLeads.length) {
-                // Desmarcar todos
-                selectedLeads.clear();
-            } else {
-                // Selecionar todos que têm telefone
-                allLeads.forEach(lead => {
-                    if (lead.phone) {
-                        selectedLeads.set(lead.id, {
-                            phone: lead.phone,
-                            name: lead.name,
-                            countryCode: lead.countryCode || '+55'
-                        });
-                    }
-                });
-            }
-            updateSelectionUI();
-            renderLeads(allLeads);
-        }
-
-        // Abrir modal de disparo em massa
-        function openMassWhatsApp() {
-            if (selectedLeads.size === 0) {
-                showToast('⚠️ Selecione pelo menos um lead');
-                return;
-            }
-
-            document.getElementById('modalSelectedCount').textContent = selectedLeads.size;
-            document.getElementById('massWhatsAppModal').style.display = 'flex';
-        }
-
-        // Fechar modal
-        function closeMassWhatsAppModal() {
-            document.getElementById('massWhatsAppModal').style.display = 'none';
-        }
-
-        // Iniciar disparo em massa
-        async function startMassDispatch() {
-            const messageTemplate = document.getElementById('massMessage').value;
-            const leadsArray = Array.from(selectedLeads.values());
-
-            if (leadsArray.length === 0) {
-                showToast('⚠️ Nenhum lead selecionado');
-                return;
-            }
-
-            // Filtrar apenas leads com telefone válido
-            const validLeads = leadsArray.filter(lead => lead.phone && lead.phone.length >= 8);
-
-            if (validLeads.length === 0) {
-                showToast('⚠️ Nenhum lead com telefone válido');
-                return;
-            }
-
-            // Limitar a 10 por vez
-            const batchSize = 10;
-            const batch = validLeads.slice(0, batchSize);
-
-            showToast(`🚀 Abrindo ${batch.length} abas do WhatsApp...`);
-
-            // Abrir cada aba com delay para evitar bloqueio
-            for (let i = 0; i < batch.length; i++) {
-                const lead = batch[i];
-                const personalizedMessage = messageTemplate.replace(/{nome}/g, lead.name.split(' ')[0]);
-                const cleanPhone = lead.phone.replace(/\D/g, '');
-
-                // Determinar o código do país
-                let fullPhone = cleanPhone;
-                if (!cleanPhone.startsWith('55') && cleanPhone.length <= 11) {
-                    fullPhone = '55' + cleanPhone;
-                }
-
-                const waUrl = `https://wa.me/${fullPhone}?text=${encodeURIComponent(personalizedMessage)}`;
-
-                // Delay de 500ms entre cada abertura
-                await new Promise(resolve => setTimeout(resolve, 500));
-                window.open(waUrl, '_blank');
-            }
-
-            // Marcar como contactados
-            batch.forEach(lead => {
-                const leadId = Array.from(selectedLeads.entries()).find(([id, data]) => data.phone === lead.phone)?.[0];
-                if (leadId) {
-                    if (!leadStatuses[leadId]) leadStatuses[leadId] = {};
-                    leadStatuses[leadId].contacted = true;
-                    leadStatuses[leadId].contactedAt = new Date().toISOString();
-                }
-            });
-            localStorage.setItem('leadStatuses', JSON.stringify(leadStatuses));
-
-            // Limpar seleção dos leads disparados
-            batch.forEach(lead => {
-                const leadId = Array.from(selectedLeads.entries()).find(([id, data]) => data.phone === lead.phone)?.[0];
-                if (leadId) selectedLeads.delete(leadId);
-            });
-
-            closeMassWhatsAppModal();
-            updateSelectionUI();
-            renderLeads(allLeads);
-
-            if (validLeads.length > batchSize) {
-                showToast(`✅ ${batch.length} mensagens enviadas! Restam ${validLeads.length - batchSize} para o próximo lote.`);
-            } else {
-                showToast(`✅ ${batch.length} mensagens enviadas com sucesso!`);
-            }
-        }
-
-        // Fechar modal ao clicar fora
-        document.getElementById('massWhatsAppModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeMassWhatsAppModal();
-            }
-        });
 
         // Carregar ao abrir a página
         loadLeads();
