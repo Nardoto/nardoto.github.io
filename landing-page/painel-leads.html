@@ -396,6 +396,177 @@
             color: #a855f7;
         }
 
+        /* Checkbox de seleção */
+        .lead-checkbox {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #f59e0b;
+        }
+
+        .lead-card.selected {
+            border-color: #f59e0b;
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #1e293b;
+            border-radius: 16px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-header h2 {
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+
+        .modal-close:hover {
+            color: #fff;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .modal-info {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .info-badge {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .info-badge.warning {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .message-preview {
+            margin-bottom: 24px;
+        }
+
+        .message-preview label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 12px;
+        }
+
+        .message-preview textarea {
+            width: 100%;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .message-preview textarea:focus {
+            outline: none;
+            border-color: #f59e0b;
+        }
+
+        .message-preview small {
+            display: block;
+            margin-top: 8px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+        }
+
+        .message-preview code {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .dispatch-progress {
+            margin-top: 24px;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+        }
+
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 24px;
@@ -419,6 +590,10 @@
 
             .search-box {
                 max-width: 100%;
+            }
+
+            .modal-actions {
+                flex-direction: column;
             }
         }
     </style>
@@ -453,6 +628,8 @@
         <div class="actions">
             <button class="btn btn-primary" onclick="loadLeads()">🔄 Atualizar</button>
             <button class="btn btn-secondary" onclick="window.open(window.location.origin + '/geradores/gerador-pro.html', '_blank')">🔑 Abrir Gerador</button>
+            <button class="btn btn-secondary" onclick="toggleSelectAll()" id="selectAllBtn">☑️ Selecionar Todos</button>
+            <button class="btn btn-success" onclick="openMassWhatsApp()" id="massWhatsAppBtn" style="display: none;">📱 Disparar WhatsApp (<span id="selectedCount">0</span>)</button>
         </div>
 
         <div id="leadsContainer">
@@ -468,6 +645,45 @@
         <span id="toastMessage">Dados copiados!</span>
     </div>
 
+    <!-- Modal de Disparo em Massa -->
+    <div class="modal-overlay" id="massWhatsAppModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📱 Disparar WhatsApp em Massa</h2>
+                <button class="modal-close" onclick="closeMassWhatsAppModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-info">
+                    <span class="info-badge">📊 <span id="modalSelectedCount">0</span> leads selecionados</span>
+                    <span class="info-badge warning">⚠️ Máximo 10 abas por vez</span>
+                </div>
+
+                <div class="message-preview">
+                    <label>Mensagem (personalize se quiser):</label>
+                    <textarea id="massMessage" rows="10">Olá {nome}! 👋
+
+Vi que você se interessou pelas ferramentas de automação.
+
+Quero te dar um *TESTE GRÁTIS de 10 dias* para você experimentar:
+
+🌐 *Nardoto Browser* - navegador com 13 extensões de automação
+🔄 Atualizações automáticas do navegador e extensões
+🔒 Sem rastreamento de dados
+
+👉 Baixe aqui: https://nardoto.com.br/navegador.html
+
+Quer ativar seu teste? Me responde aqui! 🚀</textarea>
+                    <small>Use <code>{nome}</code> para personalizar com o nome do lead</small>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" onclick="closeMassWhatsAppModal()">Cancelar</button>
+                    <button class="btn btn-success" onclick="startMassDispatch()">🚀 Iniciar Disparo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Configuração Firebase
         const FIREBASE_PROJECT_ID = 'veo3automator';
@@ -476,6 +692,7 @@
         // Variáveis globais
         let allLeads = [];
         let leadStatuses = JSON.parse(localStorage.getItem('leadStatuses') || '{}');
+        let selectedLeads = new Map(); // Map de leadId -> {phone, name, countryCode}
 
         // Carregar leads
         async function loadLeads() {
@@ -570,8 +787,11 @@
                     badgeText = 'Contactado';
                 }
 
+                const isSelected = selectedLeads.has(lead.id);
+
                 return `
-                    <div class="lead-card" data-lead-id="${lead.id}">
+                    <div class="lead-card ${isSelected ? 'selected' : ''}" data-lead-id="${lead.id}">
+                        <input type="checkbox" class="lead-checkbox" ${isSelected ? 'checked' : ''} onchange="toggleLeadSelection('${lead.id}', '${lead.phone}', '${lead.name.replace(/'/g, "\\'")}', '${lead.countryCode}')">
                         <div class="lead-header">
                             <div class="lead-name">${lead.name}</div>
                             <div class="lead-badge ${badgeClass}">${badgeText}</div>
@@ -763,6 +983,159 @@
                 showToast('Status limpos com sucesso!');
             }
         }
+
+        // ==========================================
+        // FUNÇÕES DE SELEÇÃO E DISPARO EM MASSA
+        // ==========================================
+
+        // Alternar seleção de um lead
+        function toggleLeadSelection(leadId, phone, name, countryCode) {
+            if (selectedLeads.has(leadId)) {
+                selectedLeads.delete(leadId);
+            } else {
+                selectedLeads.set(leadId, { phone, name, countryCode });
+            }
+            updateSelectionUI();
+
+            // Atualizar visual do card
+            const card = document.querySelector(`[data-lead-id="${leadId}"]`);
+            if (card) {
+                card.classList.toggle('selected', selectedLeads.has(leadId));
+            }
+        }
+
+        // Atualizar interface de seleção
+        function updateSelectionUI() {
+            const count = selectedLeads.size;
+            const btn = document.getElementById('massWhatsAppBtn');
+            const countSpan = document.getElementById('selectedCount');
+
+            countSpan.textContent = count;
+            btn.style.display = count > 0 ? 'inline-flex' : 'none';
+
+            // Atualizar botão de selecionar todos
+            const selectAllBtn = document.getElementById('selectAllBtn');
+            if (count === allLeads.length && count > 0) {
+                selectAllBtn.textContent = '☐ Desmarcar Todos';
+            } else {
+                selectAllBtn.textContent = '☑️ Selecionar Todos';
+            }
+        }
+
+        // Selecionar/Desmarcar todos
+        function toggleSelectAll() {
+            if (selectedLeads.size === allLeads.length) {
+                // Desmarcar todos
+                selectedLeads.clear();
+            } else {
+                // Selecionar todos que têm telefone
+                allLeads.forEach(lead => {
+                    if (lead.phone) {
+                        selectedLeads.set(lead.id, {
+                            phone: lead.phone,
+                            name: lead.name,
+                            countryCode: lead.countryCode || '+55'
+                        });
+                    }
+                });
+            }
+            updateSelectionUI();
+            renderLeads(allLeads);
+        }
+
+        // Abrir modal de disparo em massa
+        function openMassWhatsApp() {
+            if (selectedLeads.size === 0) {
+                showToast('⚠️ Selecione pelo menos um lead');
+                return;
+            }
+
+            document.getElementById('modalSelectedCount').textContent = selectedLeads.size;
+            document.getElementById('massWhatsAppModal').style.display = 'flex';
+        }
+
+        // Fechar modal
+        function closeMassWhatsAppModal() {
+            document.getElementById('massWhatsAppModal').style.display = 'none';
+        }
+
+        // Iniciar disparo em massa
+        async function startMassDispatch() {
+            const messageTemplate = document.getElementById('massMessage').value;
+            const leadsArray = Array.from(selectedLeads.values());
+
+            if (leadsArray.length === 0) {
+                showToast('⚠️ Nenhum lead selecionado');
+                return;
+            }
+
+            // Filtrar apenas leads com telefone válido
+            const validLeads = leadsArray.filter(lead => lead.phone && lead.phone.length >= 8);
+
+            if (validLeads.length === 0) {
+                showToast('⚠️ Nenhum lead com telefone válido');
+                return;
+            }
+
+            // Limitar a 10 por vez
+            const batchSize = 10;
+            const batch = validLeads.slice(0, batchSize);
+
+            showToast(`🚀 Abrindo ${batch.length} abas do WhatsApp...`);
+
+            // Abrir cada aba com delay para evitar bloqueio
+            for (let i = 0; i < batch.length; i++) {
+                const lead = batch[i];
+                const personalizedMessage = messageTemplate.replace(/{nome}/g, lead.name.split(' ')[0]);
+                const cleanPhone = lead.phone.replace(/\D/g, '');
+
+                // Determinar o código do país
+                let fullPhone = cleanPhone;
+                if (!cleanPhone.startsWith('55') && cleanPhone.length <= 11) {
+                    fullPhone = '55' + cleanPhone;
+                }
+
+                const waUrl = `https://wa.me/${fullPhone}?text=${encodeURIComponent(personalizedMessage)}`;
+
+                // Delay de 500ms entre cada abertura
+                await new Promise(resolve => setTimeout(resolve, 500));
+                window.open(waUrl, '_blank');
+            }
+
+            // Marcar como contactados
+            batch.forEach(lead => {
+                const leadId = Array.from(selectedLeads.entries()).find(([id, data]) => data.phone === lead.phone)?.[0];
+                if (leadId) {
+                    if (!leadStatuses[leadId]) leadStatuses[leadId] = {};
+                    leadStatuses[leadId].contacted = true;
+                    leadStatuses[leadId].contactedAt = new Date().toISOString();
+                }
+            });
+            localStorage.setItem('leadStatuses', JSON.stringify(leadStatuses));
+
+            // Limpar seleção dos leads disparados
+            batch.forEach(lead => {
+                const leadId = Array.from(selectedLeads.entries()).find(([id, data]) => data.phone === lead.phone)?.[0];
+                if (leadId) selectedLeads.delete(leadId);
+            });
+
+            closeMassWhatsAppModal();
+            updateSelectionUI();
+            renderLeads(allLeads);
+
+            if (validLeads.length > batchSize) {
+                showToast(`✅ ${batch.length} mensagens enviadas! Restam ${validLeads.length - batchSize} para o próximo lote.`);
+            } else {
+                showToast(`✅ ${batch.length} mensagens enviadas com sucesso!`);
+            }
+        }
+
+        // Fechar modal ao clicar fora
+        document.getElementById('massWhatsAppModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeMassWhatsAppModal();
+            }
+        });
 
         // Carregar ao abrir a página
         loadLeads();
