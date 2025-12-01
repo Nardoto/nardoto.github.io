@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nardoto Browser - Navegador Focado em Produtividade</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="icone final Nardoto.png">
+    <link rel="apple-touch-icon" href="icone final Nardoto.png">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nardoto.com.br/navegador.html">
+    <meta property="og:title" content="Nardoto Browser - Navegador Focado em Produtividade">
+    <meta property="og:description" content="Navegador exclusivo com 13 extensões de automação pré-instaladas. Sem rastreamento de dados. Atualizações automáticas.">
+    <meta property="og:image" content="https://nardoto.com.br/navegador.PNG">
+
+    <meta name="theme-color" content="#E85A2A">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #E85A2A;
+            --bg-dark: #0A0A0A;
+            --card-dark: #1A1A1A;
+            --text-primary: #FFFFFF;
+            --text-secondary: #9CA3AF;
+            --border-light: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px;
+            background: radial-gradient(ellipse at center top, rgba(232, 90, 42, 0.15) 0%, transparent 50%);
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.03)"/></svg>');
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+
+        .badge-exclusive {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), #FF6B35);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 32px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(232, 90, 42, 0.5); }
+            50% { transform: scale(1.02); box-shadow: 0 0 30px 10px rgba(232, 90, 42, 0.3); }
+        }
+
+        .logo-container {
+            margin-bottom: 32px;
+        }
+
+        .logo-container img {
+            width: 120px;
+            height: 120px;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(232, 90, 42, 0.3);
+        }
+
+        h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 4rem;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 24px;
+            line-height: 1.6;
+        }
+
+        .subtitle strong {
+            color: var(--text-primary);
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: rgba(37, 211, 102, 0.2);
+            color: #25D366;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 40px;
+        }
+
+        /* Browser Preview */
+        .browser-preview {
+            max-width: 700px;
+            margin: 0 auto 48px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(232, 90, 42, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .browser-preview img {
+            width: 100%;
+            display: block;
+        }
+
+        .browser-preview::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(10, 10, 10, 0.8) 100%);
+            pointer-events: none;
+        }
+
+        /* Download Button */
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--primary);
+            color: white;
+            padding: 24px 48px;
+            border-radius: 20px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(232, 90, 42, 0.4);
+            animation: downloadPulse 1.5s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 2s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
+        }
+
+        @keyframes downloadPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 10px 40px rgba(232, 90, 42, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 15px 60px rgba(232, 90, 42, 0.6);
+            }
+        }
+
+        .download-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 20px 60px rgba(232, 90, 42, 0.5);
+        }
+
+        .download-btn .icon {
+            font-size: 2rem;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 20px;
+            background: var(--card-dark);
+        }
+
+        .features h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .features-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 64px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--bg-dark);
+            padding: 32px;
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(232, 90, 42, 0.2);
+        }
+
+        .feature-card.highlight {
+            border: 2px solid var(--primary);
+            background: linear-gradient(135deg, rgba(232, 90, 42, 0.1) 0%, var(--bg-dark) 100%);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .feature-card .highlight-text {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Auto Update Section */
+        .auto-update {
+            padding: 100px 20px;
+            background: linear-gradient(180deg, var(--bg-dark) 0%, var(--card-dark) 100%);
+            text-align: center;
+        }
+
+        .auto-update h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 24px;
+        }
+
+        .auto-update h2 span {
+            color: var(--primary);
+        }
+
+        .auto-update-desc {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 48px;
+            line-height: 1.7;
+        }
+
+        .update-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .update-card {
+            background: var(--bg-dark);
+            padding: 32px;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+        }
+
+        .update-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .update-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .update-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 100px 20px;
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(232, 90, 42, 0.1) 0%, transparent 70%);
+        }
+
+        .cta h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 24px;
+        }
+
+        .cta p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer p {
+            color: var(--text-secondary);
+            margin-top: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .download-btn {
+                padding: 20px 32px;
+                font-size: 1.1rem;
+            }
+
+            .features h2, .auto-update h2, .cta h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="badge-exclusive">🚀 EXCLUSIVO — MEU PRÓPRIO NAVEGADOR</div>
+
+        <div class="logo-container">
+            <img src="icone final Nardoto.png" alt="Nardoto Browser Logo">
+        </div>
+
+        <h1>Nardoto Browser</h1>
+
+        <p class="subtitle">
+            Não é só uma extensão. Não é só uma ferramenta.<br>
+            <strong>É um navegador completo, criado do zero, focado em produtividade.</strong>
+        </p>
+
+        <div class="version-badge">v2.1 • Windows • Atualização Automática</div>
+
+        <div class="browser-preview">
+            <img src="navegador.PNG" alt="Nardoto Browser Preview">
+        </div>
+
+        <a href="https://github.com/Nardoto/nardoto-updates/releases/download/v2.1/NardotoBrowser_Setup_v2.1.exe" class="download-btn" target="_blank" rel="noopener">
+            <span class="icon">⬇️</span>
+            <span>Baixar para Windows</span>
+        </a>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2>Por que usar o Nardoto Browser?</h2>
+            <p class="features-subtitle">Porque ninguém mais faz isso. Eu criei o ambiente completo para você produzir.</p>
+
+            <div class="features-grid">
+                <div class="feature-card highlight">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Atualização Automática</h3>
+                    <p>O navegador <span class="highlight-text">E as 13 extensões</span> se atualizam automaticamente. Você nunca fica para trás.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Privacidade Total</h3>
+                    <p>Baseado no Chrome, mas <span class="highlight-text">sem rastreamento de dados</span>. Nenhuma big tech vendo o que você pesquisa.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>13 Extensões Pré-Instaladas</h3>
+                    <p>Todas as ferramentas de automação já vêm configuradas. <span class="highlight-text">É só baixar e usar.</span></p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🪶</div>
+                    <h3>Leve e Otimizado</h3>
+                    <p>Navegador limpo, sem bloatware. <span class="highlight-text">Focado em produtividade</span>, não em te rastrear.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Feito para Criadores</h3>
+                    <p>Projetado especificamente para quem produz conteúdo com VEO3, Wisk, Suno, CapCut e IAs.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>Suporte Direto</h3>
+                    <p>Problemas? Dúvidas? <span class="highlight-text">Fala comigo direto no WhatsApp.</span> Sem intermediários.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Auto Update Section -->
+    <section class="auto-update">
+        <div class="container">
+            <h2>🔄 <span>Atualizações Automáticas</span></h2>
+            <p class="auto-update-desc">
+                Esqueça downloads manuais. O Nardoto Browser verifica e instala atualizações automaticamente — tanto do navegador quanto de todas as 13 extensões.
+            </p>
+
+            <div class="update-cards">
+                <div class="update-card">
+                    <div class="icon">🌐</div>
+                    <h3>Navegador</h3>
+                    <p>Correções de segurança e melhorias de performance automáticas</p>
+                </div>
+
+                <div class="update-card">
+                    <div class="icon">🧩</div>
+                    <h3>13 Extensões</h3>
+                    <p>Novas features e correções de bugs sem você precisar fazer nada</p>
+                </div>
+
+                <div class="update-card">
+                    <div class="icon">🚀</div>
+                    <h3>Novas Ferramentas</h3>
+                    <p>Extensões novas aparecem automaticamente quando disponíveis</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Pronto para produzir mais?</h2>
+            <p>Baixe agora e comece a automatizar sua produção de conteúdo.</p>
+
+            <a href="https://github.com/Nardoto/nardoto-updates/releases/download/v2.1/NardotoBrowser_Setup_v2.1.exe" class="download-btn" target="_blank" rel="noopener">
+                <span class="icon">⬇️</span>
+                <span>Baixar Nardoto Browser</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <a href="https://nardoto.com.br">← Voltar para nardoto.com.br</a>
+        <p>© 2024 Nardoto Browser • Feito para criadores de conteúdo</p>
+    </footer>
+</body>
+</html>
