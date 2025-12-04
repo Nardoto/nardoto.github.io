@@ -612,6 +612,22 @@
         const FIREBASE_PROJECT_ID = 'veo3automator';
         const FIREBASE_API_KEY = 'AIzaSyA-nPdEX_J3gPvZXWBFyQ0ZXjkpK0m2234';
 
+        // URL do download do navegador
+        const DOWNLOAD_URL = 'https://github.com/Nardoto/nardoto-updates/releases/download/v2.1/NardotoBrowser_Setup_v2.1.exe';
+
+        // Detectar se veio do botão de download
+        const urlParams = new URLSearchParams(window.location.search);
+        const isDownloadMode = urlParams.get('download') === 'true';
+
+        // Atualizar UI se for modo download
+        if (isDownloadMode) {
+            document.querySelector('.logo').textContent = '⬇️';
+            document.querySelector('.title').textContent = 'Cadastre-se para Baixar';
+            document.querySelector('.subtitle').innerHTML = 'Preencha seus dados para liberar o download do <strong>Nardoto Browser</strong>. Rápido e sem complicação!';
+            document.querySelector('.btn-text').textContent = 'Cadastrar e Baixar';
+            document.querySelector('.footer-note').textContent = 'Após cadastrar, o download iniciará automaticamente 🚀';
+        }
+
         // Máscara de telefone
         const phoneInput = document.getElementById('phone');
         phoneInput.addEventListener('input', function(e) {
@@ -638,7 +654,7 @@
                     countryCode: { stringValue: leadData.countryCode || '+55' },
                     phone: { stringValue: leadData.phone },
                     tools: toolsArray,
-                    source: { stringValue: 'Página de Captura' },
+                    source: { stringValue: isDownloadMode ? 'Download Navegador' : 'Página de Captura' },
                     createdAt: { timestampValue: new Date().toISOString() },
                     status: { stringValue: 'novo' }
                 }
@@ -702,17 +718,42 @@
                     ? selectedTools.join(', ')
                     : 'Nenhuma ferramenta selecionada';
 
-                const message = `Olá Nardoto! Acabei de preencher o cadastro de interesse.\n\n` +
+                let message;
+                if (isDownloadMode) {
+                    message = `Olá Nardoto! Acabei de me cadastrar para baixar o Nardoto Browser.\n\n` +
+                              `Nome: ${leadData.name}\n` +
+                              `Email: ${leadData.email}\n` +
+                              `Telefone: ${leadData.phone}\n\n` +
+                              `Estou baixando o navegador agora!`;
+                } else {
+                    message = `Olá Nardoto! Acabei de preencher o cadastro de interesse.\n\n` +
                               `Nome: ${leadData.name}\n` +
                               `Email: ${leadData.email}\n` +
                               `Telefone: ${leadData.phone}\n` +
                               `Ferramentas de interesse: ${toolsList}\n\n` +
                               `Gostaria de conversar sobre as extensões e entender melhor como funcionam!`;
+                }
 
                 const whatsappUrl = `https://wa.me/5527999132594?text=${encodeURIComponent(message)}`;
 
-                // Redirecionar
-                window.location.href = whatsappUrl;
+                // Se modo download, iniciar download primeiro
+                if (isDownloadMode) {
+                    // Criar link temporário para download
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = DOWNLOAD_URL;
+                    downloadLink.download = '';
+                    document.body.appendChild(downloadLink);
+                    downloadLink.click();
+                    document.body.removeChild(downloadLink);
+
+                    // Aguardar um pouco e abrir WhatsApp
+                    setTimeout(() => {
+                        window.location.href = whatsappUrl;
+                    }, 1500);
+                } else {
+                    // Redirecionar direto para WhatsApp
+                    window.location.href = whatsappUrl;
+                }
             } else {
                 alert('Erro ao enviar. Por favor, tente novamente.');
                 btnText.style.display = 'inline';
