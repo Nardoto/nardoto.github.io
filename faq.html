@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Perguntas frequentes sobre as extensões de automação Nardoto. Tire suas dúvidas.">
+
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    <meta name="theme-color" content="#E85A2A">
+
+    <title>FAQ - Perguntas Frequentes - Nardoto</title>
+    <link rel="stylesheet" href="landing-page/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        .faq-section {
+            margin-bottom: 48px;
+        }
+
+        .faq-section h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .faq-item {
+            background: var(--card-dark);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .faq-item summary {
+            padding: 20px 24px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none;
+        }
+
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-item summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 300;
+        }
+
+        .faq-item[open] summary::after {
+            content: '−';
+        }
+
+        .faq-item .answer {
+            padding: 0 24px 20px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .faq-item .answer p {
+            margin-bottom: 12px;
+        }
+
+        .faq-item .answer p:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body class="has-navbar">
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">
+                <img src="favicon.png" alt="Nardoto">
+                <span>Nardoto</span>
+            </a>
+
+            <ul class="navbar-menu" id="navbarMenu">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="ferramentas.html">Ferramentas</a></li>
+                <li><a href="navegador.html">Navegador</a></li>
+                <li><a href="precos.html">Preços</a></li>
+                <li><a href="faq.html" class="active">FAQ</a></li>
+            </ul>
+
+            <div class="navbar-cta">
+                <a href="landing-page/cadastro.html" class="btn-primary">🎁 Teste Grátis</a>
+            </div>
+
+            <button class="navbar-toggle" onclick="document.getElementById('navbarMenu').classList.toggle('active')">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>Perguntas Frequentes</h1>
+        <p>Tire suas dúvidas sobre as ferramentas de automação</p>
+    </section>
+
+    <!-- FAQ Content -->
+    <section style="padding: 60px 20px 100px;">
+        <div class="container" style="max-width: 800px;">
+
+            <!-- Sobre as Ferramentas -->
+            <div class="faq-section">
+                <h2>🧩 Sobre as Ferramentas</h2>
+
+                <details class="faq-item">
+                    <summary>O que são as extensões Nardoto?</summary>
+                    <div class="answer">
+                        <p>São extensões para Google Chrome que automatizam tarefas repetitivas em ferramentas de IA como VEO3, Wisk, Suno, CapCut, ChatGPT, Claude e mais.</p>
+                        <p>Em vez de colar prompts um por um, você cola uma lista e a extensão envia todos automaticamente. Downloads também são feitos em massa.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Quais ferramentas/sites as extensões funcionam?</summary>
+                    <div class="answer">
+                        <p><strong>Geração de vídeo:</strong> VEO3 (Google), Wisk</p>
+                        <p><strong>Geração de música:</strong> Suno AI</p>
+                        <p><strong>Edição:</strong> CapCut (web)</p>
+                        <p><strong>IAs de texto:</strong> ChatGPT, Claude, Gemini</p>
+                        <p><strong>Geração de imagem:</strong> Midjourney</p>
+                        <p><strong>Voz:</strong> Google TTS</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Funciona no Mac?</summary>
+                    <div class="answer">
+                        <p>As extensões Chrome funcionam em qualquer sistema (Windows, Mac, Linux).</p>
+                        <p>O Nardoto Browser (navegador com extensões instaladas) é apenas para Windows por enquanto.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Preciso ter conta nas ferramentas (VEO3, Suno, etc)?</summary>
+                    <div class="answer">
+                        <p>Sim! As extensões automatizam o uso das ferramentas, mas você precisa ter sua própria conta em cada uma delas.</p>
+                        <p>Exemplo: para usar a extensão do VEO3, você precisa de acesso ao VEO3 no Google AI Studio.</p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Sobre o Navegador -->
+            <div class="faq-section">
+                <h2>🌐 Nardoto Browser</h2>
+
+                <details class="faq-item">
+                    <summary>O que é o Nardoto Browser?</summary>
+                    <div class="answer">
+                        <p>É um navegador baseado no Chrome que eu criei do zero, com todas as 13 extensões já instaladas e configuradas.</p>
+                        <p>Você baixa, instala, e já pode usar tudo. Sem precisar instalar extensão por extensão.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>As extensões atualizam automaticamente?</summary>
+                    <div class="answer">
+                        <p>Sim! Tanto o navegador quanto as extensões se atualizam automaticamente quando você abre o browser.</p>
+                        <p>Você nunca precisa baixar nada manualmente depois da instalação.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>O navegador é seguro?</summary>
+                    <div class="answer">
+                        <p>Sim! É baseado no Chromium (mesmo motor do Chrome), mas sem rastreamento de dados da Google.</p>
+                        <p>Seus dados são seus. Não coletamos nenhuma informação de navegação.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Posso usar as extensões no Chrome normal?</summary>
+                    <div class="answer">
+                        <p>Pode! Você pode usar as extensões no seu Chrome normal também. Basta instalar manualmente.</p>
+                        <p>O navegador Nardoto é só uma opção mais prática (tudo instalado + atualizações automáticas).</p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Sobre a Assinatura -->
+            <div class="faq-section">
+                <h2>💳 Assinatura e Pagamento</h2>
+
+                <details class="faq-item">
+                    <summary>Quanto custa a assinatura?</summary>
+                    <div class="answer">
+                        <p><strong>Via Kiwify:</strong> R$ 500/mês (cartão, boleto ou pix)</p>
+                        <p><strong>Via Pix Direto:</strong> R$ 450/mês (menor preço)</p>
+                        <p>O valor fica fixo por 1 ano após a assinatura.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Tem teste grátis?</summary>
+                    <div class="answer">
+                        <p>Sim! 10 dias grátis para testar todas as ferramentas.</p>
+                        <p>Não precisa de cartão de crédito. Você só paga se decidir continuar depois.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Posso cancelar quando quiser?</summary>
+                    <div class="answer">
+                        <p>Pode! Você cancela a qualquer momento e o acesso continua até o fim do período já pago.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Por que Pix Direto é mais barato?</summary>
+                    <div class="answer">
+                        <p>Quando você paga via Kiwify, eles cobram taxas de mim. Por isso o preço é R$ 500.</p>
+                        <p>Via Pix Direto não tem intermediário, então consigo cobrar R$ 450.</p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Suporte -->
+            <div class="faq-section">
+                <h2>💬 Suporte</h2>
+
+                <details class="faq-item">
+                    <summary>Como funciona o suporte?</summary>
+                    <div class="answer">
+                        <p>O suporte é direto comigo pelo WhatsApp. Sem chatbot, sem fila de atendimento.</p>
+                        <p>Você manda mensagem e eu respondo pessoalmente.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Tem tutorial de como usar?</summary>
+                    <div class="answer">
+                        <p>Sim! Tenho vídeos no YouTube mostrando como usar cada ferramenta.</p>
+                        <p>Também posso tirar dúvidas específicas pelo WhatsApp.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>E se eu tiver problema técnico?</summary>
+                    <div class="answer">
+                        <p>Manda mensagem no WhatsApp que eu ajudo a resolver.</p>
+                        <p>Como sou eu que desenvolvo tudo, consigo identificar e corrigir bugs rapidamente.</p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- CTA -->
+            <div style="text-align: center; margin-top: 60px; padding: 40px; background: var(--card-dark); border-radius: 20px;">
+                <h3 style="color: var(--text-primary); margin-bottom: 12px;">Ainda tem dúvidas?</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 24px;">Fala comigo direto no WhatsApp</p>
+                <a href="https://wa.me/5527999132594" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: white; padding: 14px 28px; border-radius: 12px; text-decoration: none; font-weight: 600;">
+                    💬 Chamar no WhatsApp
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-brand-logo">
+                        <img src="favicon.png" alt="Nardoto">
+                        <span>Nardoto</span>
+                    </a>
+                    <p>Automatize sua produção de conteúdo para YouTube com extensões Chrome + IA. Economize 20+ horas por semana.</p>
+                    <div class="footer-social">
+                        <a href="https://youtube.com/@nardoto" target="_blank" title="YouTube">📺</a>
+                        <a href="https://wa.me/5527999132594" target="_blank" title="WhatsApp">💬</a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Produtos</h4>
+                    <ul>
+                        <li><a href="ferramentas.html">Extensões</a></li>
+                        <li><a href="navegador.html">Nardoto Browser</a></li>
+                        <li><a href="precos.html">Planos e Preços</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Suporte</h4>
+                    <ul>
+                        <li><a href="faq.html">Perguntas Frequentes</a></li>
+                        <li><a href="https://wa.me/5527999132594" target="_blank">Falar no WhatsApp</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Começar</h4>
+                    <ul>
+                        <li><a href="landing-page/cadastro.html">Teste Grátis 10 Dias</a></li>
+                        <li><a href="navegador.html">Baixar Navegador</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2024 Nardoto. Todos os direitos reservados.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

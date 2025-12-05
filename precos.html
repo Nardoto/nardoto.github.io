@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Planos e preços das extensões de automação Nardoto. Teste grátis por 10 dias.">
+
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    <meta name="theme-color" content="#E85A2A">
+
+    <title>Preços - Nardoto Automação</title>
+    <link rel="stylesheet" href="landing-page/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="has-navbar">
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">
+                <img src="favicon.png" alt="Nardoto">
+                <span>Nardoto</span>
+            </a>
+
+            <ul class="navbar-menu" id="navbarMenu">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="ferramentas.html">Ferramentas</a></li>
+                <li><a href="navegador.html">Navegador</a></li>
+                <li><a href="precos.html" class="active">Preços</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+            </ul>
+
+            <div class="navbar-cta">
+                <a href="landing-page/cadastro.html" class="btn-primary">🎁 Teste Grátis</a>
+            </div>
+
+            <button class="navbar-toggle" onclick="document.getElementById('navbarMenu').classList.toggle('active')">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>Planos e Preços</h1>
+        <p>Todas as ferramentas em um único plano. Teste grátis por 10 dias.</p>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="subscription" style="padding-top: 60px;">
+        <div class="container">
+
+            <!-- Destaque Teste Grátis -->
+            <div style="max-width: 600px; margin: 0 auto 48px; padding: 24px; background: linear-gradient(135deg, rgba(37, 211, 102, 0.15), rgba(37, 211, 102, 0.05)); border-radius: 16px; text-align: center; border: 1px solid #25D366;">
+                <span style="font-size: 2rem;">🎁</span>
+                <h3 style="color: #25D366; margin: 12px 0 8px;">Teste Grátis 10 Dias</h3>
+                <p style="color: var(--text-secondary); margin: 0;">Experimente todas as ferramentas gratuitamente antes de decidir.</p>
+                <a href="landing-page/cadastro.html" style="display: inline-block; margin-top: 16px; background: #25D366; color: white; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 600;">Começar Teste Grátis</a>
+            </div>
+
+            <!-- Opções de Pagamento -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: 1000px; margin: 0 auto;">
+
+                <!-- Opção 1: Kiwify -->
+                <div class="subscription-card" style="text-align: center; position: relative;">
+                    <div class="subscription-header">
+                        <h3 class="subscription-name">Kiwify Checkout</h3>
+                        <div class="subscription-price">
+                            <span class="price">R$ 500</span>
+                            <span class="price-period">/mês</span>
+                        </div>
+                        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 8px;">Valor fixo por 1 ano. Cancele quando quiser.</p>
+                    </div>
+                    <div class="subscription-features" style="text-align: left; font-size: 0.95rem;">
+                        <div class="feature">💳 Cartão de crédito</div>
+                        <div class="feature">📄 Boleto bancário</div>
+                        <div class="feature">📱 Pix (via Kiwify)</div>
+                        <div class="feature" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-light);">✅ 13 extensões Chrome</div>
+                        <div class="feature">✅ 4 apps desktop</div>
+                        <div class="feature">✅ Nardoto Browser (Windows)</div>
+                        <div class="feature">✅ Atualizações automáticas</div>
+                        <div class="feature">✅ Suporte via WhatsApp</div>
+                    </div>
+                    <a href="https://pay.kiwify.com.br/oKtOAIK" target="_blank" rel="noopener" class="subscription-button primary" style="margin-top: 24px;">Assinar via Kiwify</a>
+                </div>
+
+                <!-- Opção 2: Pix Direto -->
+                <div class="subscription-card featured" style="text-align: center; position: relative;">
+                    <div class="badge" style="background: var(--primary);">MELHOR PREÇO</div>
+                    <div class="subscription-header">
+                        <h3 class="subscription-name">Pix Direto</h3>
+                        <div class="subscription-price">
+                            <span class="price" style="color: var(--primary);">R$ 450</span>
+                            <span class="price-period">/mês</span>
+                        </div>
+                        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 8px;">Economize R$ 50/mês! Valor fixo por 1 ano.</p>
+                    </div>
+                    <div class="subscription-features" style="text-align: left; font-size: 0.95rem;">
+                        <div class="feature">📱 Pix direto para mim</div>
+                        <div class="feature">⚡ Liberação imediata</div>
+                        <div class="feature">💬 Atendimento pessoal</div>
+                        <div class="feature" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-light);">✅ 13 extensões Chrome</div>
+                        <div class="feature">✅ 4 apps desktop</div>
+                        <div class="feature">✅ Nardoto Browser (Windows)</div>
+                        <div class="feature">✅ Atualizações automáticas</div>
+                        <div class="feature">✅ Suporte via WhatsApp</div>
+                    </div>
+                    <a href="https://wa.me/5527999132594?text=Olá%20Nardoto!%20Quero%20assinar%20via%20Pix%20Direto%20por%20R$%20450/mês." target="_blank" rel="noopener" class="subscription-button primary" style="margin-top: 24px;">Pagar via Pix</a>
+                </div>
+
+            </div>
+
+            <!-- O que está incluído -->
+            <div style="max-width: 800px; margin: 64px auto 0;">
+                <h2 class="section-title" style="text-align: center; margin-bottom: 32px;">O que está incluído</h2>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px;">
+                    <div style="background: var(--card-dark); padding: 24px; border-radius: 16px; text-align: center;">
+                        <span style="font-size: 2rem;">🧩</span>
+                        <h4 style="margin: 12px 0 8px; color: var(--text-primary);">13 Extensões</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0;">VEO3, Wisk, Suno, CapCut, Claude, GPT e mais</p>
+                    </div>
+
+                    <div style="background: var(--card-dark); padding: 24px; border-radius: 16px; text-align: center;">
+                        <span style="font-size: 2rem;">💻</span>
+                        <h4 style="margin: 12px 0 8px; color: var(--text-primary);">4 Apps Desktop</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0;">Otimizador Gold, VEO3 Loopless e mais</p>
+                    </div>
+
+                    <div style="background: var(--card-dark); padding: 24px; border-radius: 16px; text-align: center;">
+                        <span style="font-size: 2rem;">🌐</span>
+                        <h4 style="margin: 12px 0 8px; color: var(--text-primary);">Nardoto Browser</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0;">Navegador com tudo instalado</p>
+                    </div>
+
+                    <div style="background: var(--card-dark); padding: 24px; border-radius: 16px; text-align: center;">
+                        <span style="font-size: 2rem;">🔄</span>
+                        <h4 style="margin: 12px 0 8px; color: var(--text-primary);">Atualizações</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0;">Automáticas e gratuitas</p>
+                    </div>
+
+                    <div style="background: var(--card-dark); padding: 24px; border-radius: 16px; text-align: center;">
+                        <span style="font-size: 2rem;">💬</span>
+                        <h4 style="margin: 12px 0 8px; color: var(--text-primary);">Suporte Direto</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0;">Via WhatsApp comigo</p>
+                    </div>
+
+                    <div style="background: var(--card-dark); padding: 24px; border-radius: 16px; text-align: center;">
+                        <span style="font-size: 2rem;">📺</span>
+                        <h4 style="margin: 12px 0 8px; color: var(--text-primary);">Tutoriais</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0;">Vídeos de como usar cada ferramenta</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Preços -->
+            <div style="max-width: 700px; margin: 80px auto 0;">
+                <h2 class="section-title" style="text-align: center; margin-bottom: 32px;">Perguntas sobre preços</h2>
+
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <details style="background: var(--card-dark); border-radius: 12px; padding: 20px;">
+                        <summary style="cursor: pointer; font-weight: 600; color: var(--text-primary);">O valor muda depois de 1 ano?</summary>
+                        <p style="color: var(--text-secondary); margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-light);">O valor que você assinar hoje fica fixo por 1 ano. Depois disso, renovamos pelo valor vigente (vou te avisar antes).</p>
+                    </details>
+
+                    <details style="background: var(--card-dark); border-radius: 12px; padding: 20px;">
+                        <summary style="cursor: pointer; font-weight: 600; color: var(--text-primary);">Posso cancelar quando quiser?</summary>
+                        <p style="color: var(--text-secondary); margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-light);">Sim! Você pode cancelar a qualquer momento. O acesso continua até o fim do período pago.</p>
+                    </details>
+
+                    <details style="background: var(--card-dark); border-radius: 12px; padding: 20px;">
+                        <summary style="cursor: pointer; font-weight: 600; color: var(--text-primary);">O teste grátis pede cartão?</summary>
+                        <p style="color: var(--text-secondary); margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-light);">Não! O teste de 10 dias é totalmente gratuito. Você só paga se decidir continuar depois.</p>
+                    </details>
+
+                    <details style="background: var(--card-dark); border-radius: 12px; padding: 20px;">
+                        <summary style="cursor: pointer; font-weight: 600; color: var(--text-primary);">Qual a diferença entre Kiwify e Pix Direto?</summary>
+                        <p style="color: var(--text-secondary); margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-light);">Kiwify aceita cartão e boleto, mas cobra taxas (por isso é R$ 500). Pix direto para mim é R$ 450 porque não tem intermediário.</p>
+                    </details>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-brand-logo">
+                        <img src="favicon.png" alt="Nardoto">
+                        <span>Nardoto</span>
+                    </a>
+                    <p>Automatize sua produção de conteúdo para YouTube com extensões Chrome + IA. Economize 20+ horas por semana.</p>
+                    <div class="footer-social">
+                        <a href="https://youtube.com/@nardoto" target="_blank" title="YouTube">📺</a>
+                        <a href="https://wa.me/5527999132594" target="_blank" title="WhatsApp">💬</a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Produtos</h4>
+                    <ul>
+                        <li><a href="ferramentas.html">Extensões</a></li>
+                        <li><a href="navegador.html">Nardoto Browser</a></li>
+                        <li><a href="precos.html">Planos e Preços</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Suporte</h4>
+                    <ul>
+                        <li><a href="faq.html">Perguntas Frequentes</a></li>
+                        <li><a href="https://wa.me/5527999132594" target="_blank">Falar no WhatsApp</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Começar</h4>
+                    <ul>
+                        <li><a href="landing-page/cadastro.html">Teste Grátis 10 Dias</a></li>
+                        <li><a href="navegador.html">Baixar Navegador</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2024 Nardoto. Todos os direitos reservados.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -18,6 +18,7 @@
 
     <meta name="theme-color" content="#E85A2A">
 
+    <link rel="stylesheet" href="landing-page/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -408,7 +409,35 @@
         }
     </style>
 </head>
-<body>
+<body class="has-navbar">
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">
+                <img src="favicon.png" alt="Nardoto">
+                <span>Nardoto</span>
+            </a>
+
+            <ul class="navbar-menu" id="navbarMenu">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="ferramentas.html">Ferramentas</a></li>
+                <li><a href="navegador.html" class="active">Navegador</a></li>
+                <li><a href="precos.html">Preços</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+            </ul>
+
+            <div class="navbar-cta">
+                <a href="landing-page/cadastro.html" class="btn-primary">🎁 Teste Grátis</a>
+            </div>
+
+            <button class="navbar-toggle" onclick="document.getElementById('navbarMenu').classList.toggle('active')">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
     <!-- Hero Section -->
     <section class="hero">
         <div class="badge-exclusive">🚀 EXCLUSIVO — MEU PRÓPRIO NAVEGADOR</div>
@@ -526,9 +555,55 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
-        <a href="https://nardoto.com.br">← Voltar para nardoto.com.br</a>
-        <p>© 2024 Nardoto Browser • Feito para criadores de conteúdo</p>
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-brand-logo">
+                        <img src="favicon.png" alt="Nardoto">
+                        <span>Nardoto</span>
+                    </a>
+                    <p>Automatize sua produção de conteúdo para YouTube com extensões Chrome + IA. Economize 20+ horas por semana.</p>
+                    <div class="footer-social">
+                        <a href="https://youtube.com/@nardoto" target="_blank" title="YouTube">📺</a>
+                        <a href="https://wa.me/5527999132594" target="_blank" title="WhatsApp">💬</a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Produtos</h4>
+                    <ul>
+                        <li><a href="ferramentas.html">Extensões</a></li>
+                        <li><a href="navegador.html">Nardoto Browser</a></li>
+                        <li><a href="precos.html">Planos e Preços</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Suporte</h4>
+                    <ul>
+                        <li><a href="faq.html">Perguntas Frequentes</a></li>
+                        <li><a href="https://wa.me/5527999132594" target="_blank">Falar no WhatsApp</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Começar</h4>
+                    <ul>
+                        <li><a href="landing-page/cadastro.html">Teste Grátis 10 Dias</a></li>
+                        <li><a href="navegador.html">Baixar Navegador</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2024 Nardoto. Todos os direitos reservados.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Privacidade</a>
+                </div>
+            </div>
+        </div>
     </footer>
 </body>
 </html>
