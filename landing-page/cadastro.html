@@ -281,6 +281,100 @@
             box-shadow: 0 4px 12px rgba(232, 90, 42, 0.3);
         }
 
+        /* Steps Section */
+        .steps-card {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(16, 185, 129, 0.1) 100%);
+            border: 2px solid rgba(34, 197, 94, 0.5);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .steps-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #22C55E;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .step-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: #22C55E;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+
+        .step-content p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+        }
+
+        .dashboard-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .dashboard-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(34, 197, 94, 0.4);
+        }
+
+        .already-registered {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .already-registered a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .already-registered a:hover {
+            text-decoration: underline;
+        }
+
         .submit-btn {
             width: 100%;
             background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
@@ -456,6 +550,43 @@
             <div class="notice-footer">
                 💬 Suporte direto comigo via WhatsApp | 🛠️ Desenvolvido com dedicação para a comunidade Gold
             </div>
+        </div>
+
+        <!-- Passo a Passo -->
+        <div class="steps-card">
+            <div class="steps-title">📋 Como Solicitar o Teste Grátis</div>
+
+            <div class="step-item">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h4>Crie sua conta no Dashboard</h4>
+                    <p>Clique no botão abaixo e faça login com sua conta Google. Isso cadastra você no nosso sistema.</p>
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h4>Preencha o formulário abaixo</h4>
+                    <p>Informe seus dados e as ferramentas que você usa para eu entender seu perfil.</p>
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h4>Me mande uma mensagem no WhatsApp</h4>
+                    <p>Após o cadastro, me avise pelo WhatsApp que você quer o teste grátis. Vou liberar seu acesso!</p>
+                </div>
+            </div>
+
+            <a href="https://nardoto-labs.web.app/login.html" target="_blank" class="dashboard-btn">
+                🚀 Criar Conta no Dashboard
+            </a>
+
+            <p class="already-registered">
+                Já tem conta? <a href="https://nardoto-labs.web.app/dashboard.html" target="_blank">Acessar Dashboard</a>
+            </p>
         </div>
 
         <div class="form-card">
@@ -726,12 +857,12 @@
                               `Telefone: ${leadData.phone}\n\n` +
                               `Estou baixando o navegador agora!`;
                 } else {
-                    message = `Olá Nardoto! Acabei de preencher o cadastro de interesse.\n\n` +
+                    message = `Olá Nardoto! Acabei de me cadastrar no Dashboard e preencher o formulário.\n\n` +
                               `Nome: ${leadData.name}\n` +
                               `Email: ${leadData.email}\n` +
                               `Telefone: ${leadData.phone}\n` +
                               `Ferramentas de interesse: ${toolsList}\n\n` +
-                              `Gostaria de conversar sobre as extensões e entender melhor como funcionam!`;
+                              `Gostaria de solicitar o TESTE GRÁTIS de 10 dias! 🎁`;
                 }
 
                 const whatsappUrl = `https://wa.me/5527999132594?text=${encodeURIComponent(message)}`;

@@ -20,7 +20,8 @@
       "Bash(mv:*)",
       "Read(//c/Users/tharc/Videos/extenções/VEO3 LOOPLESS - back up-1/**)",
       "Bash(curl:*)",
-      "Bash(git stash:*)"
+      "Bash(git stash:*)",
+      "Bash(firebase deploy:*)"
     ],
     "deny": [],
     "ask": []
