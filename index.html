@@ -492,53 +492,268 @@
             display: block;
         }
 
+        /* Esconder botão dashboard no mobile */
+        @media (max-width: 900px) {
+            .navbar-cta .btn-dashboard {
+                display: none;
+            }
+        }
+
+        /* Tablet (768px) */
         @media (max-width: 768px) {
+            .home-hero {
+                padding: 80px 16px 60px;
+            }
+
             .home-hero h1 {
-                font-size: 2.5rem;
+                font-size: 2rem;
+                line-height: 1.25;
             }
 
             .home-hero p {
-                font-size: 1.1rem;
+                font-size: 1rem;
+                margin-bottom: 28px;
+            }
+
+            .hero-buttons {
+                gap: 12px;
+            }
+
+            .hero-buttons .btn-primary,
+            .hero-buttons .btn-secondary {
+                padding: 14px 24px;
+                font-size: 0.95rem;
+            }
+
+            .preview-section {
+                padding: 40px 16px 50px;
             }
 
             .preview-grid {
                 grid-template-columns: 1fr;
+                gap: 16px;
             }
 
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .preview-card {
+                padding: 24px;
+                border-radius: 16px;
             }
 
-            .workflow-grid {
-                grid-template-columns: 1fr;
+            .preview-card .icon-wrapper {
+                width: 48px;
+                height: 48px;
+                border-radius: 12px;
+                margin-bottom: 14px;
             }
 
-            .workflow-column {
-                padding: 24px 16px;
-            }
-
-            .workflow-step {
-                width: 150px;
-                height: 85px;
-                padding: 10px 16px;
-            }
-
-            .step-icons img {
+            .preview-card .icon-wrapper svg {
                 width: 24px;
                 height: 24px;
             }
 
+            .preview-card h3 {
+                font-size: 1.25rem;
+                margin-bottom: 8px;
+            }
+
+            .preview-card p {
+                font-size: 0.9rem;
+                margin-bottom: 12px;
+            }
+
+            .stats-section {
+                padding: 40px 16px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .stat-item .number {
+                font-size: 1.8rem;
+            }
+
+            .stat-item .label {
+                font-size: 0.85rem;
+            }
+
+            .workflow-section {
+                padding: 50px 16px;
+            }
+
+            .workflow-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                margin-top: 32px;
+            }
+
+            .workflow-column {
+                padding: 20px 14px;
+                border-radius: 20px;
+            }
+
+            .workflow-header {
+                margin-bottom: 20px;
+            }
+
+            .workflow-header h3 {
+                font-size: 1.2rem;
+                margin-bottom: 10px;
+            }
+
+            .workflow-badge {
+                font-size: 0.75rem;
+                padding: 5px 12px;
+            }
+
+            .workflow-step {
+                width: 140px;
+                height: 78px;
+                padding: 10px 14px;
+                border-radius: 40px;
+            }
+
+            .step-icons img {
+                width: 22px;
+                height: 22px;
+            }
+
             .step-icons.single img {
-                width: 30px;
-                height: 30px;
+                width: 28px;
+                height: 28px;
             }
 
             .step-content h4 {
-                font-size: 0.75rem;
+                font-size: 0.7rem;
             }
 
             .step-content p {
+                font-size: 0.6rem;
+            }
+
+            .workflow-connector {
+                padding: 6px 0;
+            }
+
+            .connector-line {
+                height: 16px;
+            }
+
+            .workflow-cta {
+                margin-top: 32px;
+            }
+
+            .btn-workflow {
+                padding: 14px 28px;
+                font-size: 0.95rem;
+            }
+
+            .testimonials {
+                padding: 50px 16px;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                margin-top: 28px;
+            }
+
+            .testimonial-card {
+                border-radius: 12px;
+            }
+
+            .final-cta {
+                padding: 50px 16px;
+            }
+
+            .final-cta h2 {
+                font-size: 1.75rem;
+                margin-bottom: 12px;
+            }
+
+            .final-cta p {
+                font-size: 0.95rem;
+                margin-bottom: 24px;
+            }
+        }
+
+        /* Mobile pequeno (480px) */
+        @media (max-width: 480px) {
+            .home-hero {
+                padding: 70px 14px 50px;
+            }
+
+            .home-hero h1 {
+                font-size: 1.65rem;
+            }
+
+            .home-hero p {
+                font-size: 0.9rem;
+                line-height: 1.6;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .hero-buttons .btn-primary,
+            .hero-buttons .btn-secondary {
+                width: 100%;
+                text-align: center;
+                padding: 14px 20px;
+            }
+
+            .preview-card {
+                padding: 20px;
+            }
+
+            .preview-card h3 {
+                font-size: 1.15rem;
+            }
+
+            .preview-card p {
+                font-size: 0.85rem;
+            }
+
+            .stat-item .number {
+                font-size: 1.5rem;
+            }
+
+            .stat-item .label {
+                font-size: 0.8rem;
+            }
+
+            .workflow-step {
+                width: 125px;
+                height: 72px;
+            }
+
+            .step-icons img {
+                width: 20px;
+                height: 20px;
+            }
+
+            .step-icons.single img {
+                width: 24px;
+                height: 24px;
+            }
+
+            .step-content h4 {
                 font-size: 0.65rem;
+            }
+
+            .step-content p {
+                font-size: 0.55rem;
+            }
+
+            .final-cta h2 {
+                font-size: 1.5rem;
+            }
+
+            .final-cta p {
+                font-size: 0.9rem;
             }
         }
     </style>

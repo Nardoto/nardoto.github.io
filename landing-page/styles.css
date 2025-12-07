@@ -2092,6 +2092,13 @@ a, button, .package-button, .subscription-button, .cta-button {
     color: var(--primary);
 }
 
+/* Esconder botão dashboard no mobile/tablet */
+@media (max-width: 900px) {
+    .navbar-cta .btn-dashboard {
+        display: none;
+    }
+}
+
 /* Mobile Menu Toggle */
 .navbar-toggle {
     display: none;
@@ -2390,14 +2397,56 @@ body.has-navbar {
 
 @media (max-width: 768px) {
     .page-header {
-        padding: 80px 20px 40px;
+        padding: 80px 16px 40px;
     }
 
     .page-header h1 {
-        font-size: 2rem;
+        font-size: 1.85rem;
     }
 
     .page-header p {
-        font-size: 1rem;
+        font-size: 0.95rem;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+    }
+
+    .section-subtitle {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header {
+        padding: 70px 14px 35px;
+    }
+
+    .page-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .page-header p {
+        font-size: 0.9rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .section-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .footer-column h4 {
+        font-size: 0.9rem;
+    }
+
+    .footer-column a {
+        font-size: 0.85rem;
+    }
+
+    .footer-bottom p {
+        font-size: 0.8rem;
     }
 }
