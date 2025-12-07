@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ferramentas de automacao para criadores de conteudo. 15 extensoes Chrome + 4 apps para produzir videos com IA.">
+    <meta name="description" content="Ferramentas de automação para criadores de conteúdo. 15 extensões Chrome + 4 apps para produzir vídeos com IA.">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://nardoto.com.br/">
-    <meta property="og:title" content="Nardoto - Ferramentas de Automacao para Criadores">
-    <meta property="og:description" content="15 extensoes Chrome + 4 apps para automatizar producao de videos com IA.">
+    <meta property="og:title" content="Nardoto - Ferramentas de Automação para Criadores">
+    <meta property="og:description" content="15 extensões Chrome + 4 apps para automatizar produção de vídeos com IA.">
     <meta property="og:image" content="https://nardoto.com.br/favicon.png">
 
     <!-- Favicon -->
@@ -17,12 +17,32 @@
     <link rel="apple-touch-icon" href="favicon.png">
 
     <meta name="theme-color" content="#E85A2A">
-    <title>Nardoto - Ferramentas de Automacao para Criadores de Conteudo</title>
+    <title>Nardoto - Ferramentas de Automação para Criadores de Conteúdo</title>
     <link rel="stylesheet" href="landing-page/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        /* Dashboard Button */
+        .btn-dashboard {
+            background: transparent;
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-dashboard:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
         /* Homepage Styles */
         .home-hero {
             padding: 100px 20px 80px;
@@ -105,6 +125,20 @@
             transition: all 0.3s ease;
             text-decoration: none;
             display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), #ff8c5a);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .preview-card:hover {
@@ -113,9 +147,37 @@
             box-shadow: 0 20px 40px rgba(232, 90, 42, 0.15);
         }
 
-        .preview-card .icon {
-            font-size: 2.5rem;
-            margin-bottom: 16px;
+        .preview-card:hover::before {
+            opacity: 1;
+        }
+
+        .preview-card .icon-wrapper {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(232, 90, 42, 0.15) 0%, rgba(232, 90, 42, 0.05) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .preview-card:hover .icon-wrapper {
+            background: linear-gradient(135deg, var(--primary) 0%, #ff8c5a 100%);
+            transform: scale(1.05);
+        }
+
+        .preview-card .icon-wrapper svg {
+            width: 28px;
+            height: 28px;
+            color: var(--primary);
+            stroke-width: 2;
+            transition: color 0.3s ease;
+        }
+
+        .preview-card:hover .icon-wrapper svg {
+            color: white;
         }
 
         .preview-card h3 {
@@ -136,11 +198,23 @@
             color: var(--primary);
             font-weight: 600;
             font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: gap 0.2s ease;
+        }
+
+        .preview-card:hover .link {
+            gap: 10px;
         }
 
         .preview-card.featured {
             border: 2px solid var(--primary);
             background: linear-gradient(135deg, rgba(232, 90, 42, 0.1) 0%, var(--bg-dark) 100%);
+        }
+
+        .preview-card.featured::before {
+            opacity: 1;
         }
 
         /* Stats Section */
@@ -479,16 +553,17 @@
             </a>
 
             <ul class="navbar-menu" id="navbarMenu">
-                <li><a href="index.html" class="active">Inicio</a></li>
+                <li><a href="index.html" class="active">Início</a></li>
                 <li><a href="ferramentas.html">Ferramentas</a></li>
                 <li><a href="navegador.html">Navegador</a></li>
-                <li><a href="precos.html">Precos</a></li>
-                <li><a href="producoes.html">Producoes</a></li>
+                <li><a href="precos.html">Preços</a></li>
+                <li><a href="producoes.html">Produções</a></li>
                 <li><a href="faq.html">FAQ</a></li>
             </ul>
 
             <div class="navbar-cta">
-                <a href="landing-page/cadastro.html" class="btn-primary">Teste Gratis</a>
+                <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-dashboard">Meu Painel</a>
+                <a href="landing-page/cadastro.html" class="btn-primary">Teste Grátis</a>
             </div>
 
             <button class="navbar-toggle" onclick="document.getElementById('navbarMenu').classList.toggle('active')">
@@ -501,10 +576,10 @@
 
     <!-- Hero Section -->
     <section class="home-hero">
-        <h1>Ferramentas de Automacao<br>para Criadores de Conteudo</h1>
-        <p>15 extensoes Chrome + 4 aplicativos para automatizar sua producao de videos com IA. Envie prompts em massa, baixe automaticamente e foque no que importa: criar.</p>
+        <h1>Ferramentas de Automação<br>para Criadores de Conteúdo</h1>
+        <p>15 extensões Chrome + 4 aplicativos para automatizar sua produção de vídeos com IA. Envie prompts em massa, baixe automaticamente e foque no que importa: criar.</p>
         <div class="hero-buttons">
-            <a href="landing-page/cadastro.html" class="btn-primary">Teste Gratis 10 Dias</a>
+            <a href="landing-page/cadastro.html" class="btn-primary">Teste Grátis 10 Dias</a>
             <a href="ferramentas.html" class="btn-secondary">Ver Ferramentas</a>
         </div>
     </section>
@@ -513,31 +588,39 @@
     <section class="preview-section">
         <div class="preview-grid">
             <a href="ferramentas.html" class="preview-card">
-                <div class="icon">🧩</div>
-                <h3>15 Extensoes + 4 Apps</h3>
-                <p>VEO3, Grok, Meta AI, Wisk, Suno, CapCut, Claude, GPT, Gemini e mais. Todas as ferramentas para produzir videos em escala.</p>
+                <div class="icon-wrapper">
+                    <i data-lucide="puzzle"></i>
+                </div>
+                <h3>15 Extensões + 4 Apps</h3>
+                <p>VEO3, Grok, Meta AI, Wisk, Suno, CapCut, Claude, GPT, Gemini e mais. Todas as ferramentas para produzir vídeos em escala.</p>
                 <span class="link">Ver todas as ferramentas →</span>
             </a>
 
             <a href="navegador.html" class="preview-card featured">
-                <div class="icon">🌐</div>
+                <div class="icon-wrapper">
+                    <i data-lucide="globe"></i>
+                </div>
                 <h3>Nardoto Browser</h3>
-                <p>Navegador exclusivo com todas as extensoes pre-instaladas. Atualizacoes automaticas e sem rastreamento de dados.</p>
+                <p>Navegador exclusivo com todas as extensões pré-instaladas. Atualizações automáticas e sem rastreamento de dados.</p>
                 <span class="link">Conhecer o navegador →</span>
             </a>
 
             <a href="producoes.html" class="preview-card">
-                <div class="icon">🎬</div>
-                <h3>Producoes</h3>
-                <p>Veja videos, clipes musicais e animacoes que eu criei usando as mesmas ferramentas que voce vai ter acesso.</p>
-                <span class="link">Ver producoes →</span>
+                <div class="icon-wrapper">
+                    <i data-lucide="clapperboard"></i>
+                </div>
+                <h3>Produções</h3>
+                <p>Veja vídeos, clipes musicais e animações que eu criei usando as mesmas ferramentas que você vai ter acesso.</p>
+                <span class="link">Ver produções →</span>
             </a>
 
             <a href="precos.html" class="preview-card">
-                <div class="icon">💰</div>
-                <h3>Planos e Precos</h3>
-                <p>Acesso completo a todas as ferramentas em um unico plano. Teste gratis por 10 dias, sem compromisso.</p>
-                <span class="link">Ver precos →</span>
+                <div class="icon-wrapper">
+                    <i data-lucide="wallet"></i>
+                </div>
+                <h3>Planos e Preços</h3>
+                <p>Acesso completo a todas as ferramentas em um único plano. Teste grátis por 10 dias, sem compromisso.</p>
+                <span class="link">Ver preços →</span>
             </a>
         </div>
     </section>
@@ -547,11 +630,11 @@
         <div class="stats-grid">
             <div class="stat-item">
                 <div class="number">15+4</div>
-                <div class="label">Extensoes + Apps</div>
+                <div class="label">Extensões + Apps</div>
             </div>
             <div class="stat-item">
                 <div class="number">10 dias</div>
-                <div class="label">Teste Gratis</div>
+                <div class="label">Teste Grátis</div>
             </div>
             <div class="stat-item">
                 <div class="number">20h+</div>
@@ -567,8 +650,8 @@
     <!-- Workflow Section -->
     <section class="workflow-section">
         <div class="container">
-            <h2 class="section-title" style="color: var(--text-dark);">Como Funciona o Fluxo de Producao</h2>
-            <p class="section-subtitle" style="color: var(--text-dark-secondary);">Dois caminhos, um objetivo: produzir videos em escala</p>
+            <h2 class="section-title" style="color: var(--text-dark);">Como Funciona o Fluxo de Produção</h2>
+            <p class="section-subtitle" style="color: var(--text-dark-secondary);">Dois caminhos, um objetivo: produzir vídeos em escala</p>
 
             <div class="workflow-grid">
                 <!-- Workflow 1: Controle Total -->
@@ -624,7 +707,7 @@
                                 <img src="extension-icons/wisk-automator.png" alt="Wisk" title="Wisk Automator">
                             </div>
                             <div class="step-content">
-                                <h4>Geracao de Video</h4>
+                                <h4>Geração de Vídeo</h4>
                                 <p>VEO3, Grok, Meta AI, Wisk</p>
                             </div>
                             <span class="step-arrow">→</span>
@@ -659,7 +742,7 @@
                                 <img src="extension-icons/capcut-automator.png" alt="CapCut" title="CapCut Automator">
                             </div>
                             <div class="step-content">
-                                <h4>Edicao Final</h4>
+                                <h4>Edição Final</h4>
                                 <p>Sincroniza tudo no CapCut</p>
                             </div>
                             <span class="step-check">✓</span>
@@ -671,7 +754,7 @@
                 <div class="workflow-column">
                     <div class="workflow-header">
                         <h3>Fluxo 2: CapCut AI</h3>
-                        <span class="workflow-badge highlight">100% Automatico</span>
+                        <span class="workflow-badge highlight">100% Automático</span>
                     </div>
 
                     <div class="workflow-steps">
@@ -701,7 +784,7 @@
                             </div>
                             <div class="step-content">
                                 <h4>Script Sender</h4>
-                                <p>Envia para multiplas abas</p>
+                                <p>Envia para múltiplas abas</p>
                             </div>
                             <span class="step-arrow">→</span>
                         </a>
@@ -718,7 +801,7 @@
                             </div>
                             <div class="step-content">
                                 <h4>CapCut AI</h4>
-                                <p>Gera video completo</p>
+                                <p>Gera vídeo completo</p>
                             </div>
                             <span class="step-arrow">→</span>
                         </a>
@@ -754,7 +837,7 @@
     <section class="testimonials">
         <div class="container" style="max-width: 1100px; margin: 0 auto;">
             <h2 class="section-title">Quem Usa, Recomenda</h2>
-            <p class="section-subtitle">Mensagens reais de quem ja usa as ferramentas</p>
+            <p class="section-subtitle">Mensagens reais de quem já usa as ferramentas</p>
 
             <div class="testimonials-grid">
                 <div class="testimonial-card">
@@ -762,7 +845,7 @@
                 </div>
 
                 <div class="testimonial-card">
-                    <img src="depoimentos/depoimento-2.png" alt="Depoimento de creator sobre automacoes" loading="lazy">
+                    <img src="depoimentos/depoimento-2.png" alt="Depoimento de creator sobre automações" loading="lazy">
                 </div>
 
                 <div class="testimonial-card">
@@ -770,7 +853,7 @@
                 </div>
 
                 <div class="testimonial-card">
-                    <img src="depoimentos/depoimento-4.png" alt="Feedback positivo sobre extensoes Chrome" loading="lazy">
+                    <img src="depoimentos/depoimento-4.png" alt="Feedback positivo sobre extensões Chrome" loading="lazy">
                 </div>
 
                 <div class="testimonial-card">
@@ -778,7 +861,7 @@
                 </div>
 
                 <div class="testimonial-card">
-                    <img src="depoimentos/depoimento-6.PNG" alt="Depoimento sobre impacto das automacoes" loading="lazy">
+                    <img src="depoimentos/depoimento-6.PNG" alt="Depoimento sobre impacto das automações" loading="lazy">
                 </div>
 
                 <div class="testimonial-card">
@@ -793,8 +876,8 @@
         <h2>Pronto para automatizar?</h2>
         <p>Teste todas as ferramentas gratuitamente por 10 dias. Sem compromisso.</p>
         <div class="hero-buttons">
-            <a href="landing-page/cadastro.html" class="btn-primary">Comecar Teste Gratis</a>
-            <a href="faq.html" class="btn-secondary">Duvidas Frequentes</a>
+            <a href="landing-page/cadastro.html" class="btn-primary">Começar Teste Grátis</a>
+            <a href="faq.html" class="btn-secondary">Dúvidas Frequentes</a>
         </div>
     </section>
 
@@ -807,16 +890,16 @@
                         <img src="favicon.png" alt="Nardoto">
                         <span>Nardoto</span>
                     </a>
-                    <p>Ferramentas de automacao para criadores de conteudo.</p>
+                    <p>Ferramentas de automação para criadores de conteúdo.</p>
                 </div>
 
                 <div class="footer-column">
-                    <h4>Navegacao</h4>
+                    <h4>Navegação</h4>
                     <ul>
-                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="index.html">Início</a></li>
                         <li><a href="ferramentas.html">Ferramentas</a></li>
                         <li><a href="navegador.html">Navegador</a></li>
-                        <li><a href="producoes.html">Producoes</a></li>
+                        <li><a href="producoes.html">Produções</a></li>
                     </ul>
                 </div>
 
@@ -824,7 +907,7 @@
                     <h4>Suporte</h4>
                     <ul>
                         <li><a href="faq.html">FAQ</a></li>
-                        <li><a href="precos.html">Precos</a></li>
+                        <li><a href="precos.html">Preços</a></li>
                         <li><a href="https://wa.me/5527992594817" target="_blank">WhatsApp</a></li>
                         <li><a href="mailto:tharcisionardoto@gmail.com">Email</a></li>
                     </ul>
@@ -848,5 +931,10 @@
             </div>
         </div>
     </footer>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>

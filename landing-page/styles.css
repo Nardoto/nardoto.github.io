@@ -2075,6 +2075,23 @@ a, button, .package-button, .subscription-button, .cta-button {
     box-shadow: 0 4px 12px rgba(232, 90, 42, 0.3);
 }
 
+.navbar-cta .btn-dashboard {
+    background: transparent;
+    color: var(--text-primary);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid var(--border-light);
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.navbar-cta .btn-dashboard:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
 /* Mobile Menu Toggle */
 .navbar-toggle {
     display: none;
