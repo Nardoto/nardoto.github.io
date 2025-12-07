@@ -190,6 +190,206 @@
             margin-bottom: 32px;
         }
 
+        /* Workflow Section */
+        .workflow-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #fff9f6 0%, #f5f5f5 100%);
+        }
+
+        .workflow-section .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .workflow-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 48px;
+        }
+
+        .workflow-column {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .workflow-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .workflow-header h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+
+        .workflow-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(232, 90, 42, 0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .workflow-badge.highlight {
+            background: var(--primary);
+            color: white;
+        }
+
+        .workflow-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            background: #f8f8f8;
+            border-radius: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .workflow-step:hover {
+            background: rgba(232, 90, 42, 0.08);
+            border-color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        .workflow-step.final {
+            background: rgba(232, 90, 42, 0.1);
+            border: 2px solid var(--primary);
+        }
+
+        .step-icons {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .step-icons img {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-icons.single img {
+            width: 44px;
+            height: 44px;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .step-content p {
+            font-size: 0.85rem;
+            color: #666;
+            margin: 0;
+        }
+
+        .step-arrow {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .step-check {
+            font-size: 1.4rem;
+            color: #22c55e;
+            font-weight: 600;
+        }
+
+        .workflow-connector {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4px 0;
+        }
+
+        .connector-line {
+            width: 2px;
+            height: 8px;
+            background: #ddd;
+        }
+
+        .connector-arrow {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        .workflow-cta {
+            text-align: center;
+            margin-top: 48px;
+        }
+
+        .btn-workflow {
+            display: inline-block;
+            padding: 16px 36px;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-workflow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(232, 90, 42, 0.3);
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 80px 20px;
+            background: var(--card-dark);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: 40px auto 0;
+        }
+
+        .testimonial-card {
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .testimonial-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
         @media (max-width: 768px) {
             .home-hero h1 {
                 font-size: 2.5rem;
@@ -205,6 +405,24 @@
 
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            .workflow-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .workflow-column {
+                padding: 24px 16px;
+            }
+
+            .step-icons img {
+                width: 30px;
+                height: 30px;
+            }
+
+            .step-icons.single img {
+                width: 36px;
+                height: 36px;
             }
         }
     </style>
@@ -304,106 +522,226 @@
         </div>
     </section>
 
+    <!-- Depoimentos -->
+    <section class="testimonials">
+        <div class="container" style="max-width: 1100px; margin: 0 auto;">
+            <h2 class="section-title">Quem Usa, Recomenda</h2>
+            <p class="section-subtitle">Mensagens reais de quem ja usa as ferramentas</p>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <img src="depoimentos/depoimento-1.png" alt="Depoimento de creator sobre ferramentas Nardoto" loading="lazy">
+                </div>
+
+                <div class="testimonial-card">
+                    <img src="depoimentos/depoimento-2.png" alt="Depoimento de creator sobre automacoes" loading="lazy">
+                </div>
+
+                <div class="testimonial-card">
+                    <img src="depoimentos/depoimento-3.png" alt="Depoimento sobre economia de tempo" loading="lazy">
+                </div>
+
+                <div class="testimonial-card">
+                    <img src="depoimentos/depoimento-4.png" alt="Feedback positivo sobre extensoes Chrome" loading="lazy">
+                </div>
+
+                <div class="testimonial-card">
+                    <img src="depoimentos/depoimento-5.png" alt="Mensagem de agradecimento sobre ferramentas" loading="lazy">
+                </div>
+
+                <div class="testimonial-card">
+                    <img src="depoimentos/depoimento-6.PNG" alt="Depoimento sobre impacto das automacoes" loading="lazy">
+                </div>
+
+                <div class="testimonial-card">
+                    <img src="depoimentos/depoimento-7.PNG" alt="Mensagem sobre qualidade das ferramentas" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Workflow Section -->
-    <section style="background: var(--bg-light-alt); padding: 80px 20px;">
+    <section class="workflow-section">
         <div class="container">
             <h2 class="section-title" style="color: var(--text-dark);">Como Funciona o Fluxo de Producao</h2>
             <p class="section-subtitle" style="color: var(--text-dark-secondary);">Dois caminhos, um objetivo: produzir videos em escala</p>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 48px; margin-top: 48px;">
+            <div class="workflow-grid">
+                <!-- Workflow 1: Controle Total -->
+                <div class="workflow-column">
+                    <div class="workflow-header">
+                        <h3>Fluxo 1: Controle Total</h3>
+                        <span class="workflow-badge">VEO3 + CapCut Desktop</span>
+                    </div>
 
-                <!-- Workflow 1 -->
-                <div>
-                    <h3 style="color: var(--primary); text-align: center; font-size: 1.2rem; margin-bottom: 24px;">🎬 Fluxo 1: Controle Total</h3>
-                    <p style="color: var(--text-dark-secondary); text-align: center; font-size: 0.85rem; margin-bottom: 24px;">(VEO3 + CapCut Desktop)</p>
+                    <div class="workflow-steps">
+                        <!-- Step 1: Mass Prompters -->
+                        <a href="ferramentas.html" class="workflow-step">
+                            <div class="step-icons">
+                                <img src="extension-icons/claude-prompter.png" alt="Claude" title="Claude Loopless">
+                                <img src="extension-icons/gpt-prompter.png" alt="GPT" title="GPT Loopless">
+                                <img src="extension-icons/gemini-prompter.png" alt="Gemini" title="Gemini Loopless">
+                            </div>
+                            <div class="step-content">
+                                <h4>Mass Prompters</h4>
+                                <p>Gera roteiros com IA</p>
+                            </div>
+                            <span class="step-arrow">→</span>
+                        </a>
 
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
-                        <div style="background: white; padding: 16px 20px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; width: 100%; max-width: 220px;">
-                            <div style="font-size: 1.5rem; margin-bottom: 6px;">📝</div>
-                            <p style="color: var(--text-dark); font-weight: 600; font-size: 0.85rem; margin: 0;">Mass Prompters</p>
-                            <p style="color: var(--text-dark-secondary); font-size: 0.7rem; margin-top: 4px;">Gera roteiros com IA</p>
+                        <div class="workflow-connector">
+                            <div class="connector-line"></div>
+                            <div class="connector-arrow">↓</div>
                         </div>
 
-                        <div style="color: var(--primary); font-size: 1.2rem;">↓</div>
+                        <!-- Step 2: Otimizador Gold -->
+                        <a href="ferramentas.html" class="workflow-step">
+                            <div class="step-icons single">
+                                <img src="extension-icons/gold-optimizer.png" alt="Otimizador Gold" title="Otimizador Gold">
+                            </div>
+                            <div class="step-content">
+                                <h4>Otimizador Gold</h4>
+                                <p>Converte roteiro para SRT</p>
+                            </div>
+                            <span class="step-arrow">→</span>
+                        </a>
 
-                        <div style="background: white; padding: 16px 20px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; width: 100%; max-width: 220px;">
-                            <div style="font-size: 1.5rem; margin-bottom: 6px;">⚡</div>
-                            <p style="color: var(--text-dark); font-weight: 600; font-size: 0.85rem; margin: 0;">Otimizador Gold</p>
-                            <p style="color: var(--text-dark-secondary); font-size: 0.7rem; margin-top: 4px;">Converte para SRT</p>
+                        <div class="workflow-connector">
+                            <div class="connector-line"></div>
+                            <div class="connector-arrow">↓</div>
                         </div>
 
-                        <div style="color: var(--primary); font-size: 1.2rem;">↓</div>
+                        <!-- Step 3: Geracao de Video/Imagem -->
+                        <a href="ferramentas.html" class="workflow-step">
+                            <div class="step-icons">
+                                <img src="extension-icons/veo3-automator.png" alt="VEO3" title="VEO3 Automator">
+                                <img src="extension-icons/grok-automator.png" alt="Grok" title="Grok Automator">
+                                <img src="extension-icons/meta-ai-automator.png" alt="Meta AI" title="Meta AI Automator">
+                                <img src="extension-icons/wisk-automator.png" alt="Wisk" title="Wisk Automator">
+                            </div>
+                            <div class="step-content">
+                                <h4>Geracao de Video</h4>
+                                <p>VEO3, Grok, Meta AI, Wisk</p>
+                            </div>
+                            <span class="step-arrow">→</span>
+                        </a>
 
-                        <div style="background: white; padding: 16px 20px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; width: 100%; max-width: 220px;">
-                            <div style="font-size: 1.5rem; margin-bottom: 6px;">🎬</div>
-                            <p style="color: var(--text-dark); font-weight: 600; font-size: 0.85rem; margin: 0;">VEO3 / Wisk</p>
-                            <p style="color: var(--text-dark-secondary); font-size: 0.7rem; margin-top: 4px;">Gera videos e imagens</p>
+                        <div class="workflow-connector">
+                            <div class="connector-line"></div>
+                            <div class="connector-arrow">↓</div>
                         </div>
 
-                        <div style="color: var(--primary); font-size: 1.2rem;">↓</div>
+                        <!-- Step 4: Audio e Trilha -->
+                        <a href="ferramentas.html" class="workflow-step">
+                            <div class="step-icons">
+                                <img src="extension-icons/google-tts.png" alt="Google TTS" title="Google TTS">
+                                <img src="extension-icons/suno-automator.png" alt="Suno" title="Suno Automator">
+                            </div>
+                            <div class="step-content">
+                                <h4>Audio e Trilha</h4>
+                                <p>Google TTS + Suno AI</p>
+                            </div>
+                            <span class="step-arrow">→</span>
+                        </a>
 
-                        <div style="background: white; padding: 16px 20px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; width: 100%; max-width: 220px;">
-                            <div style="font-size: 1.5rem; margin-bottom: 6px;">🎙️</div>
-                            <p style="color: var(--text-dark); font-weight: 600; font-size: 0.85rem; margin: 0;">CapCut Desktop</p>
-                            <p style="color: var(--text-dark-secondary); font-size: 0.7rem; margin-top: 4px;">Gera audio e legenda</p>
+                        <div class="workflow-connector">
+                            <div class="connector-line"></div>
+                            <div class="connector-arrow">↓</div>
                         </div>
 
-                        <div style="color: var(--primary); font-size: 1.2rem;">↓</div>
-
-                        <div style="background: linear-gradient(135deg, var(--primary), #D4522A); padding: 16px 20px; border-radius: 12px; text-align: center; width: 100%; max-width: 220px;">
-                            <div style="font-size: 1.5rem; margin-bottom: 6px;">✅</div>
-                            <p style="color: white; font-weight: 600; font-size: 0.85rem; margin: 0;">Sincronizador</p>
-                            <p style="color: rgba(255,255,255,0.8); font-size: 0.7rem; margin-top: 4px;">Junta tudo automatico</p>
+                        <!-- Step 5: Final -->
+                        <div class="workflow-step final">
+                            <div class="step-icons single">
+                                <img src="extension-icons/capcut-automator.png" alt="CapCut" title="CapCut Automator">
+                            </div>
+                            <div class="step-content">
+                                <h4>Edicao Final</h4>
+                                <p>Sincroniza tudo no CapCut</p>
+                            </div>
+                            <span class="step-check">✓</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Workflow 2 -->
-                <div>
-                    <h3 style="color: var(--primary); text-align: center; font-size: 1.2rem; margin-bottom: 24px;">🤖 Fluxo 2: CapCut AI</h3>
-                    <p style="color: var(--text-dark-secondary); text-align: center; font-size: 0.85rem; margin-bottom: 24px;">(100% Automatico)</p>
+                <!-- Workflow 2: CapCut AI -->
+                <div class="workflow-column">
+                    <div class="workflow-header">
+                        <h3>Fluxo 2: CapCut AI</h3>
+                        <span class="workflow-badge highlight">100% Automatico</span>
+                    </div>
 
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
-                        <div style="background: white; padding: 16px 20px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; width: 100%; max-width: 220px;">
-                            <div style="font-size: 1.5rem; margin-bottom: 6px;">📝</div>
-                            <p style="color: var(--text-dark); font-weight: 600; font-size: 0.85rem; margin: 0;">Mass Prompters</p>
-                            <p style="color: var(--text-dark-secondary); font-size: 0.7rem; margin-top: 4px;">Gera roteiros com IA</p>
+                    <div class="workflow-steps">
+                        <!-- Step 1: Mass Prompters -->
+                        <a href="ferramentas.html" class="workflow-step">
+                            <div class="step-icons">
+                                <img src="extension-icons/claude-prompter.png" alt="Claude" title="Claude Loopless">
+                                <img src="extension-icons/gpt-prompter.png" alt="GPT" title="GPT Loopless">
+                                <img src="extension-icons/gemini-prompter.png" alt="Gemini" title="Gemini Loopless">
+                            </div>
+                            <div class="step-content">
+                                <h4>Mass Prompters</h4>
+                                <p>Gera roteiros com IA</p>
+                            </div>
+                            <span class="step-arrow">→</span>
+                        </a>
+
+                        <div class="workflow-connector">
+                            <div class="connector-line"></div>
+                            <div class="connector-arrow">↓</div>
                         </div>
 
-                        <div style="color: var(--primary); font-size: 1.2rem;">↓</div>
+                        <!-- Step 2: Script Sender -->
+                        <a href="ferramentas.html" class="workflow-step">
+                            <div class="step-icons single">
+                                <img src="extension-icons/capcut-automator.png" alt="CapCut Script Sender" title="CapCut Script Sender">
+                            </div>
+                            <div class="step-content">
+                                <h4>Script Sender</h4>
+                                <p>Envia para multiplas abas</p>
+                            </div>
+                            <span class="step-arrow">→</span>
+                        </a>
 
-                        <div style="background: white; padding: 16px 20px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; width: 100%; max-width: 220px;">
-                            <div style="font-size: 1.5rem; margin-bottom: 6px;">📤</div>
-                            <p style="color: var(--text-dark); font-weight: 600; font-size: 0.85rem; margin: 0;">Script Sender</p>
-                            <p style="color: var(--text-dark-secondary); font-size: 0.7rem; margin-top: 4px;">Envia em multiplas abas</p>
+                        <div class="workflow-connector">
+                            <div class="connector-line"></div>
+                            <div class="connector-arrow">↓</div>
                         </div>
 
-                        <div style="color: var(--primary); font-size: 1.2rem;">↓</div>
+                        <!-- Step 3: CapCut AI -->
+                        <a href="ferramentas.html" class="workflow-step">
+                            <div class="step-icons single">
+                                <img src="extension-icons/capcut-automator.png" alt="CapCut AI" title="CapCut AI">
+                            </div>
+                            <div class="step-content">
+                                <h4>CapCut AI</h4>
+                                <p>Gera video completo</p>
+                            </div>
+                            <span class="step-arrow">→</span>
+                        </a>
 
-                        <div style="background: white; padding: 16px 20px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; width: 100%; max-width: 220px;">
-                            <div style="font-size: 1.5rem; margin-bottom: 6px;">🎬</div>
-                            <p style="color: var(--text-dark); font-weight: 600; font-size: 0.85rem; margin: 0;">CapCut AI</p>
-                            <p style="color: var(--text-dark-secondary); font-size: 0.7rem; margin-top: 4px;">Gera video completo</p>
+                        <div class="workflow-connector">
+                            <div class="connector-line"></div>
+                            <div class="connector-arrow">↓</div>
                         </div>
 
-                        <div style="color: var(--primary); font-size: 1.2rem;">↓</div>
-
-                        <div style="background: linear-gradient(135deg, var(--primary), #D4522A); padding: 16px 20px; border-radius: 12px; text-align: center; width: 100%; max-width: 220px;">
-                            <div style="font-size: 1.5rem; margin-bottom: 6px;">♻️</div>
-                            <p style="color: white; font-weight: 600; font-size: 0.85rem; margin: 0;">Prompt Extractor</p>
-                            <p style="color: rgba(255,255,255,0.8); font-size: 0.7rem; margin-top: 4px;">Reutiliza os prompts</p>
+                        <!-- Step 4: Prompt Extractor -->
+                        <div class="workflow-step final">
+                            <div class="step-icons single">
+                                <img src="extension-icons/capcut-extractor.png" alt="Prompt Extractor" title="CapCut Prompt Extractor">
+                            </div>
+                            <div class="step-content">
+                                <h4>Prompt Extractor</h4>
+                                <p>Reutiliza os prompts</p>
+                            </div>
+                            <span class="step-check">✓</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Nota -->
-            <div style="margin-top: 64px; padding: 32px; background: white; border-radius: 16px; border-left: 4px solid var(--primary); box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-                <p style="color: var(--text-dark); font-size: 1.1rem; line-height: 1.7; margin: 0;">
-                    <strong style="color: var(--primary);">💡 Por que essas ferramentas funcionam tao bem?</strong><br><br>
-                    Eu criei cada uma delas primeiro para meu proprio uso. Automatizei o que me tomava tempo e fui melhorando conforme produzia mais conteudo. So depois de meses usando e refinando, abri para outras pessoas usarem tambem.<br><br>
-                    <span style="color: var(--text-dark-secondary);">Sao ferramentas faceis de usar e faceis de delegar — qualquer pessoa da sua equipe consegue operar em minutos.</span>
-                </p>
+            <!-- CTA -->
+            <div class="workflow-cta">
+                <a href="ferramentas.html" class="btn-workflow">Ver Todas as Ferramentas</a>
             </div>
         </div>
     </section>
