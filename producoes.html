@@ -15,18 +15,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        .productions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 32px;
-            max-width: 1200px;
+        .productions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 60px 20px 100px;
         }
 
         .production-card {
             background: var(--card-dark);
-            border-radius: 16px;
+            border-radius: 20px;
             overflow: hidden;
             border: 1px solid var(--border-light);
             transition: all 0.3s ease;
@@ -34,8 +34,7 @@
 
         .production-card:hover {
             border-color: var(--primary);
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(232, 90, 42, 0.2);
+            box-shadow: 0 20px 40px rgba(232, 90, 42, 0.15);
         }
 
         .production-thumbnail {
@@ -55,25 +54,31 @@
         }
 
         .production-info {
-            padding: 24px;
+            padding: 28px 32px;
+        }
+
+        .production-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
         }
 
         .production-badge {
             display: inline-block;
-            padding: 6px 12px;
+            padding: 6px 14px;
             background: rgba(232, 90, 42, 0.15);
             color: var(--primary);
             border-radius: 20px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 12px;
         }
 
         .production-title {
             font-family: 'DM Serif Display', serif;
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             color: var(--text-primary);
             margin-bottom: 12px;
             line-height: 1.3;
@@ -81,8 +86,8 @@
 
         .production-desc {
             color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.6;
+            font-size: 1rem;
+            line-height: 1.7;
             margin-bottom: 16px;
         }
 
@@ -93,7 +98,7 @@
             color: var(--primary);
             font-weight: 600;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             transition: gap 0.2s;
         }
 
@@ -122,13 +127,21 @@
         }
 
         @media (max-width: 768px) {
-            .productions-grid {
-                grid-template-columns: 1fr;
+            .productions-list {
                 padding: 40px 16px 80px;
+                gap: 32px;
+            }
+
+            .production-info {
+                padding: 20px;
             }
 
             .production-title {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
+            }
+
+            .production-desc {
+                font-size: 0.95rem;
             }
         }
     </style>
@@ -175,21 +188,8 @@
         <p>Estes sao alguns dos videos que eu criei usando as mesmas ferramentas que voce vai ter acesso. Videos gerados no VEO3, imagens no Wisk, edicao no CapCut, musicas no Suno, e roteiros escritos com Claude, GPT e Gemini Loopless. Tudo feito com automacao.</p>
     </div>
 
-    <!-- Productions Grid -->
-    <div class="productions-grid">
-
-        <!-- The Orange Life Jacket -->
-        <div class="production-card">
-            <div class="production-thumbnail">
-                <iframe src="https://www.youtube.com/embed/aDjg_svXITw" title="The Orange Life Jacket" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <div class="production-info">
-                <span class="production-badge">Curta-Metragem</span>
-                <h3 class="production-title">The Orange Life Jacket</h3>
-                <p class="production-desc">Video criado para participar de um concurso de filmes feitos com IA. Uma historia emocional sobre sobrevivencia e esperanca.</p>
-                <a href="https://youtu.be/aDjg_svXITw" target="_blank" class="production-link">Assistir no YouTube →</a>
-            </div>
-        </div>
+    <!-- Productions List -->
+    <div class="productions-list">
 
         <!-- O Filme de Genesis -->
         <div class="production-card">
@@ -292,6 +292,19 @@
                 <h3 class="production-title">Animacao Infantil com Consistencia</h3>
                 <p class="production-desc">Exemplo de animacao infantil mantendo consistencia de personagem entre cenas. Tecnica usando imagens de referencia no VEO3.</p>
                 <a href="https://www.youtube.com/watch?v=WqsXrYPxJf4" target="_blank" class="production-link">Assistir no YouTube →</a>
+            </div>
+        </div>
+
+        <!-- The Orange Life Jacket -->
+        <div class="production-card">
+            <div class="production-thumbnail">
+                <iframe src="https://www.youtube.com/embed/aDjg_svXITw" title="The Orange Life Jacket" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="production-info">
+                <span class="production-badge">Curta-Metragem</span>
+                <h3 class="production-title">The Orange Life Jacket</h3>
+                <p class="production-desc">Video criado para participar de um concurso de filmes feitos com IA. Uma historia emocional sobre sobrevivencia e esperanca.</p>
+                <a href="https://youtu.be/aDjg_svXITw" target="_blank" class="production-link">Assistir no YouTube →</a>
             </div>
         </div>
 
