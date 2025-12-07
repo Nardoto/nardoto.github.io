@@ -22,7 +22,13 @@
       "Bash(curl:*)",
       "Bash(git stash:*)",
       "Bash(firebase deploy:*)",
-      "Bash(git rm:*)"
+      "Bash(git rm:*)",
+      "Bash(for ext in veo3-automator grok-automator meta-ai-automator CapCut-Automator whisk-automator suno-automator suno-downloader google-tts-automator midjourney-automator 'CLAUDE LOOP LESS v4.1' 'GPT LOOPLESS V5' 'GEMINI LOOPLESS V2.5' 'CapCut Prompt Extractor' gold-optimizer)",
+      "Bash(do echo '=== $ext ===' if [ -d C:/NardotoTest/NardotoBrowser/Extensions/$ext/assets/icons ])",
+      "Bash(then ls C:/NardotoTest/NardotoBrowser/Extensions/$ext/assets/icons/ 2)",
+      "Bash(/dev/null elif [ -d C:/NardotoTest/NardotoBrowser/Extensions/$ext/icons ])",
+      "Bash(then ls C:/NardotoTest/NardotoBrowser/Extensions/$ext/icons/ 2)",
+      "Bash(/dev/null else find C:/NardotoTest/NardotoBrowser/Extensions/$ext -name icon*.png)"
     ],
     "deny": [],
     "ask": []
