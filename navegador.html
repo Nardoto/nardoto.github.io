@@ -610,5 +610,23 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Buscar versão atual do navegador dinamicamente
+        fetch('/browser-version.json')
+            .then(res => res.json())
+            .then(data => {
+                // Atualizar todos os botões de download
+                document.querySelectorAll('.download-btn').forEach(btn => {
+                    btn.href = 'landing-page/cadastro.html?download=true';
+                });
+                // Atualizar badge de versão
+                const versionBadge = document.querySelector('.version-badge');
+                if (versionBadge) {
+                    versionBadge.textContent = `v${data.version} • Windows • Atualização Automática`;
+                }
+            })
+            .catch(err => console.error('Erro ao buscar versão:', err));
+    </script>
 </body>
 </html>

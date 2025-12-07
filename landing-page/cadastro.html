@@ -743,8 +743,17 @@
         const FIREBASE_PROJECT_ID = 'veo3automator';
         const FIREBASE_API_KEY = 'AIzaSyA-nPdEX_J3gPvZXWBFyQ0ZXjkpK0m2234';
 
-        // URL do download do navegador
-        const DOWNLOAD_URL = 'https://github.com/Nardoto/nardoto-updates/releases/download/v2.1/NardotoBrowser_Setup_v2.1.exe';
+        // URL do download do navegador (será atualizado dinamicamente)
+        let DOWNLOAD_URL = 'https://github.com/Nardoto/nardoto-updates/releases/download/v2.1/NardotoBrowser_Setup_v2.1.exe';
+
+        // Buscar versão atual do navegador
+        fetch('/browser-version.json')
+            .then(res => res.json())
+            .then(data => {
+                DOWNLOAD_URL = data.downloadUrl;
+                console.log('Versão do navegador:', data.version);
+            })
+            .catch(err => console.error('Erro ao buscar versão:', err));
 
         // Detectar se veio do botão de download
         const urlParams = new URLSearchParams(window.location.search);
