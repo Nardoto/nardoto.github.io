@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Producoes feitas com as ferramentas Nardoto. Veja videos, clipes musicais e animacoes criadas usando IA.">
+
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    <meta name="theme-color" content="#E85A2A">
+
+    <title>Producoes - Nardoto</title>
+    <link rel="stylesheet" href="landing-page/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .productions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px 100px;
+        }
+
+        .production-card {
+            background: var(--card-dark);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .production-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(232, 90, 42, 0.2);
+        }
+
+        .production-thumbnail {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background: #000;
+        }
+
+        .production-thumbnail iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .production-info {
+            padding: 24px;
+        }
+
+        .production-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: rgba(232, 90, 42, 0.15);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .production-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .production-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .production-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: gap 0.2s;
+        }
+
+        .production-link:hover {
+            gap: 12px;
+        }
+
+        .intro-section {
+            text-align: center;
+            padding: 60px 20px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .intro-section h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .intro-section p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .productions-grid {
+                grid-template-columns: 1fr;
+                padding: 40px 16px 80px;
+            }
+
+            .production-title {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body class="has-navbar">
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">
+                <img src="favicon.png" alt="Nardoto">
+                <span>Nardoto</span>
+            </a>
+
+            <ul class="navbar-menu" id="navbarMenu">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="ferramentas.html">Ferramentas</a></li>
+                <li><a href="navegador.html">Navegador</a></li>
+                <li><a href="precos.html">Precos</a></li>
+                <li><a href="producoes.html" class="active">Producoes</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+            </ul>
+
+            <div class="navbar-cta">
+                <a href="landing-page/cadastro.html" class="btn-primary">Teste Gratis</a>
+            </div>
+
+            <button class="navbar-toggle" onclick="document.getElementById('navbarMenu').classList.toggle('active')">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>Producoes</h1>
+        <p>Videos criados usando as ferramentas Nardoto + IA</p>
+    </section>
+
+    <!-- Intro -->
+    <div class="intro-section">
+        <h2>Feito com VEO3, Suno e mais</h2>
+        <p>Estes sao alguns dos videos que eu criei usando as mesmas ferramentas que voce vai ter acesso. Clipes musicais, animacoes, propagandas e filmes - tudo feito com automacao e inteligencia artificial.</p>
+    </div>
+
+    <!-- Productions Grid -->
+    <div class="productions-grid">
+
+        <!-- The Orange Life Jacket -->
+        <div class="production-card">
+            <div class="production-thumbnail">
+                <iframe src="https://www.youtube.com/embed/aDjg_svXITw" title="The Orange Life Jacket" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="production-info">
+                <span class="production-badge">Curta-Metragem</span>
+                <h3 class="production-title">The Orange Life Jacket</h3>
+                <p class="production-desc">Video criado para participar de um concurso de filmes feitos com IA. Uma historia emocional sobre sobrevivencia e esperanca.</p>
+                <a href="https://youtu.be/aDjg_svXITw" target="_blank" class="production-link">Assistir no YouTube →</a>
+            </div>
+        </div>
+
+        <!-- O Filme de Genesis -->
+        <div class="production-card">
+            <div class="production-thumbnail">
+                <iframe src="https://www.youtube.com/embed/EJbXsHYM19c" title="Genesis - O Filme" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="production-info">
+                <span class="production-badge">Filme Biblico</span>
+                <h3 class="production-title">Genesis - Os 3 Primeiros Capitulos</h3>
+                <p class="production-desc">Adaptacao cinematografica dos tres primeiros capitulos do livro de Genesis. Criacao do mundo, Adao e Eva, e a queda.</p>
+                <a href="https://youtu.be/EJbXsHYM19c" target="_blank" class="production-link">Assistir no YouTube →</a>
+            </div>
+        </div>
+
+        <!-- Clipe Rock Cristao -->
+        <div class="production-card">
+            <div class="production-thumbnail">
+                <iframe src="https://www.youtube.com/embed/Ote-TUQgOVY" title="Clipe Rock Cristao" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="production-info">
+                <span class="production-badge">Clipe Musical</span>
+                <h3 class="production-title">Clipe de Rock Cristao</h3>
+                <p class="production-desc">Clipe musical de rock cristao feito inteiramente com IA. Musica gerada no Suno, video no VEO3.</p>
+                <a href="https://youtu.be/Ote-TUQgOVY" target="_blank" class="production-link">Assistir no YouTube →</a>
+            </div>
+        </div>
+
+        <!-- Clipe Gospel -->
+        <div class="production-card">
+            <div class="production-thumbnail">
+                <iframe src="https://www.youtube.com/embed/lxTKw6uvVDA" title="Clipe Gospel" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="production-info">
+                <span class="production-badge">Clipe Musical</span>
+                <h3 class="production-title">Clipe de Musica Gospel</h3>
+                <p class="production-desc">Producao musical gospel com visual cinematografico. Demonstra o potencial das ferramentas para conteudo religioso.</p>
+                <a href="https://www.youtube.com/watch?v=lxTKw6uvVDA" target="_blank" class="production-link">Assistir no YouTube →</a>
+            </div>
+        </div>
+
+        <!-- Propaganda Coca-Cola -->
+        <div class="production-card">
+            <div class="production-thumbnail">
+                <iframe src="https://www.youtube.com/embed/XgHP8s3-OEY" title="Propaganda Coca-Cola" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="production-info">
+                <span class="production-badge">Propaganda</span>
+                <h3 class="production-title">Propaganda da Coca-Cola</h3>
+                <p class="production-desc">Exemplo de propaganda comercial criada com IA. Mostra como as ferramentas podem ser usadas para publicidade.</p>
+                <a href="https://youtu.be/XgHP8s3-OEY" target="_blank" class="production-link">Assistir no YouTube →</a>
+            </div>
+        </div>
+
+        <!-- Intro Sansao -->
+        <div class="production-card">
+            <div class="production-thumbnail">
+                <iframe src="https://www.youtube.com/embed/aYpC7bz8dVE" title="Intro Sansao" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="production-info">
+                <span class="production-badge">Filme Biblico</span>
+                <h3 class="production-title">Intro ao Filme de Sansao</h3>
+                <p class="production-desc">Introducao cinematografica para um filme sobre a historia de Sansao. Visual epico feito com VEO3.</p>
+                <a href="https://youtu.be/aYpC7bz8dVE" target="_blank" class="production-link">Assistir no YouTube →</a>
+            </div>
+        </div>
+
+        <!-- Rico e Lazaro -->
+        <div class="production-card">
+            <div class="production-thumbnail">
+                <iframe src="https://www.youtube.com/embed/ERfRBRJ-xys" title="Rico e Lazaro" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="production-info">
+                <span class="production-badge">Historia Biblica</span>
+                <h3 class="production-title">Parabola do Rico e do Lazaro</h3>
+                <p class="production-desc">Adaptacao visual da parabola biblica do rico e Lazaro. Historia contada atraves de imagens geradas por IA.</p>
+                <a href="https://youtu.be/ERfRBRJ-xys" target="_blank" class="production-link">Assistir no YouTube →</a>
+            </div>
+        </div>
+
+        <!-- Historia de Jefte -->
+        <div class="production-card">
+            <div class="production-thumbnail">
+                <iframe src="https://www.youtube.com/embed/xBfkRvG0prc" title="Historia de Jefte" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="production-info">
+                <span class="production-badge">Historia Biblica</span>
+                <h3 class="production-title">A Historia de Jefte</h3>
+                <p class="production-desc">Narrativa visual da historia de Jefte do Antigo Testamento. Producao completa usando ferramentas de IA.</p>
+                <a href="https://youtu.be/xBfkRvG0prc" target="_blank" class="production-link">Assistir no YouTube →</a>
+            </div>
+        </div>
+
+        <!-- Animacao Infantil -->
+        <div class="production-card">
+            <div class="production-thumbnail">
+                <iframe src="https://www.youtube.com/embed/WqsXrYPxJf4" title="Animacao Infantil" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="production-info">
+                <span class="production-badge">Animacao</span>
+                <h3 class="production-title">Animacao Infantil com Consistencia</h3>
+                <p class="production-desc">Exemplo de animacao infantil mantendo consistencia de personagem entre cenas. Tecnica usando imagens de referencia no VEO3.</p>
+                <a href="https://www.youtube.com/watch?v=WqsXrYPxJf4" target="_blank" class="production-link">Assistir no YouTube →</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CTA Section -->
+    <section style="padding: 80px 20px; background: var(--card-dark);">
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <h2 style="font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--text-primary); margin-bottom: 16px;">Quer criar conteudo assim?</h2>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 32px; line-height: 1.7;">Com as ferramentas Nardoto, voce automatiza a producao e foca na criatividade. Teste gratis por 10 dias.</p>
+            <a href="landing-page/cadastro.html" class="cta-button" style="font-size: 1.1rem; padding: 18px 40px;">Comecar Teste Gratis</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-brand-logo">
+                        <img src="favicon.png" alt="Nardoto">
+                        <span>Nardoto</span>
+                    </a>
+                    <p>Ferramentas de automacao para criadores de conteudo.</p>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Navegacao</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="ferramentas.html">Ferramentas</a></li>
+                        <li><a href="navegador.html">Navegador</a></li>
+                        <li><a href="producoes.html">Producoes</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Suporte</h4>
+                    <ul>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="https://wa.me/5527992594817" target="_blank">WhatsApp</a></li>
+                        <li><a href="mailto:tharcisionardoto@gmail.com">Email</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="termos.html">Termos de Uso</a></li>
+                        <li><a href="privacidade.html">Privacidade</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Nardoto. Todos os direitos reservados.</p>
+                <div class="footer-bottom-links">
+                    <a href="termos.html">Termos de Uso</a>
+                    <a href="privacidade.html">Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
