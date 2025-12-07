@@ -747,7 +747,7 @@
         let DOWNLOAD_URL = 'https://github.com/Nardoto/nardoto-updates/releases/download/v2.1/NardotoBrowser_Setup_v2.1.exe';
 
         // Buscar versão atual do navegador
-        fetch('/browser-version.json')
+        fetch('https://nardoto.com.br/nardoto-updates/browser-version.json')
             .then(res => res.json())
             .then(data => {
                 DOWNLOAD_URL = data.downloadUrl;
