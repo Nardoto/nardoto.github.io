@@ -301,6 +301,70 @@
             font-weight: 600;
         }
 
+        /* Extensions Showcase */
+        .extensions-showcase {
+            padding: 100px 20px;
+            background: var(--bg-dark);
+        }
+
+        .extensions-showcase h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .extensions-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 48px;
+        }
+
+        .extensions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .ext-card {
+            background: var(--card-dark);
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .ext-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(232, 90, 42, 0.15);
+        }
+
+        .ext-card.coming-soon {
+            border-style: dashed;
+            opacity: 0.7;
+        }
+
+        .ext-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .ext-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .ext-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
         /* Auto Update Section */
         .auto-update {
             padding: 100px 20px;
@@ -511,6 +575,82 @@
                     <div class="feature-icon">💬</div>
                     <h3>Suporte Direto</h3>
                     <p>Problemas? Dúvidas? <span class="highlight-text">Fala comigo direto no WhatsApp.</span> Sem intermediários.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Extensions Section -->
+    <section class="extensions-showcase">
+        <div class="container">
+            <h2>🧩 13 Extensões Incluídas</h2>
+            <p class="extensions-subtitle">Todas pré-instaladas e configuradas. Atualizações automáticas.</p>
+
+            <div class="extensions-grid">
+                <div class="ext-card">
+                    <div class="ext-icon">🎬</div>
+                    <h3>VEO3 Automator</h3>
+                    <p>Automatiza geração de vídeos no Google VEO3. Fila de prompts, downloads automáticos e organização.</p>
+                </div>
+
+                <div class="ext-card">
+                    <div class="ext-icon">✂️</div>
+                    <h3>CapCut Automator</h3>
+                    <p>Automatiza edição no CapCut Web. Importação, cortes e exportação com menos cliques.</p>
+                </div>
+
+                <div class="ext-card">
+                    <div class="ext-icon">🎨</div>
+                    <h3>Wisk Automator</h3>
+                    <p>Automatiza criação de imagens no Wisk.ai. Fila de prompts e download em massa.</p>
+                </div>
+
+                <div class="ext-card">
+                    <div class="ext-icon">🌐</div>
+                    <h3>Tradutor AI</h3>
+                    <p>Tradução profissional com IA. Mantém contexto e naturalidade do texto original.</p>
+                </div>
+
+                <div class="ext-card">
+                    <div class="ext-icon">🎙️</div>
+                    <h3>Gerador de Áudio</h3>
+                    <p>Gera narrações realistas usando Google AI Studio. Vozes naturais em português.</p>
+                </div>
+
+                <div class="ext-card">
+                    <div class="ext-icon">🎵</div>
+                    <h3>Auto Prompt SUNO</h3>
+                    <p>Gera prompts otimizados para músicas no Suno AI. Estilos, gêneros e letras.</p>
+                </div>
+
+                <div class="ext-card">
+                    <div class="ext-icon">⬇️</div>
+                    <h3>Download em Massa SUNO</h3>
+                    <p>Baixa múltiplas músicas do Suno de uma vez. Organiza arquivos automaticamente.</p>
+                </div>
+
+                <div class="ext-card">
+                    <div class="ext-icon">📝</div>
+                    <h3>Otimizador SRT</h3>
+                    <p>Corrige e otimiza legendas SRT. Ajusta timing, quebras de linha e formatação.</p>
+                </div>
+
+                <div class="ext-card">
+                    <div class="ext-icon">🤖</div>
+                    <h3>Prompt Manager</h3>
+                    <p>Gerenciador de prompts para múltiplas IAs. Salve, organize e reutilize seus melhores prompts.</p>
+                </div>
+
+                <div class="ext-card">
+                    <div class="ext-icon">📋</div>
+                    <h3>Extrator de Prompts CapCut</h3>
+                    <p>Extrai prompts de templates do CapCut. Descubra como foram feitos efeitos virais.</p>
+                </div>
+
+                <div class="ext-card coming-soon">
+                    <div class="ext-icon">🔜</div>
+                    <h3>+ Novas em breve</h3>
+                    <p>Novas extensões são adicionadas automaticamente conforme são lançadas.</p>
                 </div>
             </div>
         </div>
