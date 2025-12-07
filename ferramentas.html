@@ -14,6 +14,90 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Tool Card Icon Styling */
+        .tool-card-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tool-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(232, 90, 42, 0.15) 0%, rgba(232, 90, 42, 0.05) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .tool-icon svg {
+            width: 18px;
+            height: 18px;
+            color: var(--primary);
+            stroke-width: 2;
+        }
+
+        .tool-card-visual:hover .tool-icon {
+            background: linear-gradient(135deg, var(--primary) 0%, #ff8c5a 100%);
+        }
+
+        .tool-card-visual:hover .tool-icon svg {
+            color: white;
+        }
+
+        /* Section Header Icons */
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(232, 90, 42, 0.2) 0%, rgba(232, 90, 42, 0.08) 100%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            vertical-align: middle;
+        }
+
+        .section-icon svg {
+            width: 22px;
+            height: 22px;
+            color: var(--primary);
+            stroke-width: 2;
+        }
+
+        .section-title-with-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .tool-icon {
+                width: 28px;
+                height: 28px;
+            }
+
+            .tool-icon svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .section-icon {
+                width: 34px;
+                height: 34px;
+            }
+
+            .section-icon svg {
+                width: 18px;
+                height: 18px;
+            }
+        }
+    </style>
 </head>
 <body class="has-navbar">
     <!-- Navbar -->
@@ -58,7 +142,10 @@
 
             <!-- Extensões Chrome -->
             <div style="margin-bottom: 60px;">
-                <h2 class="section-title" style="margin-bottom: 16px;">🧩 Extensões Chrome</h2>
+                <h2 class="section-title section-title-with-icon" style="margin-bottom: 16px;">
+                    <span class="section-icon"><i data-lucide="puzzle"></i></span>
+                    Extensões Chrome
+                </h2>
                 <p class="section-subtitle">Automatizam tarefas repetitivas diretamente no navegador</p>
             </div>
 
@@ -69,7 +156,7 @@
                         <img src="print das ferramentas/tool-veo3-automator.png" alt="VEO3 Automator" loading="lazy">
                     </div>
                     <div class="tool-card-content">
-                        <h3 class="tool-card-title">🎬 VEO3 Automator</h3>
+                        <h3 class="tool-card-title"><span class="tool-icon"><i data-lucide="video"></i></span> VEO3 Automator</h3>
                         <p class="tool-card-desc">Envio em massa de prompts no Veo3. Usa imagens de referência automaticamente para manter consistência de personagem entre os vídeos.</p>
                     </div>
                 </div>
@@ -80,7 +167,7 @@
                         <img src="print das ferramentas/tool-grok-automator.png" alt="Grok Automator" loading="lazy">
                     </div>
                     <div class="tool-card-content">
-                        <h3 class="tool-card-title">🤖 Grok Automator</h3>
+                        <h3 class="tool-card-title"><span class="tool-icon"><i data-lucide="bot"></i></span> Grok Automator</h3>
                         <p class="tool-card-desc">Envio em massa de prompts no Grok (X.ai). Gere vídeos com a IA do Twitter/X automaticamente.</p>
                     </div>
                 </div>
@@ -91,7 +178,7 @@
                         <img src="print das ferramentas/tool-meta-ai-automator.png" alt="Meta AI Automator" loading="lazy">
                     </div>
                     <div class="tool-card-content">
-                        <h3 class="tool-card-title">🔵 Meta AI Automator</h3>
+                        <h3 class="tool-card-title"><span class="tool-icon"><i data-lucide="circle"></i></span> Meta AI Automator</h3>
                         <p class="tool-card-desc">Envio em massa de prompts no Meta AI. Gere vídeos com a IA da Meta automaticamente.</p>
                     </div>
                 </div>
@@ -102,7 +189,7 @@
                         <img src="print das ferramentas/tool-wisk-automator.png" alt="Wisk Automator" loading="lazy">
                     </div>
                     <div class="tool-card-content">
-                        <h3 class="tool-card-title">🎨 Wisk Automator</h3>
+                        <h3 class="tool-card-title"><span class="tool-icon"><i data-lucide="palette"></i></span> Wisk Automator</h3>
                         <p class="tool-card-desc">Envio em massa de prompts no Wisk. Download em massa com prompts salvos no nome.</p>
                     </div>
                 </div>
@@ -113,7 +200,7 @@
                         <img src="print das ferramentas/tool-suno-automator.png" alt="Suno Automator" loading="lazy">
                     </div>
                     <div class="tool-card-content">
-                        <h3 class="tool-card-title">🎵 Suno Automator</h3>
+                        <h3 class="tool-card-title"><span class="tool-icon"><i data-lucide="music"></i></span> Suno Automator</h3>
                         <p class="tool-card-desc">Envio em massa de músicas no Suno AI. Crie dezenas de faixas simultaneamente.</p>
                     </div>
                 </div>
@@ -124,7 +211,7 @@
                         <img src="print das ferramentas/tool-suno-downloader.png" alt="Suno Auto Download" loading="lazy">
                     </div>
                     <div class="tool-card-content">
-                        <h3 class="tool-card-title">📥 Suno Auto Download</h3>
+                        <h3 class="tool-card-title"><span class="tool-icon"><i data-lucide="download"></i></span> Suno Auto Download</h3>
                         <p class="tool-card-desc">Download automático em massa de todas as músicas geradas no Suno.</p>
                     </div>
                 </div>
@@ -135,7 +222,7 @@
                         <img src="print das ferramentas/tool-capcut-script-sender.png" alt="CapCut Script Auto-Sender" loading="lazy">
                     </div>
                     <div class="tool-card-content">
-                        <h3 class="tool-card-title">🎬 CapCut Script Sender</h3>
+                        <h3 class="tool-card-title"><span class="tool-icon"><i data-lucide="send"></i></span> CapCut Script Sender</h3>
                         <p class="tool-card-desc">Automatiza envio de script: seleciona estilo, voz, insere texto e envia.</p>
                     </div>
                 </div>
@@ -146,7 +233,7 @@
                         <img src="print das ferramentas/tool-capcut-prompt-extractor.png" alt="CapCut Prompt Extractor" loading="lazy">
                     </div>
                     <div class="tool-card-content">
-                        <h3 class="tool-card-title">📤 CapCut Prompt Extractor</h3>
+                        <h3 class="tool-card-title"><span class="tool-icon"><i data-lucide="upload"></i></span> CapCut Prompt Extractor</h3>
                         <p class="tool-card-desc">Extrai prompts das imagens do CapCut e envia direto para sua conta na nuvem.</p>
                     </div>
                 </div>
@@ -157,7 +244,7 @@
                         <img src="print das ferramentas/tool-claude-prompt-automator.png" alt="Claude Mass Prompter" loading="lazy">
                     </div>
                     <div class="tool-card-content">
-                        <h3 class="tool-card-title">🤖 Claude Mass Prompter</h3>
+                        <h3 class="tool-card-title"><span class="tool-icon"><i data-lucide="message-square"></i></span> Claude Mass Prompter</h3>
                         <p class="tool-card-desc">Envia e organiza prompts em massa no Claude. Automatize criação de roteiros.</p>
                     </div>
                 </div>
@@ -168,7 +255,7 @@
                         <img src="print das ferramentas/tool-gpt-prompt-automator.png" alt="GPT Mass Prompter" loading="lazy">
                     </div>
                     <div class="tool-card-content">
-                        <h3 class="tool-card-title">🧠 GPT Mass Prompter</h3>
+                        <h3 class="tool-card-title"><span class="tool-icon"><i data-lucide="brain"></i></span> GPT Mass Prompter</h3>
                         <p class="tool-card-desc">Automatiza prompts no ChatGPT. Gere roteiros, ideias e conteúdo em lote.</p>
                     </div>
                 </div>
@@ -179,7 +266,7 @@
                         <img src="print das ferramentas/tool-gemini-prompt-automator.png" alt="Gemini Mass Prompter" loading="lazy">
                     </div>
                     <div class="tool-card-content">
-                        <h3 class="tool-card-title">💎 Gemini Mass Prompter</h3>
+                        <h3 class="tool-card-title"><span class="tool-icon"><i data-lucide="gem"></i></span> Gemini Mass Prompter</h3>
                         <p class="tool-card-desc">Envio em massa de prompts no Google Gemini. Aproveite a IA do Google.</p>
                     </div>
                 </div>
@@ -190,7 +277,7 @@
                         <img src="print das ferramentas/tool-midjourney-automator.png" alt="Midjourney Automator" loading="lazy">
                     </div>
                     <div class="tool-card-content">
-                        <h3 class="tool-card-title">🎨 Midjourney Automator</h3>
+                        <h3 class="tool-card-title"><span class="tool-icon"><i data-lucide="image"></i></span> Midjourney Automator</h3>
                         <p class="tool-card-desc">Automatiza geração de imagens no Midjourney. Crie arte em escala.</p>
                     </div>
                 </div>
@@ -201,7 +288,7 @@
                         <img src="print das ferramentas/tool-google-tts.png" alt="Google TTS Automator" loading="lazy">
                     </div>
                     <div class="tool-card-content">
-                        <h3 class="tool-card-title">🔊 Google TTS Automator</h3>
+                        <h3 class="tool-card-title"><span class="tool-icon"><i data-lucide="volume-2"></i></span> Google TTS Automator</h3>
                         <p class="tool-card-desc">Automatiza conversão de texto em voz com Google. Vozes naturais em português.</p>
                     </div>
                 </div>
@@ -209,7 +296,10 @@
 
             <!-- Apps Desktop -->
             <div style="margin: 80px 0 40px;">
-                <h2 class="section-title" style="margin-bottom: 16px;">💻 Aplicativos Desktop</h2>
+                <h2 class="section-title section-title-with-icon" style="margin-bottom: 16px;">
+                    <span class="section-icon"><i data-lucide="monitor"></i></span>
+                    Aplicativos Desktop
+                </h2>
                 <p class="section-subtitle">Ferramentas instaláveis para Windows</p>
             </div>
 
@@ -220,7 +310,7 @@
                         <img src="print das ferramentas/otimizador gold.PNG" alt="Otimizador Gold" loading="lazy">
                     </div>
                     <div class="tool-card-content">
-                        <h3 class="tool-card-title">⚡ Otimizador Gold</h3>
+                        <h3 class="tool-card-title"><span class="tool-icon"><i data-lucide="zap"></i></span> Otimizador Gold</h3>
                         <p class="tool-card-desc">Transforma seu roteiro em formato SRT otimizado. Pronto para usar com áudio e legendas sincronizadas.</p>
                     </div>
                 </div>
@@ -231,7 +321,7 @@
                         <img src="print das ferramentas/veo3-loopless.png" alt="VEO3 Loopless" loading="lazy">
                     </div>
                     <div class="tool-card-content">
-                        <h3 class="tool-card-title">🔄 VEO3 Loopless</h3>
+                        <h3 class="tool-card-title"><span class="tool-icon"><i data-lucide="repeat"></i></span> VEO3 Loopless</h3>
                         <p class="tool-card-desc">Remove loops dos vídeos gerados pelo VEO3. Mantém apenas o conteúdo original.</p>
                     </div>
                 </div>
@@ -242,7 +332,7 @@
                         <img src="print das ferramentas/cursor-files.png" alt="Cursor Files" loading="lazy">
                     </div>
                     <div class="tool-card-content">
-                        <h3 class="tool-card-title">📁 Cursor Files</h3>
+                        <h3 class="tool-card-title"><span class="tool-icon"><i data-lucide="folder"></i></span> Cursor Files</h3>
                         <p class="tool-card-desc">Gerenciador de arquivos otimizado para uso com Cursor AI.</p>
                     </div>
                 </div>
@@ -253,7 +343,7 @@
                         <img src="navegador.PNG" alt="Nardoto Browser" loading="lazy">
                     </div>
                     <div class="tool-card-content">
-                        <h3 class="tool-card-title">🌐 Nardoto Browser</h3>
+                        <h3 class="tool-card-title"><span class="tool-icon"><i data-lucide="globe"></i></span> Nardoto Browser</h3>
                         <p class="tool-card-desc">Navegador exclusivo com todas as 15 extensões pré-instaladas + atualizações automáticas.</p>
                         <a href="navegador.html" style="display: inline-block; margin-top: 12px; color: var(--primary); font-weight: 600; text-decoration: none;">Ver mais →</a>
                     </div>
@@ -264,7 +354,7 @@
             <div style="text-align: center; margin-top: 80px; padding: 60px 20px; background: var(--card-dark); border-radius: 24px; border: 1px solid var(--border-light);">
                 <h2 class="section-title" style="margin-bottom: 16px;">Pronto para automatizar?</h2>
                 <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 32px;">Teste todas as ferramentas gratuitamente por 10 dias</p>
-                <a href="landing-page/cadastro.html" class="cta-button" style="font-size: 1.1rem; padding: 18px 40px;">🎁 Começar Teste Grátis</a>
+                <a href="landing-page/cadastro.html" class="cta-button" style="font-size: 1.1rem; padding: 18px 40px;">Começar Teste Grátis</a>
             </div>
 
         </div>
@@ -321,5 +411,8 @@
             </div>
         </div>
     </footer>
+
+    <!-- Initialize Lucide Icons -->
+    <script>lucide.createIcons();</script>
 </body>
 </html>
