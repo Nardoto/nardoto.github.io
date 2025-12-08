@@ -98,6 +98,105 @@
             }
 
         }
+
+        /* Demos Section - Veja em Ação */
+        .demos-section {
+            padding: 60px 0 40px;
+            background: linear-gradient(180deg, var(--bg-dark) 0%, var(--card-dark) 100%);
+        }
+
+        .demos-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .demos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .demo-card {
+            background: var(--card-dark);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .demo-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(232, 90, 42, 0.15);
+        }
+
+        .demo-video {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background: #000;
+        }
+
+        .demo-video iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .demo-info {
+            padding: 20px 24px;
+        }
+
+        .demo-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(232, 90, 42, 0.15);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .demo-info h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .demo-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 968px) {
+            .demos-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .demos-section {
+                padding: 40px 0 30px;
+            }
+
+            .demo-info {
+                padding: 16px 20px;
+            }
+
+            .demo-info h3 {
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body class="has-navbar">
@@ -135,6 +234,57 @@
     <section class="page-header">
         <h1>Todas as Ferramentas</h1>
         <p>13 extensões Chrome + 4 aplicativos desktop para automatizar sua produção de conteúdo</p>
+    </section>
+
+    <!-- Veja em Ação -->
+    <section class="demos-section">
+        <div class="container">
+            <div class="demos-header">
+                <h2 class="section-title section-title-with-icon">
+                    <span class="section-icon"><i data-lucide="play-circle"></i></span>
+                    Veja em Ação
+                </h2>
+                <p class="section-subtitle">Assista como as ferramentas funcionam na prática</p>
+            </div>
+
+            <div class="demos-grid">
+                <!-- Video 1 - Extensões -->
+                <div class="demo-card">
+                    <div class="demo-video">
+                        <iframe src="https://www.youtube.com/embed/NSY6u5E354c" title="Usando as Extensões" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="demo-info">
+                        <span class="demo-badge">Tutorial</span>
+                        <h3>Usando as Extensões</h3>
+                        <p>Veja como usar as extensões Chrome para automatizar sua produção de conteúdo</p>
+                    </div>
+                </div>
+
+                <!-- Video 2 - CapCut -->
+                <div class="demo-card">
+                    <div class="demo-video">
+                        <iframe src="https://www.youtube.com/embed/Zl2rSNarUso" title="Usando Extensão CapCut" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="demo-info">
+                        <span class="demo-badge">CapCut</span>
+                        <h3>Extensão CapCut em Ação</h3>
+                        <p>Automatize o envio de scripts e extração de prompts no CapCut</p>
+                    </div>
+                </div>
+
+                <!-- Video 3 - Cursor -->
+                <div class="demo-card">
+                    <div class="demo-video">
+                        <iframe src="https://www.youtube.com/embed/0Mnl_LKz1l8" title="Usando o Cursor" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="demo-info">
+                        <span class="demo-badge">Cursor</span>
+                        <h3>Usando o Cursor</h3>
+                        <p>Aprenda a usar o Cursor para programar com IA</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Tools Section -->
