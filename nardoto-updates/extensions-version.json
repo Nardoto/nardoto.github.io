@@ -1,0 +1,64 @@
+{
+  "extensions": [
+    {
+      "name": "veo3-automator",
+      "version": "1.0",
+      "downloadUrl": "https://github.com/Nardoto/nardoto-updates/releases/download/v2.0/veo3-automator.zip"
+    },
+    {
+      "name": "CapCut Prompt Extractor",
+      "version": "1.0",
+      "downloadUrl": "https://github.com/Nardoto/nardoto-updates/releases/download/v2.0/CapCut-Prompt-Extractor.zip"
+    },
+    {
+      "name": "CapCut-Automator",
+      "version": "1.0",
+      "downloadUrl": "https://github.com/Nardoto/nardoto-updates/releases/download/v2.0/CapCut-Automator.zip"
+    },
+    {
+      "name": "gold-optimizer",
+      "version": "1.0",
+      "downloadUrl": "https://github.com/Nardoto/nardoto-updates/releases/download/v2.0/gold-optimizer.zip"
+    },
+    {
+      "name": "google-tts-automator",
+      "version": "1.0",
+      "downloadUrl": "https://github.com/Nardoto/nardoto-updates/releases/download/v2.0/google-tts-automator.zip"
+    },
+    {
+      "name": "suno-automator",
+      "version": "1.0",
+      "downloadUrl": "https://github.com/Nardoto/nardoto-updates/releases/download/v2.0/suno-automator.zip"
+    },
+    {
+      "name": "whisk-automator",
+      "version": "1.0",
+      "downloadUrl": "https://github.com/Nardoto/nardoto-updates/releases/download/v2.0/whisk-automator.zip"
+    },
+    {
+      "name": "meta-ai-automator",
+      "version": "1.0",
+      "downloadUrl": "https://github.com/Nardoto/nardoto-updates/releases/download/v2.0/meta-ai-automator.zip"
+    },
+    {
+      "name": "midjourney-automator",
+      "version": "1.0",
+      "downloadUrl": "https://github.com/Nardoto/nardoto-updates/releases/download/v2.0/midjourney-automator.zip"
+    },
+    {
+      "name": "CLAUDE LOOP LESS v4.1",
+      "version": "4.1",
+      "downloadUrl": "https://github.com/Nardoto/nardoto-updates/releases/download/v2.0/claude-loopless.zip"
+    },
+    {
+      "name": "GEMINI LOOPLESS V2.5",
+      "version": "2.5",
+      "downloadUrl": "https://github.com/Nardoto/nardoto-updates/releases/download/v2.0/gemini-loopless.zip"
+    },
+    {
+      "name": "GPT LOOPLESS V5",
+      "version": "5.0",
+      "downloadUrl": "https://github.com/Nardoto/nardoto-updates/releases/download/v2.0/gpt-loopless.zip"
+    }
+  ]
+}

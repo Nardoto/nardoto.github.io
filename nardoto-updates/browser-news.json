@@ -1,0 +1,46 @@
+{
+  "news": [
+    {
+      "tag": "Novo",
+      "date": "08 Dez 2024",
+      "title": "Nardoto Browser 3.0 Disponivel!",
+      "desc": "Correcao completa das extensoes CapCut - Agora carregam corretamente!",
+      "url": null
+    },
+    {
+      "tag": "Novo",
+      "date": "02 Dez 2024",
+      "title": "Nardoto Browser 2.3 Disponivel!",
+      "desc": "Sistema de notificacoes implementado - Agora voce sera avisado sobre atualizacoes!",
+      "url": null
+    },
+    {
+      "tag": "Novo",
+      "date": "01 Dez 2024",
+      "title": "Nardoto Browser 2.2 Disponivel!",
+      "desc": "Nova extensao Grok Automator e melhorias nas extensoes existentes.",
+      "url": null
+    },
+    {
+      "tag": "Update",
+      "date": "30 Nov 2024",
+      "title": "Nardoto Browser 2.0 Lancado!",
+      "desc": "Nova interface categorizada com todas as suas ferramentas de IA organizadas por funcao.",
+      "url": null
+    },
+    {
+      "tag": "Dica",
+      "date": "30 Nov 2024",
+      "title": "Extensoes recomendadas",
+      "desc": "Fixe suas extensoes favoritas clicando no icone de quebra-cabeca e depois no pin.",
+      "url": null
+    },
+    {
+      "tag": "Tutorial",
+      "date": "30 Nov 2024",
+      "title": "Acesse o Nardoto Labs",
+      "desc": "Faca login com Google para acessar funcoes premium e sincronizar configuracoes.",
+      "url": "https://nardoto-labs.web.app/dashboard.html"
+    }
+  ]
+}
