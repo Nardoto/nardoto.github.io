@@ -227,6 +227,14 @@
             flex-shrink: 0;
         }
 
+        .timestamp-btn .ts-icon {
+            width: 22px;
+            height: 22px;
+            border-radius: 4px;
+            flex-shrink: 0;
+            object-fit: contain;
+        }
+
         .timestamp-btn .ts-time {
             color: var(--primary);
             font-weight: 600;
@@ -360,17 +368,17 @@
                 </div>
                 <!-- Timestamps com ícones -->
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; background: var(--card-dark); padding: 20px; border-radius: 12px; border: 1px solid var(--border-light);">
-                    <button onclick="seekVideo(0)" class="timestamp-btn"><i data-lucide="globe"></i><span class="ts-time">00:00</span><span class="ts-name">Nardoto Browser</span></button>
-                    <button onclick="seekVideo(160)" class="timestamp-btn"><i data-lucide="sparkles"></i><span class="ts-time">02:40</span><span class="ts-name">Gemini Mass Prompter</span></button>
-                    <button onclick="seekVideo(450)" class="timestamp-btn"><i data-lucide="video"></i><span class="ts-time">07:30</span><span class="ts-name">VEO3 Automator</span></button>
-                    <button onclick="seekVideo(670)" class="timestamp-btn"><i data-lucide="wand-2"></i><span class="ts-time">11:10</span><span class="ts-name">Whisk Automator</span></button>
-                    <button onclick="seekVideo(820)" class="timestamp-btn"><i data-lucide="bot"></i><span class="ts-time">13:40</span><span class="ts-name">Meta AI Automator</span></button>
-                    <button onclick="seekVideo(993)" class="timestamp-btn"><i data-lucide="message-square"></i><span class="ts-time">16:33</span><span class="ts-name">Grok Automator</span></button>
-                    <button onclick="seekVideo(1170)" class="timestamp-btn"><i data-lucide="volume-2"></i><span class="ts-time">19:30</span><span class="ts-name">Google TTS Gratuito</span></button>
-                    <button onclick="seekVideo(1453)" class="timestamp-btn"><i data-lucide="music"></i><span class="ts-time">24:13</span><span class="ts-name">Suno Automator</span></button>
-                    <button onclick="seekVideo(1600)" class="timestamp-btn"><i data-lucide="clapperboard"></i><span class="ts-time">26:40</span><span class="ts-name">CapCut Automator</span></button>
-                    <button onclick="seekVideo(1809)" class="timestamp-btn"><i data-lucide="file-output"></i><span class="ts-time">30:09</span><span class="ts-name">CapCut Extractor</span></button>
-                    <button onclick="seekVideo(1969)" class="timestamp-btn"><i data-lucide="zap"></i><span class="ts-time">32:49</span><span class="ts-name">Otimizador Gold</span></button>
+                    <button onclick="seekVideo(0)" class="timestamp-btn"><img src="favicon.png" class="ts-icon" alt=""><span class="ts-time">00:00</span><span class="ts-name">Nardoto Browser</span></button>
+                    <button onclick="seekVideo(160)" class="timestamp-btn"><img src="extension-icons/gemini-prompter.png" class="ts-icon" alt=""><span class="ts-time">02:40</span><span class="ts-name">Gemini Mass Prompter</span></button>
+                    <button onclick="seekVideo(450)" class="timestamp-btn"><img src="extension-icons/veo3-automator.png" class="ts-icon" alt=""><span class="ts-time">07:30</span><span class="ts-name">VEO3 Automator</span></button>
+                    <button onclick="seekVideo(670)" class="timestamp-btn"><img src="extension-icons/wisk-automator.png" class="ts-icon" alt=""><span class="ts-time">11:10</span><span class="ts-name">Whisk Automator</span></button>
+                    <button onclick="seekVideo(820)" class="timestamp-btn"><img src="extension-icons/meta-ai-automator.png" class="ts-icon" alt=""><span class="ts-time">13:40</span><span class="ts-name">Meta AI Automator</span></button>
+                    <button onclick="seekVideo(993)" class="timestamp-btn"><img src="extension-icons/grok-automator.png" class="ts-icon" alt=""><span class="ts-time">16:33</span><span class="ts-name">Grok Automator</span></button>
+                    <button onclick="seekVideo(1170)" class="timestamp-btn"><img src="extension-icons/google-tts.png" class="ts-icon" alt=""><span class="ts-time">19:30</span><span class="ts-name">Google TTS Gratuito</span></button>
+                    <button onclick="seekVideo(1453)" class="timestamp-btn"><img src="extension-icons/suno-automator.png" class="ts-icon" alt=""><span class="ts-time">24:13</span><span class="ts-name">Suno Automator</span></button>
+                    <button onclick="seekVideo(1600)" class="timestamp-btn"><img src="extension-icons/capcut-automator.png" class="ts-icon" alt=""><span class="ts-time">26:40</span><span class="ts-name">CapCut Automator</span></button>
+                    <button onclick="seekVideo(1809)" class="timestamp-btn"><img src="extension-icons/capcut-extractor.png" class="ts-icon" alt=""><span class="ts-time">30:09</span><span class="ts-name">CapCut Extractor</span></button>
+                    <button onclick="seekVideo(1969)" class="timestamp-btn"><img src="extension-icons/gold-optimizer.png" class="ts-icon" alt=""><span class="ts-time">32:49</span><span class="ts-name">Otimizador Gold</span></button>
                     <button onclick="seekVideo(2017)" class="timestamp-btn"><i data-lucide="languages"></i><span class="ts-time">33:37</span><span class="ts-name">Tradutor Profissional</span></button>
                     <button onclick="seekVideo(2119)" class="timestamp-btn"><i data-lucide="folder-open"></i><span class="ts-time">35:19</span><span class="ts-name">Visualizador de Arquivos</span></button>
                     <button onclick="seekVideo(2150)" class="timestamp-btn"><i data-lucide="file-text"></i><span class="ts-time">35:50</span><span class="ts-name">Gerador de Roteiros</span><span class="ts-badge">Beta</span></button>
