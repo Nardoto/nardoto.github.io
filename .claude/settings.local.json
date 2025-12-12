@@ -28,7 +28,10 @@
       "Bash(then ls C:/NardotoTest/NardotoBrowser/Extensions/$ext/assets/icons/ 2)",
       "Bash(/dev/null elif [ -d C:/NardotoTest/NardotoBrowser/Extensions/$ext/icons ])",
       "Bash(then ls C:/NardotoTest/NardotoBrowser/Extensions/$ext/icons/ 2)",
-      "Bash(/dev/null else find C:/NardotoTest/NardotoBrowser/Extensions/$ext -name icon*.png)"
+      "Bash(/dev/null else find C:/NardotoTest/NardotoBrowser/Extensions/$ext -name icon*.png)",
+      "Bash(firebase hosting:releases:list:*)",
+      "Bash(ls:*)",
+      "Bash(findstr:*)"
     ],
     "deny": [],
     "ask": []

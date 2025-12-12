@@ -305,6 +305,50 @@
         .tool-image img:hover {
             transform: scale(1.02);
         }
+
+        /* Chrome Web Store Download Buttons */
+        .store-ext-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .store-ext-btn:hover {
+            background: rgba(232, 90, 42, 0.15);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .store-ext-btn img {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
+        .store-ext-btn span {
+            flex: 1;
+        }
+
+        .store-ext-btn i {
+            width: 16px;
+            height: 16px;
+            color: var(--primary);
+            opacity: 0.7;
+        }
+
+        .store-ext-btn:hover i {
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="has-navbar">
@@ -430,6 +474,53 @@
     <!-- Tools Section -->
     <section class="tools-arsenal" style="padding-top: 60px;">
         <div class="container">
+
+            <!-- Chrome Web Store Downloads -->
+            <div style="margin-bottom: 60px; background: var(--card-dark); border-radius: 20px; padding: 40px; border: 1px solid var(--border-light);">
+                <h2 class="section-title section-title-with-icon" style="margin-bottom: 8px;">
+                    <span class="section-icon"><i data-lucide="download"></i></span>
+                    Baixar na Chrome Web Store
+                </h2>
+                <p class="section-subtitle" style="margin-bottom: 30px;">Instale as extensões diretamente da loja oficial do Google Chrome</p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
+                    <a href="https://chromewebstore.google.com/detail/veo3-automator/ibldaclgfijocpbkmoggknmkebbbldcb" target="_blank" class="store-ext-btn">
+                        <img src="extension-icons/veo3-automator.png" alt=""><span>VEO3 Automator</span><i data-lucide="external-link"></i>
+                    </a>
+                    <a href="https://chromewebstore.google.com/detail/meta-ai-automator/ppliincljbejnnmgcpedpfeipnflmhei" target="_blank" class="store-ext-btn">
+                        <img src="extension-icons/meta-ai-automator.png" alt=""><span>Meta AI Automator</span><i data-lucide="external-link"></i>
+                    </a>
+                    <a href="https://chromewebstore.google.com/detail/whisk-automator/njgkhhkjhabpedfjhiojocbnbkhpihde" target="_blank" class="store-ext-btn">
+                        <img src="extension-icons/wisk-automator.png" alt=""><span>Whisk Automator</span><i data-lucide="external-link"></i>
+                    </a>
+                    <a href="https://chromewebstore.google.com/detail/suno-loopless/leddollngljolobnkegmkddgmpakhcfl" target="_blank" class="store-ext-btn">
+                        <img src="extension-icons/suno-automator.png" alt=""><span>Suno Loopless</span><i data-lucide="external-link"></i>
+                    </a>
+                    <a href="https://chromewebstore.google.com/detail/suno-loopless-download/iolnpdfgnecbhcgnmkofcgbpkhogipne" target="_blank" class="store-ext-btn">
+                        <img src="extension-icons/suno-downloader.png" alt=""><span>Suno Loopless Download</span><i data-lucide="external-link"></i>
+                    </a>
+                    <a href="https://chromewebstore.google.com/detail/capcut-automator/cjelfinaolgiiajbhhajbkkpplceblkf" target="_blank" class="store-ext-btn">
+                        <img src="extension-icons/capcut-automator.png" alt=""><span>CapCut Automator</span><i data-lucide="external-link"></i>
+                    </a>
+                    <a href="https://chromewebstore.google.com/detail/capcut-prompt-extractor/hblclkgglhlnaehficebimjlhmbbhgak" target="_blank" class="store-ext-btn">
+                        <img src="extension-icons/capcut-extractor.png" alt=""><span>CapCut Prompt Extractor</span><i data-lucide="external-link"></i>
+                    </a>
+                    <a href="https://chromewebstore.google.com/detail/claude-loopless-41/pkehoakkbgdnciaamgoiffaobogbdmbi" target="_blank" class="store-ext-btn">
+                        <img src="extension-icons/claude-prompter.png" alt=""><span>Claude Loopless 4.1</span><i data-lucide="external-link"></i>
+                    </a>
+                    <a href="https://chromewebstore.google.com/detail/gemini-loopless-25/ofmkckjpeamdnpdkbghaepnabgdohifh" target="_blank" class="store-ext-btn">
+                        <img src="extension-icons/gemini-prompter.png" alt=""><span>Gemini Loopless 2.5</span><i data-lucide="external-link"></i>
+                    </a>
+                    <a href="https://chromewebstore.google.com/detail/gpt-loopless-50/ohjlkbndmfolllmihkilgnbffiahbifo" target="_blank" class="store-ext-btn">
+                        <img src="extension-icons/gpt-prompter.png" alt=""><span>GPT Loopless 5.0</span><i data-lucide="external-link"></i>
+                    </a>
+                </div>
+
+                <p style="text-align: center; margin-top: 20px; color: var(--text-secondary); font-size: 0.85rem;">
+                    <i data-lucide="info" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i>
+                    Algumas extensões são exclusivas do <a href="navegador.html" style="color: var(--primary);">Nardoto Browser</a>
+                </p>
+            </div>
 
             <!-- Extensões Chrome -->
             <div style="margin-bottom: 60px;">
