@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CapCut Sync Pro - Monte Vídeos Completos Sem Abrir o CapCut</title>
+
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../favicon.png">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nardoto.com.br/capcut-sync-pro/">
+    <meta property="og:title" content="CapCut Sync Pro - Monte Vídeos Completos Sem Abrir o CapCut">
+    <meta property="og:description" content="Para criadores de vídeos longos que precisam de volume, exclusividade e velocidade. De 2-4 horas para 5-15 minutos.">
+    <meta name="theme-color" content="#E85A2A">
+
+    <link rel="stylesheet" href="../landing-page/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #E85A2A;
+            --bg-dark: #0A0A0A;
+            --card-dark: #1A1A1A;
+            --text-primary: #FFFFFF;
+            --text-secondary: #9CA3AF;
+            --border-light: rgba(255, 255, 255, 0.1);
+            --success: #25D366;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* Back Nav */
+        .back-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 16px 24px;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .back-nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .back-nav a:hover { color: var(--primary); }
+
+        /* Hero */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 120px 20px 80px;
+            background: radial-gradient(ellipse at center top, rgba(232, 90, 42, 0.2) 0%, transparent 50%);
+        }
+
+        .badge-new {
+            display: inline-block;
+            background: linear-gradient(135deg, #9333ea, #7c3aed);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 32px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(147, 51, 234, 0.5); }
+            50% { transform: scale(1.02); box-shadow: 0 0 30px 10px rgba(147, 51, 234, 0.3); }
+        }
+
+        .logo-container img {
+            width: 140px;
+            height: 140px;
+            border-radius: 28px;
+            box-shadow: 0 20px 60px rgba(232, 90, 42, 0.4);
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            max-width: 900px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 32px;
+            line-height: 1.7;
+        }
+
+        .subtitle strong { color: var(--text-primary); }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.2), rgba(37, 211, 102, 0.05));
+            border: 1px solid var(--success);
+            padding: 16px 32px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .time-old { color: #ef4444; text-decoration: line-through; margin-right: 8px; }
+        .time-new { color: var(--success); }
+
+        .cta-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--primary), #FF6B35);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 10px 40px rgba(232, 90, 42, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(232, 90, 42, 0.5);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            color: var(--text-primary);
+            padding: 18px 40px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: 2px solid var(--border-light);
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            background: rgba(232, 90, 42, 0.1);
+        }
+
+        /* Sections */
+        .section { padding: 80px 20px; }
+        .section-alt { background: linear-gradient(180deg, transparent, rgba(30, 30, 30, 0.5)); }
+        .section-dark { background: var(--card-dark); }
+
+        .section-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        /* Problem Cards */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .problem-card {
+            background: var(--card-dark);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid var(--border-light);
+        }
+
+        .problem-card .icon { font-size: 2.5rem; margin-bottom: 16px; }
+        .problem-card h3 { font-size: 1.2rem; margin-bottom: 12px; color: #ef4444; }
+        .problem-card p { color: var(--text-secondary); line-height: 1.6; }
+
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, var(--card-dark), rgba(30, 30, 30, 0.8));
+            border-radius: 20px;
+            padding: 32px;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .feature-card .icon { font-size: 2.5rem; margin-bottom: 20px; }
+        .feature-card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+        .feature-card p { color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px; }
+
+        .time-save {
+            display: inline-block;
+            background: rgba(37, 211, 102, 0.15);
+            color: var(--success);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Comparison */
+        .comparison-table {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-dark);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+        }
+
+        .comparison-header {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            background: rgba(232, 90, 42, 0.1);
+            padding: 20px;
+            font-weight: 700;
+        }
+
+        .comparison-header span:first-child { color: var(--text-secondary); }
+        .comparison-header span:nth-child(2) { text-align: center; color: #ef4444; }
+        .comparison-header span:last-child { text-align: center; color: var(--success); }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            padding: 20px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .comparison-row span { display: flex; align-items: center; }
+        .comparison-row span:nth-child(2), .comparison-row span:last-child { justify-content: center; font-weight: 600; }
+        .comparison-row span:nth-child(2) { color: #ef4444; }
+        .comparison-row span:last-child { color: var(--success); }
+
+        /* Audience */
+        .audience-card {
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(147, 51, 234, 0.15), rgba(124, 58, 237, 0.05));
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            border-radius: 24px;
+            padding: 48px;
+            text-align: center;
+        }
+
+        .audience-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.8rem; margin-bottom: 24px; }
+
+        .audience-list { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-bottom: 32px; }
+
+        .audience-tag {
+            background: rgba(147, 51, 234, 0.2);
+            color: #c084fc;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+
+        .audience-card > p { color: var(--text-secondary); font-size: 1.1rem; line-height: 1.7; }
+
+        /* Exclusivity */
+        .exclusivity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .exclusivity-item { text-align: center; padding: 32px; }
+        .exclusivity-item .icon { font-size: 3rem; margin-bottom: 16px; }
+        .exclusivity-item h4 { font-size: 1.1rem; margin-bottom: 8px; }
+        .exclusivity-item p { color: var(--text-secondary); font-size: 0.95rem; }
+
+        /* Pricing */
+        .pricing-card {
+            max-width: 500px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, var(--card-dark), rgba(40, 40, 40, 0.8));
+            border: 2px solid var(--primary);
+            border-radius: 24px;
+            padding: 48px;
+            position: relative;
+            text-align: center;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), #FF6B35);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--success);
+            color: white;
+            padding: 8px 40px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+        }
+
+        .pricing-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.8rem; margin-bottom: 16px; }
+        .pricing-card .price { font-size: 3.5rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+        .pricing-card .price-info { color: var(--text-secondary); margin-bottom: 32px; }
+
+        .pricing-features { text-align: left; margin-bottom: 32px; list-style: none; }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-secondary);
+        }
+
+        .pricing-features li:last-child { border-bottom: none; }
+        .pricing-features li::before { content: '✓'; color: var(--success); font-weight: 700; }
+
+        /* FAQ */
+        .faq-grid { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+
+        .faq-item { background: var(--card-dark); border-radius: 12px; overflow: hidden; }
+
+        .faq-item summary {
+            padding: 20px 24px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none;
+        }
+
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::after { content: '+'; font-size: 1.5rem; color: var(--primary); }
+        .faq-item[open] summary::after { content: '−'; }
+
+        .faq-item .answer { padding: 0 24px 20px; color: var(--text-secondary); line-height: 1.7; }
+
+        /* Footer CTA */
+        .footer-cta {
+            padding: 100px 20px;
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(232, 90, 42, 0.15) 0%, transparent 70%);
+        }
+
+        .footer-cta h2 { font-family: 'DM Serif Display', serif; font-size: 2.5rem; margin-bottom: 16px; }
+        .footer-cta p { color: var(--text-secondary); font-size: 1.2rem; margin-bottom: 32px; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .subtitle { font-size: 1rem; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .btn-primary, .btn-secondary { width: 100%; max-width: 320px; justify-content: center; }
+            .comparison-header, .comparison-row { grid-template-columns: 1.5fr 1fr 1fr; font-size: 0.8rem; }
+            .pricing-card { padding: 32px 24px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="back-nav">
+        <a href="../index.html">
+            <span>←</span>
+            <img src="../favicon.png" alt="Nardoto" style="width: 28px; height: 28px; border-radius: 6px;">
+            <span>Nardoto</span>
+        </a>
+        <a href="../precos.html" class="btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">Ver Preços</a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="badge-new">NOVO APP DESKTOP</div>
+
+        <div class="logo-container">
+            <img src="../favicon.png" alt="CapCut Sync Pro">
+        </div>
+
+        <h1>Monte vídeos completos sem abrir o CapCut</h1>
+
+        <p class="subtitle">
+            Para criadores de <strong>vídeos longos</strong> que precisam de volume, exclusividade e velocidade.
+            Funciona direto nos arquivos do CapCut — <strong>leve, rápido e sem travar</strong>.
+        </p>
+
+        <div class="highlight-box">
+            <span class="time-old">2-4 horas</span>
+            <span>→</span>
+            <span class="time-new"> 5-15 minutos</span>
+        </div>
+
+        <div class="cta-buttons">
+            <a href="https://github.com/LoopLess-nardoto/CapCutSyncPro/releases/download/v3.2.0/CapCut.Sync.Pro-3.2.0.Setup.exe" class="btn-primary">
+                ⬇ Baixar Grátis (Windows)
+            </a>
+            <a href="https://wa.me/5527999132594?text=Olá!%20Quero%20saber%20mais%20sobre%20o%20CapCut%20Sync%20Pro" class="btn-secondary">
+                💬 Falar no WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <!-- Problem -->
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">O problema de criar vídeos longos no CapCut</h2>
+
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="icon">🐌</div>
+                    <h3>Trava ao arrastar arquivos</h3>
+                    <p>Inserir 100+ mídias no CapCut = travamento garantido. A interface não foi feita para volume alto.</p>
+                </div>
+
+                <div class="problem-card">
+                    <div class="icon">⏰</div>
+                    <h3>Sincronização manual leva horas</h3>
+                    <p>Alinhar cada imagem com cada segmento de áudio manualmente é repetitivo e consome seu tempo.</p>
+                </div>
+
+                <div class="problem-card">
+                    <div class="icon">🔄</div>
+                    <h3>Templates = vídeos iguais</h3>
+                    <p>Usar template significa padrão repetido. Fácil de detectar, baixo alcance, risco de strikes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">A solução: CapCut Sync Pro</h2>
+
+            <p style="text-align: center; color: var(--text-secondary); max-width: 800px; margin: -24px auto 48px; font-size: 1.15rem; line-height: 1.8;">
+                Um app que <strong style="color: var(--primary);">manipula os arquivos do CapCut diretamente</strong>.
+                Você monta o vídeo inteiro fora do CapCut e <strong style="color: var(--text-primary);">só abre ele pra renderizar</strong>.
+            </p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon">⚡</div>
+                    <h3>Criar Projeto Instantâneo</h3>
+                    <p>Cria projeto CapCut completo em 1 clique. Aparece instantaneamente na lista de projetos.</p>
+                    <span class="time-save">30 seg → Instantâneo</span>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon">📁</div>
+                    <h3>Inserir Centenas de Mídias</h3>
+                    <p>Insere vídeos, imagens e áudios de uma vez só. Sem arrastar, sem travar. Ordena ou randomiza.</p>
+                    <span class="time-save">20 min → 5 segundos</span>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon">🎯</div>
+                    <h3>Sincronização com Áudio</h3>
+                    <p>Alinha cada mídia com cada segmento de áudio automaticamente. Aplica animações diferentes em cada foto.</p>
+                    <span class="time-save">3 horas → 30 segundos</span>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon">🔁</div>
+                    <h3>Loop Automático</h3>
+                    <p>Repete suas mídias para preencher a duração do áudio. Áudio de 30 min? Ele calcula os ciclos pra você.</p>
+                    <span class="time-save">Automático</span>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon">📝</div>
+                    <h3>Importar Legendas SRT</h3>
+                    <p>Importa arquivos .srt direto na timeline. Match automático com os áudios pelo nome do arquivo.</p>
+                    <span class="time-save">2 horas → 10 segundos</span>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon">🔗</div>
+                    <h3>Mesclar Projetos</h3>
+                    <p>Junta múltiplos projetos em um só. Veja o preview antes de mesclar. Arrasta pra reordenar.</p>
+                    <span class="time-save">2 horas → 2 minutos</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison -->
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Comparativo Honesto</h2>
+
+            <div class="comparison-table">
+                <div class="comparison-header">
+                    <span>Tarefa</span>
+                    <span>Manual</span>
+                    <span>Sync Pro</span>
+                </div>
+                <div class="comparison-row">
+                    <span>Criar projeto</span>
+                    <span>30 seg (trava)</span>
+                    <span>Instantâneo</span>
+                </div>
+                <div class="comparison-row">
+                    <span>Inserir 100 mídias</span>
+                    <span>10-20 min</span>
+                    <span>5 segundos</span>
+                </div>
+                <div class="comparison-row">
+                    <span>Sincronizar com áudio</span>
+                    <span>2-3 horas</span>
+                    <span>30 segundos</span>
+                </div>
+                <div class="comparison-row">
+                    <span>Importar legendas SRT</span>
+                    <span>1-2 horas</span>
+                    <span>10 segundos</span>
+                </div>
+                <div class="comparison-row">
+                    <span>Animações em fotos</span>
+                    <span>1-2 horas</span>
+                    <span>Automático</span>
+                </div>
+                <div class="comparison-row">
+                    <span>Mesclar 5 projetos</span>
+                    <span>1-2 horas</span>
+                    <span>2 minutos</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audience -->
+    <section class="section">
+        <div class="container">
+            <div class="audience-card">
+                <h3>Feito para criadores de conteúdo em volume</h3>
+
+                <div class="audience-list">
+                    <span class="audience-tag">Canais Dark</span>
+                    <span class="audience-tag">Compilações</span>
+                    <span class="audience-tag">Vídeos 10-60 min</span>
+                    <span class="audience-tag">Alto Volume</span>
+                    <span class="audience-tag">Faceless</span>
+                </div>
+
+                <p>
+                    Se você cria vídeos longos e precisa produzir em quantidade,
+                    o CapCut Sync Pro vai economizar horas do seu dia.
+                    Cada vídeo único, cada projeto rápido.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exclusivity -->
+    <section class="section section-dark">
+        <div class="container">
+            <h2 class="section-title">Cada vídeo é único</h2>
+
+            <div class="exclusivity-grid">
+                <div class="exclusivity-item">
+                    <div class="icon">🎲</div>
+                    <h4>Randomização de Ordem</h4>
+                    <p>Cada vídeo tem sequência diferente de mídias</p>
+                </div>
+
+                <div class="exclusivity-item">
+                    <div class="icon">✨</div>
+                    <h4>6 Animações Diferentes</h4>
+                    <p>Zoom, pan, movimento — aplicados aleatoriamente</p>
+                </div>
+
+                <div class="exclusivity-item">
+                    <div class="icon">🛡️</div>
+                    <h4>Evita Strikes</h4>
+                    <p>Vídeos únicos = menor risco de detecção</p>
+                </div>
+
+                <div class="exclusivity-item">
+                    <div class="icon">📈</div>
+                    <h4>Melhor Alcance</h4>
+                    <p>Algoritmo favorece conteúdo original</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Pacote Completo</h2>
+
+            <div class="pricing-card">
+                <div class="pricing-badge">1 ANO</div>
+
+                <h3>CapCut Sync Pro + Todas as Ferramentas</h3>
+
+                <div class="price">R$ 1.300</div>
+                <p class="price-info">Pagamento único • 1 ano de acesso</p>
+
+                <ul class="pricing-features">
+                    <li>CapCut Sync Pro (1 ano de licença)</li>
+                    <li>15 extensões Chrome de automação</li>
+                    <li>4 apps desktop (VEO3, Otimizador Gold, etc.)</li>
+                    <li>Nardoto Browser (navegador exclusivo)</li>
+                    <li>Atualizações automáticas</li>
+                    <li>Suporte direto via WhatsApp</li>
+                </ul>
+
+                <a href="https://wa.me/5527999132594?text=Olá%20Nardoto!%20Quero%20o%20Pacote%20Completo%20com%20CapCut%20Sync%20Pro%20por%20R$%201.300" class="btn-primary" style="width: 100%; justify-content: center;">
+                    Quero o Pacote Completo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Perguntas Frequentes</h2>
+
+            <div class="faq-grid">
+                <details class="faq-item">
+                    <summary>O CapCut já não faz sincronização?</summary>
+                    <div class="answer">
+                        O CapCut tem "sincronização com batida" (beat sync), que é diferente.
+                        Ele não alinha mídias com segmentos de fala/áudio, não importa SRT corretamente,
+                        e trava ao inserir muitos arquivos. O Sync Pro faz tudo isso.
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Preciso saber programar?</summary>
+                    <div class="answer">
+                        Não. A interface é visual, só clicar. Seleciona as pastas, clica em sincronizar, pronto.
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Funciona em vídeos longos?</summary>
+                    <div class="answer">
+                        Sim, foi feito para isso. Vídeos de 10, 30, 60 minutos. Quanto mais longo, mais você economiza tempo.
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>E se o CapCut atualizar?</summary>
+                    <div class="answer">
+                        O app manipula a estrutura de arquivos do CapCut, que raramente muda.
+                        Se mudar, atualizamos o app automaticamente.
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Funciona no Mac?</summary>
+                    <div class="answer">
+                        Por enquanto apenas Windows. Versão Mac em desenvolvimento.
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Posso testar antes?</summary>
+                    <div class="answer">
+                        Sim! O download é gratuito para teste.
+                        Para acesso completo, você precisa do pacote com licença.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer CTA -->
+    <section class="footer-cta">
+        <h2>Seu tempo vale mais que arrastar arquivos</h2>
+        <p>Monte vídeos completos em minutos, não horas.</p>
+
+        <div class="cta-buttons">
+            <a href="https://github.com/LoopLess-nardoto/CapCutSyncPro/releases/download/v3.2.0/CapCut.Sync.Pro-3.2.0.Setup.exe" class="btn-primary">
+                ⬇ Baixar CapCut Sync Pro
+            </a>
+            <a href="../precos.html" class="btn-secondary">
+                Ver Todos os Planos
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="padding: 40px 20px; text-align: center; border-top: 1px solid var(--border-light);">
+        <p style="color: var(--text-secondary);">
+            © 2025 Nardoto. Todos os direitos reservados. •
+            <a href="../termos.html" style="color: var(--text-secondary);">Termos</a> •
+            <a href="../privacidade.html" style="color: var(--text-secondary);">Privacidade</a>
+        </p>
+    </footer>
+</body>
+</html>

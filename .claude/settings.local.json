@@ -31,7 +31,10 @@
       "Bash(/dev/null else find C:/NardotoTest/NardotoBrowser/Extensions/$ext -name icon*.png)",
       "Bash(firebase hosting:releases:list:*)",
       "Bash(ls:*)",
-      "Bash(findstr:*)"
+      "Bash(findstr:*)",
+      "Bash(gh repo create:*)",
+      "Bash(firebase hosting:sites:create:*)",
+      "Bash(firebase auth:domains:list:*)"
     ],
     "deny": [],
     "ask": []
