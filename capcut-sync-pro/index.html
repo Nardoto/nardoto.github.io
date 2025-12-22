@@ -78,6 +78,17 @@
             background: radial-gradient(ellipse at center top, rgba(232, 90, 42, 0.2) 0%, transparent 50%);
         }
 
+        /* Override external styles.css overlay */
+        .hero::before,
+        .hero::after {
+            display: none !important;
+        }
+
+        .hero > * {
+            position: relative;
+            z-index: 1;
+        }
+
         .badge-new {
             display: inline-block;
             background: linear-gradient(135deg, var(--primary), #FF6B35);
