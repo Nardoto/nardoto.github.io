@@ -74,13 +74,13 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            padding: 120px 20px 80px;
+            padding: 100px 20px 80px;
             background: radial-gradient(ellipse at center top, rgba(232, 90, 42, 0.2) 0%, transparent 50%);
         }
 
         .badge-new {
             display: inline-block;
-            background: linear-gradient(135deg, #9333ea, #7c3aed);
+            background: linear-gradient(135deg, var(--primary), #FF6B35);
             padding: 10px 24px;
             border-radius: 50px;
             font-size: 0.9rem;
@@ -91,8 +91,8 @@
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(147, 51, 234, 0.5); }
-            50% { transform: scale(1.02); box-shadow: 0 0 30px 10px rgba(147, 51, 234, 0.3); }
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(232, 90, 42, 0.5); }
+            50% { transform: scale(1.02); box-shadow: 0 0 30px 10px rgba(232, 90, 42, 0.3); }
         }
 
         .logo-container img {
@@ -207,7 +207,6 @@
             border: 1px solid var(--border-light);
         }
 
-        .problem-card .icon { font-size: 2.5rem; margin-bottom: 16px; }
         .problem-card h3 { font-size: 1.2rem; margin-bottom: 12px; color: #ef4444; }
         .problem-card p { color: var(--text-secondary); line-height: 1.6; }
 
@@ -233,7 +232,6 @@
             transform: translateY(-5px);
         }
 
-        .feature-card .icon { font-size: 2.5rem; margin-bottom: 20px; }
         .feature-card h3 { font-size: 1.3rem; margin-bottom: 12px; }
         .feature-card p { color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px; }
 
@@ -285,8 +283,8 @@
         .audience-card {
             max-width: 800px;
             margin: 0 auto;
-            background: linear-gradient(135deg, rgba(147, 51, 234, 0.15), rgba(124, 58, 237, 0.05));
-            border: 1px solid rgba(147, 51, 234, 0.3);
+            background: linear-gradient(135deg, rgba(232, 90, 42, 0.15), rgba(232, 90, 42, 0.05));
+            border: 1px solid rgba(232, 90, 42, 0.3);
             border-radius: 24px;
             padding: 48px;
             text-align: center;
@@ -297,8 +295,8 @@
         .audience-list { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-bottom: 32px; }
 
         .audience-tag {
-            background: rgba(147, 51, 234, 0.2);
-            color: #c084fc;
+            background: rgba(232, 90, 42, 0.2);
+            color: var(--primary);
             padding: 12px 24px;
             border-radius: 30px;
             font-weight: 600;
@@ -311,12 +309,11 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 24px;
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
         .exclusivity-item { text-align: center; padding: 32px; }
-        .exclusivity-item .icon { font-size: 3rem; margin-bottom: 16px; }
         .exclusivity-item h4 { font-size: 1.1rem; margin-bottom: 8px; }
         .exclusivity-item p { color: var(--text-secondary); font-size: 0.95rem; }
 
@@ -511,10 +508,10 @@
 
         <div class="cta-buttons">
             <a href="https://github.com/LoopLess-nardoto/CapCutSyncPro/releases/download/v3.2.0/CapCut.Sync.Pro-3.2.0.Setup.exe" class="btn-primary">
-                ⬇ Baixar Grátis (Windows)
+                Baixar Grátis (Windows)
             </a>
             <a href="https://wa.me/5527999132594?text=Olá!%20Quero%20saber%20mais%20sobre%20o%20CapCut%20Sync%20Pro" class="btn-secondary">
-                💬 Falar no WhatsApp
+                Falar no WhatsApp
             </a>
         </div>
     </section>
@@ -560,21 +557,18 @@
 
             <div class="problem-grid">
                 <div class="problem-card">
-                    <div class="icon">🐌</div>
                     <h3>Trava ao arrastar arquivos</h3>
                     <p>Inserir 100+ mídias no CapCut = travamento garantido. A interface não foi feita para volume alto.</p>
                 </div>
 
                 <div class="problem-card">
-                    <div class="icon">⏰</div>
                     <h3>Sincronização manual leva horas</h3>
                     <p>Alinhar cada imagem com cada segmento de áudio manualmente é repetitivo e consome seu tempo.</p>
                 </div>
 
                 <div class="problem-card">
-                    <div class="icon">🔄</div>
                     <h3>Templates = vídeos iguais</h3>
-                    <p>Usar template significa padrão repetido. Fácil de detectar, baixo alcance, risco de strikes.</p>
+                    <p>Usar template significa padrão repetido. Cada vídeo fica igual ao outro, sem originalidade.</p>
                 </div>
             </div>
         </div>
@@ -592,45 +586,39 @@
 
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="icon">⚡</div>
                     <h3>Criar Projeto Instantâneo</h3>
                     <p>Cria projeto CapCut completo em 1 clique. Aparece instantaneamente na lista de projetos.</p>
                     <span class="time-save">30 seg → Instantâneo</span>
                 </div>
 
                 <div class="feature-card">
-                    <div class="icon">📁</div>
                     <h3>Inserir Centenas de Mídias</h3>
                     <p>Insere vídeos, imagens e áudios de uma vez só. Sem arrastar, sem travar. Ordena ou randomiza.</p>
                     <span class="time-save">20 min → 5 segundos</span>
                 </div>
 
                 <div class="feature-card">
-                    <div class="icon">🎯</div>
                     <h3>Sincronização com Áudio</h3>
                     <p>Alinha cada mídia com cada segmento de áudio automaticamente. Aplica animações diferentes em cada foto.</p>
                     <span class="time-save">3 horas → 30 segundos</span>
                 </div>
 
                 <div class="feature-card">
-                    <div class="icon">🔁</div>
                     <h3>Loop Automático</h3>
                     <p>Repete suas mídias para preencher a duração do áudio. Áudio de 30 min? Ele calcula os ciclos pra você.</p>
                     <span class="time-save">Automático</span>
                 </div>
 
                 <div class="feature-card">
-                    <div class="icon">📝</div>
                     <h3>Importar Legendas SRT</h3>
                     <p>Importa arquivos .srt direto na timeline. Match automático com os áudios pelo nome do arquivo.</p>
-                    <span class="time-save">2 horas → 10 segundos</span>
+                    <span class="time-save">Rápido e automático</span>
                 </div>
 
                 <div class="feature-card">
-                    <div class="icon">🔗</div>
                     <h3>Mesclar Projetos</h3>
                     <p>Junta múltiplos projetos em um só. Veja o preview antes de mesclar. Arrasta pra reordenar.</p>
-                    <span class="time-save">2 horas → 2 minutos</span>
+                    <span class="time-save">40 min → 2 minutos</span>
                 </div>
             </div>
         </div>
@@ -653,8 +641,8 @@
                     <span>Instantâneo</span>
                 </div>
                 <div class="comparison-row">
-                    <span>Inserir 100 mídias</span>
-                    <span>10-20 min</span>
+                    <span>Inserir 300 mídias</span>
+                    <span>30-40 min</span>
                     <span>5 segundos</span>
                 </div>
                 <div class="comparison-row">
@@ -663,18 +651,8 @@
                     <span>30 segundos</span>
                 </div>
                 <div class="comparison-row">
-                    <span>Importar legendas SRT</span>
-                    <span>1-2 horas</span>
-                    <span>10 segundos</span>
-                </div>
-                <div class="comparison-row">
-                    <span>Animações em fotos</span>
-                    <span>1-2 horas</span>
-                    <span>Automático</span>
-                </div>
-                <div class="comparison-row">
                     <span>Mesclar 5 projetos</span>
-                    <span>1-2 horas</span>
+                    <span>40 min</span>
                     <span>2 minutos</span>
                 </div>
             </div>
@@ -711,27 +689,18 @@
 
             <div class="exclusivity-grid">
                 <div class="exclusivity-item">
-                    <div class="icon">🎲</div>
                     <h4>Randomização de Ordem</h4>
                     <p>Cada vídeo tem sequência diferente de mídias</p>
                 </div>
 
                 <div class="exclusivity-item">
-                    <div class="icon">✨</div>
                     <h4>6 Animações Diferentes</h4>
                     <p>Zoom, pan, movimento — aplicados aleatoriamente</p>
                 </div>
 
                 <div class="exclusivity-item">
-                    <div class="icon">🛡️</div>
-                    <h4>Evita Strikes</h4>
-                    <p>Vídeos únicos = menor risco de detecção</p>
-                </div>
-
-                <div class="exclusivity-item">
-                    <div class="icon">📈</div>
-                    <h4>Melhor Alcance</h4>
-                    <p>Algoritmo favorece conteúdo original</p>
+                    <h4>Mais Originalidade</h4>
+                    <p>Vídeos únicos são mais valorizados pelo algoritmo</p>
                 </div>
             </div>
         </div>
@@ -828,7 +797,7 @@
 
         <div class="cta-buttons">
             <a href="https://github.com/LoopLess-nardoto/CapCutSyncPro/releases/download/v3.2.0/CapCut.Sync.Pro-3.2.0.Setup.exe" class="btn-primary">
-                ⬇ Baixar CapCut Sync Pro
+                Baixar CapCut Sync Pro
             </a>
             <a href="../precos.html" class="btn-secondary">
                 Ver Todos os Planos
