@@ -464,6 +464,40 @@
             border: none;
         }
 
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3rem;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            cursor: pointer;
+            padding: 20px 16px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            z-index: 1001;
+        }
+
+        .lightbox-nav:hover {
+            background: var(--primary);
+        }
+
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
         /* Footer CTA */
         .footer-cta {
             padding: 100px 20px;
@@ -533,22 +567,22 @@
             <h2 class="section-title">Veja o App em Ação</h2>
 
             <div class="screenshots-grid">
-                <div class="screenshot-item" onclick="openLightbox('../app 1.PNG')">
+                <div class="screenshot-item" onclick="openLightbox(0)">
                     <img src="../app 1.PNG" alt="CapCut Sync Pro - Tela Principal" loading="lazy">
                 </div>
-                <div class="screenshot-item" onclick="openLightbox('../app2.PNG')">
+                <div class="screenshot-item" onclick="openLightbox(1)">
                     <img src="../app2.PNG" alt="CapCut Sync Pro - Inserir Mídias" loading="lazy">
                 </div>
-                <div class="screenshot-item" onclick="openLightbox('../app3.PNG')">
+                <div class="screenshot-item" onclick="openLightbox(2)">
                     <img src="../app3.PNG" alt="CapCut Sync Pro - Sincronização" loading="lazy">
                 </div>
-                <div class="screenshot-item" onclick="openLightbox('../app4.PNG')">
+                <div class="screenshot-item" onclick="openLightbox(3)">
                     <img src="../app4.PNG" alt="CapCut Sync Pro - Configurações" loading="lazy">
                 </div>
-                <div class="screenshot-item" onclick="openLightbox('../app5.PNG')">
+                <div class="screenshot-item" onclick="openLightbox(4)">
                     <img src="../app5.PNG" alt="CapCut Sync Pro - Mesclar Projetos" loading="lazy">
                 </div>
-                <div class="screenshot-item" onclick="openLightbox('../app6.PNG')">
+                <div class="screenshot-item" onclick="openLightbox(5)">
                     <img src="../app6.PNG" alt="CapCut Sync Pro - Legendas SRT" loading="lazy">
                 </div>
             </div>
@@ -556,9 +590,12 @@
     </section>
 
     <!-- Lightbox -->
-    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-        <button class="lightbox-close">&times;</button>
+    <div class="lightbox" id="lightbox" onclick="handleLightboxClick(event)">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <button class="lightbox-nav lightbox-prev" onclick="prevImage(event)">&#10094;</button>
         <img id="lightbox-img" src="" alt="Screenshot ampliado">
+        <button class="lightbox-nav lightbox-next" onclick="nextImage(event)">&#10095;</button>
+        <div class="lightbox-counter"><span id="lightbox-current">1</span> / <span id="lightbox-total">6</span></div>
     </div>
 
     <!-- Problem -->
@@ -826,10 +863,27 @@
     </footer>
 
     <script>
-        function openLightbox(src) {
-            document.getElementById('lightbox-img').src = src;
+        const screenshots = [
+            '../app 1.PNG',
+            '../app2.PNG',
+            '../app3.PNG',
+            '../app4.PNG',
+            '../app5.PNG',
+            '../app6.PNG'
+        ];
+        let currentIndex = 0;
+
+        function openLightbox(index) {
+            currentIndex = index;
+            updateLightboxImage();
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';
+        }
+
+        function updateLightboxImage() {
+            document.getElementById('lightbox-img').src = screenshots[currentIndex];
+            document.getElementById('lightbox-current').textContent = currentIndex + 1;
+            document.getElementById('lightbox-total').textContent = screenshots.length;
         }
 
         function closeLightbox() {
@@ -837,8 +891,31 @@
             document.body.style.overflow = '';
         }
 
+        function prevImage(e) {
+            e.stopPropagation();
+            currentIndex = (currentIndex - 1 + screenshots.length) % screenshots.length;
+            updateLightboxImage();
+        }
+
+        function nextImage(e) {
+            e.stopPropagation();
+            currentIndex = (currentIndex + 1) % screenshots.length;
+            updateLightboxImage();
+        }
+
+        function handleLightboxClick(e) {
+            if (e.target.id === 'lightbox') {
+                closeLightbox();
+            }
+        }
+
         document.addEventListener('keydown', function(e) {
+            const lightbox = document.getElementById('lightbox');
+            if (!lightbox.classList.contains('active')) return;
+
             if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') prevImage(e);
+            if (e.key === 'ArrowRight') nextImage(e);
         });
     </script>
 </body>
