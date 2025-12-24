@@ -509,6 +509,15 @@
         .footer-cta p { color: var(--text-secondary); font-size: 1.2rem; margin-bottom: 32px; }
 
         /* Responsive */
+        /* Version Badge */
+        .version-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            margin-left: 8px;
+        }
+
         @media (max-width: 768px) {
             h1 { font-size: 2rem; }
             .subtitle { font-size: 1rem; }
@@ -552,8 +561,8 @@
         </div>
 
         <div class="cta-buttons">
-            <a href="https://github.com/LoopLess-nardoto/CapCutSyncPro/releases/download/v3.4.0/CapCut.Sync.Pro.Setup.3.4.0.exe" class="btn-primary">
-                Baixar Grátis (Windows)
+            <a href="#" class="btn-primary download-btn" id="hero-download-btn">
+                Baixar Grátis (Windows) <span class="version-badge"></span>
             </a>
             <a href="https://wa.me/5527999132594?text=Olá!%20Quero%20saber%20mais%20sobre%20o%20CapCut%20Sync%20Pro" class="btn-secondary">
                 Falar no WhatsApp
@@ -844,8 +853,8 @@
         <p>Monte vídeos completos em minutos, não horas.</p>
 
         <div class="cta-buttons">
-            <a href="https://github.com/LoopLess-nardoto/CapCutSyncPro/releases/download/v3.4.0/CapCut.Sync.Pro.Setup.3.4.0.exe" class="btn-primary">
-                Baixar CapCut Sync Pro
+            <a href="#" class="btn-primary download-btn" id="footer-download-btn">
+                Baixar CapCut Sync Pro <span class="version-badge"></span>
             </a>
             <a href="../precos.html" class="btn-secondary">
                 Ver Todos os Planos
@@ -917,6 +926,44 @@
             if (e.key === 'ArrowLeft') prevImage(e);
             if (e.key === 'ArrowRight') nextImage(e);
         });
+
+        // Auto-fetch latest release from GitHub
+        const GITHUB_REPO = 'LoopLess-nardoto/CapCutSyncPro';
+        const FALLBACK_VERSION = 'v3.4.0';
+        const FALLBACK_URL = `https://github.com/${GITHUB_REPO}/releases/download/${FALLBACK_VERSION}/CapCut.Sync.Pro.Setup.3.4.0.exe`;
+
+        async function fetchLatestRelease() {
+            try {
+                const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/releases/latest`);
+                if (!response.ok) throw new Error('Failed to fetch');
+
+                const release = await response.json();
+                const version = release.tag_name;
+
+                // Find the .exe asset
+                const exeAsset = release.assets.find(asset => asset.name.endsWith('.exe'));
+                if (!exeAsset) throw new Error('No exe found');
+
+                updateDownloadButtons(exeAsset.browser_download_url, version);
+            } catch (error) {
+                console.warn('Using fallback download URL:', error);
+                updateDownloadButtons(FALLBACK_URL, FALLBACK_VERSION);
+            }
+        }
+
+        function updateDownloadButtons(downloadUrl, version) {
+            const downloadBtns = document.querySelectorAll('.download-btn');
+            downloadBtns.forEach(btn => {
+                btn.href = downloadUrl;
+                const versionBadge = btn.querySelector('.version-badge');
+                if (versionBadge) {
+                    versionBadge.textContent = version;
+                }
+            });
+        }
+
+        // Fetch on page load
+        fetchLatestRelease();
     </script>
 </body>
 </html>
