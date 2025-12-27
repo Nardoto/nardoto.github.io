@@ -1,5 +1,5 @@
 {
-  "version": "3.5.0",
-  "downloadUrl": "https://github.com/LoopLess-nardoto/CapCutSyncPro/releases/download/v3.5.0/CapCut.Sync.Pro.Setup.3.5.0.exe",
-  "releaseNotes": "Tela de loading animada, botoes de controle na tela de login, melhorias no exportar/importar"
+  "version": "3.6.0",
+  "downloadUrl": "https://github.com/LoopLess-nardoto/CapCutSyncPro/releases/download/v3.6.0/CapCut.Sync.Pro.Setup.3.6.0.exe",
+  "releaseNotes": "Protecao do codigo Python com compilacao nativa (Nuitka)"
 }
