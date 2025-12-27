@@ -34,7 +34,8 @@
       "Bash(findstr:*)",
       "Bash(gh repo create:*)",
       "Bash(firebase hosting:sites:create:*)",
-      "Bash(firebase auth:domains:list:*)"
+      "Bash(firebase auth:domains:list:*)",
+      "Bash(powershell:*)"
     ],
     "deny": [],
     "ask": []
