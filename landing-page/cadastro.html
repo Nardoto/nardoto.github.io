@@ -775,16 +775,67 @@
             document.querySelector('.footer-note').textContent = 'Após cadastrar, o download iniciará automaticamente 🚀';
         }
 
-        // Máscara de telefone
+        // Máscara de telefone dinâmica por país
         const phoneInput = document.getElementById('phone');
-        phoneInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length <= 11) {
-                value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
-                value = value.replace(/(\d)(\d{4})$/, '$1-$2');
+        const countryCodeSelect = document.getElementById('countryCode');
+
+        function applyPhoneMask(value, countryCode) {
+            value = value.replace(/\D/g, '');
+
+            if (countryCode === '+55') {
+                // Brasil: (00) 00000-0000
+                if (value.length <= 11) {
+                    value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
+                    value = value.replace(/(\d)(\d{4})$/, '$1-$2');
+                }
+            } else if (countryCode === '+1') {
+                // EUA/Canadá: (000) 000-0000
+                if (value.length <= 10) {
+                    value = value.replace(/^(\d{3})(\d)/g, '($1) $2');
+                    value = value.replace(/(\d{3})(\d{4})$/, '$1-$2');
+                }
+            } else {
+                // Outros países: formato genérico com espaços a cada 3-4 dígitos
+                if (value.length > 4) {
+                    value = value.replace(/(\d{3,4})(?=\d)/g, '$1 ').trim();
+                }
             }
-            e.target.value = value;
+            return value;
+        }
+
+        function updatePlaceholder(countryCode) {
+            const placeholders = {
+                '+55': '(00) 00000-0000',
+                '+1': '(000) 000-0000',
+                '+351': '000 000 000',
+                '+34': '000 00 00 00',
+                '+33': '0 00 00 00 00',
+                '+44': '0000 000 000',
+                '+49': '0000 0000000',
+                '+54': '00 0000-0000',
+                '+598': '00 000 000',
+                '+56': '0 0000 0000',
+                '+57': '000 000 0000',
+                '+52': '00 0000 0000',
+                '+595': '000 000 000',
+                '+591': '0 000 0000'
+            };
+            phoneInput.placeholder = placeholders[countryCode] || '000 000 0000';
+        }
+
+        phoneInput.addEventListener('input', function(e) {
+            const countryCode = countryCodeSelect.value;
+            e.target.value = applyPhoneMask(e.target.value, countryCode);
         });
+
+        countryCodeSelect.addEventListener('change', function() {
+            updatePlaceholder(this.value);
+            // Reaplicar máscara ao número existente
+            phoneInput.value = applyPhoneMask(phoneInput.value, this.value);
+        });
+
+        // Inicializar placeholder
+        updatePlaceholder(countryCodeSelect.value);
 
         // Salvar lead no Firebase
         async function saveLead(leadData) {
