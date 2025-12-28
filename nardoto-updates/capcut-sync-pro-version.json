@@ -1,5 +1,5 @@
 {
   "version": "3.6.0",
-  "downloadUrl": "https://github.com/LoopLess-nardoto/CapCutSyncPro/releases/download/v3.6.0/CapCut.Sync.Pro.Setup.3.6.0.exe",
-  "releaseNotes": "Protecao do codigo Python com compilacao nativa (Nuitka)"
+  "downloadUrl": "https://github.com/LoopLess-nardoto/NardotoStudio/releases/download/v3.6.0/Nardoto.Studio.Setup.3.6.0.exe",
+  "releaseNotes": "v3.6.0 - Agora somos Nardoto Studio! Firebase auth fix, Creator mode liberado"
 }
