@@ -1,0 +1,11 @@
+{
+  "news": [
+    {
+      "id": "v360-release",
+      "title": "Nardoto Studio v3.6.0",
+      "message": "Nova versao com Firebase auth corrigido e Creator mode liberado para todos!",
+      "type": "update",
+      "date": "2025-12-28"
+    }
+  ]
+}
