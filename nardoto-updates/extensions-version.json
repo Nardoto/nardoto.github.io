@@ -2,7 +2,7 @@
   "extensions": [
     {
       "name": "veo3-automator",
-      "version": "1.0",
+      "version": "3.8.0",
       "downloadUrl": "https://github.com/Nardoto/nardoto-updates/releases/download/v2.0/veo3-automator.zip"
     },
     {
@@ -52,7 +52,7 @@
     },
     {
       "name": "GEMINI LOOPLESS V2.5",
-      "version": "2.5",
+      "version": "2.7.2",
       "downloadUrl": "https://github.com/Nardoto/nardoto-updates/releases/download/v2.0/gemini-loopless.zip"
     },
     {
