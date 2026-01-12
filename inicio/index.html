@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nardoto Browser</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #E85A2A;
+      --primary-light: #F07040;
+      --bg-dark: #0A0A0A;
+      --text-primary: #FFFFFF;
+      --text-secondary: #9CA3AF;
+      --text-muted: #6B7280;
+      --card-dark: rgba(26, 26, 26, 0.8);
+      --border-light: rgba(255, 255, 255, 0.1);
+      --font-heading: 'DM Serif Display', Georgia, serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      min-height: 100vh;
+      color: var(--text-primary);
+      display: flex;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Background base escuro */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #0A0A0A;
+      z-index: -3;
+    }
+
+    /* Gradientes laranja animados */
+    .bg-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -2;
+      overflow: hidden;
+    }
+
+    .bg-glow::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background:
+        radial-gradient(ellipse at 0% 0%, rgba(232, 90, 42, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 100% 0%, rgba(232, 90, 42, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 0% 100%, rgba(232, 90, 42, 0.22) 0%, transparent 50%),
+        radial-gradient(ellipse at 100% 100%, rgba(232, 90, 42, 0.25) 0%, transparent 50%);
+      animation: glowMove 25s ease-in-out infinite;
+    }
+
+    @keyframes glowMove {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(2%, 1%) rotate(1deg); }
+      50% { transform: translate(0, 2%) rotate(0deg); }
+      75% { transform: translate(-2%, 1%) rotate(-1deg); }
+    }
+
+    /* ========== SIDEBAR NEWS ========== */
+    .sidebar {
+      width: 280px;
+      min-height: 100vh;
+      background: rgba(15, 15, 15, 0.95);
+      border-right: 1px solid var(--border-light);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 10;
+      overflow-y: auto;
+    }
+
+    .sidebar.hidden {
+      display: none;
+    }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .sidebar-header h2 {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--text-primary);
+    }
+
+    .sidebar-header h2 span {
+      color: var(--primary);
+    }
+
+    .sidebar-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 4px 8px;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar-close:hover {
+      color: var(--primary);
+    }
+
+    .news-item {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .news-item:last-child {
+      border-bottom: none;
+    }
+
+    .news-item-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .news-tag {
+      background: linear-gradient(135deg, var(--primary), #D4522A);
+      color: white;
+      font-size: 0.6rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .news-date {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .news-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .news-title a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .news-title a:hover {
+      color: var(--primary);
+    }
+
+    .news-desc {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* ========== MAIN CONTENT ========== */
+    .main-content {
+      flex: 1;
+      margin-left: 280px;
+      padding: 40px 40px 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .main-content.full-width {
+      margin-left: 0;
+    }
+
+    /* ========== NARDOTO LABS TOPO ========== */
+    .nardoto-labs-top {
+      width: 100%;
+      max-width: 900px;
+      margin-bottom: 30px;
+    }
+
+    .nardoto-labs-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(135deg, rgba(232, 90, 42, 0.15), rgba(232, 90, 42, 0.05));
+      border: 1px solid rgba(232, 90, 42, 0.3);
+      border-radius: 16px;
+      padding: 20px 28px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .nardoto-labs-card:hover {
+      background: linear-gradient(135deg, rgba(232, 90, 42, 0.25), rgba(232, 90, 42, 0.1));
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(232, 90, 42, 0.2);
+    }
+
+    .nardoto-labs-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .nardoto-logo {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--primary), #D4522A);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      color: white;
+      font-weight: bold;
+    }
+
+    .nardoto-labs-info h3 {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .nardoto-labs-info h3 span {
+      color: var(--primary);
+    }
+
+    .nardoto-labs-info p {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .nardoto-labs-btn {
+      background: linear-gradient(135deg, var(--primary), #D4522A);
+      color: white;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(232, 90, 42, 0.4);
+    }
+
+    /* ========== YOUTUBE DESTAQUE ========== */
+    .youtube-featured {
+      width: 100%;
+      max-width: 900px;
+      margin-bottom: 30px;
+    }
+
+    .youtube-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: linear-gradient(135deg, rgba(255, 0, 0, 0.12), rgba(255, 0, 0, 0.05));
+      border: 1px solid rgba(255, 0, 0, 0.25);
+      border-radius: 14px;
+      padding: 16px 24px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .youtube-card:hover {
+      background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0.08));
+      border-color: #FF0000;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(255, 0, 0, 0.15);
+    }
+
+    .youtube-icon {
+      width: 44px;
+      height: 44px;
+      background: #FF0000;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .youtube-info h3 {
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .youtube-info p {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    /* ========== HEADER ========== */
+    .header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 50px;
+      padding: 8px 20px;
+      margin-bottom: 16px;
+      font-size: 0.8rem;
+      color: var(--text-primary);
+      backdrop-filter: blur(10px);
+    }
+
+    .badge::before {
+      content: "\2726";
+      color: var(--primary);
+    }
+
+    .logo h1 {
+      font-family: var(--font-heading);
+      font-size: 2.8rem;
+      font-weight: 400;
+      letter-spacing: 4px;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .logo h1 span {
+      color: var(--primary);
+    }
+
+    .logo .tagline {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+    }
+
+    /* ========== CATEGORIAS ========== */
+    .categories-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      width: 100%;
+      max-width: 900px;
+      margin-bottom: 30px;
+    }
+
+    .category {
+      background: var(--card-dark);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .category-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .category-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: 0.5px;
+    }
+
+    .category-sites {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .site {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid transparent;
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: all 0.25s ease;
+    }
+
+    .site:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(232, 90, 42, 0.3);
+      transform: translateX(4px);
+    }
+
+    .site .icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      object-fit: contain;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .site-info {
+      flex: 1;
+    }
+
+    .site .name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: block;
+    }
+
+    .site .desc {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ========== ADICIONAR SITE ========== */
+    .add-site-section {
+      width: 100%;
+      max-width: 900px;
+      margin-bottom: 30px;
+    }
+
+    .custom-sites-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .add-site-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 2px dashed rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: var(--text-muted);
+    }
+
+    .add-site-btn:hover {
+      border-color: var(--primary);
+      background: rgba(232, 90, 42, 0.1);
+      color: var(--primary);
+    }
+
+    .add-site-btn .plus {
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+
+    .add-site-btn span {
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .custom-site {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 12px;
+      background: var(--card-dark);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .custom-site:hover {
+      background: rgba(40, 40, 40, 0.9);
+      border-color: rgba(232, 90, 42, 0.4);
+      transform: translateY(-3px);
+    }
+
+    .custom-site .icon {
+      width: 38px;
+      height: 38px;
+      margin-bottom: 8px;
+      border-radius: 8px;
+    }
+
+    .custom-site .name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .custom-site .desc {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+    }
+
+    .custom-site .remove-btn {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 20px;
+      height: 20px;
+      background: rgba(220, 38, 38, 0.8);
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 12px;
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .custom-site:hover .remove-btn {
+      opacity: 1;
+    }
+
+    /* ========== MODAL ========== */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(8px);
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: linear-gradient(145deg, rgba(30, 30, 30, 0.95), rgba(20, 20, 20, 0.98));
+      padding: 28px;
+      border-radius: 18px;
+      width: 380px;
+      max-width: 90%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content h2 {
+      font-family: var(--font-heading);
+      margin-bottom: 20px;
+      color: var(--text-primary);
+      font-weight: 400;
+      font-size: 1.3rem;
+    }
+
+    .modal-content h2 span {
+      color: var(--primary);
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 13px;
+      font-family: var(--font-body);
+      transition: all 0.3s ease;
+    }
+
+    .modal-content input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: rgba(232, 90, 42, 0.08);
+    }
+
+    .modal-content input::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .modal-buttons button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: var(--font-body);
+      transition: all 0.3s ease;
+    }
+
+    .btn-save {
+      background: linear-gradient(135deg, var(--primary), #D4522A);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(232, 90, 42, 0.4);
+    }
+
+    .btn-save:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-cancel {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-primary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-cancel:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* ========== FOOTER ========== */
+    footer {
+      margin-top: auto;
+      padding-top: 30px;
+      text-align: center;
+    }
+
+    footer .signature {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    footer .signature a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    footer .signature a:hover {
+      color: var(--primary);
+    }
+
+    /* ========== BANNER DE ATUALIZACAO ========== */
+    .update-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(135deg, rgba(232, 90, 42, 0.95), rgba(212, 82, 42, 0.95));
+      backdrop-filter: blur(10px);
+      z-index: 10000;
+      animation: slideDown 0.5s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+      }
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    .update-banner-content {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 16px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .update-icon {
+      font-size: 32px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .update-text {
+      flex: 1;
+    }
+
+    .update-text strong {
+      display: block;
+      font-size: 16px;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .update-text p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.9);
+      margin: 0;
+    }
+
+    .update-btn {
+      background: white;
+      color: var(--primary);
+      padding: 10px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .update-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .update-close {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .update-close:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: rotate(90deg);
+    }
+
+    /* ========== POPUP DE ATUALIZADO ========== */
+    .updated-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10001;
+      animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    @keyframes popIn {
+      0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+    }
+
+    .updated-popup-content {
+      background: linear-gradient(145deg, rgba(30, 30, 30, 0.98), rgba(20, 20, 20, 0.98));
+      border: 2px solid var(--primary);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5), 0 0 100px rgba(232, 90, 42, 0.3);
+      min-width: 400px;
+      backdrop-filter: blur(20px);
+    }
+
+    .updated-icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+      animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      50% {
+        transform: scale(1.2);
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .updated-popup-content h2 {
+      font-family: var(--font-heading);
+      font-size: 28px;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      font-weight: 400;
+    }
+
+    .updated-popup-content p {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .updated-btn {
+      background: linear-gradient(135deg, var(--primary), #D4522A);
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(232, 90, 42, 0.4);
+    }
+
+    .updated-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(232, 90, 42, 0.6);
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 1100px) {
+      .categories-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+      .main-content {
+        margin-left: 0;
+        padding: 30px 20px;
+      }
+      .categories-container {
+        grid-template-columns: 1fr;
+      }
+      .custom-sites-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .nardoto-labs-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+      }
+      .nardoto-labs-left {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Gradiente animado de fundo -->
+  <div class="bg-glow"></div>
+
+  <!-- ========== SIDEBAR NOTICIAS ========== -->
+  <aside class="sidebar" id="newsSidebar">
+    <div class="sidebar-header">
+      <h2>Novidades <span>Nardoto</span></h2>
+      <button class="sidebar-close" id="newsClose" title="Fechar">x</button>
+    </div>
+    <div id="newsContent">
+      <!-- Noticias serao carregadas aqui -->
+    </div>
+  </aside>
+
+  <!-- ========== CONTEUDO PRINCIPAL ========== -->
+  <main class="main-content" id="mainContent">
+
+    <!-- NARDOTO LABS NO TOPO -->
+    <div class="nardoto-labs-top">
+      <a href="https://nardoto-labs.web.app/dashboard.html" class="nardoto-labs-card" target="_blank">
+        <div class="nardoto-labs-left">
+          <div class="nardoto-logo">N</div>
+          <div class="nardoto-labs-info">
+            <h3>Nardoto <span>Labs</span></h3>
+            <p>Acesse sua conta e gerencie suas ferramentas</p>
+          </div>
+        </div>
+        <div class="nardoto-labs-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+          </svg>
+          Entrar com Google
+        </div>
+      </a>
+    </div>
+
+    <!-- YOUTUBE EM DESTAQUE -->
+    <div class="youtube-featured">
+      <a href="https://www.youtube.com/watch?v=LoyVMJtqY6c" class="youtube-card" target="_blank">
+        <div class="youtube-icon">
+          <svg width="24" height="18" viewBox="0 0 28 20" fill="white">
+            <path d="M27.4 3.1c-.3-1.2-1.2-2.1-2.4-2.4C22.8 0 14 0 14 0S5.2 0 3 .7C1.8 1 .9 1.9.6 3.1 0 5.3 0 10 0 10s0 4.7.6 6.9c.3 1.2 1.2 2.1 2.4 2.4 2.2.7 11 .7 11 .7s8.8 0 11-.7c1.2-.3 2.1-1.2 2.4-2.4.6-2.2.6-6.9.6-6.9s0-4.7-.6-6.9zM11 14V6l7.4 4-7.4 4z"/>
+          </svg>
+        </div>
+        <div class="youtube-info">
+          <h3>Extensoes do Navegador</h3>
+          <p>Veja como usar as extensoes do Nardoto Browser</p>
+        </div>
+      </a>
+      <a href="https://www.youtube.com/watch?v=7bT0qtQZIXE" class="youtube-card" target="_blank" style="margin-top: 12px;">
+        <div class="youtube-icon">
+          <svg width="24" height="18" viewBox="0 0 28 20" fill="white">
+            <path d="M27.4 3.1c-.3-1.2-1.2-2.1-2.4-2.4C22.8 0 14 0 14 0S5.2 0 3 .7C1.8 1 .9 1.9.6 3.1 0 5.3 0 10 0 10s0 4.7.6 6.9c.3 1.2 1.2 2.1 2.4 2.4 2.2.7 11 .7 11 .7s8.8 0 11-.7c1.2-.3 2.1-1.2 2.4-2.4.6-2.2.6-6.9.6-6.9s0-4.7-.6-6.9zM11 14V6l7.4 4-7.4 4z"/>
+          </svg>
+        </div>
+        <div class="youtube-info">
+          <h3>Novas Funcoes</h3>
+          <p>Atualizacoes e novidades do navegador</p>
+        </div>
+      </a>
+    </div>
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="badge">Browser para Criadores de Conteudo</div>
+      <div class="logo">
+        <h1>NARDO<span>TO</span></h1>
+        <p class="tagline">Suas ferramentas de IA favoritas</p>
+      </div>
+    </div>
+
+    <!-- CATEGORIAS -->
+    <div class="categories-container">
+
+      <!-- ROTEIROS / CHAT -->
+      <div class="category">
+        <div class="category-header">
+          <div class="category-icon" style="background: linear-gradient(135deg, #10A37F, #0D8A6F);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+          </div>
+          <span class="category-title">Roteiros / Chat</span>
+        </div>
+        <div class="category-sites">
+          <a href="https://chatgpt.com" class="site" target="_blank">
+            <img class="icon" src="https://cdn.oaistatic.com/assets/apple-touch-icon-mz9nytnj.webp" alt="ChatGPT">
+            <div class="site-info">
+              <span class="name">ChatGPT</span>
+              <span class="desc">OpenAI</span>
+            </div>
+          </a>
+          <a href="https://claude.ai/new" class="site" target="_blank">
+            <img class="icon" src="https://claude.ai/images/claude_app_icon.png" alt="Claude">
+            <div class="site-info">
+              <span class="name">Claude</span>
+              <span class="desc">Anthropic</span>
+            </div>
+          </a>
+          <a href="https://gemini.google.com/app" class="site" target="_blank">
+            <img class="icon" src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" alt="Gemini">
+            <div class="site-info">
+              <span class="name">Gemini</span>
+              <span class="desc">Google</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- IMAGENS & VIDEO -->
+      <div class="category">
+        <div class="category-header">
+          <div class="category-icon" style="background: linear-gradient(135deg, #4285f4, #ea4335);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+          </div>
+          <span class="category-title">Imagens & Video</span>
+        </div>
+        <div class="category-sites">
+          <a href="https://labs.google/fx/pt/tools/video-fx" class="site" target="_blank">
+            <div class="icon" style="background: linear-gradient(135deg, #4285f4, #ea4335, #fbbc04, #34a853); display: flex; align-items: center; justify-content: center;">
+              <span style="color: white; font-weight: bold; font-size: 10px;">Veo3</span>
+            </div>
+            <div class="site-info">
+              <span class="name">Veo 3</span>
+              <span class="desc">Google</span>
+            </div>
+          </a>
+          <a href="https://labs.google/fx/pt/tools/whisk/library" class="site" target="_blank">
+            <div class="icon" style="background: #ffd700; display: flex; align-items: center; justify-content: center;">
+              <svg width="20" height="20" viewBox="0 0 100 100">
+                <path d="M50 15 Q30 30 35 50 Q25 55 30 70 Q20 75 35 85 Q45 80 50 85 Q55 80 65 85 Q80 75 70 70 Q75 55 65 50 Q70 30 50 15" fill="none" stroke="black" stroke-width="6" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="site-info">
+              <span class="name">Whisk</span>
+              <span class="desc">Google Labs</span>
+            </div>
+          </a>
+          <a href="https://www.meta.ai/media" class="site" target="_blank">
+            <div class="icon" style="background: linear-gradient(135deg, #0668E1, #00C6FF); display: flex; align-items: center; justify-content: center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/>
+              </svg>
+            </div>
+            <div class="site-info">
+              <span class="name">Meta AI</span>
+              <span class="desc">Imagens & Videos</span>
+            </div>
+          </a>
+          <a href="https://grok.com" class="site" target="_blank">
+            <div class="icon" style="background: #000000; display: flex; align-items: center; justify-content: center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </div>
+            <div class="site-info">
+              <span class="name">Grok</span>
+              <span class="desc">xAI Imagens</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- EDICAO -->
+      <div class="category">
+        <div class="category-header">
+          <div class="category-icon" style="background: linear-gradient(135deg, #00D8FF, #00A3CC);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+          </div>
+          <span class="category-title">Edicao</span>
+        </div>
+        <div class="category-sites">
+          <a href="https://www.capcut.com/ai-creator/start" class="site" target="_blank">
+            <img class="icon" src="https://www.google.com/s2/favicons?domain=capcut.com&sz=128" alt="CapCut">
+            <div class="site-info">
+              <span class="name">CapCut</span>
+              <span class="desc">Editor AI</span>
+            </div>
+          </a>
+          <a href="https://www.midjourney.com" class="site" target="_blank">
+            <div class="icon" style="background: #000000; display: flex; align-items: center; justify-content: center;">
+              <span style="color: white; font-weight: bold; font-size: 14px;">MJ</span>
+            </div>
+            <div class="site-info">
+              <span class="name">MidJourney</span>
+              <span class="desc">Imagens AI</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- AUDIO -->
+      <div class="category">
+        <div class="category-header">
+          <div class="category-icon" style="background: linear-gradient(135deg, #FF6B35, #F7931E);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+          </div>
+          <span class="category-title">Audio</span>
+        </div>
+        <div class="category-sites">
+          <a href="https://aistudio.google.com/prompts/new_chat" class="site" target="_blank">
+            <img class="icon" src="https://www.gstatic.com/aistudio/ai_studio_favicon_32x32.png" alt="AI Studio">
+            <div class="site-info">
+              <span class="name">AI Studio</span>
+              <span class="desc">Google TTS</span>
+            </div>
+          </a>
+          <a href="https://notebooklm.google.com/" class="site" target="_blank">
+            <img class="icon" src="https://www.gstatic.com/images/branding/productlogos/notebooklm/v1/192px.svg" alt="NotebookLM">
+            <div class="site-info">
+              <span class="name">NotebookLM</span>
+              <span class="desc">Podcasts AI</span>
+            </div>
+          </a>
+          <a href="https://suno.com" class="site" target="_blank">
+            <div class="icon" style="background: linear-gradient(135deg, #8B5CF6, #A855F7); display: flex; align-items: center; justify-content: center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+            </div>
+            <div class="site-info">
+              <span class="name">Suno</span>
+              <span class="desc">Musica AI</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SITES CUSTOMIZADOS -->
+    <div class="add-site-section">
+      <div class="custom-sites-grid" id="customSitesGrid">
+        <div class="add-site-btn" id="addSiteBtn">
+          <span class="plus">+</span>
+          <span>Adicionar Site</span>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p class="signature">
+        <a href="https://nardoto.com.br" target="_blank">nardoto.com.br</a>
+      </p>
+    </footer>
+
+  </main>
+
+  <!-- MODAL -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <h2>Adicionar <span>Site</span></h2>
+      <input type="text" id="siteName" placeholder="Nome do site (ex: Google)">
+      <input type="url" id="siteUrl" placeholder="URL (ex: https://google.com)">
+      <input type="text" id="siteDesc" placeholder="Categoria (ex: Busca)">
+      <div class="modal-buttons">
+        <button class="btn-cancel" id="cancelBtn">Cancelar</button>
+        <button class="btn-save" id="saveBtn">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ========== ELEMENTOS ==========
+    const customSitesGrid = document.getElementById('customSitesGrid');
+    const addSiteBtn = document.getElementById('addSiteBtn');
+    const modal = document.getElementById('modal');
+    const saveBtn = document.getElementById('saveBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const newsSidebar = document.getElementById('newsSidebar');
+    const newsClose = document.getElementById('newsClose');
+    const mainContent = document.getElementById('mainContent');
+
+    // ========== SITES CUSTOMIZADOS ==========
+    function loadCustomSites() {
+      const sites = JSON.parse(localStorage.getItem('nardotoCustomSites') || '[]');
+      sites.forEach(site => addSiteToGrid(site));
+    }
+
+    function addSiteToGrid(site) {
+      const siteEl = document.createElement('a');
+      siteEl.href = site.url;
+      siteEl.target = '_blank';
+      siteEl.className = 'custom-site';
+      siteEl.innerHTML = `
+        <img class="icon" src="https://www.google.com/s2/favicons?domain=${new URL(site.url).hostname}&sz=128" alt="${site.name}">
+        <span class="name">${site.name}</span>
+        <span class="desc">${site.desc}</span>
+        <button class="remove-btn" data-url="${site.url}">x</button>
+      `;
+      customSitesGrid.insertBefore(siteEl, addSiteBtn);
+
+      siteEl.querySelector('.remove-btn').addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        removeSite(site.url);
+        siteEl.remove();
+      });
+    }
+
+    function saveSite(name, url, desc) {
+      const sites = JSON.parse(localStorage.getItem('nardotoCustomSites') || '[]');
+      sites.push({ name, url, desc });
+      localStorage.setItem('nardotoCustomSites', JSON.stringify(sites));
+      addSiteToGrid({ name, url, desc });
+    }
+
+    function removeSite(url) {
+      let sites = JSON.parse(localStorage.getItem('nardotoCustomSites') || '[]');
+      sites = sites.filter(s => s.url !== url);
+      localStorage.setItem('nardotoCustomSites', JSON.stringify(sites));
+    }
+
+    addSiteBtn.addEventListener('click', () => {
+      modal.classList.add('active');
+      document.getElementById('siteName').focus();
+    });
+
+    cancelBtn.addEventListener('click', () => {
+      modal.classList.remove('active');
+      clearInputs();
+    });
+
+    saveBtn.addEventListener('click', () => {
+      const name = document.getElementById('siteName').value.trim();
+      let url = document.getElementById('siteUrl').value.trim();
+      const desc = document.getElementById('siteDesc').value.trim() || 'Site';
+
+      if (name && url) {
+        if (!url.startsWith('http')) url = 'https://' + url;
+        saveSite(name, url, desc);
+        modal.classList.remove('active');
+        clearInputs();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        modal.classList.remove('active');
+        clearInputs();
+      }
+      if (e.key === 'Enter' && modal.classList.contains('active')) {
+        saveBtn.click();
+      }
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+        clearInputs();
+      }
+    });
+
+    function clearInputs() {
+      document.getElementById('siteName').value = '';
+      document.getElementById('siteUrl').value = '';
+      document.getElementById('siteDesc').value = '';
+    }
+
+    loadCustomSites();
+
+    // ========== SIDEBAR NOTICIAS ==========
+    const NEWS_FEED_URL = 'https://nardoto.com.br/nardoto-updates/browser-news.json';
+
+    const DEFAULT_NEWS = [
+      {
+        tag: 'Novo',
+        date: '30 Nov 2024',
+        title: 'Nardoto Browser 2.0!',
+        desc: 'Nova interface categorizada com todas as suas ferramentas de IA organizadas por funcao.',
+        url: null
+      },
+      {
+        tag: 'Dica',
+        date: '30 Nov 2024',
+        title: 'Extensoes fixadas',
+        desc: 'CapCut Automator, Google TTS e Gold Optimizer estao fixados na barra de extensoes.',
+        url: null
+      },
+      {
+        tag: 'Tutorial',
+        date: '30 Nov 2024',
+        title: 'Nardoto Labs',
+        desc: 'Faca login com Google para acessar funcoes premium e sincronizar suas configuracoes.',
+        url: 'https://nardoto-labs.web.app/dashboard.html'
+      }
+    ];
+
+    function isNewsPanelClosed() {
+      const closedDate = localStorage.getItem('nardotoNewsClosed');
+      if (!closedDate) return false;
+      return closedDate === new Date().toDateString();
+    }
+
+    newsClose.addEventListener('click', () => {
+      newsSidebar.classList.add('hidden');
+      mainContent.classList.add('full-width');
+      localStorage.setItem('nardotoNewsClosed', new Date().toDateString());
+    });
+
+    function renderNews(news) {
+      const newsContent = document.getElementById('newsContent');
+      newsContent.innerHTML = news.map(item => `
+        <div class="news-item">
+          <div class="news-item-header">
+            <span class="news-tag">${item.tag}</span>
+            <span class="news-date">${item.date}</span>
+          </div>
+          <div class="news-title">
+            ${item.url ? `<a href="${item.url}" target="_blank">${item.title}</a>` : item.title}
+          </div>
+          <p class="news-desc">${item.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    // ========== VERIFICAR ATUALIZACOES ==========
+    const VERSION_CHECK_URL = 'https://nardoto.com.br/nardoto-updates/browser-version.json';
+    const CURRENT_VERSION = '3.4'; // Atualizado automaticamente pelo instalador
+
+    async function checkForUpdates() {
+      try {
+        const response = await fetch(VERSION_CHECK_URL, {
+          cache: 'no-store',
+          headers: { 'Accept': 'application/json' },
+          mode: 'cors'
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.version && data.version !== CURRENT_VERSION) {
+            showUpdateBanner(data);
+          }
+        }
+      } catch (error) {
+        console.log('Erro ao verificar atualizacoes');
+      }
+    }
+
+    function showUpdateBanner(updateInfo) {
+      const banner = document.createElement('div');
+      banner.className = 'update-banner';
+      banner.innerHTML = `
+        <div class="update-banner-content">
+          <div class="update-icon">&#128276;</div>
+          <div class="update-text">
+            <strong>Nova versao ${updateInfo.version} disponivel!</strong>
+            <p>${updateInfo.releaseNotes}</p>
+          </div>
+          <a href="${updateInfo.downloadUrl}" class="update-btn" download>
+            Baixar Atualizacao
+          </a>
+          <button class="update-close" onclick="this.parentElement.parentElement.remove()">x</button>
+        </div>
+      `;
+      document.body.insertBefore(banner, document.body.firstChild);
+    }
+
+    // ========== POPUP DE ATUALIZADO COM SUCESSO ==========
+    function checkIfJustUpdated() {
+      const lastVersion = localStorage.getItem('nardotoLastVersion');
+
+      if (lastVersion && lastVersion !== CURRENT_VERSION) {
+        showUpdatedPopup(lastVersion, CURRENT_VERSION);
+      }
+
+      localStorage.setItem('nardotoLastVersion', CURRENT_VERSION);
+    }
+
+    function showUpdatedPopup(oldVersion, newVersion) {
+      const popup = document.createElement('div');
+      popup.className = 'updated-popup';
+      popup.innerHTML = `
+        <div class="updated-popup-content">
+          <div class="updated-icon">&#9989;</div>
+          <h2>Atualizado para v${newVersion}!</h2>
+          <p>Seu navegador foi atualizado de v${oldVersion} para v${newVersion}</p>
+          <button class="updated-btn" onclick="this.parentElement.parentElement.remove()">
+            Ver Novidades ->
+          </button>
+        </div>
+      `;
+
+      document.body.appendChild(popup);
+
+      popup.querySelector('.updated-btn').addEventListener('click', () => {
+        popup.remove();
+        // Abre o painel de novidades se estiver fechado
+        if (newsSidebar.classList.contains('hidden')) {
+          newsSidebar.classList.remove('hidden');
+          mainContent.classList.remove('full-width');
+        }
+      });
+
+      // Auto-fechar apos 10 segundos
+      setTimeout(() => {
+        if (popup.parentElement) popup.remove();
+      }, 10000);
+    }
+
+    async function loadNews() {
+      if (isNewsPanelClosed()) {
+        newsSidebar.classList.add('hidden');
+        mainContent.classList.add('full-width');
+        return;
+      }
+
+      renderNews(DEFAULT_NEWS);
+
+      try {
+        const response = await fetch(NEWS_FEED_URL, {
+          cache: 'no-store',
+          headers: { 'Accept': 'application/json' },
+          mode: 'cors'
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.news && data.news.length > 0) {
+            renderNews(data.news);
+          }
+        }
+      } catch (error) {
+        console.log('Usando noticias locais');
+      }
+    }
+
+    loadNews();
+    checkForUpdates();
+    checkIfJustUpdated();
+  </script>
+</body>
+</html>
