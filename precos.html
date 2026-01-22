@@ -3,17 +3,405 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Planos e preços das extensões de automação Nardoto. Teste grátis por 10 dias.">
+    <meta name="description" content="Planos e precos Nardoto. Nardoto Browser, Nardoto Studio e 11 extensoes Chrome para criadores de conteudo.">
 
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="favicon.png">
     <meta name="theme-color" content="#E85A2A">
 
-    <title>Preços - Nardoto Automação</title>
+    <title>Precos - Nardoto</title>
     <link rel="stylesheet" href="landing-page/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .btn-dashboard {
+            background: transparent;
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-dashboard:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Page Hero */
+        .pricing-hero {
+            padding: 100px 20px 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        .pricing-hero::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(232, 90, 42, 0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .pricing-hero .content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .pricing-hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 3rem;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .pricing-hero p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            padding: 40px 20px 100px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            max-width: 900px;
+            margin: 0 auto 80px;
+        }
+
+        .pricing-card {
+            background: var(--card-dark);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(232, 90, 42, 0.15);
+        }
+
+        .pricing-card.featured {
+            border: 2px solid var(--primary);
+            background: linear-gradient(135deg, rgba(232, 90, 42, 0.08), var(--card-dark));
+        }
+
+        .pricing-card.featured::before {
+            content: 'RECOMENDADO';
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .pricing-card-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .pricing-card-icon.studio {
+            background: linear-gradient(135deg, rgba(232, 90, 42, 0.2), rgba(232, 90, 42, 0.1));
+        }
+
+        .pricing-card-icon.vip {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(168, 85, 247, 0.1));
+        }
+
+        .pricing-card-icon svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .pricing-card-icon.studio svg { color: var(--primary); }
+        .pricing-card-icon.vip svg { color: #A855F7; }
+
+        .pricing-card h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.6rem;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .pricing-card .tagline {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+        }
+
+        .pricing-card .price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .pricing-card .price-info {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features li i {
+            width: 20px;
+            height: 20px;
+            color: #4ADE80;
+            flex-shrink: 0;
+        }
+
+        .pricing-features li.disabled {
+            opacity: 0.5;
+        }
+
+        .pricing-features li.disabled i {
+            color: var(--text-secondary);
+        }
+
+        .pricing-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            border-radius: 14px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-btn.outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--border-light);
+        }
+
+        .pricing-btn.outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .pricing-btn.filled {
+            background: linear-gradient(135deg, var(--primary), #FF6B35);
+            color: white;
+            border: none;
+            box-shadow: 0 10px 30px rgba(232, 90, 42, 0.3);
+        }
+
+        .pricing-btn.filled:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(232, 90, 42, 0.4);
+        }
+
+        /* What's Included */
+        .whats-included {
+            max-width: 1000px;
+            margin: 0 auto 80px;
+            text-align: center;
+        }
+
+        .whats-included h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.2rem;
+            color: var(--text-primary);
+            margin-bottom: 40px;
+        }
+
+        .included-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .included-card {
+            background: var(--card-dark);
+            border-radius: 20px;
+            padding: 32px 24px;
+            border: 1px solid var(--border-light);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .included-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+
+        .included-card .icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            background: linear-gradient(135deg, rgba(232, 90, 42, 0.15), rgba(232, 90, 42, 0.05));
+        }
+
+        .included-card .icon svg {
+            width: 28px;
+            height: 28px;
+            color: var(--primary);
+        }
+
+        .included-card h4 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .included-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* FAQ */
+        .pricing-faq {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .pricing-faq h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .faq-item {
+            background: var(--card-dark);
+            border-radius: 14px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+        }
+
+        .faq-item summary {
+            padding: 20px 24px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-item summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 300;
+        }
+
+        .faq-item[open] summary::after {
+            content: '-';
+        }
+
+        .faq-item p {
+            padding: 0 24px 20px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            border-top: 1px solid var(--border-light);
+            margin-top: -1px;
+            padding-top: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .navbar-cta .btn-dashboard {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .pricing-hero {
+                padding: 80px 16px 40px;
+            }
+
+            .pricing-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .pricing-section {
+                padding: 20px 16px 60px;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 450px;
+            }
+
+            .pricing-card {
+                padding: 32px 24px;
+            }
+
+            .included-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .whats-included h2,
+            .pricing-faq h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
 <body class="has-navbar">
     <!-- Navbar -->
@@ -25,17 +413,18 @@
             </a>
 
             <ul class="navbar-menu" id="navbarMenu">
-                <li><a href="index.html">Início</a></li>
-                <li><a href="capcut-sync-pro/" style="color: var(--primary);">CapCut Sync Pro</a></li>
-                <li><a href="ferramentas.html">Ferramentas</a></li>
-                <li><a href="precos.html" class="active">Preços</a></li>
-                <li><a href="producoes.html">Produções</a></li>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="navegador.html">Navegador</a></li>
+                <li><a href="studio/">Nardoto Studio</a></li>
+                <li><a href="extensoes.html">Extensoes</a></li>
+                <li><a href="precos.html" class="active">Precos</a></li>
+                <li><a href="producoes.html">Producoes</a></li>
                 <li><a href="faq.html">FAQ</a></li>
             </ul>
 
             <div class="navbar-cta">
                 <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-dashboard">Meu Dashboard</a>
-                <a href="landing-page/cadastro.html" class="btn-primary">Teste Grátis</a>
+                <a href="precos.html" class="btn-primary">Comecar</a>
             </div>
 
             <button class="navbar-toggle" onclick="document.getElementById('navbarMenu').classList.toggle('active')">
@@ -46,222 +435,145 @@
         </div>
     </nav>
 
-    <!-- Page Header -->
-    <section class="page-header">
-        <h1>Planos e Preços</h1>
-        <p>Todas as ferramentas em um único plano. Teste grátis por 10 dias.</p>
+    <!-- Hero -->
+    <section class="pricing-hero">
+        <div class="content">
+            <h1>Planos Simples e Diretos</h1>
+            <p>Escolha o que faz sentido para voce. Acesso a ferramentas profissionais para producao de conteudo em escala.</p>
+        </div>
     </section>
 
-    <!-- Pricing Section -->
-    <section class="subscription" style="padding-top: 60px;">
-        <div class="container">
-
-            <!-- Destaque Teste Grátis -->
-            <div style="max-width: 600px; margin: 0 auto 48px; padding: 24px; background: linear-gradient(135deg, rgba(37, 211, 102, 0.15), rgba(37, 211, 102, 0.05)); border-radius: 16px; text-align: center; border: 1px solid #25D366;">
-                <span style="font-size: 2rem;">🎁</span>
-                <h3 style="color: #25D366; margin: 12px 0 8px;">Teste Grátis 10 Dias</h3>
-                <p style="color: var(--text-secondary); margin: 0;">Experimente todas as ferramentas gratuitamente antes de decidir.</p>
-                <a href="landing-page/cadastro.html" style="display: inline-block; margin-top: 16px; background: #25D366; color: white; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 600;">Começar Teste Grátis</a>
+    <!-- Pricing Cards -->
+    <section class="pricing-section">
+        <div class="pricing-grid">
+            <!-- Nardoto Studio -->
+            <div class="pricing-card">
+                <div class="pricing-card-icon studio">
+                    <i data-lucide="clapperboard"></i>
+                </div>
+                <h3>Nardoto Studio</h3>
+                <p class="tagline">App desktop para edicao</p>
+                <div class="price">R$ 1.300</div>
+                <p class="price-info">Pagamento unico - 1 ano de acesso</p>
+                <ul class="pricing-features">
+                    <li><i data-lucide="check"></i> App Nardoto Studio completo</li>
+                    <li><i data-lucide="check"></i> Sincronizacao automatica</li>
+                    <li><i data-lucide="check"></i> Insere centenas de midias</li>
+                    <li><i data-lucide="check"></i> Mescla projetos CapCut</li>
+                    <li><i data-lucide="check"></i> Importa legendas SRT</li>
+                    <li><i data-lucide="check"></i> Atualizacoes automaticas</li>
+                    <li><i data-lucide="check"></i> Suporte via WhatsApp</li>
+                    <li class="disabled"><i data-lucide="x"></i> Nardoto Browser</li>
+                    <li class="disabled"><i data-lucide="x"></i> 11 Extensoes Chrome</li>
+                </ul>
+                <a href="https://wa.me/5527999132594?text=Quero%20o%20Nardoto%20Studio" class="pricing-btn outline">Quero o Studio</a>
             </div>
 
-            <!-- Título Seção Ferramentas -->
-            <h2 class="section-title" style="text-align: center; margin-bottom: 32px;">Planos de Ferramentas</h2>
-
-            <!-- Opções de Pagamento - Ferramentas -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: 1000px; margin: 0 auto;">
-
-                <!-- Opção 1: Kiwify -->
-                <div class="subscription-card" style="text-align: center; position: relative;">
-                    <div class="subscription-header">
-                        <h3 class="subscription-name">Kiwify Checkout</h3>
-                        <div class="subscription-price">
-                            <span class="price">R$ 500</span>
-                            <span class="price-period">/mês</span>
-                        </div>
-                        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 8px;">Valor fixo por 1 ano. Cancele quando quiser.</p>
-                    </div>
-                    <div class="subscription-features" style="text-align: left; font-size: 0.95rem;">
-                        <div class="feature">💳 Cartão de crédito</div>
-                        <div class="feature">📄 Boleto bancário</div>
-                        <div class="feature">📱 Pix (via Kiwify)</div>
-                        <div class="feature" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-light);">✅ 15 extensões Chrome</div>
-                        <div class="feature">✅ 4 apps desktop</div>
-                        <div class="feature">✅ Nardoto Browser (Windows)</div>
-                        <div class="feature">✅ Atualizações automáticas</div>
-                        <div class="feature">✅ Suporte via WhatsApp</div>
-                    </div>
-                    <a href="https://pay.kiwify.com.br/oKtOAIK" target="_blank" rel="noopener" class="subscription-button primary" style="margin-top: 24px;">Assinar via Kiwify</a>
+            <!-- Pacote VIP -->
+            <div class="pricing-card featured">
+                <div class="pricing-card-icon vip">
+                    <i data-lucide="crown"></i>
                 </div>
-
-                <!-- Opção 2: Pix Direto -->
-                <div class="subscription-card featured" style="text-align: center; position: relative;">
-                    <div class="badge" style="background: var(--primary);">MELHOR PREÇO</div>
-                    <div class="subscription-header">
-                        <h3 class="subscription-name">Pix Direto</h3>
-                        <div class="subscription-price">
-                            <span class="price" style="color: var(--primary);">R$ 450</span>
-                            <span class="price-period">/mês</span>
-                        </div>
-                        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 8px;">Economize R$ 50/mês! Valor fixo por 1 ano.</p>
-                    </div>
-                    <div class="subscription-features" style="text-align: left; font-size: 0.95rem;">
-                        <div class="feature">📱 Pix direto para mim</div>
-                        <div class="feature">⚡ Liberação imediata</div>
-                        <div class="feature">💬 Atendimento pessoal</div>
-                        <div class="feature" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-light);">✅ 15 extensões Chrome</div>
-                        <div class="feature">✅ 4 apps desktop</div>
-                        <div class="feature">✅ Nardoto Browser (Windows)</div>
-                        <div class="feature">✅ Atualizações automáticas</div>
-                        <div class="feature">✅ Suporte via WhatsApp</div>
-                    </div>
-                    <a href="https://wa.me/5527999132594?text=Olá%20Nardoto!%20Quero%20assinar%20via%20Pix%20Direto%20por%20R$%20450/mês." target="_blank" rel="noopener" class="subscription-button primary" style="margin-top: 24px;">Pagar via Pix</a>
-                </div>
-
+                <h3>Pacote VIP Completo</h3>
+                <p class="tagline">Acesso a tudo</p>
+                <div class="price">R$ 500</div>
+                <p class="price-info">por mes - acesso completo</p>
+                <ul class="pricing-features">
+                    <li><i data-lucide="check"></i> <strong>Nardoto Browser</strong></li>
+                    <li><i data-lucide="check"></i> <strong>Nardoto Studio</strong></li>
+                    <li><i data-lucide="check"></i> <strong>11 Extensoes Chrome</strong></li>
+                    <li><i data-lucide="check"></i> VEO3, Grok, Meta AI, Wisk</li>
+                    <li><i data-lucide="check"></i> Claude, GPT, Gemini</li>
+                    <li><i data-lucide="check"></i> Suno, Google TTS</li>
+                    <li><i data-lucide="check"></i> Atualizacoes automaticas</li>
+                    <li><i data-lucide="check"></i> Suporte prioritario</li>
+                </ul>
+                <a href="https://wa.me/5527999132594?text=Quero%20o%20Pacote%20VIP%20Completo" class="pricing-btn filled">Quero o VIP</a>
             </div>
+        </div>
 
-            <!-- Seção Pacotes com CapCut Sync Pro -->
-            <div style="margin-top: 80px;">
-                <h2 class="section-title" style="text-align: center; margin-bottom: 16px;">Pacotes com CapCut Sync Pro</h2>
-                <p style="text-align: center; color: var(--text-secondary); max-width: 600px; margin: 0 auto 32px;">Monte vídeos completos sem abrir o CapCut. De 2-4 horas para 5-15 minutos. <a href="capcut-sync-pro/" style="color: var(--primary);">Saiba mais →</a></p>
-
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 1200px; margin: 0 auto;">
-
-                    <!-- Pacote App + Ferramentas -->
-                    <div class="subscription-card featured" style="text-align: center; position: relative;">
-                        <div class="badge" style="background: linear-gradient(135deg, var(--primary), #FF6B35);">VITRINE</div>
-                        <div class="subscription-header">
-                            <h3 class="subscription-name">Pacote Completo</h3>
-                            <div class="subscription-price">
-                                <span class="price" style="color: var(--primary);">R$ 1.300</span>
-                                <span class="price-period">único</span>
-                            </div>
-                            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 8px;">1 ano de acesso completo</p>
-                        </div>
-                        <div class="subscription-features" style="text-align: left; font-size: 0.95rem;">
-                            <div class="feature">🎬 <strong>CapCut Sync Pro (1 ano)</strong></div>
-                            <div class="feature">⚡ Monte vídeos sem abrir o CapCut</div>
-                            <div class="feature" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-light);">✅ 15 extensões Chrome</div>
-                            <div class="feature">✅ 4 apps desktop</div>
-                            <div class="feature">✅ Nardoto Browser</div>
-                            <div class="feature">✅ Suporte via WhatsApp</div>
-                        </div>
-                        <a href="https://wa.me/5527999132594?text=Olá%20Nardoto!%20Quero%20o%20Pacote%20Completo%20com%20CapCut%20Sync%20Pro%20por%20R$%201.300" target="_blank" rel="noopener" class="subscription-button primary" style="margin-top: 24px;">Quero esse pacote</a>
+        <!-- What's Included -->
+        <div class="whats-included">
+            <h2>O que esta incluido no VIP</h2>
+            <div class="included-grid">
+                <div class="included-card">
+                    <div class="icon">
+                        <i data-lucide="globe"></i>
                     </div>
+                    <h4>Nardoto Browser</h4>
+                    <p>Navegador com todas as extensoes pre-instaladas e atualizacoes automaticas</p>
+                </div>
 
-                    <!-- Pacote com Mentoria -->
-                    <div class="subscription-card" style="text-align: center; position: relative;">
-                        <div class="subscription-header">
-                            <h3 class="subscription-name">Pacote com Mentoria</h3>
-                            <div class="subscription-price">
-                                <span class="price">R$ 1.700</span>
-                                <span class="price-period">único</span>
-                            </div>
-                            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 8px;">Pacote Completo + 2h de mentoria</p>
-                        </div>
-                        <div class="subscription-features" style="text-align: left; font-size: 0.95rem;">
-                            <div class="feature">👨‍🏫 <strong>2h de mentoria individual</strong></div>
-                            <div class="feature">📅 Pode dividir em 2 encontros de 1h</div>
-                            <div class="feature">📊 Análise do seu fluxo de trabalho</div>
-                            <div class="feature">🎯 Indicação das melhores extensões</div>
-                            <div class="feature" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-light);">🎬 CapCut Sync Pro (1 ano)</div>
-                            <div class="feature">✅ Todas as ferramentas inclusas</div>
-                        </div>
-                        <a href="https://wa.me/5527999132594?text=Olá%20Nardoto!%20Quero%20o%20Pacote%20com%20Mentoria%20de%20R$%201.700." target="_blank" rel="noopener" class="subscription-button primary" style="margin-top: 24px;">Quero com Mentoria</a>
+                <div class="included-card">
+                    <div class="icon">
+                        <i data-lucide="clapperboard"></i>
                     </div>
+                    <h4>Nardoto Studio</h4>
+                    <p>App desktop para montar videos completos sem abrir o CapCut</p>
+                </div>
 
-                    <!-- Mentoria Avulsa -->
-                    <div class="subscription-card" style="text-align: center; position: relative;">
-                        <div class="subscription-header">
-                            <h3 class="subscription-name">Mentoria Avulsa</h3>
-                            <div class="subscription-price">
-                                <span class="price">R$ 400</span>
-                                <span class="price-period">/chamada</span>
-                            </div>
-                            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 8px;">1 hora de consultoria individual</p>
-                        </div>
-                        <div class="subscription-features" style="text-align: left; font-size: 0.95rem;">
-                            <div class="feature">🎯 Análise do seu fluxo de trabalho</div>
-                            <div class="feature">💡 Indicação da melhor extensão</div>
-                            <div class="feature">⚙️ Possibilidade de criar novas funções</div>
-                            <div class="feature">🛠️ Criação de extensão personalizada*</div>
-                            <p style="color: var(--text-secondary); font-size: 0.75rem; margin-top: 12px; font-style: italic;">*Dependendo da complexidade</p>
-                        </div>
-                        <a href="https://wa.me/5527999132594?text=Olá%20Nardoto!%20Quero%20agendar%20uma%20Mentoria%20Avulsa%20de%201h%20por%20R$%20400." target="_blank" rel="noopener" class="subscription-button primary" style="margin-top: 24px;">Agendar Mentoria</a>
+                <div class="included-card">
+                    <div class="icon">
+                        <i data-lucide="puzzle"></i>
                     </div>
+                    <h4>11 Extensoes</h4>
+                    <p>VEO3, Grok, Meta AI, Wisk, Claude, GPT, Gemini, Suno e mais</p>
+                </div>
 
+                <div class="included-card">
+                    <div class="icon">
+                        <i data-lucide="refresh-cw"></i>
+                    </div>
+                    <h4>Atualizacoes</h4>
+                    <p>Novas features e correcoes automaticas em todos os produtos</p>
+                </div>
+
+                <div class="included-card">
+                    <div class="icon">
+                        <i data-lucide="headphones"></i>
+                    </div>
+                    <h4>Suporte Direto</h4>
+                    <p>Fale comigo direto no WhatsApp, sem intermediarios</p>
+                </div>
+
+                <div class="included-card">
+                    <div class="icon">
+                        <i data-lucide="video"></i>
+                    </div>
+                    <h4>Tutoriais</h4>
+                    <p>Videos ensinando a usar cada ferramenta do ecossistema</p>
                 </div>
             </div>
+        </div>
 
-            <!-- O que está incluído -->
-            <div style="max-width: 800px; margin: 64px auto 0;">
-                <h2 class="section-title" style="text-align: center; margin-bottom: 32px;">O que está incluído</h2>
+        <!-- FAQ -->
+        <div class="pricing-faq">
+            <h2>Perguntas sobre precos</h2>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px;">
-                    <div style="background: var(--card-dark); padding: 24px; border-radius: 16px; text-align: center;">
-                        <span style="font-size: 2rem;">🧩</span>
-                        <h4 style="margin: 12px 0 8px; color: var(--text-primary);">15 Extensões</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0;">VEO3, Grok, Meta AI, Wisk, Suno, CapCut, Claude, GPT e mais</p>
-                    </div>
+            <details class="faq-item">
+                <summary>O valor muda depois de 1 ano?</summary>
+                <p>O valor que voce assinar hoje fica fixo por 1 ano. Depois disso, renovamos pelo valor vigente (vou te avisar antes).</p>
+            </details>
 
-                    <div style="background: var(--card-dark); padding: 24px; border-radius: 16px; text-align: center;">
-                        <span style="font-size: 2rem;">💻</span>
-                        <h4 style="margin: 12px 0 8px; color: var(--text-primary);">4 Apps Desktop</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0;">Otimizador Gold, VEO3 Loopless e mais</p>
-                    </div>
+            <details class="faq-item">
+                <summary>Posso cancelar quando quiser?</summary>
+                <p>Sim! Voce pode cancelar a qualquer momento. O acesso continua ate o fim do periodo pago.</p>
+            </details>
 
-                    <div style="background: var(--card-dark); padding: 24px; border-radius: 16px; text-align: center;">
-                        <span style="font-size: 2rem;">🌐</span>
-                        <h4 style="margin: 12px 0 8px; color: var(--text-primary);">Nardoto Browser</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0;">Navegador com tudo instalado</p>
-                    </div>
+            <details class="faq-item">
+                <summary>Qual a forma de pagamento?</summary>
+                <p>Aceito Pix, cartao de credito e boleto. O Pix direto para mim tem melhor preco porque nao tem intermediario.</p>
+            </details>
 
-                    <div style="background: var(--card-dark); padding: 24px; border-radius: 16px; text-align: center;">
-                        <span style="font-size: 2rem;">🔄</span>
-                        <h4 style="margin: 12px 0 8px; color: var(--text-primary);">Atualizações</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0;">Automáticas e gratuitas</p>
-                    </div>
+            <details class="faq-item">
+                <summary>Funciona em Mac ou so Windows?</summary>
+                <p>O Nardoto Browser e o Nardoto Studio funcionam apenas em Windows. As extensoes Chrome funcionam em qualquer sistema.</p>
+            </details>
 
-                    <div style="background: var(--card-dark); padding: 24px; border-radius: 16px; text-align: center;">
-                        <span style="font-size: 2rem;">💬</span>
-                        <h4 style="margin: 12px 0 8px; color: var(--text-primary);">Suporte Direto</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0;">Via WhatsApp comigo</p>
-                    </div>
-
-                    <div style="background: var(--card-dark); padding: 24px; border-radius: 16px; text-align: center;">
-                        <span style="font-size: 2rem;">📺</span>
-                        <h4 style="margin: 12px 0 8px; color: var(--text-primary);">Tutoriais</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0;">Vídeos de como usar cada ferramenta</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ Preços -->
-            <div style="max-width: 700px; margin: 80px auto 0;">
-                <h2 class="section-title" style="text-align: center; margin-bottom: 32px;">Perguntas sobre preços</h2>
-
-                <div style="display: flex; flex-direction: column; gap: 16px;">
-                    <details style="background: var(--card-dark); border-radius: 12px; padding: 20px;">
-                        <summary style="cursor: pointer; font-weight: 600; color: var(--text-primary);">O valor muda depois de 1 ano?</summary>
-                        <p style="color: var(--text-secondary); margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-light);">O valor que você assinar hoje fica fixo por 1 ano. Depois disso, renovamos pelo valor vigente (vou te avisar antes).</p>
-                    </details>
-
-                    <details style="background: var(--card-dark); border-radius: 12px; padding: 20px;">
-                        <summary style="cursor: pointer; font-weight: 600; color: var(--text-primary);">Posso cancelar quando quiser?</summary>
-                        <p style="color: var(--text-secondary); margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-light);">Sim! Você pode cancelar a qualquer momento. O acesso continua até o fim do período pago.</p>
-                    </details>
-
-                    <details style="background: var(--card-dark); border-radius: 12px; padding: 20px;">
-                        <summary style="cursor: pointer; font-weight: 600; color: var(--text-primary);">O teste grátis pede cartão?</summary>
-                        <p style="color: var(--text-secondary); margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-light);">Não! O teste de 10 dias é totalmente gratuito. Você só paga se decidir continuar depois.</p>
-                    </details>
-
-                    <details style="background: var(--card-dark); border-radius: 12px; padding: 20px;">
-                        <summary style="cursor: pointer; font-weight: 600; color: var(--text-primary);">Qual a diferença entre Kiwify e Pix Direto?</summary>
-                        <p style="color: var(--text-secondary); margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-light);">Kiwify aceita cartão e boleto, mas cobra taxas (por isso é R$ 500). Pix direto para mim é R$ 450 porque não tem intermediário.</p>
-                    </details>
-                </div>
-            </div>
-
+            <details class="faq-item">
+                <summary>Como recebo acesso apos o pagamento?</summary>
+                <p>Apos confirmar o pagamento via WhatsApp, libero seu acesso na hora. Voce recebe o link de download e instrucoes por la mesmo.</p>
+            </details>
         </div>
     </section>
 
@@ -274,35 +586,40 @@
                         <img src="favicon.png" alt="Nardoto">
                         <span>Nardoto</span>
                     </a>
-                    <p>Automatize sua produção de conteúdo para YouTube com extensões Chrome + IA. Economize 20+ horas por semana.</p>
-                    <div class="footer-social">
-                        <a href="https://youtube.com/@nardoto" target="_blank" title="YouTube">📺</a>
-                        <a href="https://wa.me/5527999132594" target="_blank" title="WhatsApp">💬</a>
-                    </div>
+                    <p>Ferramentas profissionais para criadores de conteudo em escala.</p>
                 </div>
 
                 <div class="footer-column">
                     <h4>Produtos</h4>
                     <ul>
-                        <li><a href="ferramentas.html">Extensões</a></li>
                         <li><a href="navegador.html">Nardoto Browser</a></li>
-                        <li><a href="precos.html">Planos e Preços</a></li>
+                        <li><a href="studio/">Nardoto Studio</a></li>
+                        <li><a href="extensoes.html">Extensoes</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Recursos</h4>
+                    <ul>
+                        <li><a href="producoes.html">Producoes</a></li>
+                        <li><a href="precos.html">Precos</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-column">
                     <h4>Suporte</h4>
                     <ul>
-                        <li><a href="faq.html">Perguntas Frequentes</a></li>
-                        <li><a href="https://wa.me/5527999132594" target="_blank">Falar no WhatsApp</a></li>
+                        <li><a href="https://wa.me/5527999132594" target="_blank">WhatsApp</a></li>
+                        <li><a href="mailto:tharcisionardoto@gmail.com">Email</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-column">
-                    <h4>Começar</h4>
+                    <h4>Legal</h4>
                     <ul>
-                        <li><a href="landing-page/cadastro.html">Teste Grátis 10 Dias</a></li>
-                        <li><a href="navegador.html">Baixar Navegador</a></li>
+                        <li><a href="termos.html">Termos de Uso</a></li>
+                        <li><a href="privacidade.html">Privacidade</a></li>
                     </ul>
                 </div>
             </div>
@@ -316,5 +633,9 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>

@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ferramentas de automação para criadores de conteúdo. 15 extensões Chrome + 4 apps para produzir vídeos com IA.">
+    <meta name="description" content="Nardoto - Ecossistema completo para criadores de conteudo. Navegador otimizado + App de edicao + 11 extensoes de automacao.">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://nardoto.com.br/">
-    <meta property="og:title" content="Nardoto - Ferramentas de Automação para Criadores">
-    <meta property="og:description" content="15 extensões Chrome + 4 apps para automatizar produção de vídeos com IA.">
+    <meta property="og:title" content="Nardoto - Producao de Conteudo em Escala">
+    <meta property="og:description" content="Navegador + App Desktop + Extensoes para criadores de conteudo profissionais.">
     <meta property="og:image" content="https://nardoto.com.br/favicon.png">
 
     <!-- Favicon -->
@@ -17,12 +17,11 @@
     <link rel="apple-touch-icon" href="favicon.png">
 
     <meta name="theme-color" content="#E85A2A">
-    <title>Nardoto - Ferramentas de Automação para Criadores de Conteúdo</title>
+    <title>Nardoto - Producao de Conteudo em Escala</title>
     <link rel="stylesheet" href="landing-page/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         /* Dashboard Button */
@@ -43,26 +42,98 @@
             color: var(--primary);
         }
 
-        /* Homepage Styles */
-        .home-hero {
-            padding: 100px 20px 80px;
+        /* New Hero Section */
+        .hero-new {
+            padding: 120px 20px 100px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .home-hero h1 {
+        .hero-new::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(232, 90, 42, 0.2) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-new .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(232, 90, 42, 0.2), rgba(232, 90, 42, 0.1));
+            border: 1px solid rgba(232, 90, 42, 0.3);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 28px;
+        }
+
+        .hero-new h1 {
             font-family: 'DM Serif Display', serif;
-            font-size: 3.5rem;
+            font-size: 4rem;
             color: var(--text-primary);
-            margin-bottom: 20px;
-            line-height: 1.2;
+            margin-bottom: 24px;
+            line-height: 1.1;
         }
 
-        .home-hero p {
-            font-size: 1.25rem;
+        .hero-new h1 span {
+            background: linear-gradient(135deg, var(--primary), #FF8C5A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-new .subtitle {
+            font-size: 1.35rem;
             color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 40px;
+            max-width: 700px;
+            margin: 0 auto 20px;
             line-height: 1.7;
+        }
+
+        .hero-products-preview {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .product-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-light);
+            border-radius: 30px;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .product-tag:hover {
+            border-color: var(--primary);
+            background: rgba(232, 90, 42, 0.1);
+        }
+
+        .product-tag i {
+            color: var(--primary);
         }
 
         .hero-buttons {
@@ -73,26 +144,29 @@
         }
 
         .hero-buttons .btn-primary {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), #FF6B35);
             color: white;
-            padding: 16px 32px;
+            padding: 18px 40px;
             border-radius: 12px;
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 1.1rem;
             text-decoration: none;
             transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(232, 90, 42, 0.3);
         }
 
         .hero-buttons .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(232, 90, 42, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(232, 90, 42, 0.4);
         }
 
         .hero-buttons .btn-secondary {
             background: transparent;
             color: var(--text-primary);
-            padding: 16px 32px;
+            padding: 18px 40px;
             border-radius: 12px;
             font-weight: 600;
+            font-size: 1.1rem;
             text-decoration: none;
             border: 2px solid var(--border-light);
             transition: all 0.3s ease;
@@ -103,360 +177,211 @@
             color: var(--primary);
         }
 
-        /* Preview Cards Section */
-        .preview-section {
-            padding: 60px 20px 80px;
+        /* Products Section */
+        .products-section {
+            padding: 100px 20px;
             background: var(--card-dark);
         }
 
-        .preview-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            max-width: 1100px;
+        .products-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .products-header h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.8rem;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .products-header p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 600px;
             margin: 0 auto;
         }
 
-        .preview-card {
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
             background: var(--bg-dark);
-            border-radius: 20px;
-            padding: 32px;
+            border-radius: 24px;
+            padding: 40px 32px;
             border: 1px solid var(--border-light);
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             text-decoration: none;
-            display: block;
+            display: flex;
+            flex-direction: column;
             position: relative;
             overflow: hidden;
         }
 
-        .preview-card::before {
+        .product-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, var(--primary), #ff8c5a);
+            background: linear-gradient(90deg, var(--primary), #FF8C5A);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
 
-        .preview-card:hover {
+        .product-card:hover {
             border-color: var(--primary);
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(232, 90, 42, 0.15);
+            transform: translateY(-12px);
+            box-shadow: 0 30px 60px rgba(232, 90, 42, 0.2);
         }
 
-        .preview-card:hover::before {
+        .product-card:hover::before {
             opacity: 1;
         }
 
-        .preview-card .icon-wrapper {
-            width: 56px;
-            height: 56px;
-            border-radius: 14px;
-            background: linear-gradient(135deg, rgba(232, 90, 42, 0.15) 0%, rgba(232, 90, 42, 0.05) 100%);
+        .product-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+            width: fit-content;
+        }
+
+        .product-badge.browser {
+            background: rgba(59, 130, 246, 0.15);
+            color: #60A5FA;
+        }
+
+        .product-badge.studio {
+            background: rgba(232, 90, 42, 0.15);
+            color: var(--primary);
+        }
+
+        .product-badge.extensions {
+            background: rgba(34, 197, 94, 0.15);
+            color: #4ADE80;
+        }
+
+        .product-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             transition: all 0.3s ease;
         }
 
-        .preview-card:hover .icon-wrapper {
-            background: linear-gradient(135deg, var(--primary) 0%, #ff8c5a 100%);
-            transform: scale(1.05);
+        .product-icon.browser {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(59, 130, 246, 0.1));
         }
 
-        .preview-card .icon-wrapper svg {
-            width: 28px;
-            height: 28px;
-            color: var(--primary);
-            stroke-width: 2;
-            transition: color 0.3s ease;
+        .product-icon.studio {
+            background: linear-gradient(135deg, rgba(232, 90, 42, 0.2), rgba(232, 90, 42, 0.1));
         }
 
-        .preview-card:hover .icon-wrapper svg {
-            color: white;
+        .product-icon.extensions {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.1));
         }
 
-        .preview-card h3 {
+        .product-card:hover .product-icon {
+            transform: scale(1.1);
+        }
+
+        .product-icon svg {
+            width: 36px;
+            height: 36px;
+        }
+
+        .product-icon.browser svg { color: #60A5FA; }
+        .product-icon.studio svg { color: var(--primary); }
+        .product-icon.extensions svg { color: #4ADE80; }
+
+        .product-card h3 {
             font-family: 'DM Serif Display', serif;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: var(--text-primary);
             margin-bottom: 12px;
         }
 
-        .preview-card p {
+        .product-card .tagline {
+            font-size: 1.05rem;
             color: var(--text-secondary);
-            font-size: 0.95rem;
+            margin-bottom: 20px;
             line-height: 1.6;
-            margin-bottom: 16px;
         }
 
-        .preview-card .link {
+        .product-features {
+            list-style: none;
+            margin-bottom: 28px;
+            flex-grow: 1;
+        }
+
+        .product-features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .product-features li::before {
+            content: '✓';
             color: var(--primary);
-            font-weight: 600;
-            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .product-cta {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1rem;
             transition: gap 0.2s ease;
         }
 
-        .preview-card:hover .link {
-            gap: 10px;
-        }
-
-        .preview-card.featured {
-            border: 2px solid var(--primary);
-            background: linear-gradient(135deg, rgba(232, 90, 42, 0.1) 0%, var(--bg-dark) 100%);
-        }
-
-        .preview-card.featured::before {
-            opacity: 1;
+        .product-card:hover .product-cta {
+            gap: 14px;
         }
 
         /* Stats Section */
         .stats-section {
-            padding: 60px 20px;
+            padding: 80px 20px;
             background: var(--bg-dark);
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 32px;
-            max-width: 900px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            max-width: 1000px;
             margin: 0 auto;
             text-align: center;
         }
 
         .stat-item .number {
             font-family: 'DM Serif Display', serif;
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: var(--primary);
             margin-bottom: 8px;
         }
 
         .stat-item .label {
             color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        /* Final CTA */
-        .final-cta {
-            padding: 80px 20px;
-            background: linear-gradient(135deg, var(--card-dark) 0%, var(--bg-dark) 100%);
-            text-align: center;
-        }
-
-        .final-cta h2 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 2.5rem;
-            color: var(--text-primary);
-            margin-bottom: 16px;
-        }
-
-        .final-cta p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            margin-bottom: 32px;
-        }
-
-        /* Workflow Section */
-        .workflow-section {
-            padding: 80px 20px;
-            background: linear-gradient(135deg, #fff9f6 0%, #f5f5f5 100%);
-        }
-
-        .workflow-section .container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .workflow-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-            margin-top: 48px;
-        }
-
-        .workflow-column {
-            background: white;
-            border-radius: 24px;
-            padding: 32px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-        }
-
-        .workflow-header {
-            text-align: center;
-            margin-bottom: 28px;
-        }
-
-        .workflow-header h3 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.5rem;
-            color: #1a1a1a;
-            margin-bottom: 12px;
-        }
-
-        .workflow-badge {
-            display: inline-block;
-            padding: 6px 16px;
-            background: rgba(232, 90, 42, 0.1);
-            color: var(--primary);
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .workflow-badge.highlight {
-            background: var(--primary);
-            color: white;
-        }
-
-        .workflow-steps {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0;
-        }
-
-        .workflow-step {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            width: 180px;
-            height: 100px;
-            padding: 14px 20px;
-            background: linear-gradient(145deg, #ffffff, #f0f0f0);
-            border-radius: 50px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: 3px solid #e0e0e0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .workflow-step:hover {
-            background: linear-gradient(145deg, #fff5f0, #ffe8dd);
-            border-color: var(--primary);
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(232, 90, 42, 0.2);
-        }
-
-        .workflow-step.final {
-            background: linear-gradient(145deg, #fff5f0, #ffe0d0);
-            border: 3px solid var(--primary);
-        }
-
-        .step-icons {
-            display: flex;
-            gap: 4px;
-            flex-shrink: 0;
-            justify-content: center;
-            margin-bottom: 8px;
-        }
-
-        .step-icons img {
-            width: 28px;
-            height: 28px;
-            border-radius: 6px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-        }
-
-        .step-icons.single img {
-            width: 36px;
-            height: 36px;
-        }
-
-        .step-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .step-content h4 {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 2px;
-            line-height: 1.2;
-        }
-
-        .step-content p {
-            font-size: 0.7rem;
-            color: #666;
-            margin: 0;
-            line-height: 1.3;
-        }
-
-        .step-arrow {
-            display: none;
-        }
-
-        .step-check {
-            position: absolute;
-            bottom: -4px;
-            right: -4px;
-            font-size: 1.2rem;
-            color: #22c55e;
-            background: white;
-            border-radius: 50%;
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .workflow-step.final {
-            position: relative;
-        }
-
-        .workflow-connector {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 8px 0;
-        }
-
-        .connector-line {
-            width: 3px;
-            height: 20px;
-            background: linear-gradient(to bottom, #ddd, var(--primary));
-            border-radius: 2px;
-        }
-
-        .connector-arrow {
-            color: var(--primary);
-            font-size: 1.1rem;
-            font-weight: bold;
-        }
-
-        .workflow-cta {
-            text-align: center;
-            margin-top: 48px;
-        }
-
-        .btn-workflow {
-            display: inline-block;
-            padding: 16px 36px;
-            background: var(--primary);
-            color: white;
-            font-weight: 600;
-            border-radius: 50px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .btn-workflow:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(232, 90, 42, 0.3);
+            font-size: 1rem;
         }
 
         /* Testimonials Section */
@@ -465,12 +390,29 @@
             background: var(--card-dark);
         }
 
+        .testimonials-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .testimonials-header h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .testimonials-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
             max-width: 1100px;
-            margin: 40px auto 0;
+            margin: 0 auto;
         }
 
         .testimonial-card {
@@ -492,205 +434,242 @@
             display: block;
         }
 
-        /* Esconder botão dashboard no mobile */
+        /* Pricing Preview Section */
+        .pricing-preview {
+            padding: 100px 20px;
+            background: var(--bg-dark);
+            position: relative;
+        }
+
+        .pricing-preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(232, 90, 42, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .pricing-header h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .pricing-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .pricing-card {
+            background: var(--card-dark);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-8px);
+        }
+
+        .pricing-card.featured {
+            border: 2px solid var(--primary);
+            position: relative;
+        }
+
+        .pricing-card.featured::before {
+            content: 'RECOMENDADO';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .pricing-card h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .pricing-card .price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .pricing-card .price-info {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            margin-bottom: 28px;
+        }
+
+        .pricing-card ul li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .pricing-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-card ul li::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .pricing-card .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--border-light);
+        }
+
+        .pricing-card .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .pricing-card .btn-filled {
+            background: var(--primary);
+            color: white;
+        }
+
+        .pricing-card .btn-filled:hover {
+            background: #FF6B35;
+            transform: translateY(-2px);
+        }
+
+        .pricing-cta {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .pricing-cta a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.2s ease;
+        }
+
+        .pricing-cta a:hover {
+            color: var(--primary);
+        }
+
+        /* Final CTA */
+        .final-cta {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, var(--card-dark) 0%, var(--bg-dark) 100%);
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.8rem;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .final-cta p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Esconder botao dashboard no mobile */
         @media (max-width: 900px) {
             .navbar-cta .btn-dashboard {
                 display: none;
             }
         }
 
-        /* Tablet (768px) */
-        @media (max-width: 768px) {
-            .home-hero {
-                padding: 80px 16px 60px;
-            }
-
-            .home-hero h1 {
-                font-size: 2rem;
-                line-height: 1.25;
-            }
-
-            .home-hero p {
-                font-size: 1rem;
-                margin-bottom: 28px;
-            }
-
-            .hero-buttons {
-                gap: 12px;
-            }
-
-            .hero-buttons .btn-primary,
-            .hero-buttons .btn-secondary {
-                padding: 14px 24px;
-                font-size: 0.95rem;
-            }
-
-            .preview-section {
-                padding: 40px 16px 50px;
-            }
-
-            .preview-grid {
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .products-grid {
                 grid-template-columns: 1fr;
-                gap: 16px;
+                max-width: 500px;
             }
 
-            .preview-card {
-                padding: 24px;
-                border-radius: 16px;
-            }
-
-            .preview-card .icon-wrapper {
-                width: 48px;
-                height: 48px;
-                border-radius: 12px;
-                margin-bottom: 14px;
-            }
-
-            .preview-card .icon-wrapper svg {
-                width: 24px;
-                height: 24px;
-            }
-
-            .preview-card h3 {
-                font-size: 1.25rem;
-                margin-bottom: 8px;
-            }
-
-            .preview-card p {
-                font-size: 0.9rem;
-                margin-bottom: 12px;
-            }
-
-            .stats-section {
-                padding: 40px 16px;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
-
-            .stat-item .number {
-                font-size: 1.8rem;
-            }
-
-            .stat-item .label {
-                font-size: 0.85rem;
-            }
-
-            .workflow-section {
-                padding: 50px 16px;
-            }
-
-            .workflow-grid {
+            .pricing-cards {
                 grid-template-columns: 1fr;
-                gap: 24px;
-                margin-top: 32px;
-            }
-
-            .workflow-column {
-                padding: 20px 14px;
-                border-radius: 20px;
-            }
-
-            .workflow-header {
-                margin-bottom: 20px;
-            }
-
-            .workflow-header h3 {
-                font-size: 1.2rem;
-                margin-bottom: 10px;
-            }
-
-            .workflow-badge {
-                font-size: 0.75rem;
-                padding: 5px 12px;
-            }
-
-            .workflow-step {
-                width: 140px;
-                height: 78px;
-                padding: 10px 14px;
-                border-radius: 40px;
-            }
-
-            .step-icons img {
-                width: 22px;
-                height: 22px;
-            }
-
-            .step-icons.single img {
-                width: 28px;
-                height: 28px;
-            }
-
-            .step-content h4 {
-                font-size: 0.7rem;
-            }
-
-            .step-content p {
-                font-size: 0.6rem;
-            }
-
-            .workflow-connector {
-                padding: 6px 0;
-            }
-
-            .connector-line {
-                height: 16px;
-            }
-
-            .workflow-cta {
-                margin-top: 32px;
-            }
-
-            .btn-workflow {
-                padding: 14px 28px;
-                font-size: 0.95rem;
-            }
-
-            .testimonials {
-                padding: 50px 16px;
-            }
-
-            .testimonials-grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
-                margin-top: 28px;
-            }
-
-            .testimonial-card {
-                border-radius: 12px;
-            }
-
-            .final-cta {
-                padding: 50px 16px;
-            }
-
-            .final-cta h2 {
-                font-size: 1.75rem;
-                margin-bottom: 12px;
-            }
-
-            .final-cta p {
-                font-size: 0.95rem;
-                margin-bottom: 24px;
+                max-width: 450px;
             }
         }
 
-        /* Mobile pequeno (480px) */
-        @media (max-width: 480px) {
-            .home-hero {
-                padding: 70px 14px 50px;
+        @media (max-width: 768px) {
+            .hero-new {
+                padding: 80px 16px 60px;
             }
 
-            .home-hero h1 {
-                font-size: 1.65rem;
+            .hero-new h1 {
+                font-size: 2.2rem;
             }
 
-            .home-hero p {
-                font-size: 0.9rem;
-                line-height: 1.6;
+            .hero-new .subtitle {
+                font-size: 1.05rem;
+            }
+
+            .hero-products-preview {
+                gap: 10px;
+            }
+
+            .product-tag {
+                padding: 8px 14px;
+                font-size: 0.85rem;
             }
 
             .hero-buttons {
@@ -701,59 +680,73 @@
             .hero-buttons .btn-primary,
             .hero-buttons .btn-secondary {
                 width: 100%;
-                text-align: center;
-                padding: 14px 20px;
+                max-width: 320px;
+                margin: 0 auto;
             }
 
-            .preview-card {
-                padding: 20px;
+            .products-section {
+                padding: 60px 16px;
             }
 
-            .preview-card h3 {
-                font-size: 1.15rem;
+            .products-header h2 {
+                font-size: 2rem;
             }
 
-            .preview-card p {
-                font-size: 0.85rem;
+            .product-card {
+                padding: 28px 24px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
             }
 
             .stat-item .number {
-                font-size: 1.5rem;
+                font-size: 2rem;
             }
 
-            .stat-item .label {
-                font-size: 0.8rem;
+            .pricing-preview {
+                padding: 60px 16px;
             }
 
-            .workflow-step {
-                width: 125px;
-                height: 72px;
+            .pricing-header h2 {
+                font-size: 2rem;
             }
 
-            .step-icons img {
-                width: 20px;
-                height: 20px;
-            }
-
-            .step-icons.single img {
-                width: 24px;
-                height: 24px;
-            }
-
-            .step-content h4 {
-                font-size: 0.65rem;
-            }
-
-            .step-content p {
-                font-size: 0.55rem;
+            .final-cta {
+                padding: 60px 16px;
             }
 
             .final-cta h2 {
-                font-size: 1.5rem;
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-new h1 {
+                font-size: 1.8rem;
             }
 
-            .final-cta p {
-                font-size: 0.9rem;
+            .hero-products-preview {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .product-tag {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+
+            .products-header h2,
+            .testimonials-header h2,
+            .pricing-header h2,
+            .final-cta h2 {
+                font-size: 1.7rem;
+            }
+
+            .product-card h3 {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -768,17 +761,18 @@
             </a>
 
             <ul class="navbar-menu" id="navbarMenu">
-                <li><a href="index.html" class="active">Início</a></li>
-                <li><a href="capcut-sync-pro/" style="color: var(--primary);">CapCut Sync Pro</a></li>
-                <li><a href="ferramentas.html">Ferramentas</a></li>
-                <li><a href="precos.html">Preços</a></li>
-                <li><a href="producoes.html">Produções</a></li>
+                <li><a href="index.html" class="active">Inicio</a></li>
+                <li><a href="navegador.html">Navegador</a></li>
+                <li><a href="studio/">Nardoto Studio</a></li>
+                <li><a href="extensoes.html">Extensoes</a></li>
+                <li><a href="precos.html">Precos</a></li>
+                <li><a href="producoes.html">Producoes</a></li>
                 <li><a href="faq.html">FAQ</a></li>
             </ul>
 
             <div class="navbar-cta">
                 <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-dashboard">Meu Dashboard</a>
-                <a href="landing-page/cadastro.html" class="btn-primary">Teste Grátis</a>
+                <a href="precos.html" class="btn-primary">Comecar</a>
             </div>
 
             <button class="navbar-toggle" onclick="document.getElementById('navbarMenu').classList.toggle('active')">
@@ -790,52 +784,99 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="home-hero">
-        <h1>Ferramentas de Automação<br>para Criadores de Conteúdo</h1>
-        <p>15 extensões Chrome + 4 aplicativos para automatizar sua produção de vídeos com IA. Envie prompts em massa, baixe automaticamente e foque no que importa: criar.</p>
-        <div class="hero-buttons">
-            <a href="landing-page/cadastro.html" class="btn-primary">Teste Grátis 10 Dias</a>
-            <a href="ferramentas.html" class="btn-secondary">Ver Ferramentas</a>
+    <section class="hero-new">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i data-lucide="sparkles" style="width: 16px; height: 16px;"></i>
+                Ecossistema completo para criadores
+            </div>
+
+            <h1>Producao de Conteudo<br><span>em Escala</span></h1>
+
+            <p class="subtitle">
+                Navegador otimizado + App de edicao + Extensoes de automacao.
+                Tudo que voce precisa para produzir videos profissionais com IA.
+            </p>
+
+            <div class="hero-products-preview">
+                <div class="product-tag">
+                    <i data-lucide="globe" style="width: 18px; height: 18px;"></i>
+                    Nardoto Browser
+                </div>
+                <div class="product-tag">
+                    <i data-lucide="clapperboard" style="width: 18px; height: 18px;"></i>
+                    Nardoto Studio
+                </div>
+                <div class="product-tag">
+                    <i data-lucide="puzzle" style="width: 18px; height: 18px;"></i>
+                    11 Extensoes
+                </div>
+            </div>
+
+            <div class="hero-buttons">
+                <a href="precos.html" class="btn-primary">Ver Planos</a>
+                <a href="producoes.html" class="btn-secondary">Ver Producoes</a>
+            </div>
         </div>
     </section>
 
-    <!-- Preview Cards -->
-    <section class="preview-section">
-        <div class="preview-grid">
-            <a href="ferramentas.html" class="preview-card">
-                <div class="icon-wrapper">
-                    <i data-lucide="puzzle"></i>
-                </div>
-                <h3>15 Extensões + 4 Apps</h3>
-                <p>VEO3, Grok, Meta AI, Wisk, Suno, CapCut, Claude, GPT, Gemini e mais. Todas as ferramentas para produzir vídeos em escala.</p>
-                <span class="link">Ver todas as ferramentas →</span>
-            </a>
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="products-header">
+            <h2>Tres Produtos, Um Objetivo</h2>
+            <p>Cada ferramenta foi criada para resolver um problema especifico na producao de conteudo.</p>
+        </div>
 
-            <a href="navegador.html" class="preview-card featured">
-                <div class="icon-wrapper">
+        <div class="products-grid">
+            <!-- Nardoto Browser -->
+            <a href="navegador.html" class="product-card">
+                <span class="product-badge browser">NAVEGADOR</span>
+                <div class="product-icon browser">
                     <i data-lucide="globe"></i>
                 </div>
                 <h3>Nardoto Browser</h3>
-                <p>Navegador exclusivo com todas as extensões pré-instaladas. Atualizações automáticas e sem rastreamento de dados.</p>
-                <span class="link">Conhecer o navegador →</span>
+                <p class="tagline">Navegue e produza ao mesmo tempo</p>
+                <ul class="product-features">
+                    <li>Extensoes pre-instaladas</li>
+                    <li>Atualizacoes automaticas</li>
+                    <li>Sem rastreamento de dados</li>
+                    <li>Otimizado para IA</li>
+                </ul>
+                <span class="product-cta">Baixar navegador <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i></span>
             </a>
 
-            <a href="producoes.html" class="preview-card">
-                <div class="icon-wrapper">
+            <!-- Nardoto Studio -->
+            <a href="studio/" class="product-card">
+                <span class="product-badge studio">APP DESKTOP</span>
+                <div class="product-icon studio">
                     <i data-lucide="clapperboard"></i>
                 </div>
-                <h3>Produções</h3>
-                <p>Veja vídeos, clipes musicais e animações que eu criei usando as mesmas ferramentas que você vai ter acesso.</p>
-                <span class="link">Ver produções →</span>
+                <h3>Nardoto Studio</h3>
+                <p class="tagline">Edite videos 10x mais rapido</p>
+                <ul class="product-features">
+                    <li>Sincronizacao automatica</li>
+                    <li>Insere centenas de midias</li>
+                    <li>Mescla projetos CapCut</li>
+                    <li>Importa legendas SRT</li>
+                </ul>
+                <span class="product-cta">Conhecer Studio <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i></span>
             </a>
 
-            <a href="precos.html" class="preview-card">
-                <div class="icon-wrapper">
-                    <i data-lucide="wallet"></i>
+            <!-- Extensoes -->
+            <a href="extensoes.html" class="product-card">
+                <span class="product-badge extensions">11 EXTENSOES</span>
+                <div class="product-icon extensions">
+                    <i data-lucide="puzzle"></i>
                 </div>
-                <h3>Planos e Preços</h3>
-                <p>Acesso completo a todas as ferramentas em um único plano. Teste grátis por 10 dias, sem compromisso.</p>
-                <span class="link">Ver preços →</span>
+                <h3>Extensoes Chrome</h3>
+                <p class="tagline">Automatize tarefas repetitivas</p>
+                <ul class="product-features">
+                    <li>VEO3, Grok, Meta AI, Wisk</li>
+                    <li>Claude, GPT, Gemini</li>
+                    <li>Suno, CapCut AI</li>
+                    <li>Google TTS e mais</li>
+                </ul>
+                <span class="product-cta">Ver extensoes <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i></span>
             </a>
         </div>
     </section>
@@ -844,255 +885,110 @@
     <section class="stats-section">
         <div class="stats-grid">
             <div class="stat-item">
-                <div class="number">15+4</div>
-                <div class="label">Extensões + Apps</div>
+                <div class="number">3</div>
+                <div class="label">Produtos Integrados</div>
             </div>
             <div class="stat-item">
-                <div class="number">10 dias</div>
-                <div class="label">Teste Grátis</div>
+                <div class="number">11</div>
+                <div class="label">Extensoes Chrome</div>
             </div>
             <div class="stat-item">
-                <div class="number">20h+</div>
-                <div class="label">Economizadas/Semana</div>
+                <div class="number">10x</div>
+                <div class="label">Mais Rapido</div>
             </div>
             <div class="stat-item">
-                <div class="number">1 clique</div>
-                <div class="label">Para Automatizar</div>
+                <div class="number">1</div>
+                <div class="label">Assinatura</div>
             </div>
         </div>
     </section>
 
-    <!-- Workflow Section -->
-    <section class="workflow-section">
-        <div class="container">
-            <h2 class="section-title" style="color: var(--text-dark);">Como Funciona o Fluxo de Produção</h2>
-            <p class="section-subtitle" style="color: var(--text-dark-secondary);">Dois caminhos, um objetivo: produzir vídeos em escala</p>
-
-            <div class="workflow-grid">
-                <!-- Workflow 1: Controle Total -->
-                <div class="workflow-column">
-                    <div class="workflow-header">
-                        <h3>Fluxo 1: Controle Total</h3>
-                        <span class="workflow-badge">VEO3 + CapCut Desktop</span>
-                    </div>
-
-                    <div class="workflow-steps">
-                        <!-- Step 1: Mass Prompters -->
-                        <a href="ferramentas.html" class="workflow-step">
-                            <div class="step-icons">
-                                <img src="extension-icons/claude-prompter.png" alt="Claude" title="Claude Loopless">
-                                <img src="extension-icons/gpt-prompter.png" alt="GPT" title="GPT Loopless">
-                                <img src="extension-icons/gemini-prompter.png" alt="Gemini" title="Gemini Loopless">
-                            </div>
-                            <div class="step-content">
-                                <h4>Mass Prompters</h4>
-                                <p>Gera roteiros com IA</p>
-                            </div>
-                            <span class="step-arrow">→</span>
-                        </a>
-
-                        <div class="workflow-connector">
-                            <div class="connector-line"></div>
-                            <div class="connector-arrow">↓</div>
-                        </div>
-
-                        <!-- Step 2: Otimizador Gold -->
-                        <a href="ferramentas.html" class="workflow-step">
-                            <div class="step-icons single">
-                                <img src="extension-icons/gold-optimizer.png" alt="Otimizador Gold" title="Otimizador Gold">
-                            </div>
-                            <div class="step-content">
-                                <h4>Otimizador Gold</h4>
-                                <p>Converte roteiro para SRT</p>
-                            </div>
-                            <span class="step-arrow">→</span>
-                        </a>
-
-                        <div class="workflow-connector">
-                            <div class="connector-line"></div>
-                            <div class="connector-arrow">↓</div>
-                        </div>
-
-                        <!-- Step 3: Geracao de Video/Imagem -->
-                        <a href="ferramentas.html" class="workflow-step">
-                            <div class="step-icons">
-                                <img src="extension-icons/veo3-automator.png" alt="VEO3" title="VEO3 Automator">
-                                <img src="extension-icons/grok-automator.png" alt="Grok" title="Grok Automator">
-                                <img src="extension-icons/meta-ai-automator.png" alt="Meta AI" title="Meta AI Automator">
-                                <img src="extension-icons/wisk-automator.png" alt="Wisk" title="Wisk Automator">
-                            </div>
-                            <div class="step-content">
-                                <h4>Geração de Vídeo</h4>
-                                <p>VEO3, Grok, Meta AI, Wisk</p>
-                            </div>
-                            <span class="step-arrow">→</span>
-                        </a>
-
-                        <div class="workflow-connector">
-                            <div class="connector-line"></div>
-                            <div class="connector-arrow">↓</div>
-                        </div>
-
-                        <!-- Step 4: Audio e Trilha -->
-                        <a href="ferramentas.html" class="workflow-step">
-                            <div class="step-icons">
-                                <img src="extension-icons/google-tts.png" alt="Google TTS" title="Google TTS">
-                                <img src="extension-icons/suno-automator.png" alt="Suno" title="Suno Automator">
-                            </div>
-                            <div class="step-content">
-                                <h4>Audio e Trilha</h4>
-                                <p>Google TTS + Suno AI</p>
-                            </div>
-                            <span class="step-arrow">→</span>
-                        </a>
-
-                        <div class="workflow-connector">
-                            <div class="connector-line"></div>
-                            <div class="connector-arrow">↓</div>
-                        </div>
-
-                        <!-- Step 5: Final -->
-                        <div class="workflow-step final">
-                            <div class="step-icons single">
-                                <img src="extension-icons/capcut-automator.png" alt="CapCut" title="CapCut Automator">
-                            </div>
-                            <div class="step-content">
-                                <h4>Edição Final</h4>
-                                <p>Sincroniza tudo no CapCut</p>
-                            </div>
-                            <span class="step-check">✓</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Workflow 2: CapCut AI -->
-                <div class="workflow-column">
-                    <div class="workflow-header">
-                        <h3>Fluxo 2: CapCut AI</h3>
-                        <span class="workflow-badge highlight">100% Automático</span>
-                    </div>
-
-                    <div class="workflow-steps">
-                        <!-- Step 1: Mass Prompters -->
-                        <a href="ferramentas.html" class="workflow-step">
-                            <div class="step-icons">
-                                <img src="extension-icons/claude-prompter.png" alt="Claude" title="Claude Loopless">
-                                <img src="extension-icons/gpt-prompter.png" alt="GPT" title="GPT Loopless">
-                                <img src="extension-icons/gemini-prompter.png" alt="Gemini" title="Gemini Loopless">
-                            </div>
-                            <div class="step-content">
-                                <h4>Mass Prompters</h4>
-                                <p>Gera roteiros com IA</p>
-                            </div>
-                            <span class="step-arrow">→</span>
-                        </a>
-
-                        <div class="workflow-connector">
-                            <div class="connector-line"></div>
-                            <div class="connector-arrow">↓</div>
-                        </div>
-
-                        <!-- Step 2: Script Sender -->
-                        <a href="ferramentas.html" class="workflow-step">
-                            <div class="step-icons single">
-                                <img src="extension-icons/capcut-automator.png" alt="CapCut Script Sender" title="CapCut Script Sender">
-                            </div>
-                            <div class="step-content">
-                                <h4>Script Sender</h4>
-                                <p>Envia para múltiplas abas</p>
-                            </div>
-                            <span class="step-arrow">→</span>
-                        </a>
-
-                        <div class="workflow-connector">
-                            <div class="connector-line"></div>
-                            <div class="connector-arrow">↓</div>
-                        </div>
-
-                        <!-- Step 3: CapCut AI -->
-                        <a href="ferramentas.html" class="workflow-step">
-                            <div class="step-icons single">
-                                <img src="extension-icons/capcut-automator.png" alt="CapCut AI" title="CapCut AI">
-                            </div>
-                            <div class="step-content">
-                                <h4>CapCut AI</h4>
-                                <p>Gera vídeo completo</p>
-                            </div>
-                            <span class="step-arrow">→</span>
-                        </a>
-
-                        <div class="workflow-connector">
-                            <div class="connector-line"></div>
-                            <div class="connector-arrow">↓</div>
-                        </div>
-
-                        <!-- Step 4: Prompt Extractor -->
-                        <div class="workflow-step final">
-                            <div class="step-icons single">
-                                <img src="extension-icons/capcut-extractor.png" alt="Prompt Extractor" title="CapCut Prompt Extractor">
-                            </div>
-                            <div class="step-content">
-                                <h4>Prompt Extractor</h4>
-                                <p>Reutiliza os prompts</p>
-                            </div>
-                            <span class="step-check">✓</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CTA -->
-            <div class="workflow-cta">
-                <a href="ferramentas.html" class="btn-workflow">Ver Todas as Ferramentas</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Depoimentos -->
+    <!-- Testimonials -->
     <section class="testimonials">
-        <div class="container" style="max-width: 1100px; margin: 0 auto;">
-            <h2 class="section-title">Quem Usa, Recomenda</h2>
-            <p class="section-subtitle">Mensagens reais de quem já usa as ferramentas</p>
+        <div class="testimonials-header">
+            <h2>Quem Usa, Recomenda</h2>
+            <p>Mensagens reais de quem ja usa as ferramentas</p>
+        </div>
 
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <img src="depoimentos/depoimento-1.png" alt="Depoimento de creator sobre ferramentas Nardoto" loading="lazy">
-                </div>
-
-                <div class="testimonial-card">
-                    <img src="depoimentos/depoimento-2.png" alt="Depoimento de creator sobre automações" loading="lazy">
-                </div>
-
-                <div class="testimonial-card">
-                    <img src="depoimentos/depoimento-3.png" alt="Depoimento sobre economia de tempo" loading="lazy">
-                </div>
-
-                <div class="testimonial-card">
-                    <img src="depoimentos/depoimento-4.png" alt="Feedback positivo sobre extensões Chrome" loading="lazy">
-                </div>
-
-                <div class="testimonial-card">
-                    <img src="depoimentos/depoimento-5.png" alt="Mensagem de agradecimento sobre ferramentas" loading="lazy">
-                </div>
-
-                <div class="testimonial-card">
-                    <img src="depoimentos/depoimento-6.PNG" alt="Depoimento sobre impacto das automações" loading="lazy">
-                </div>
-
-                <div class="testimonial-card">
-                    <img src="depoimentos/depoimento-7.PNG" alt="Mensagem sobre qualidade das ferramentas" loading="lazy">
-                </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <img src="depoimentos/depoimento-1.png" alt="Depoimento de creator sobre ferramentas Nardoto" loading="lazy">
             </div>
+
+            <div class="testimonial-card">
+                <img src="depoimentos/depoimento-2.png" alt="Depoimento de creator sobre automacoes" loading="lazy">
+            </div>
+
+            <div class="testimonial-card">
+                <img src="depoimentos/depoimento-3.png" alt="Depoimento sobre economia de tempo" loading="lazy">
+            </div>
+
+            <div class="testimonial-card">
+                <img src="depoimentos/depoimento-4.png" alt="Feedback positivo sobre extensoes Chrome" loading="lazy">
+            </div>
+
+            <div class="testimonial-card">
+                <img src="depoimentos/depoimento-5.png" alt="Mensagem de agradecimento sobre ferramentas" loading="lazy">
+            </div>
+
+            <div class="testimonial-card">
+                <img src="depoimentos/depoimento-6.PNG" alt="Depoimento sobre impacto das automacoes" loading="lazy">
+            </div>
+
+            <div class="testimonial-card">
+                <img src="depoimentos/depoimento-7.PNG" alt="Mensagem sobre qualidade das ferramentas" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Preview -->
+    <section class="pricing-preview">
+        <div class="pricing-header">
+            <h2>Planos Simples e Diretos</h2>
+            <p>Escolha o que faz sentido para voce. Acesso completo a todos os produtos.</p>
+        </div>
+
+        <div class="pricing-cards">
+            <!-- Individual -->
+            <div class="pricing-card">
+                <h3>Nardoto Studio</h3>
+                <div class="price">R$ 1.300</div>
+                <p class="price-info">Pagamento unico - 1 ano de acesso</p>
+                <ul>
+                    <li>App Nardoto Studio</li>
+                    <li>Atualizacoes automaticas</li>
+                    <li>Suporte via WhatsApp</li>
+                </ul>
+                <a href="https://wa.me/5527999132594?text=Quero%20o%20Nardoto%20Studio" class="btn btn-outline">Quero o Studio</a>
+            </div>
+
+            <!-- VIP -->
+            <div class="pricing-card featured">
+                <h3>Pacote VIP Completo</h3>
+                <div class="price">R$ 500</div>
+                <p class="price-info">por mes - acesso a tudo</p>
+                <ul>
+                    <li>Nardoto Browser</li>
+                    <li>Nardoto Studio</li>
+                    <li>11 Extensoes Chrome</li>
+                    <li>Suporte prioritario</li>
+                </ul>
+                <a href="https://wa.me/5527999132594?text=Quero%20o%20Pacote%20VIP" class="btn btn-filled">Quero o VIP</a>
+            </div>
+        </div>
+
+        <div class="pricing-cta">
+            <a href="precos.html">Ver todos os detalhes dos planos →</a>
         </div>
     </section>
 
     <!-- Final CTA -->
     <section class="final-cta">
-        <h2>Pronto para automatizar?</h2>
-        <p>Teste todas as ferramentas gratuitamente por 10 dias. Sem compromisso.</p>
+        <h2>Pronto para escalar sua producao?</h2>
+        <p>Junte-se a criadores que ja economizam horas por semana com as ferramentas Nardoto.</p>
         <div class="hero-buttons">
-            <a href="landing-page/cadastro.html" class="btn-primary">Começar Teste Grátis</a>
-            <a href="faq.html" class="btn-secondary">Dúvidas Frequentes</a>
+            <a href="precos.html" class="btn-primary">Comecar Agora</a>
+            <a href="faq.html" class="btn-secondary">Duvidas Frequentes</a>
         </div>
     </section>
 
@@ -1105,25 +1001,31 @@
                         <img src="favicon.png" alt="Nardoto">
                         <span>Nardoto</span>
                     </a>
-                    <p>Ferramentas de automação para criadores de conteúdo.</p>
+                    <p>Ferramentas profissionais para criadores de conteudo em escala.</p>
                 </div>
 
                 <div class="footer-column">
-                    <h4>Navegação</h4>
+                    <h4>Produtos</h4>
                     <ul>
-                        <li><a href="index.html">Início</a></li>
-                        <li><a href="ferramentas.html">Ferramentas</a></li>
-                        <li><a href="navegador.html">Navegador</a></li>
-                        <li><a href="producoes.html">Produções</a></li>
+                        <li><a href="navegador.html">Nardoto Browser</a></li>
+                        <li><a href="studio/">Nardoto Studio</a></li>
+                        <li><a href="extensoes.html">Extensoes</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Recursos</h4>
+                    <ul>
+                        <li><a href="producoes.html">Producoes</a></li>
+                        <li><a href="precos.html">Precos</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-column">
                     <h4>Suporte</h4>
                     <ul>
-                        <li><a href="faq.html">FAQ</a></li>
-                        <li><a href="precos.html">Preços</a></li>
-                        <li><a href="https://wa.me/5527992594817" target="_blank">WhatsApp</a></li>
+                        <li><a href="https://wa.me/5527999132594" target="_blank">WhatsApp</a></li>
                         <li><a href="mailto:tharcisionardoto@gmail.com">Email</a></li>
                     </ul>
                 </div>

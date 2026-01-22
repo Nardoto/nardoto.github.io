@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Perguntas frequentes sobre as extensões de automação Nardoto. Tire suas dúvidas.">
+    <meta name="description" content="Perguntas frequentes sobre Nardoto Browser, Nardoto Studio e extensões de automação. Tire suas dúvidas.">
 
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="favicon.png">
@@ -27,7 +27,24 @@
             margin-bottom: 24px;
             padding-bottom: 12px;
             border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
+
+        .faq-section h2 .badge {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-navegador { background: rgba(59, 130, 246, 0.15); color: #3B82F6; }
+        .badge-studio { background: rgba(232, 90, 42, 0.15); color: #E85A2A; }
+        .badge-extensoes { background: rgba(34, 197, 94, 0.15); color: #22C55E; }
 
         .faq-item {
             background: var(--card-dark);
@@ -87,17 +104,18 @@
             </a>
 
             <ul class="navbar-menu" id="navbarMenu">
-                <li><a href="index.html">Início</a></li>
-                <li><a href="capcut-sync-pro/" style="color: var(--primary);">CapCut Sync Pro</a></li>
-                <li><a href="ferramentas.html">Ferramentas</a></li>
-                <li><a href="precos.html">Preços</a></li>
-                <li><a href="producoes.html">Produções</a></li>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="navegador.html">Navegador</a></li>
+                <li><a href="studio/">Nardoto Studio</a></li>
+                <li><a href="extensoes.html">Extensoes</a></li>
+                <li><a href="precos.html">Precos</a></li>
+                <li><a href="producoes.html">Producoes</a></li>
                 <li><a href="faq.html" class="active">FAQ</a></li>
             </ul>
 
             <div class="navbar-cta">
                 <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-dashboard">Meu Dashboard</a>
-                <a href="landing-page/cadastro.html" class="btn-primary">Teste Grátis</a>
+                <a href="landing-page/cadastro.html" class="btn-primary">Comecar</a>
             </div>
 
             <button class="navbar-toggle" onclick="document.getElementById('navbarMenu').classList.toggle('active')">
@@ -111,150 +129,215 @@
     <!-- Page Header -->
     <section class="page-header">
         <h1>Perguntas Frequentes</h1>
-        <p>Tire suas dúvidas sobre as ferramentas de automação</p>
+        <p>Tire suas duvidas sobre o Nardoto Browser, Studio e Extensoes</p>
     </section>
 
     <!-- FAQ Content -->
     <section style="padding: 60px 20px 100px;">
         <div class="container" style="max-width: 800px;">
 
-            <!-- Sobre as Ferramentas -->
+            <!-- Sobre o Nardoto Browser -->
             <div class="faq-section">
-                <h2>🧩 Sobre as Ferramentas</h2>
+                <h2>
+                    <span>Nardoto Browser</span>
+                    <span class="badge badge-navegador">NAVEGADOR</span>
+                </h2>
 
                 <details class="faq-item">
-                    <summary>O que são as extensões Nardoto?</summary>
+                    <summary>O que e o Nardoto Browser?</summary>
                     <div class="answer">
-                        <p>São extensões para Google Chrome que automatizam tarefas repetitivas em ferramentas de IA como VEO3, Wisk, Suno, CapCut, ChatGPT, Claude e mais.</p>
-                        <p>Em vez de colar prompts um por um, você cola uma lista e a extensão envia todos automaticamente. Downloads também são feitos em massa.</p>
-                    </div>
-                </details>
-
-                <details class="faq-item">
-                    <summary>Quais ferramentas/sites as extensões funcionam?</summary>
-                    <div class="answer">
-                        <p><strong>Geração de vídeo:</strong> VEO3 (Google), Wisk</p>
-                        <p><strong>Geração de música:</strong> Suno AI</p>
-                        <p><strong>Edição:</strong> CapCut (web)</p>
-                        <p><strong>IAs de texto:</strong> ChatGPT, Claude, Gemini</p>
-                        <p><strong>Geração de imagem:</strong> Midjourney</p>
-                        <p><strong>Voz:</strong> Google TTS</p>
+                        <p>E um navegador baseado no Chrome que eu criei do zero, com todas as 11 extensoes ja instaladas e configuradas.</p>
+                        <p>Voce baixa, instala, e ja pode usar tudo. Sem precisar instalar extensao por extensao.</p>
                     </div>
                 </details>
 
                 <details class="faq-item">
                     <summary>Funciona no Mac?</summary>
                     <div class="answer">
-                        <p>As extensões Chrome funcionam em qualquer sistema (Windows, Mac, Linux).</p>
-                        <p>O Nardoto Browser (navegador com extensões instaladas) é apenas para Windows por enquanto.</p>
+                        <p>O Nardoto Browser e apenas para Windows por enquanto.</p>
+                        <p>Mas as extensoes funcionam no Chrome de qualquer sistema (Windows, Mac, Linux).</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>As extensoes atualizam automaticamente?</summary>
+                    <div class="answer">
+                        <p>Sim! Tanto o navegador quanto as extensoes se atualizam automaticamente quando voce abre o browser.</p>
+                        <p>Voce nunca precisa baixar nada manualmente depois da instalacao.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>O navegador e seguro?</summary>
+                    <div class="answer">
+                        <p>Sim! E baseado no Chromium (mesmo motor do Chrome), mas sem rastreamento de dados da Google.</p>
+                        <p>Seus dados sao seus. Nao coletamos nenhuma informacao de navegacao.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Posso usar as extensoes no Chrome normal?</summary>
+                    <div class="answer">
+                        <p>Pode! Voce pode usar as extensoes no seu Chrome normal tambem. Basta instalar manualmente.</p>
+                        <p>O navegador Nardoto e so uma opcao mais pratica (tudo instalado + atualizacoes automaticas).</p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Sobre o Nardoto Studio -->
+            <div class="faq-section">
+                <h2>
+                    <span>Nardoto Studio</span>
+                    <span class="badge badge-studio">APP DESKTOP</span>
+                </h2>
+
+                <details class="faq-item">
+                    <summary>O que e o Nardoto Studio?</summary>
+                    <div class="answer">
+                        <p>E um app para Windows que automatiza a edicao de videos no CapCut Desktop.</p>
+                        <p>Sincroniza legendas, TTS, musica e monta timelines automaticamente.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Preciso do CapCut Desktop instalado?</summary>
+                    <div class="answer">
+                        <p>Sim! O Nardoto Studio trabalha em conjunto com o CapCut Desktop.</p>
+                        <p>Ele automatiza tarefas dentro do CapCut, entao voce precisa ter o CapCut instalado.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Funciona no Mac?</summary>
+                    <div class="answer">
+                        <p>Nao, o Nardoto Studio e apenas para Windows.</p>
+                        <p>Ele depende de automacao de interface que so funciona no Windows atualmente.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Qual a diferenca entre Studio e as extensoes?</summary>
+                    <div class="answer">
+                        <p><strong>Extensoes:</strong> Funcionam no navegador, automatizam sites como VEO3, Suno, ChatGPT.</p>
+                        <p><strong>Studio:</strong> Funciona no desktop, automatiza o CapCut para edicao de video.</p>
+                        <p>Sao produtos complementares - extensoes geram conteudo, Studio edita videos.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>O pagamento e unico mesmo?</summary>
+                    <div class="answer">
+                        <p>Sim! O Nardoto Studio tem licenca vitalicia por R$ 1.300.</p>
+                        <p>Voce paga uma vez e usa para sempre, com atualizacoes incluidas.</p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Sobre as Extensoes -->
+            <div class="faq-section">
+                <h2>
+                    <span>Extensoes Chrome</span>
+                    <span class="badge badge-extensoes">11 EXTENSOES</span>
+                </h2>
+
+                <details class="faq-item">
+                    <summary>O que sao as extensoes Nardoto?</summary>
+                    <div class="answer">
+                        <p>Sao extensoes para Google Chrome que automatizam tarefas repetitivas em ferramentas de IA como VEO3, Wisk, Suno, CapCut, ChatGPT, Claude e mais.</p>
+                        <p>Em vez de colar prompts um por um, voce cola uma lista e a extensao envia todos automaticamente. Downloads tambem sao feitos em massa.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Quais ferramentas/sites as extensoes funcionam?</summary>
+                    <div class="answer">
+                        <p><strong>Geracao de video:</strong> VEO3 (Google), Wisk</p>
+                        <p><strong>Geracao de musica:</strong> Suno AI</p>
+                        <p><strong>Edicao:</strong> CapCut (web)</p>
+                        <p><strong>IAs de texto:</strong> ChatGPT, Claude, Gemini</p>
+                        <p><strong>Geracao de imagem:</strong> Midjourney</p>
+                        <p><strong>Voz:</strong> Google TTS</p>
                     </div>
                 </details>
 
                 <details class="faq-item">
                     <summary>Preciso ter conta nas ferramentas (VEO3, Suno, etc)?</summary>
                     <div class="answer">
-                        <p>Sim! As extensões automatizam o uso das ferramentas, mas você precisa ter sua própria conta em cada uma delas.</p>
-                        <p>Exemplo: para usar a extensão do VEO3, você precisa de acesso ao VEO3 no Google AI Studio.</p>
+                        <p>Sim! As extensoes automatizam o uso das ferramentas, mas voce precisa ter sua propria conta em cada uma delas.</p>
+                        <p>Exemplo: para usar a extensao do VEO3, voce precisa de acesso ao VEO3 no Google AI Studio.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Como instalo as extensoes?</summary>
+                    <div class="answer">
+                        <p><strong>Opcao 1 (Recomendada):</strong> Baixar o Nardoto Browser - ja vem tudo instalado.</p>
+                        <p><strong>Opcao 2:</strong> Instalar manualmente no Chrome via arquivo .zip.</p>
+                        <p>Com assinatura ativa, voce recebe acesso aos arquivos de instalacao.</p>
                     </div>
                 </details>
             </div>
 
-            <!-- Sobre o Navegador -->
+            <!-- Assinatura e Pagamento -->
             <div class="faq-section">
-                <h2>🌐 Nardoto Browser</h2>
+                <h2>Assinatura e Pagamento</h2>
 
                 <details class="faq-item">
-                    <summary>O que é o Nardoto Browser?</summary>
+                    <summary>Quais sao os planos disponiveis?</summary>
                     <div class="answer">
-                        <p>É um navegador baseado no Chrome que eu criei do zero, com todas as 15 extensões já instaladas e configuradas.</p>
-                        <p>Você baixa, instala, e já pode usar tudo. Sem precisar instalar extensão por extensão.</p>
+                        <p><strong>Nardoto Studio:</strong> R$ 1.300 (pagamento unico, licenca vitalicia)</p>
+                        <p><strong>Pacote VIP:</strong> R$ 500/mes (todas as extensoes + navegador + suporte + atualizacoes)</p>
+                        <p>Veja todos os detalhes na pagina de <a href="precos.html" style="color: var(--primary);">precos</a>.</p>
                     </div>
                 </details>
 
                 <details class="faq-item">
-                    <summary>As extensões atualizam automaticamente?</summary>
+                    <summary>Tem teste gratis?</summary>
                     <div class="answer">
-                        <p>Sim! Tanto o navegador quanto as extensões se atualizam automaticamente quando você abre o browser.</p>
-                        <p>Você nunca precisa baixar nada manualmente depois da instalação.</p>
-                    </div>
-                </details>
-
-                <details class="faq-item">
-                    <summary>O navegador é seguro?</summary>
-                    <div class="answer">
-                        <p>Sim! É baseado no Chromium (mesmo motor do Chrome), mas sem rastreamento de dados da Google.</p>
-                        <p>Seus dados são seus. Não coletamos nenhuma informação de navegação.</p>
-                    </div>
-                </details>
-
-                <details class="faq-item">
-                    <summary>Posso usar as extensões no Chrome normal?</summary>
-                    <div class="answer">
-                        <p>Pode! Você pode usar as extensões no seu Chrome normal também. Basta instalar manualmente.</p>
-                        <p>O navegador Nardoto é só uma opção mais prática (tudo instalado + atualizações automáticas).</p>
-                    </div>
-                </details>
-            </div>
-
-            <!-- Sobre a Assinatura -->
-            <div class="faq-section">
-                <h2>💳 Assinatura e Pagamento</h2>
-
-                <details class="faq-item">
-                    <summary>Quanto custa a assinatura?</summary>
-                    <div class="answer">
-                        <p><strong>Via Kiwify:</strong> R$ 500/mês (cartão, boleto ou pix)</p>
-                        <p><strong>Via Pix Direto:</strong> R$ 450/mês (menor preço)</p>
-                        <p>O valor fica fixo por 1 ano após a assinatura.</p>
-                    </div>
-                </details>
-
-                <details class="faq-item">
-                    <summary>Tem teste grátis?</summary>
-                    <div class="answer">
-                        <p>Sim! 10 dias grátis para testar todas as ferramentas.</p>
-                        <p>Não precisa de cartão de crédito. Você só paga se decidir continuar depois.</p>
+                        <p>Sim! 10 dias gratis para testar todas as ferramentas.</p>
+                        <p>Nao precisa de cartao de credito. Voce so paga se decidir continuar depois.</p>
                     </div>
                 </details>
 
                 <details class="faq-item">
                     <summary>Posso cancelar quando quiser?</summary>
                     <div class="answer">
-                        <p>Pode! Você cancela a qualquer momento e o acesso continua até o fim do período já pago.</p>
+                        <p>Pode! O Pacote VIP e mensal - voce cancela a qualquer momento e o acesso continua ate o fim do periodo ja pago.</p>
+                        <p>O Nardoto Studio e pagamento unico, nao tem assinatura.</p>
                     </div>
                 </details>
 
                 <details class="faq-item">
-                    <summary>Por que Pix Direto é mais barato?</summary>
+                    <summary>Quais formas de pagamento?</summary>
                     <div class="answer">
-                        <p>Quando você paga via Kiwify, eles cobram taxas de mim. Por isso o preço é R$ 500.</p>
-                        <p>Via Pix Direto não tem intermediário, então consigo cobrar R$ 450.</p>
+                        <p>Cartao de credito, boleto e PIX.</p>
+                        <p>Pagamento processado via Kiwify (plataforma segura).</p>
                     </div>
                 </details>
             </div>
 
             <!-- Suporte -->
             <div class="faq-section">
-                <h2>💬 Suporte</h2>
+                <h2>Suporte</h2>
 
                 <details class="faq-item">
                     <summary>Como funciona o suporte?</summary>
                     <div class="answer">
-                        <p>O suporte é direto comigo pelo WhatsApp. Sem chatbot, sem fila de atendimento.</p>
-                        <p>Você manda mensagem e eu respondo pessoalmente.</p>
+                        <p>O suporte e direto comigo pelo WhatsApp. Sem chatbot, sem fila de atendimento.</p>
+                        <p>Voce manda mensagem e eu respondo pessoalmente.</p>
                     </div>
                 </details>
 
                 <details class="faq-item">
                     <summary>Tem tutorial de como usar?</summary>
                     <div class="answer">
-                        <p>Sim! Tenho vídeos no YouTube mostrando como usar cada ferramenta.</p>
-                        <p>Também posso tirar dúvidas específicas pelo WhatsApp.</p>
+                        <p>Sim! Tenho videos no YouTube mostrando como usar cada ferramenta.</p>
+                        <p>Tambem posso tirar duvidas especificas pelo WhatsApp.</p>
                     </div>
                 </details>
 
                 <details class="faq-item">
-                    <summary>E se eu tiver problema técnico?</summary>
+                    <summary>E se eu tiver problema tecnico?</summary>
                     <div class="answer">
                         <p>Manda mensagem no WhatsApp que eu ajudo a resolver.</p>
                         <p>Como sou eu que desenvolvo tudo, consigo identificar e corrigir bugs rapidamente.</p>
@@ -264,10 +347,10 @@
 
             <!-- CTA -->
             <div style="text-align: center; margin-top: 60px; padding: 40px; background: var(--card-dark); border-radius: 20px;">
-                <h3 style="color: var(--text-primary); margin-bottom: 12px;">Ainda tem dúvidas?</h3>
+                <h3 style="color: var(--text-primary); margin-bottom: 12px;">Ainda tem duvidas?</h3>
                 <p style="color: var(--text-secondary); margin-bottom: 24px;">Fala comigo direto no WhatsApp</p>
                 <a href="https://wa.me/5527999132594" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: white; padding: 14px 28px; border-radius: 12px; text-decoration: none; font-weight: 600;">
-                    💬 Chamar no WhatsApp
+                    Chamar no WhatsApp
                 </a>
             </div>
 
@@ -283,41 +366,50 @@
                         <img src="favicon.png" alt="Nardoto">
                         <span>Nardoto</span>
                     </a>
-                    <p>Automatize sua produção de conteúdo para YouTube com extensões Chrome + IA. Economize 20+ horas por semana.</p>
+                    <p>Ferramentas profissionais para criadores de conteudo em volume. Navegador + App Desktop + Extensoes.</p>
                     <div class="footer-social">
-                        <a href="https://youtube.com/@nardoto" target="_blank" title="YouTube">📺</a>
-                        <a href="https://wa.me/5527999132594" target="_blank" title="WhatsApp">💬</a>
+                        <a href="https://youtube.com/@nardoto" target="_blank" title="YouTube">YT</a>
+                        <a href="https://wa.me/5527999132594" target="_blank" title="WhatsApp">WA</a>
                     </div>
                 </div>
 
                 <div class="footer-column">
                     <h4>Produtos</h4>
                     <ul>
-                        <li><a href="ferramentas.html">Extensões</a></li>
                         <li><a href="navegador.html">Nardoto Browser</a></li>
-                        <li><a href="precos.html">Planos e Preços</a></li>
+                        <li><a href="studio/">Nardoto Studio</a></li>
+                        <li><a href="extensoes.html">Extensoes</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Recursos</h4>
+                    <ul>
+                        <li><a href="precos.html">Precos</a></li>
+                        <li><a href="producoes.html">Producoes</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-column">
                     <h4>Suporte</h4>
                     <ul>
-                        <li><a href="faq.html">Perguntas Frequentes</a></li>
-                        <li><a href="https://wa.me/5527999132594" target="_blank">Falar no WhatsApp</a></li>
+                        <li><a href="https://wa.me/5527999132594" target="_blank">WhatsApp</a></li>
+                        <li><a href="https://youtube.com/@nardoto" target="_blank">YouTube</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-column">
-                    <h4>Começar</h4>
+                    <h4>Legal</h4>
                     <ul>
-                        <li><a href="landing-page/cadastro.html">Teste Grátis 10 Dias</a></li>
-                        <li><a href="navegador.html">Baixar Navegador</a></li>
+                        <li><a href="termos.html">Termos de Uso</a></li>
+                        <li><a href="privacidade.html">Privacidade</a></li>
                     </ul>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <p>© 2025 Nardoto. Todos os direitos reservados.</p>
+                <p>&copy; 2025 Nardoto. Todos os direitos reservados.</p>
                 <div class="footer-bottom-links">
                     <a href="termos.html">Termos de Uso</a>
                     <a href="privacidade.html">Privacidade</a>

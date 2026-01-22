@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="11 extensoes Chrome para automacao de conteudo. VEO3, Grok, Meta AI, Wisk, Claude, GPT, Gemini, Suno, CapCut e mais.">
+
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    <meta name="theme-color" content="#E85A2A">
+
+    <title>Extensoes Chrome - Nardoto</title>
+    <link rel="stylesheet" href="landing-page/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .btn-dashboard {
+            background: transparent;
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-dashboard:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Page Hero */
+        .page-hero {
+            padding: 120px 20px 80px;
+            text-align: center;
+            position: relative;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(34, 197, 94, 0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .page-hero .content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #4ADE80;
+            margin-bottom: 24px;
+        }
+
+        .page-hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 3.2rem;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            line-height: 1.15;
+        }
+
+        .page-hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* Categories */
+        .extensions-section {
+            padding: 60px 20px 100px;
+        }
+
+        .category {
+            max-width: 1100px;
+            margin: 0 auto 80px;
+        }
+
+        .category:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .category-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-icon.video {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(168, 85, 247, 0.1));
+        }
+        .category-icon.video svg { color: #A855F7; }
+
+        .category-icon.ai {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(59, 130, 246, 0.1));
+        }
+        .category-icon.ai svg { color: #3B82F6; }
+
+        .category-icon.audio {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(236, 72, 153, 0.1));
+        }
+        .category-icon.audio svg { color: #EC4899; }
+
+        .category-icon.capcut {
+            background: linear-gradient(135deg, rgba(232, 90, 42, 0.2), rgba(232, 90, 42, 0.1));
+        }
+        .category-icon.capcut svg { color: var(--primary); }
+
+        .category-icon svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .category-title h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .category-title p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Extension Cards */
+        .extensions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .extension-card {
+            background: var(--card-dark);
+            border-radius: 20px;
+            padding: 28px;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .extension-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(232, 90, 42, 0.15);
+        }
+
+        .extension-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .extension-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .extension-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .extension-info h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .extension-info .platform {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .extension-info .platform i {
+            width: 14px;
+            height: 14px;
+            color: var(--primary);
+        }
+
+        .extension-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            flex-grow: 1;
+            margin-bottom: 20px;
+        }
+
+        .extension-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .feature-tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-light);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .extension-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .included-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: #4ADE80;
+            font-weight: 600;
+        }
+
+        .included-badge i {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Info Box */
+        .info-box {
+            max-width: 800px;
+            margin: 60px auto 0;
+            background: linear-gradient(135deg, rgba(232, 90, 42, 0.1), rgba(232, 90, 42, 0.05));
+            border: 1px solid rgba(232, 90, 42, 0.3);
+            border-radius: 20px;
+            padding: 32px;
+            text-align: center;
+        }
+
+        .info-box h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .info-box p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .info-box .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .info-box .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(232, 90, 42, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .navbar-cta .btn-dashboard {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-hero {
+                padding: 80px 16px 50px;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .page-hero p {
+                font-size: 1rem;
+            }
+
+            .extensions-section {
+                padding: 40px 16px 60px;
+            }
+
+            .category {
+                margin-bottom: 50px;
+            }
+
+            .category-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .extensions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .extension-card {
+                padding: 24px;
+            }
+
+            .info-box {
+                padding: 24px;
+                margin-top: 40px;
+            }
+        }
+    </style>
+</head>
+<body class="has-navbar">
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">
+                <img src="favicon.png" alt="Nardoto">
+                <span>Nardoto</span>
+            </a>
+
+            <ul class="navbar-menu" id="navbarMenu">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="navegador.html">Navegador</a></li>
+                <li><a href="studio/">Nardoto Studio</a></li>
+                <li><a href="extensoes.html" class="active">Extensoes</a></li>
+                <li><a href="precos.html">Precos</a></li>
+                <li><a href="producoes.html">Producoes</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+            </ul>
+
+            <div class="navbar-cta">
+                <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-dashboard">Meu Dashboard</a>
+                <a href="precos.html" class="btn-primary">Comecar</a>
+            </div>
+
+            <button class="navbar-toggle" onclick="document.getElementById('navbarMenu').classList.toggle('active')">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="content">
+            <div class="page-badge">
+                <i data-lucide="puzzle" style="width: 16px; height: 16px;"></i>
+                11 Extensoes Chrome
+            </div>
+            <h1>Extensoes de Automacao</h1>
+            <p>
+                Cada extensao foi criada para automatizar uma tarefa especifica na producao de conteudo.
+                Todas estao incluidas no Nardoto Browser e no Pacote VIP.
+            </p>
+        </div>
+    </section>
+
+    <!-- Extensions -->
+    <section class="extensions-section">
+
+        <!-- Geracao de Video -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon video">
+                    <i data-lucide="video"></i>
+                </div>
+                <div class="category-title">
+                    <h2>Geracao de Video</h2>
+                    <p>Extensoes para criar videos com IA automaticamente</p>
+                </div>
+            </div>
+
+            <div class="extensions-grid">
+                <!-- VEO3 -->
+                <div class="extension-card">
+                    <div class="extension-header">
+                        <div class="extension-icon">
+                            <img src="extension-icons/veo3-automator.png" alt="VEO3 Automator">
+                        </div>
+                        <div class="extension-info">
+                            <h3>VEO3 Automator</h3>
+                            <span class="platform"><i data-lucide="chrome"></i> Google VEO3</span>
+                        </div>
+                    </div>
+                    <p class="extension-description">
+                        Envia prompts em massa para o Google VEO3 e baixa os videos automaticamente quando ficam prontos.
+                    </p>
+                    <div class="extension-features">
+                        <span class="feature-tag">Mass Prompt</span>
+                        <span class="feature-tag">Auto Download</span>
+                    </div>
+                    <div class="extension-footer">
+                        <span class="included-badge"><i data-lucide="check-circle"></i> Incluido no VIP</span>
+                    </div>
+                </div>
+
+                <!-- Grok -->
+                <div class="extension-card">
+                    <div class="extension-header">
+                        <div class="extension-icon">
+                            <img src="extension-icons/grok-automator.png" alt="Grok Automator">
+                        </div>
+                        <div class="extension-info">
+                            <h3>Grok Automator</h3>
+                            <span class="platform"><i data-lucide="chrome"></i> xAI Grok</span>
+                        </div>
+                    </div>
+                    <p class="extension-description">
+                        Automatiza geracao de videos e imagens no Grok (xAI) com envio em massa e download automatico.
+                    </p>
+                    <div class="extension-features">
+                        <span class="feature-tag">Mass Prompt</span>
+                        <span class="feature-tag">Auto Download</span>
+                    </div>
+                    <div class="extension-footer">
+                        <span class="included-badge"><i data-lucide="check-circle"></i> Incluido no VIP</span>
+                    </div>
+                </div>
+
+                <!-- Meta AI -->
+                <div class="extension-card">
+                    <div class="extension-header">
+                        <div class="extension-icon">
+                            <img src="extension-icons/meta-ai-automator.png" alt="Meta AI Automator">
+                        </div>
+                        <div class="extension-info">
+                            <h3>Meta AI Automator</h3>
+                            <span class="platform"><i data-lucide="chrome"></i> Meta AI</span>
+                        </div>
+                    </div>
+                    <p class="extension-description">
+                        Gera imagens e videos no Meta AI com automacao de prompts e download automatico.
+                    </p>
+                    <div class="extension-features">
+                        <span class="feature-tag">Mass Prompt</span>
+                        <span class="feature-tag">Auto Download</span>
+                    </div>
+                    <div class="extension-footer">
+                        <span class="included-badge"><i data-lucide="check-circle"></i> Incluido no VIP</span>
+                    </div>
+                </div>
+
+                <!-- Wisk -->
+                <div class="extension-card">
+                    <div class="extension-header">
+                        <div class="extension-icon">
+                            <img src="extension-icons/wisk-automator.png" alt="Wisk Automator">
+                        </div>
+                        <div class="extension-info">
+                            <h3>Wisk Automator</h3>
+                            <span class="platform"><i data-lucide="chrome"></i> Google Wisk</span>
+                        </div>
+                    </div>
+                    <p class="extension-description">
+                        Automatiza geracao de imagens no Google Wisk com prompts em massa.
+                    </p>
+                    <div class="extension-features">
+                        <span class="feature-tag">Mass Prompt</span>
+                        <span class="feature-tag">Imagens</span>
+                    </div>
+                    <div class="extension-footer">
+                        <span class="included-badge"><i data-lucide="check-circle"></i> Incluido no VIP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LLM Mass Prompters -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon ai">
+                    <i data-lucide="brain"></i>
+                </div>
+                <div class="category-title">
+                    <h2>Mass Prompters (LLM)</h2>
+                    <p>Envie multiplos prompts para IAs de texto de uma vez</p>
+                </div>
+            </div>
+
+            <div class="extensions-grid">
+                <!-- Claude -->
+                <div class="extension-card">
+                    <div class="extension-header">
+                        <div class="extension-icon">
+                            <img src="extension-icons/claude-prompter.png" alt="Claude Loopless">
+                        </div>
+                        <div class="extension-info">
+                            <h3>Claude Loopless</h3>
+                            <span class="platform"><i data-lucide="chrome"></i> Claude AI</span>
+                        </div>
+                    </div>
+                    <p class="extension-description">
+                        Envia uma lista de prompts para o Claude e espera cada resposta antes de enviar o proximo.
+                    </p>
+                    <div class="extension-features">
+                        <span class="feature-tag">Mass Prompt</span>
+                        <span class="feature-tag">Roteiros</span>
+                    </div>
+                    <div class="extension-footer">
+                        <span class="included-badge"><i data-lucide="check-circle"></i> Incluido no VIP</span>
+                    </div>
+                </div>
+
+                <!-- GPT -->
+                <div class="extension-card">
+                    <div class="extension-header">
+                        <div class="extension-icon">
+                            <img src="extension-icons/gpt-prompter.png" alt="GPT Loopless">
+                        </div>
+                        <div class="extension-info">
+                            <h3>GPT Loopless</h3>
+                            <span class="platform"><i data-lucide="chrome"></i> ChatGPT</span>
+                        </div>
+                    </div>
+                    <p class="extension-description">
+                        Envia multiplos prompts para o ChatGPT automaticamente, ideal para gerar roteiros em serie.
+                    </p>
+                    <div class="extension-features">
+                        <span class="feature-tag">Mass Prompt</span>
+                        <span class="feature-tag">Roteiros</span>
+                    </div>
+                    <div class="extension-footer">
+                        <span class="included-badge"><i data-lucide="check-circle"></i> Incluido no VIP</span>
+                    </div>
+                </div>
+
+                <!-- Gemini -->
+                <div class="extension-card">
+                    <div class="extension-header">
+                        <div class="extension-icon">
+                            <img src="extension-icons/gemini-prompter.png" alt="Gemini Loopless">
+                        </div>
+                        <div class="extension-info">
+                            <h3>Gemini Loopless</h3>
+                            <span class="platform"><i data-lucide="chrome"></i> Google Gemini</span>
+                        </div>
+                    </div>
+                    <p class="extension-description">
+                        Mass prompter para o Google Gemini. Gere dezenas de roteiros com um clique.
+                    </p>
+                    <div class="extension-features">
+                        <span class="feature-tag">Mass Prompt</span>
+                        <span class="feature-tag">Roteiros</span>
+                    </div>
+                    <div class="extension-footer">
+                        <span class="included-badge"><i data-lucide="check-circle"></i> Incluido no VIP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audio -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon audio">
+                    <i data-lucide="music"></i>
+                </div>
+                <div class="category-title">
+                    <h2>Audio e Musica</h2>
+                    <p>Gere narracoes e trilhas sonoras automaticamente</p>
+                </div>
+            </div>
+
+            <div class="extensions-grid">
+                <!-- Google TTS -->
+                <div class="extension-card">
+                    <div class="extension-header">
+                        <div class="extension-icon">
+                            <img src="extension-icons/google-tts.png" alt="Google TTS">
+                        </div>
+                        <div class="extension-info">
+                            <h3>Google TTS Automator</h3>
+                            <span class="platform"><i data-lucide="chrome"></i> Google TTS</span>
+                        </div>
+                    </div>
+                    <p class="extension-description">
+                        Gera narracoes em audio usando Google Text-to-Speech com multiplas vozes e idiomas.
+                    </p>
+                    <div class="extension-features">
+                        <span class="feature-tag">Narracao</span>
+                        <span class="feature-tag">Multi-idioma</span>
+                    </div>
+                    <div class="extension-footer">
+                        <span class="included-badge"><i data-lucide="check-circle"></i> Incluido no VIP</span>
+                    </div>
+                </div>
+
+                <!-- Suno -->
+                <div class="extension-card">
+                    <div class="extension-header">
+                        <div class="extension-icon">
+                            <img src="extension-icons/suno-automator.png" alt="Suno Automator">
+                        </div>
+                        <div class="extension-info">
+                            <h3>Suno Automator</h3>
+                            <span class="platform"><i data-lucide="chrome"></i> Suno AI</span>
+                        </div>
+                    </div>
+                    <p class="extension-description">
+                        Cria trilhas sonoras e musicas com IA usando o Suno. Prompts em massa e download automatico.
+                    </p>
+                    <div class="extension-features">
+                        <span class="feature-tag">Musica IA</span>
+                        <span class="feature-tag">Trilha Sonora</span>
+                    </div>
+                    <div class="extension-footer">
+                        <span class="included-badge"><i data-lucide="check-circle"></i> Incluido no VIP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CapCut -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon capcut">
+                    <i data-lucide="clapperboard"></i>
+                </div>
+                <div class="category-title">
+                    <h2>CapCut AI</h2>
+                    <p>Automatize a geracao de videos no CapCut Online</p>
+                </div>
+            </div>
+
+            <div class="extensions-grid">
+                <!-- CapCut Script Sender -->
+                <div class="extension-card">
+                    <div class="extension-header">
+                        <div class="extension-icon">
+                            <img src="extension-icons/capcut-automator.png" alt="CapCut Script Sender">
+                        </div>
+                        <div class="extension-info">
+                            <h3>CapCut Script Sender</h3>
+                            <span class="platform"><i data-lucide="chrome"></i> CapCut Web</span>
+                        </div>
+                    </div>
+                    <p class="extension-description">
+                        Envia roteiros para multiplas abas do CapCut AI simultaneamente, gerando varios videos de uma vez.
+                    </p>
+                    <div class="extension-features">
+                        <span class="feature-tag">Multi-Tab</span>
+                        <span class="feature-tag">Batch</span>
+                    </div>
+                    <div class="extension-footer">
+                        <span class="included-badge"><i data-lucide="check-circle"></i> Incluido no VIP</span>
+                    </div>
+                </div>
+
+                <!-- CapCut Prompt Extractor -->
+                <div class="extension-card">
+                    <div class="extension-header">
+                        <div class="extension-icon">
+                            <img src="extension-icons/capcut-extractor.png" alt="CapCut Prompt Extractor">
+                        </div>
+                        <div class="extension-info">
+                            <h3>Prompt Extractor</h3>
+                            <span class="platform"><i data-lucide="chrome"></i> CapCut Web</span>
+                        </div>
+                    </div>
+                    <p class="extension-description">
+                        Extrai os prompts usados em videos do CapCut AI para reutilizar em novos projetos.
+                    </p>
+                    <div class="extension-features">
+                        <span class="feature-tag">Extracao</span>
+                        <span class="feature-tag">Reutilizacao</span>
+                    </div>
+                    <div class="extension-footer">
+                        <span class="included-badge"><i data-lucide="check-circle"></i> Incluido no VIP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Box -->
+        <div class="info-box">
+            <h3>Como acessar as extensoes?</h3>
+            <p>
+                Todas as extensoes estao incluidas no <strong>Nardoto Browser</strong> (ja vem instaladas)
+                ou no <strong>Pacote VIP</strong> para instalar no seu Chrome.
+            </p>
+            <a href="precos.html" class="btn">
+                <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i>
+                Ver Planos
+            </a>
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-brand-logo">
+                        <img src="favicon.png" alt="Nardoto">
+                        <span>Nardoto</span>
+                    </a>
+                    <p>Ferramentas profissionais para criadores de conteudo em escala.</p>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Produtos</h4>
+                    <ul>
+                        <li><a href="navegador.html">Nardoto Browser</a></li>
+                        <li><a href="studio/">Nardoto Studio</a></li>
+                        <li><a href="extensoes.html">Extensoes</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Recursos</h4>
+                    <ul>
+                        <li><a href="producoes.html">Producoes</a></li>
+                        <li><a href="precos.html">Precos</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Suporte</h4>
+                    <ul>
+                        <li><a href="https://wa.me/5527999132594" target="_blank">WhatsApp</a></li>
+                        <li><a href="mailto:tharcisionardoto@gmail.com">Email</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="termos.html">Termos de Uso</a></li>
+                        <li><a href="privacidade.html">Privacidade</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2025 Nardoto. Todos os direitos reservados.</p>
+                <div class="footer-bottom-links">
+                    <a href="termos.html">Termos de Uso</a>
+                    <a href="privacidade.html">Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

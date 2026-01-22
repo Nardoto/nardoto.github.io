@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nardoto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #E85A2A;
+            --bg-dark: #0A0A0A;
+            --card-dark: #1A1A1A;
+            --text-primary: #FFFFFF;
+            --text-secondary: #9CA3AF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .logo {
+            font-family: 'DM Serif Display', serif;
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+            letter-spacing: -2px;
+        }
+
+        .tagline {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 48px;
+        }
+
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto 48px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 18px 24px;
+            padding-left: 56px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 50px;
+            background: var(--card-dark);
+            color: var(--text-primary);
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-input:focus {
+            box-shadow: 0 0 0 2px var(--primary), 0 8px 32px rgba(232, 90, 42, 0.2);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+
+        .shortcuts {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .shortcut {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            padding: 16px;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            min-width: 90px;
+        }
+
+        .shortcut:hover {
+            background: var(--card-dark);
+            transform: translateY(-4px);
+        }
+
+        .shortcut-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--card-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .shortcut-name {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 20px;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="logo">Nardoto</h1>
+        <p class="tagline">Automacao inteligente para criadores</p>
+
+        <div class="search-container">
+            <span class="search-icon">&#128269;</span>
+            <input
+                type="text"
+                class="search-input"
+                placeholder="Pesquisar no Google..."
+                id="searchInput"
+                autofocus
+            >
+        </div>
+
+        <div class="shortcuts">
+            <a href="https://labs.google/fx/tools/video-fx" class="shortcut">
+                <div class="shortcut-icon">&#127909;</div>
+                <span class="shortcut-name">VEO3</span>
+            </a>
+            <a href="https://suno.com" class="shortcut">
+                <div class="shortcut-icon">&#127925;</div>
+                <span class="shortcut-name">Suno</span>
+            </a>
+            <a href="https://www.capcut.com" class="shortcut">
+                <div class="shortcut-icon">&#127916;</div>
+                <span class="shortcut-name">CapCut</span>
+            </a>
+            <a href="https://claude.ai" class="shortcut">
+                <div class="shortcut-icon">&#129302;</div>
+                <span class="shortcut-name">Claude</span>
+            </a>
+            <a href="https://nardoto.com.br/ferramentas" class="shortcut">
+                <div class="shortcut-icon" style="color: var(--primary);">&#9881;</div>
+                <span class="shortcut-name">Ferramentas</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="footer">
+        Nardoto Browser Turbo &bull; <a href="https://nardoto.com.br">nardoto.com.br</a>
+    </div>
+
+    <script>
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const query = this.value.trim();
+                if (query) {
+                    window.location.href = 'https://www.google.com/search?q=' + encodeURIComponent(query);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
