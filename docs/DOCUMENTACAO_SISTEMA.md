@@ -205,7 +205,7 @@ src/auth/
 | Registro.br (DNS) | https://registro.br |
 | Nardoto Labs | https://nardoto-labs.web.app |
 | GitHub - Site | https://github.com/nardoto/nardoto.github.io |
-| GitHub - Extensoes | https://github.com/LoopLess-nardoto/NardotoBrowser |
+| GitHub - Extensoes | https://github.com/Nardoto/nardoto-labs-extension |
 
 ---
 
