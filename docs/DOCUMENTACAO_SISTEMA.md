@@ -163,15 +163,27 @@ src/auth/
 
 ## 11. TABELA DE PRECOS
 
-| Quantidade | Preco por Extensao |
+### Extensões Individuais (Desconto Progressivo)
+
+| Quantidade | Preço por Extensão |
 |------------|-------------------|
-| 1a extensao | R$80 |
-| 2a extensao | R$70 |
-| 3a extensao | R$60 |
-| 4a extensao | R$55 |
-| 5a-8a extensao | R$50 cada |
-| 9a extensao | R$35 |
-| **VIP Mensal** | **R$500/mes** |
+| 1ª extensão | R$ 80/mês |
+| 2ª extensão | R$ 70/mês |
+| 3ª extensão | R$ 60/mês |
+| 4ª extensão | R$ 55/mês |
+| 5ª-8ª extensão | R$ 50/mês cada |
+| 9ª extensão | R$ 35/mês |
+
+**EXCEÇÃO:** VEO3 Automator = R$ 130/mês (não entra no desconto progressivo)
+
+### Produtos Principais
+
+| Produto | Preço | Modelo |
+|---------|-------|--------|
+| **VEO3 Automator** | R$ 130/mês | Assinatura mensal |
+| **Nardoto Studio** | R$ 300/mês | Assinatura mensal |
+| **Pacote VIP Completo** | R$ 550/mês | Assinatura mensal (todas as extensões) |
+| **Mentoria Premium** | R$ 2.000/mês | Inclui: 1 mês VIP + Suporte WhatsApp + Calls + Implementações |
 
 ---
 
