@@ -95,7 +95,7 @@
 
         .badge-exclusive {
             display: inline-block;
-            background: linear-gradient(135deg, var(--primary), #FF6B35);
+            background: linear-gradient(135deg, var(--primary), #D4522A);
             padding: 10px 24px;
             border-radius: 50px;
             font-size: 0.9rem;
@@ -145,8 +145,8 @@
 
         .version-badge {
             display: inline-block;
-            background: rgba(37, 211, 102, 0.2);
-            color: #25D366;
+            background: rgba(232, 90, 42, 0.2);
+            color: #E85A2A;
             padding: 8px 20px;
             border-radius: 30px;
             font-size: 0.9rem;
@@ -801,14 +801,42 @@
     </footer>
 
     <script>
-        // Buscar versão atual do navegador dinamicamente
-        fetch('https://nardoto.com.br/nardoto-updates/browser-version.json')
-            .then(res => res.json())
+        // Buscar versão mais recente do Nardoto Browser automaticamente via GitHub API
+        async function fetchLatestBrowserVersion() {
+            try {
+                // 1. Tenta buscar da GitHub API (sempre pega a latest release)
+                const apiResponse = await fetch('https://api.github.com/repos/LoopLess-nardoto/nardoto-browser-releases/releases/latest');
+                const latestRelease = await apiResponse.json();
+
+                const version = latestRelease.tag_name.replace('v', ''); // Remove 'v' prefix
+                const downloadUrl = latestRelease.assets.find(asset => asset.name.endsWith('.exe'))?.browser_download_url;
+
+                if (!downloadUrl) throw new Error('Executável não encontrado');
+
+                return {
+                    version,
+                    downloadUrl,
+                    releaseNotes: latestRelease.body || 'Última versão disponível',
+                    publishedAt: latestRelease.published_at
+                };
+
+            } catch (error) {
+                console.warn('GitHub API falhou, usando fallback:', error);
+
+                // 2. Fallback para JSON local
+                const fallbackResponse = await fetch('https://nardoto.com.br/nardoto-updates/browser-version.json');
+                return await fallbackResponse.json();
+            }
+        }
+
+        // Atualizar versão na página
+        fetchLatestBrowserVersion()
             .then(data => {
                 // Atualizar todos os botões de download
                 document.querySelectorAll('.download-btn').forEach(btn => {
                     btn.href = 'landing-page/cadastro.html?download=true';
                 });
+
                 // Atualizar badge de versão
                 const versionBadge = document.querySelector('.version-badge');
                 if (versionBadge) {

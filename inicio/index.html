@@ -1321,25 +1321,56 @@
     }
 
     // ========== VERIFICAR ATUALIZACOES ==========
-    const VERSION_CHECK_URL = 'https://nardoto.com.br/nardoto-updates/browser-version.json';
+    const VERSION_CHECK_URL = 'https://api.github.com/repos/LoopLess-nardoto/nardoto-browser-releases/releases/latest';
+    const VERSION_FALLBACK_URL = 'https://nardoto.com.br/nardoto-updates/browser-version.json';
     const CURRENT_VERSION = '3.4'; // Atualizado automaticamente pelo instalador
 
     async function checkForUpdates() {
       try {
+        // Tenta buscar da GitHub API primeiro
         const response = await fetch(VERSION_CHECK_URL, {
           cache: 'no-store',
-          headers: { 'Accept': 'application/json' },
+          headers: { 'Accept': 'application/vnd.github.v3+json' },
           mode: 'cors'
         });
 
         if (response.ok) {
           const data = await response.json();
-          if (data.version && data.version !== CURRENT_VERSION) {
-            showUpdateBanner(data);
+
+          // Processar resposta da GitHub API
+          const version = data.tag_name.replace('v', '');
+          const downloadUrl = data.assets.find(asset => asset.name.endsWith('.exe'))?.browser_download_url;
+
+          if (version && version !== CURRENT_VERSION && downloadUrl) {
+            showUpdateBanner({
+              version,
+              downloadUrl,
+              releaseNotes: data.body || 'Nova versão disponível'
+            });
           }
+        } else {
+          throw new Error('GitHub API não disponível');
         }
       } catch (error) {
-        console.log('Erro ao verificar atualizacoes');
+        console.log('GitHub API falhou, tentando fallback');
+
+        // Fallback para JSON local
+        try {
+          const fallbackResponse = await fetch(VERSION_FALLBACK_URL, {
+            cache: 'no-store',
+            headers: { 'Accept': 'application/json' },
+            mode: 'cors'
+          });
+
+          if (fallbackResponse.ok) {
+            const data = await fallbackResponse.json();
+            if (data.version && data.version !== CURRENT_VERSION) {
+              showUpdateBanner(data);
+            }
+          }
+        } catch (fallbackError) {
+          console.log('Erro ao verificar atualizacoes');
+        }
       }
     }
 

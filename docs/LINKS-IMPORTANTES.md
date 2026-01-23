@@ -122,6 +122,31 @@ Use para:
 
 ---
 
+### Nardoto Browser - Novo Repositório
+**Repositório de Releases:** https://github.com/LoopLess-nardoto/nardoto-browser-releases
+
+**Latest Release:** https://github.com/LoopLess-nardoto/nardoto-browser-releases/releases/latest
+
+**GitHub API:** https://api.github.com/repos/LoopLess-nardoto/nardoto-browser-releases/releases/latest
+
+**Sistema de Auto-Update:**
+O site agora busca AUTOMATICAMENTE a versão mais recente via GitHub API.
+Não é necessário editar JSONs manualmente quando lançar nova versão.
+
+**Fluxo de Atualização:**
+1. Fazer upload do `.exe` no GitHub (criar novo release)
+2. Site detecta automaticamente via API
+3. Usuários veem a versão mais recente imediatamente
+
+**Fallback:** Se GitHub API falhar, usa `browser-version.json` local como backup.
+
+**Importante:**
+- Sempre use tag no formato `vX.X` (ex: `v4.0-turbo`)
+- O executável DEVE terminar com `.exe` para detecção automática
+- GitHub API tem rate limit de 60 requests/hora (suficiente)
+
+---
+
 ## 🔄 FLUXO COMPLETO DO SISTEMA
 
 ```

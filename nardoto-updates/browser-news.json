@@ -2,6 +2,13 @@
   "news": [
     {
       "tag": "Novo",
+      "date": "22 Jan 2026",
+      "title": "Nardoto Browser 4.0 Turbo Disponível!",
+      "desc": "Nova versão com performance otimizada, repositório dedicado e sistema de atualização automática via GitHub.",
+      "url": "https://github.com/LoopLess-nardoto/nardoto-browser-releases/releases/latest"
+    },
+    {
+      "tag": "Novo",
       "date": "08 Dez 2025",
       "title": "Nardoto Browser 3.0 Disponivel!",
       "desc": "Correcao completa das extensoes CapCut - Agora carregam corretamente!",
