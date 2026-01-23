@@ -183,7 +183,7 @@ src/auth/
 | **VEO3 Automator** | R$ 130/mês | Assinatura mensal |
 | **Nardoto Studio** | R$ 300/mês | Assinatura mensal |
 | **Pacote VIP Completo** | R$ 550/mês | Assinatura mensal (todas as extensões) |
-| **Mentoria Premium** | R$ 2.000/mês | Inclui: 1 mês VIP + Suporte WhatsApp + Calls + Implementações |
+| **Mentoria Premium** | R$ 2.000 (pagamento único) | Inclui: 1 mês VIP + 1 call (2-3h) + Suporte WhatsApp + Implementações |
 
 ---
 
