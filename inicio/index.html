@@ -1379,7 +1379,7 @@
       banner.className = 'update-banner';
       banner.innerHTML = `
         <div class="update-banner-content">
-          <div class="update-icon">&#128276;</div>
+          <div class="update-icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
           <div class="update-text">
             <strong>Nova versao ${updateInfo.version} disponivel!</strong>
             <p>${updateInfo.releaseNotes}</p>
@@ -1409,7 +1409,7 @@
       popup.className = 'updated-popup';
       popup.innerHTML = `
         <div class="updated-popup-content">
-          <div class="updated-icon">&#9989;</div>
+          <div class="updated-icon"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
           <h2>Atualizado para v${newVersion}!</h2>
           <p>Seu navegador foi atualizado de v${oldVersion} para v${newVersion}</p>
           <button class="updated-btn" onclick="this.parentElement.parentElement.remove()">
