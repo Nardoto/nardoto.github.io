@@ -1,6 +1,13 @@
 {
   "news": [
     {
+      "id": "v362-release",
+      "title": "Nardoto Studio v3.6.2",
+      "message": "Versao de teste com melhorias de estabilidade",
+      "type": "update",
+      "date": "2026-01-25"
+    },
+    {
       "id": "v361-release",
       "title": "Nardoto Studio v3.6.1",
       "message": "Corrigida tela de licença duplicada durante instalação!",
