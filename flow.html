@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSY9CWHH19"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-WSY9CWHH19');
+    </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nardoto Flow - Gere 20 Videos com IA de Uma Vez</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nardoto.com.br/flow">
+    <meta property="og:title" content="Nardoto Flow - Gere 20 Videos com IA de Uma Vez">
+    <meta property="og:description" content="App desktop para VEO3 com sistema multi-conta. Gere ate 20 videos simultaneamente, 5x mais rapido que o normal.">
+    <meta property="og:image" content="https://nardoto.com.br/flow-og.png">
+
+    <meta name="theme-color" content="#E85A2A">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #E85A2A;
+            --primary-dark: #D4522A;
+            --bg-dark: #0A0A0A;
+            --bg-card: #141414;
+            --bg-card-hover: #1A1A1A;
+            --text-primary: #FFFFFF;
+            --text-secondary: #9CA3AF;
+            --text-muted: #6B7280;
+            --border-light: rgba(255, 255, 255, 0.1);
+            --gradient-primary: linear-gradient(135deg, #E85A2A, #FF7A50);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 16px 24px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .nav-logo img {
+            height: 36px;
+        }
+
+        .nav-logo span {
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 4px 20px rgba(232, 90, 42, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(232, 90, 42, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--primary);
+        }
+
+        .btn-large {
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            border-radius: 12px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 160px 24px 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(232, 90, 42, 0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(232, 90, 42, 0.15);
+            border: 1px solid rgba(232, 90, 42, 0.3);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .hero h1 span {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Speed Comparison */
+        .speed-section {
+            padding: 100px 24px;
+            background: linear-gradient(180deg, transparent, rgba(232, 90, 42, 0.03), transparent);
+        }
+
+        .speed-section h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .speed-section .subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 60px;
+            font-size: 1.1rem;
+        }
+
+        .speed-comparison {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 40px;
+            align-items: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .speed-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid var(--border-light);
+        }
+
+        .speed-card.highlight {
+            border-color: var(--primary);
+            box-shadow: 0 0 40px rgba(232, 90, 42, 0.15);
+            position: relative;
+        }
+
+        .speed-card.highlight::before {
+            content: 'RECOMENDADO';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-primary);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .speed-card-title {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .speed-card-value {
+            font-family: 'DM Serif Display', serif;
+            font-size: 4rem;
+            color: var(--text-primary);
+        }
+
+        .speed-card.highlight .speed-card-value {
+            color: var(--primary);
+        }
+
+        .speed-card-unit {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .speed-card-detail {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-light);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .speed-vs {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 24px;
+        }
+
+        .features h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(232, 90, 42, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(232, 90, 42, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* How it Works */
+        .how-it-works {
+            padding: 100px 24px;
+            background: var(--bg-card);
+        }
+
+        .how-it-works h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: -20px;
+            width: 40px;
+            height: 2px;
+            background: var(--border-light);
+        }
+
+        .step:last-child::after {
+            display: none;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: var(--bg-dark);
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .step h3 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 120px 24px;
+            text-align: center;
+            position: relative;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(232, 90, 42, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .free-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(34, 197, 94, 0.15);
+            color: #22C55E;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 24px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 24px;
+            border-top: 1px solid var(--border-light);
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-copy {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 120px 24px 80px;
+            }
+
+            .speed-comparison {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .speed-vs {
+                display: none;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .step::after {
+                display: none;
+            }
+
+            .hero-stats {
+                gap: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="/" class="nav-logo">
+                <img src="favicon.png" alt="Nardoto">
+                <span>Nardoto Flow</span>
+            </a>
+            <div class="nav-links">
+                <a href="#features">Recursos</a>
+                <a href="#como-funciona">Como Funciona</a>
+                <a href="extensoes.html">Extensoes</a>
+                <a href="https://github.com/LoopLess-nardoto/nardoto-flow/releases/latest/download/NardotoFlow-Setup.exe" class="btn btn-primary">
+                    <i data-lucide="download" style="width: 18px; height: 18px;"></i>
+                    Baixar Gratis
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i data-lucide="zap" style="width: 16px; height: 16px;"></i>
+                App Desktop para VEO3
+            </div>
+
+            <h1>Gere <span>20 videos</span> com IA de uma vez</h1>
+
+            <p class="hero-subtitle">
+                Sistema multi-conta exclusivo. Enquanto outros geram 4 videos por vez,
+                voce gera 20 simultaneamente. 5x mais rapido.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="https://github.com/LoopLess-nardoto/nardoto-flow/releases/latest/download/NardotoFlow-Setup.exe" class="btn btn-primary btn-large">
+                    <i data-lucide="download" style="width: 20px; height: 20px;"></i>
+                    Baixar Gratis para Windows
+                </a>
+                <a href="#como-funciona" class="btn btn-secondary btn-large">
+                    Ver como funciona
+                </a>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">20</span>
+                    <span class="stat-label">Videos simultaneos</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">5x</span>
+                    <span class="stat-label">Mais rapido</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">0</span>
+                    <span class="stat-label">Extensoes necessarias</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Speed Comparison -->
+    <section class="speed-section">
+        <div class="container">
+            <h2>Velocidade que faz diferenca</h2>
+            <p class="subtitle">Compare a producao de 100 videos</p>
+
+            <div class="speed-comparison">
+                <div class="speed-card">
+                    <div class="speed-card-title">VEO3 Normal</div>
+                    <div class="speed-card-value">25</div>
+                    <div class="speed-card-unit">lotes de 4 videos</div>
+                    <div class="speed-card-detail">1 conta = 4 videos por vez</div>
+                </div>
+
+                <div class="speed-vs">VS</div>
+
+                <div class="speed-card highlight">
+                    <div class="speed-card-title">Nardoto Flow</div>
+                    <div class="speed-card-value">5</div>
+                    <div class="speed-card-unit">lotes de 20 videos</div>
+                    <div class="speed-card-detail">5 contas = 20 videos por vez</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2>Tudo que voce precisa</h2>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="users" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>Sistema Multi-Conta</h3>
+                    <p>Alterne entre 5 contas Google instantaneamente. Cada conta gera 4 videos, totalizando 20 simultaneos.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="bot" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>Automacao de Prompts</h3>
+                    <p>Cole sua lista de prompts e deixe o Flow trabalhar. Ele envia automaticamente e monitora a geracao.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="download" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>Download Automatico</h3>
+                    <p>Videos prontos sao baixados automaticamente para sua pasta. Organizados por prompt.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="layout" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>Interface Dedicada</h3>
+                    <p>Sem navegador, sem extensoes. App nativo focado 100% em producao de video com IA.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="refresh-cw" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>Retry Automatico</h3>
+                    <p>Se algum video falhar, o sistema detecta e reenvia automaticamente. Zero perda.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="shield-check" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>Sessoes Isoladas</h3>
+                    <p>Cada conta roda em ambiente separado. Sem conflito de login, sem bugs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works" id="como-funciona">
+        <div class="container">
+            <h2>Como funciona</h2>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Baixe e instale</h3>
+                    <p>Download rapido, instalacao em 1 minuto. Sem configuracao complicada.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Conecte suas contas</h3>
+                    <p>Faca login em ate 5 contas Google. Cada uma vai gerar videos em paralelo.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Cole seus prompts</h3>
+                    <p>Cole a lista de prompts e clique em iniciar. O Flow faz o resto automaticamente.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-content">
+            <h2>Comece agora</h2>
+            <p>Baixe gratis e veja a diferenca na sua producao de conteudo com IA.</p>
+
+            <div class="cta-buttons">
+                <a href="https://github.com/LoopLess-nardoto/nardoto-flow/releases/latest/download/NardotoFlow-Setup.exe" class="btn btn-primary btn-large">
+                    <i data-lucide="download" style="width: 20px; height: 20px;"></i>
+                    Baixar para Windows
+                </a>
+            </div>
+
+            <div class="free-badge">
+                <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
+                Gratis para testar - Sem cartao de credito
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="/">Inicio</a>
+            <a href="extensoes.html">Extensoes</a>
+            <a href="precos.html">Precos</a>
+            <a href="termos.html">Termos</a>
+            <a href="privacidade.html">Privacidade</a>
+        </div>
+        <p class="footer-copy">2025 Nardoto. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
