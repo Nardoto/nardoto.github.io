@@ -1,5 +1,5 @@
 {
-  "version": "3.6.1",
-  "downloadUrl": "https://github.com/LoopLess-nardoto/NardotoStudio/releases/download/v3.6.1/Nardoto.Studio.Setup.3.6.1.exe",
-  "releaseNotes": "v3.6.1 - Corrigida tela de licença duplicada na instalação"
+  "version": "3.6.3",
+  "downloadUrl": "https://github.com/LoopLess-nardoto/NardotoStudio/releases/download/v3.6.3/Nardoto.Studio.Setup.3.6.3.exe",
+  "releaseNotes": "v3.6.3 - Corrigido Planner que nao carregava (video_planner.exe faltando)"
 }

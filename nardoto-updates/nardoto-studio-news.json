@@ -1,6 +1,13 @@
 {
   "news": [
     {
+      "id": "v363-release",
+      "title": "Nardoto Studio v3.6.3",
+      "message": "Corrigido Planner que nao carregava (video_planner.exe faltando)",
+      "type": "update",
+      "date": "2026-01-25"
+    },
+    {
       "id": "v361-release",
       "title": "Nardoto Studio v3.6.1",
       "message": "Corrigida tela de licença duplicada durante instalação!",
