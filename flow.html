@@ -477,6 +477,117 @@
             font-size: 0.9rem;
         }
 
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 24px;
+            background: linear-gradient(180deg, transparent, rgba(232, 90, 42, 0.03), transparent);
+        }
+
+        .pricing h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .pricing .subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 60px;
+            font-size: 1.1rem;
+        }
+
+        .pricing-card {
+            max-width: 480px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 48px;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 60px rgba(232, 90, 42, 0.15);
+            position: relative;
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-primary);
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .pricing-price {
+            font-family: 'DM Serif Display', serif;
+            font-size: 4rem;
+            color: var(--text-primary);
+        }
+
+        .pricing-price span {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .pricing-period {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-secondary);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features i {
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .pricing-cta {
+            text-align: center;
+        }
+
+        .trial-info {
+            margin-top: 20px;
+            padding: 16px;
+            background: rgba(34, 197, 94, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .trial-info p {
+            color: #22C55E;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
         /* CTA Section */
         .cta {
             padding: 120px 24px;
@@ -611,10 +722,10 @@
             <div class="nav-links">
                 <a href="#features">Recursos</a>
                 <a href="#como-funciona">Como Funciona</a>
-                <a href="extensoes.html">Extensoes</a>
+                <a href="#preco">Preco</a>
                 <a href="https://github.com/LoopLess-nardoto/nardoto-flow/releases/latest/download/NardotoFlow-Setup.exe" class="btn btn-primary">
                     <i data-lucide="download" style="width: 18px; height: 18px;"></i>
-                    Baixar Gratis
+                    Testar Gratis
                 </a>
             </div>
         </div>
@@ -632,16 +743,16 @@
 
             <p class="hero-subtitle">
                 Sistema multi-conta exclusivo. Enquanto outros geram 4 videos por vez,
-                voce gera 20 simultaneamente. 5x mais rapido.
+                voce gera 20 simultaneamente. Inclui Nardoto Studio + todas as extensoes.
             </p>
 
             <div class="hero-buttons">
                 <a href="https://github.com/LoopLess-nardoto/nardoto-flow/releases/latest/download/NardotoFlow-Setup.exe" class="btn btn-primary btn-large">
                     <i data-lucide="download" style="width: 20px; height: 20px;"></i>
-                    Baixar Gratis para Windows
+                    Testar 10 Dias Gratis
                 </a>
-                <a href="#como-funciona" class="btn btn-secondary btn-large">
-                    Ver como funciona
+                <a href="#preco" class="btn btn-secondary btn-large">
+                    Ver preco
                 </a>
             </div>
 
@@ -772,22 +883,86 @@
         </div>
     </section>
 
+    <!-- Pricing Section -->
+    <section class="pricing" id="preco">
+        <div class="container">
+            <h2>Investimento</h2>
+            <p class="subtitle">Tudo incluso em um unico plano</p>
+
+            <div class="pricing-card">
+                <div class="pricing-badge">PACOTE COMPLETO</div>
+
+                <div class="pricing-header">
+                    <div class="pricing-price">
+                        <span>R$</span>500<span>,00</span>
+                    </div>
+                    <div class="pricing-period">por mes</div>
+                </div>
+
+                <ul class="pricing-features">
+                    <li>
+                        <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                        Nardoto Flow - App de geracao VEO3 multi-conta
+                    </li>
+                    <li>
+                        <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                        Nardoto Studio - Editor de video inteligente
+                    </li>
+                    <li>
+                        <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                        Todas as extensoes ja integradas
+                    </li>
+                    <li>
+                        <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                        Sistema multi-conta (20 videos simultaneos)
+                    </li>
+                    <li>
+                        <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                        Automacao completa de prompts
+                    </li>
+                    <li>
+                        <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                        Download automatico organizado
+                    </li>
+                    <li>
+                        <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                        Suporte prioritario
+                    </li>
+                </ul>
+
+                <div class="pricing-cta">
+                    <a href="https://github.com/LoopLess-nardoto/nardoto-flow/releases/latest/download/NardotoFlow-Setup.exe" class="btn btn-primary btn-large" style="width: 100%;">
+                        <i data-lucide="download" style="width: 20px; height: 20px;"></i>
+                        Baixar e Testar Gratis
+                    </a>
+
+                    <div class="trial-info">
+                        <p>
+                            <i data-lucide="gift" style="width: 18px; height: 18px;"></i>
+                            10 dias gratis para testar - Sem compromisso
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="cta">
         <div class="cta-content">
-            <h2>Comece agora</h2>
-            <p>Baixe gratis e veja a diferenca na sua producao de conteudo com IA.</p>
+            <h2>Comece agora mesmo</h2>
+            <p>10 dias gratis para voce testar todo o poder da producao em escala.</p>
 
             <div class="cta-buttons">
                 <a href="https://github.com/LoopLess-nardoto/nardoto-flow/releases/latest/download/NardotoFlow-Setup.exe" class="btn btn-primary btn-large">
                     <i data-lucide="download" style="width: 20px; height: 20px;"></i>
-                    Baixar para Windows
+                    Baixar Gratis para Windows
                 </a>
             </div>
 
             <div class="free-badge">
-                <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
-                Gratis para testar - Sem cartao de credito
+                <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                10 dias gratis - Depois R$ 500/mes
             </div>
         </div>
     </section>
@@ -801,7 +976,7 @@
             <a href="termos.html">Termos</a>
             <a href="privacidade.html">Privacidade</a>
         </div>
-        <p class="footer-copy">2025 Nardoto. Todos os direitos reservados.</p>
+        <p class="footer-copy">2026 Nardoto. Todos os direitos reservados.</p>
     </footer>
 
     <script>
