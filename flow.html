@@ -497,15 +497,30 @@
             font-size: 1.1rem;
         }
 
-        .pricing-card {
-            max-width: 480px;
+        .pricing-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            max-width: 900px;
             margin: 0 auto;
+        }
+
+        .pricing-card {
             background: var(--bg-card);
             border-radius: 24px;
             padding: 48px;
-            border: 2px solid var(--primary);
-            box-shadow: 0 0 60px rgba(232, 90, 42, 0.15);
+            border: 1px solid var(--border-light);
             position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .pricing-card.featured {
+            border: 2px solid #FFD700;
+            box-shadow: 0 0 60px rgba(255, 215, 0, 0.15);
         }
 
         .pricing-badge {
@@ -694,6 +709,11 @@
 
             .speed-vs {
                 display: none;
+            }
+
+            .pricing-cards-grid {
+                grid-template-columns: 1fr;
+                max-width: 450px;
             }
 
             .steps {
@@ -891,60 +911,110 @@
     <section class="pricing" id="preco">
         <div class="container">
             <h2>Investimento</h2>
-            <p class="subtitle">Tudo incluso em um único plano</p>
+            <p class="subtitle">Escolha o plano ideal para você</p>
 
-            <div class="pricing-card">
-                <div class="pricing-badge">PACOTE COMPLETO</div>
+            <div class="pricing-cards-grid">
+                <!-- Individual -->
+                <div class="pricing-card">
+                    <div class="pricing-badge" style="background: var(--gradient-primary);">INDIVIDUAL</div>
 
-                <div class="pricing-header">
-                    <div class="pricing-price">
-                        <span>R$</span>550<span>,00</span>
+                    <div class="pricing-header">
+                        <div class="pricing-price">
+                            <span>R$</span>500<span>,00</span>
+                        </div>
+                        <div class="pricing-period">por mês - 1 pessoa</div>
                     </div>
-                    <div class="pricing-period">por mês</div>
+
+                    <ul class="pricing-features">
+                        <li>
+                            <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                            Nardoto Flow completo
+                        </li>
+                        <li>
+                            <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                            Nardoto Studio incluso
+                        </li>
+                        <li>
+                            <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                            Todas as 11 extensões Chrome
+                        </li>
+                        <li>
+                            <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                            20 vídeos simultâneos
+                        </li>
+                        <li>
+                            <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                            Atualizações automáticas
+                        </li>
+                        <li>
+                            <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                            Suporte prioritário
+                        </li>
+                    </ul>
+
+                    <div class="pricing-cta">
+                        <a href="https://nardoto-labs.web.app/dashboard.html?plan=individual" class="btn btn-secondary btn-large" style="width: 100%;">
+                            Começar Agora
+                        </a>
+
+                        <div class="trial-info">
+                            <p>
+                                <i data-lucide="gift" style="width: 18px; height: 18px;"></i>
+                                10 dias grátis para testar
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
-                <ul class="pricing-features">
-                    <li>
-                        <i data-lucide="check" style="width: 20px; height: 20px;"></i>
-                        Nardoto Flow - App de geração VEO3 multi-conta
-                    </li>
-                    <li>
-                        <i data-lucide="check" style="width: 20px; height: 20px;"></i>
-                        Nardoto Studio - Editor de vídeo inteligente
-                    </li>
-                    <li>
-                        <i data-lucide="check" style="width: 20px; height: 20px;"></i>
-                        Todas as extensões já integradas
-                    </li>
-                    <li>
-                        <i data-lucide="check" style="width: 20px; height: 20px;"></i>
-                        Sistema multi-conta (20 vídeos simultâneos)
-                    </li>
-                    <li>
-                        <i data-lucide="check" style="width: 20px; height: 20px;"></i>
-                        Automação completa de prompts
-                    </li>
-                    <li>
-                        <i data-lucide="check" style="width: 20px; height: 20px;"></i>
-                        Download automático organizado
-                    </li>
-                    <li>
-                        <i data-lucide="check" style="width: 20px; height: 20px;"></i>
-                        Suporte prioritário
-                    </li>
-                </ul>
+                <!-- Familia -->
+                <div class="pricing-card featured">
+                    <div class="pricing-badge" style="background: linear-gradient(135deg, #FFD700, #FFA500); color: #1a1a1a;">MELHOR CUSTO-BENEFÍCIO</div>
 
-                <div class="pricing-cta">
-                    <a href="https://github.com/LoopLess-nardoto/nardoto-flow-releases/releases/latest/download/NardotoFlow-Setup.exe" class="btn btn-primary btn-large" style="width: 100%;">
-                        <i data-lucide="download" style="width: 20px; height: 20px;"></i>
-                        Baixar e Testar Grátis
-                    </a>
+                    <div class="pricing-header">
+                        <div class="pricing-price">
+                            <span>R$</span>920<span>,00</span>
+                        </div>
+                        <div class="pricing-period">por mês - até 4 pessoas (R$230/pessoa)</div>
+                    </div>
 
-                    <div class="trial-info">
-                        <p>
-                            <i data-lucide="gift" style="width: 18px; height: 18px;"></i>
-                            10 dias grátis para testar - Sem compromisso
-                        </p>
+                    <ul class="pricing-features">
+                        <li>
+                            <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                            Tudo do plano Individual
+                        </li>
+                        <li>
+                            <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                            Até 4 pessoas no mesmo plano
+                        </li>
+                        <li>
+                            <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                            1 titular gerencia tudo
+                        </li>
+                        <li>
+                            <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                            Cada membro tem sua conta
+                        </li>
+                        <li>
+                            <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                            Economize R$1.080/mês
+                        </li>
+                        <li>
+                            <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                            Suporte prioritário para todos
+                        </li>
+                    </ul>
+
+                    <div class="pricing-cta">
+                        <a href="https://nardoto-labs.web.app/dashboard.html?plan=family" class="btn btn-primary btn-large" style="width: 100%;">
+                            Quero o Família
+                        </a>
+
+                        <div class="trial-info">
+                            <p>
+                                <i data-lucide="gift" style="width: 18px; height: 18px;"></i>
+                                10 dias grátis para testar
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -966,7 +1036,7 @@
 
             <div class="free-badge">
                 <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
-                10 dias grátis - Depois R$ 550/mês
+                10 dias grátis - A partir de R$ 500/mês
             </div>
         </div>
     </section>

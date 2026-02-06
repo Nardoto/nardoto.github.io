@@ -453,14 +453,58 @@
 
     <!-- Pricing Cards -->
     <section class="pricing-section">
+        <!-- Planos Principais -->
         <div class="pricing-grid">
+            <!-- Individual -->
+            <div class="pricing-card">
+                <div class="pricing-card-icon vip">
+                    <i data-lucide="user"></i>
+                </div>
+                <h3>Individual</h3>
+                <p class="tagline">Acesso completo para 1 pessoa</p>
+                <div class="price">R$ 500</div>
+                <p class="price-info">por mês</p>
+                <ul class="pricing-features">
+                    <li><i data-lucide="check"></i> Todas as 11 extensões Chrome</li>
+                    <li><i data-lucide="check"></i> Nardoto Studio incluso</li>
+                    <li><i data-lucide="check"></i> Nardoto Flow completo</li>
+                    <li><i data-lucide="check"></i> Atualizações automáticas</li>
+                    <li><i data-lucide="check"></i> Suporte prioritário</li>
+                    <li><i data-lucide="check"></i> 10 dias grátis para testar</li>
+                </ul>
+                <a href="https://nardoto-labs.web.app/dashboard.html?plan=individual" class="pricing-btn outline">Começar Agora</a>
+            </div>
+
+            <!-- Familia -->
+            <div class="pricing-card featured">
+                <div class="pricing-card-icon vip" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.1));">
+                    <i data-lucide="users" style="color: #FFD700;"></i>
+                </div>
+                <h3>Família</h3>
+                <p class="tagline">Até 4 pessoas com acesso completo</p>
+                <div class="price">R$ 920</div>
+                <p class="price-info">por mês - R$230/pessoa</p>
+                <ul class="pricing-features">
+                    <li><i data-lucide="check"></i> Tudo do plano Individual</li>
+                    <li><i data-lucide="check"></i> Até 4 pessoas no mesmo plano</li>
+                    <li><i data-lucide="check"></i> 1 titular gerencia tudo</li>
+                    <li><i data-lucide="check"></i> Cada membro tem sua conta</li>
+                    <li><i data-lucide="check"></i> Economize R$1.080/mês vs 4 individuais</li>
+                    <li><i data-lucide="check"></i> Suporte prioritário para todos</li>
+                </ul>
+                <a href="https://nardoto-labs.web.app/dashboard.html?plan=family" class="pricing-btn filled">Quero o Família</a>
+            </div>
+        </div>
+
+        <!-- Opcoes Adicionais -->
+        <div class="pricing-grid" style="margin-top: 60px;">
             <!-- VEO3 Automator -->
             <div class="pricing-card">
-                <div class="pricing-card-icon veo3">
-                    <i data-lucide="video"></i>
+                <div class="pricing-card-icon veo3" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.1));">
+                    <i data-lucide="video" style="color: #22C55E;"></i>
                 </div>
                 <h3>VEO3 Automator</h3>
-                <p class="tagline">Extensão individual mais popular</p>
+                <p class="tagline">Extensão individual avulsa</p>
                 <div class="price">R$ 130</div>
                 <p class="price-info">por mês - acesso individual</p>
                 <ul class="pricing-features">
@@ -471,61 +515,15 @@
                     <li><i data-lucide="check"></i> Suporte via WhatsApp</li>
                     <li class="disabled"><i data-lucide="x"></i> Outras extensões</li>
                     <li class="disabled"><i data-lucide="x"></i> Nardoto Studio</li>
-                    <li class="disabled"><i data-lucide="x"></i> Nardoto Browser</li>
+                    <li class="disabled"><i data-lucide="x"></i> Nardoto Flow</li>
                 </ul>
-                <a href="https://buy.stripe.com/fZu28sfjqcq729Beea9Ve00" class="pricing-btn outline">Quero o VEO3</a>
-            </div>
-
-            <!-- Nardoto Studio -->
-            <div class="pricing-card">
-                <div class="pricing-card-icon studio">
-                    <i data-lucide="clapperboard"></i>
-                </div>
-                <h3>Nardoto Studio</h3>
-                <p class="tagline">App desktop para edição</p>
-                <div class="price">R$ 300</div>
-                <p class="price-info">por mês - assinatura mensal</p>
-                <ul class="pricing-features">
-                    <li><i data-lucide="check"></i> App Nardoto Studio completo</li>
-                    <li><i data-lucide="check"></i> Sincronização automática</li>
-                    <li><i data-lucide="check"></i> Insere centenas de mídias</li>
-                    <li><i data-lucide="check"></i> Mescla projetos CapCut</li>
-                    <li><i data-lucide="check"></i> Importa legendas SRT</li>
-                    <li><i data-lucide="check"></i> Atualizações automáticas</li>
-                    <li><i data-lucide="check"></i> Suporte via WhatsApp</li>
-                    <li class="disabled"><i data-lucide="x"></i> Nardoto Browser</li>
-                    <li class="disabled"><i data-lucide="x"></i> 11 Extensões Chrome</li>
-                </ul>
-                <a href="https://wa.me/5527999132594?text=Quero%20o%20Nardoto%20Studio" class="pricing-btn outline">Quero o Studio</a>
-            </div>
-
-            <!-- Pacote VIP -->
-            <div class="pricing-card featured">
-                <div class="pricing-card-icon vip">
-                    <i data-lucide="crown"></i>
-                </div>
-                <h3>Pacote VIP Completo</h3>
-                <p class="tagline">Acesso a tudo</p>
-                <div class="price">R$ 550</div>
-                <p class="price-info">por mês - acesso completo</p>
-                <ul class="pricing-features">
-                    <li><i data-lucide="check"></i> <strong>Nardoto Browser</strong></li>
-                    <li><i data-lucide="check"></i> <strong>Nardoto Studio</strong></li>
-                    <li><i data-lucide="check"></i> <strong>11 Extensões Chrome</strong></li>
-                    <li><i data-lucide="check"></i> VEO3, Grok, Meta AI, Wisk</li>
-                    <li><i data-lucide="check"></i> Claude, GPT, Gemini</li>
-                    <li><i data-lucide="check"></i> Suno, Google TTS</li>
-                    <li><i data-lucide="check"></i> Atualizações automáticas</li>
-                    <li><i data-lucide="check"></i> Suporte prioritário</li>
-                </ul>
-                <a href="https://wa.me/5527999132594?text=Quero%20o%20Pacote%20VIP%20Completo%20por%20R%24%20550/m%C3%AAs" class="pricing-btn filled">Quero o VIP</a>
+                <a href="https://nardoto-labs.web.app/dashboard.html" class="pricing-btn outline">Quero o VEO3</a>
             </div>
 
             <!-- Mentoria Premium -->
             <div class="pricing-card premium">
-                <div class="badge">EXCLUSIVO</div>
-                <div class="pricing-card-icon mentoria">
-                    <i data-lucide="users"></i>
+                <div class="pricing-card-icon mentoria" style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(168, 85, 247, 0.1));">
+                    <i data-lucide="crown" style="color: #A855F7;"></i>
                 </div>
                 <h3>Mentoria Premium</h3>
                 <p class="tagline">Acesso direto + suporte completo</p>
@@ -547,7 +545,7 @@
 
         <!-- What's Included -->
         <div class="whats-included">
-            <h2>O que está incluído no VIP</h2>
+            <h2>O que está incluído nos planos</h2>
             <div class="included-grid">
                 <div class="included-card">
                     <div class="icon">
@@ -615,7 +613,12 @@
 
             <details class="faq-item">
                 <summary>Qual a forma de pagamento?</summary>
-                <p>Aceito Pix, cartão de crédito e boleto. O Pix direto para mim tem melhor preço porque não tem intermediário.</p>
+                <p>O pagamento é feito via Stripe (cartão de crédito), de forma automática e segura. A cobrança é mensal e recorrente.</p>
+            </details>
+
+            <details class="faq-item">
+                <summary>Como funciona o plano Família?</summary>
+                <p>No plano Família, o titular paga R$920/mês e pode adicionar até 3 dependentes (total 4 pessoas). Cada membro tem sua própria conta com acesso completo a tudo. O titular gerencia os membros pelo dashboard.</p>
             </details>
 
             <details class="faq-item">
@@ -625,7 +628,7 @@
 
             <details class="faq-item">
                 <summary>Como recebo acesso após o pagamento?</summary>
-                <p>Após confirmar o pagamento via WhatsApp, libero seu acesso na hora. Você recebe o link de download e instruções por lá mesmo.</p>
+                <p>Após o pagamento pelo Stripe, o acesso é liberado automaticamente na hora. Basta fazer login no dashboard e começar a usar.</p>
             </details>
         </div>
     </section>
