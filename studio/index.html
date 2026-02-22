@@ -540,11 +540,10 @@
 
             <ul class="navbar-menu" id="navbarMenu">
                 <li><a href="../index.html">Início</a></li>
-                <li><a href="../navegador.html">Navegador</a></li>
+                <li><a href="../flow.html">Nardoto Flow</a></li>
                 <li><a href="./" class="active">Nardoto Studio</a></li>
                 <li><a href="../extensoes.html">Extensões</a></li>
                 <li><a href="../precos.html">Preços</a></li>
-                <li><a href="../producoes.html">Produções</a></li>
                 <li><a href="../faq.html">FAQ</a></li>
             </ul>
 
@@ -583,8 +582,8 @@
         </div>
 
         <div class="cta-buttons">
-            <a href="#" class="btn-primary download-btn" id="hero-download-btn">
-                Baixar Grátis (Windows) <span class="version-badge"></span>
+            <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-primary">
+                Baixar Grátis (Windows)
             </a>
             <a href="https://wa.me/5527999132594?text=Olá!%20Quero%20saber%20mais%20sobre%20o%20Nardoto%20Studio" class="btn-secondary">
                 Falar no WhatsApp
@@ -825,9 +824,8 @@
 
                     <ul class="pricing-features">
                         <li>Nardoto Studio incluído</li>
-                        <li>15 extensões Chrome de automação</li>
-                        <li>4 apps desktop (VEO3, Otimizador Gold, etc.)</li>
-                        <li>Nardoto Browser (navegador exclusivo)</li>
+                        <li>Nardoto Flow completo</li>
+                        <li>11 extensões Chrome de automação</li>
                         <li>Atualizações automáticas</li>
                         <li>Suporte prioritário via WhatsApp</li>
                     </ul>
@@ -902,8 +900,8 @@
         <p>Monte vídeos completos em minutos, não horas.</p>
 
         <div class="cta-buttons">
-            <a href="#" class="btn-primary download-btn" id="footer-download-btn">
-                Baixar Nardoto Studio Grátis <span class="version-badge"></span>
+            <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-primary">
+                Baixar Nardoto Studio Grátis
             </a>
             <a href="../precos.html" class="btn-secondary">
                 Ver Todos os Planos
@@ -976,43 +974,6 @@
             if (e.key === 'ArrowRight') nextImage(e);
         });
 
-        // Auto-fetch latest release from GitHub
-        const GITHUB_REPO = 'LoopLess-nardoto/CapCutSyncPro';
-        const FALLBACK_VERSION = 'v3.4.0';
-        const FALLBACK_URL = `https://github.com/${GITHUB_REPO}/releases/download/${FALLBACK_VERSION}/CapCut.Sync.Pro.Setup.3.4.0.exe`;
-
-        async function fetchLatestRelease() {
-            try {
-                const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/releases/latest`);
-                if (!response.ok) throw new Error('Failed to fetch');
-
-                const release = await response.json();
-                const version = release.tag_name;
-
-                // Find the .exe asset
-                const exeAsset = release.assets.find(asset => asset.name.endsWith('.exe'));
-                if (!exeAsset) throw new Error('No exe found');
-
-                updateDownloadButtons(exeAsset.browser_download_url, version);
-            } catch (error) {
-                console.warn('Using fallback download URL:', error);
-                updateDownloadButtons(FALLBACK_URL, FALLBACK_VERSION);
-            }
-        }
-
-        function updateDownloadButtons(downloadUrl, version) {
-            const downloadBtns = document.querySelectorAll('.download-btn');
-            downloadBtns.forEach(btn => {
-                btn.href = downloadUrl;
-                const versionBadge = btn.querySelector('.version-badge');
-                if (versionBadge) {
-                    versionBadge.textContent = version;
-                }
-            });
-        }
-
-        // Fetch on page load
-        fetchLatestRelease();
     </script>
 </body>
 </html>

@@ -1,0 +1,251 @@
+{
+  "name": "Nardoto Design System",
+  "version": "1.0",
+  "description": "Parametros extraidos das imagens de referencia (Vexa AI style)",
+
+  "colors": {
+    "primary": {
+      "main": "#E85A2A",
+      "light": "#FF6B35",
+      "dark": "#D14F25",
+      "hover": "#F07040"
+    },
+    "background": {
+      "page": "#0A0A0A",
+      "pageAlt": "#0F0F0F",
+      "card": "#1A1A1A",
+      "cardHover": "#242424",
+      "elevated": "#1E1E1E",
+      "gradient": "radial-gradient(ellipse at center top, #2D1810 0%, #0A0A0A 70%)"
+    },
+    "text": {
+      "primary": "#FFFFFF",
+      "secondary": "#9CA3AF",
+      "muted": "#6B7280",
+      "accent": "#E85A2A"
+    },
+    "border": {
+      "light": "rgba(255, 255, 255, 0.1)",
+      "medium": "rgba(255, 255, 255, 0.15)",
+      "accent": "rgba(232, 90, 42, 0.3)"
+    },
+    "status": {
+      "success": "#22C55E",
+      "error": "#EF4444",
+      "warning": "#F59E0B",
+      "info": "#6366F1"
+    }
+  },
+
+  "typography": {
+    "fontFamily": {
+      "display": "'DM Serif Display', Georgia, serif",
+      "body": "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
+    },
+    "fontSize": {
+      "xs": "0.75rem",
+      "sm": "0.875rem",
+      "base": "1rem",
+      "lg": "1.125rem",
+      "xl": "1.25rem",
+      "2xl": "1.5rem",
+      "3xl": "2rem",
+      "4xl": "2.5rem"
+    },
+    "fontWeight": {
+      "normal": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    },
+    "lineHeight": {
+      "tight": 1.2,
+      "normal": 1.5,
+      "relaxed": 1.75
+    }
+  },
+
+  "spacing": {
+    "unit": 4,
+    "scale": {
+      "0": "0",
+      "1": "4px",
+      "2": "8px",
+      "3": "12px",
+      "4": "16px",
+      "5": "20px",
+      "6": "24px",
+      "8": "32px",
+      "10": "40px",
+      "12": "48px",
+      "16": "64px"
+    }
+  },
+
+  "borderRadius": {
+    "none": "0",
+    "sm": "6px",
+    "md": "8px",
+    "lg": "12px",
+    "xl": "16px",
+    "2xl": "20px",
+    "full": "9999px"
+  },
+
+  "shadows": {
+    "none": "none",
+    "sm": "0 2px 8px rgba(0, 0, 0, 0.15)",
+    "md": "0 4px 16px rgba(0, 0, 0, 0.2)",
+    "lg": "0 8px 32px rgba(0, 0, 0, 0.25)",
+    "glow": "0 0 20px rgba(232, 90, 42, 0.3)",
+    "glowStrong": "0 0 40px rgba(232, 90, 42, 0.5)"
+  },
+
+  "transitions": {
+    "fast": "0.15s ease",
+    "normal": "0.2s ease",
+    "slow": "0.3s ease"
+  },
+
+  "components": {
+    "button": {
+      "primary": {
+        "background": "#E85A2A",
+        "color": "#FFFFFF",
+        "padding": "12px 24px",
+        "borderRadius": "8px",
+        "fontSize": "0.875rem",
+        "fontWeight": 600,
+        "hover": {
+          "background": "#F07040",
+          "transform": "translateY(-2px)",
+          "shadow": "0 4px 16px rgba(232, 90, 42, 0.4)"
+        }
+      },
+      "secondary": {
+        "background": "transparent",
+        "color": "#FFFFFF",
+        "border": "1px solid rgba(255, 255, 255, 0.2)",
+        "padding": "12px 24px",
+        "borderRadius": "8px",
+        "hover": {
+          "background": "rgba(255, 255, 255, 0.1)",
+          "borderColor": "rgba(255, 255, 255, 0.3)"
+        }
+      }
+    },
+    "card": {
+      "background": "#1A1A1A",
+      "border": "1px solid rgba(255, 255, 255, 0.1)",
+      "borderRadius": "12px",
+      "padding": "20px",
+      "hover": {
+        "borderColor": "rgba(232, 90, 42, 0.5)",
+        "transform": "translateY(-4px)",
+        "shadow": "0 8px 24px rgba(232, 90, 42, 0.15)"
+      }
+    },
+    "cardFeatured": {
+      "background": "linear-gradient(135deg, rgba(232, 90, 42, 0.15) 0%, rgba(232, 90, 42, 0.05) 100%)",
+      "border": "1px solid #E85A2A",
+      "borderRadius": "16px",
+      "shadow": "0 0 40px rgba(232, 90, 42, 0.2)"
+    },
+    "badge": {
+      "background": "rgba(232, 90, 42, 0.15)",
+      "color": "#E85A2A",
+      "padding": "6px 12px",
+      "borderRadius": "9999px",
+      "fontSize": "0.75rem",
+      "fontWeight": 500,
+      "border": "1px solid rgba(232, 90, 42, 0.3)"
+    },
+    "input": {
+      "background": "#1A1A1A",
+      "border": "1px solid rgba(255, 255, 255, 0.1)",
+      "borderRadius": "8px",
+      "padding": "12px 16px",
+      "color": "#FFFFFF",
+      "placeholder": "#6B7280",
+      "focus": {
+        "borderColor": "#E85A2A",
+        "shadow": "0 0 0 3px rgba(232, 90, 42, 0.2)"
+      }
+    },
+    "sidebar": {
+      "width": "260px",
+      "background": "#1A1A1A",
+      "padding": "16px",
+      "borderRadius": "12px"
+    },
+    "navItem": {
+      "padding": "10px 14px",
+      "borderRadius": "8px",
+      "fontSize": "0.875rem",
+      "color": "#9CA3AF",
+      "hover": {
+        "background": "rgba(232, 90, 42, 0.1)",
+        "color": "#FFFFFF"
+      },
+      "active": {
+        "background": "rgba(232, 90, 42, 0.15)",
+        "color": "#E85A2A"
+      }
+    },
+    "appIcon": {
+      "size": "48px",
+      "iconSize": "28px",
+      "borderRadius": "12px",
+      "background": "#1A1A1A",
+      "hover": {
+        "background": "#242424",
+        "transform": "scale(1.05)"
+      }
+    },
+    "grid": {
+      "gap": "16px",
+      "columns": {
+        "apps": "repeat(auto-fill, minmax(80px, 1fr))",
+        "cards": "repeat(auto-fill, minmax(280px, 1fr))"
+      }
+    },
+    "section": {
+      "padding": "24px",
+      "gap": "16px",
+      "titleSize": "0.875rem",
+      "titleWeight": 600,
+      "titleColor": "#FFFFFF"
+    },
+    "header": {
+      "height": "64px",
+      "background": "#1A1A1A",
+      "borderBottom": "1px solid rgba(255, 255, 255, 0.1)",
+      "padding": "0 24px"
+    }
+  },
+
+  "layout": {
+    "maxWidth": "1400px",
+    "containerPadding": "24px",
+    "sidebarWidth": "260px",
+    "headerHeight": "64px",
+    "gap": {
+      "section": "24px",
+      "card": "16px",
+      "element": "12px"
+    }
+  },
+
+  "effects": {
+    "glowPrimary": {
+      "boxShadow": "0 0 60px rgba(232, 90, 42, 0.3)"
+    },
+    "gradientOverlay": {
+      "background": "radial-gradient(ellipse at 50% 0%, rgba(232, 90, 42, 0.1) 0%, transparent 50%)"
+    },
+    "hoverLift": {
+      "transform": "translateY(-4px)",
+      "transition": "all 0.2s ease"
+    }
+  }
+}
