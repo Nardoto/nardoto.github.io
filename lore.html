@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSY9CWHH19"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-WSY9CWHH19');
+    </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nardoto Lore - Escreva Seu Livro com IA</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nardoto.com.br/lore">
+    <meta property="og:title" content="Nardoto Lore - Escreva Seu Livro com IA">
+    <meta property="og:description" content="Editor profissional com IA integrada, worldbuilding inteligente, personagens vivos e diagramacao pronta para publicar. Beta gratuito.">
+    <meta property="og:image" content="https://nardoto.com.br/favicon.png">
+
+    <meta name="theme-color" content="#E85A2A">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #E85A2A;
+            --primary-dark: #D4522A;
+            --bg-dark: #0A0A0A;
+            --bg-card: #141414;
+            --bg-card-hover: #1A1A1A;
+            --text-primary: #FFFFFF;
+            --text-secondary: #9CA3AF;
+            --text-muted: #6B7280;
+            --border-light: rgba(255, 255, 255, 0.1);
+            --gradient-primary: linear-gradient(135deg, #E85A2A, #FF7A50);
+            --green: #22C55E;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 16px 24px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .nav-logo img {
+            height: 36px;
+        }
+
+        .nav-logo span {
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 4px 20px rgba(232, 90, 42, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(232, 90, 42, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--primary);
+        }
+
+        .btn-large {
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            border-radius: 12px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 160px 24px 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(232, 90, 42, 0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--green);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .hero h1 span {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Comparison Section */
+        .comparison {
+            padding: 100px 24px;
+            background: linear-gradient(180deg, transparent, rgba(232, 90, 42, 0.03), transparent);
+        }
+
+        .comparison h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .comparison .subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 60px;
+            font-size: 1.1rem;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 40px;
+            align-items: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .comparison-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid var(--border-light);
+        }
+
+        .comparison-card.highlight {
+            border-color: var(--primary);
+            box-shadow: 0 0 40px rgba(232, 90, 42, 0.15);
+            position: relative;
+        }
+
+        .comparison-card.highlight::before {
+            content: 'TUDO INTEGRADO';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-primary);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .comparison-title {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .comparison-list {
+            list-style: none;
+        }
+
+        .comparison-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .comparison-list li:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-vs {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 24px;
+        }
+
+        .features h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .features .subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 60px;
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(232, 90, 42, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(232, 90, 42, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* How it Works */
+        .how-it-works {
+            padding: 100px 24px;
+            background: var(--bg-card);
+        }
+
+        .how-it-works h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: -20px;
+            width: 40px;
+            height: 2px;
+            background: var(--border-light);
+        }
+
+        .step:last-child::after {
+            display: none;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: var(--bg-dark);
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .step h3 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Why Section */
+        .why-section {
+            padding: 100px 24px;
+            background: linear-gradient(180deg, transparent, rgba(232, 90, 42, 0.03), transparent);
+        }
+
+        .why-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .why-content h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 24px;
+        }
+
+        .why-content p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 120px 24px;
+            text-align: center;
+            position: relative;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(232, 90, 42, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .free-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--green);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 24px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 24px;
+            border-top: 1px solid var(--border-light);
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-copy {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 120px 24px 80px;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .comparison-vs {
+                display: none;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .step::after {
+                display: none;
+            }
+
+            .hero-stats {
+                gap: 32px;
+            }
+
+            .cta h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="/" class="nav-logo">
+                <img src="favicon.png" alt="Nardoto">
+                <span>Nardoto Lore</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" style="color: #888; font-size: 14px; text-decoration: none; margin-right: 10px; display: inline-flex; align-items: center; gap: 4px;">
+                    <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+                    Voltar ao site
+                </a>
+                <a href="#features">Recursos</a>
+                <a href="#como-funciona">Como Funciona</a>
+                <a href="https://github.com/LoopLess-nardoto/nardoto-lore-releases/releases/latest/download/NardotoLore-Setup.exe" class="btn btn-primary">
+                    <i data-lucide="download" style="width: 18px; height: 18px;"></i>
+                    Baixar Gratis
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i data-lucide="gift" style="width: 16px; height: 16px;"></i>
+                Beta Gratuito -- Todas as funcionalidades liberadas
+            </div>
+
+            <h1>Escreva seu livro com <span>inteligencia artificial</span></h1>
+
+            <p class="hero-subtitle">
+                Editor profissional com IA integrada, worldbuilding inteligente, personagens que ganham vida
+                e diagramacao pronta para publicar. Tudo o que um escritor precisa, numa ferramenta so.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="https://github.com/LoopLess-nardoto/nardoto-lore-releases/releases/latest/download/NardotoLore-Setup.exe" class="btn btn-primary btn-large">
+                    <i data-lucide="download" style="width: 20px; height: 20px;"></i>
+                    Baixar Gratis para Windows
+                </a>
+                <a href="#features" class="btn btn-secondary btn-large">
+                    Ver Recursos
+                </a>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">10+</span>
+                    <span class="stat-label">Ferramentas de IA</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">20+</span>
+                    <span class="stat-label">Campos por personagem</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">5</span>
+                    <span class="stat-label">Templates de diagramacao</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Gratuito (Beta)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison">
+        <div class="container">
+            <h2>Por que o Lore existe</h2>
+            <p class="subtitle">Compare como escritores trabalham hoje vs. com o Lore</p>
+
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <div class="comparison-title">Sem o Lore</div>
+                    <ul class="comparison-list">
+                        <li>
+                            <i data-lucide="x" style="width: 16px; height: 16px; color: #EF4444; flex-shrink: 0;"></i>
+                            Google Docs + Notion + Canva + ChatGPT separados
+                        </li>
+                        <li>
+                            <i data-lucide="x" style="width: 16px; height: 16px; color: #EF4444; flex-shrink: 0;"></i>
+                            Copia e cola entre 4 apps diferentes
+                        </li>
+                        <li>
+                            <i data-lucide="x" style="width: 16px; height: 16px; color: #EF4444; flex-shrink: 0;"></i>
+                            IA nao sabe nada sobre seu livro
+                        </li>
+                        <li>
+                            <i data-lucide="x" style="width: 16px; height: 16px; color: #EF4444; flex-shrink: 0;"></i>
+                            Diagramacao manual no InDesign
+                        </li>
+                        <li>
+                            <i data-lucide="x" style="width: 16px; height: 16px; color: #EF4444; flex-shrink: 0;"></i>
+                            Personagens sem consistencia
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="comparison-vs">VS</div>
+
+                <div class="comparison-card highlight">
+                    <div class="comparison-title">Com o Lore</div>
+                    <ul class="comparison-list">
+                        <li>
+                            <i data-lucide="check" style="width: 16px; height: 16px; color: var(--green); flex-shrink: 0;"></i>
+                            Tudo integrado: editor + IA + worldbuilding
+                        </li>
+                        <li>
+                            <i data-lucide="check" style="width: 16px; height: 16px; color: var(--green); flex-shrink: 0;"></i>
+                            IA conhece seu universo inteiro
+                        </li>
+                        <li>
+                            <i data-lucide="check" style="width: 16px; height: 16px; color: var(--green); flex-shrink: 0;"></i>
+                            Personagens vivos com memoria e evolucao
+                        </li>
+                        <li>
+                            <i data-lucide="check" style="width: 16px; height: 16px; color: var(--green); flex-shrink: 0;"></i>
+                            PDF profissional em 1 clique
+                        </li>
+                        <li>
+                            <i data-lucide="check" style="width: 16px; height: 16px; color: var(--green); flex-shrink: 0;"></i>
+                            Escrita autentica -- sem parecer IA
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2>Tudo que um escritor precisa</h2>
+            <p class="subtitle">9 ferramentas integradas num unico app desktop</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="pen-tool" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>Editor com IA Integrada</h3>
+                    <p>Toolbar flutuante com 9 modos de IA: reescrita, desenvolvimento, sinopse, dialogo, cena, ideias, lore, descricao sensorial e geracao de imagem. A IA conhece seus personagens e locais automaticamente.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="book-open" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>Codex de Worldbuilding</h3>
+                    <p>Fichas completas para personagens (20+ campos), locais, itens e lore. Relacoes entre fichas com grafo visual interativo. Tags, aliases, busca avancada e imagem de referencia.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="users" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>Personagens Vivos</h3>
+                    <p>Converse COM seus personagens -- a IA encarna personalidade, voz e memorias. Timeline de evolucao, estado atual, arco narrativo e segredos internos. Cada personagem e uma entidade viva.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="layout" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>Diagramacao Profissional</h3>
+                    <p>Preview paginado A4 com 5+ templates visuais: Classico, Moderno, Academico, Fantasy e Sci-Fi. Mais de 80 propriedades: tipografia, margens, ornamentos e drop caps. PDF pronto para publicar.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="message-square" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>Chat Multimodal com IA</h3>
+                    <p>3 provedores de IA (Claude, Gemini, Codex). Contexto automatico do livro -- a IA sabe quem sao seus personagens, onde estao e o que aconteceu. Anti-Gist Protocol para escrita autentica.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="image" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>Geracao de Imagens</h3>
+                    <p>Gemini 2.5 Flash + Pollinations AI. Detecta entidades no texto e injeta descricoes. 15+ temas visuais, imagens de referencia para consistencia. Galeria completa com busca e filtros.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="list-tree" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>Outline Estruturado</h3>
+                    <p>Hierarquia Atos e Cenas com drag-and-drop. 3 templates narrativos: Tres Atos, Jornada do Heroi e Save the Cat. Criacao rapida com numeracao automatica.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="file-output" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>Exportacao Completa</h3>
+                    <p>Exporte para DOCX (Word), PDF profissional ou Markdown. Codex como apendice opcional. Formatacao preservada em todos os formatos. Pronto para autopublicacao.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="lightbulb" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3>Brainstorm e Pesquisa</h3>
+                    <p>7 categorias de brainstorm: personagens, locais, objetos, cenas, plot twists, nomes e custom. Favoritar ideias, regenerar e filtrar. Scratchpad com abas editaveis pela IA.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works" id="como-funciona">
+        <div class="container">
+            <h2>Como funciona</h2>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Baixe e instale</h3>
+                    <p>Download rapido, instalacao em 1 minuto. Abra e comece a escrever imediatamente. Sem cadastro, sem configuracao.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Crie seu universo</h3>
+                    <p>Monte o Codex com fichas de personagens, locais, itens e lore. A IA aprende tudo sobre seu mundo automaticamente.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Escreva com superpoderes</h3>
+                    <p>Use o editor com IA integrada. Gere cenas, dialogos, imagens. Diagrame com templates profissionais e exporte para PDF ou DOCX.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Section -->
+    <section class="why-section">
+        <div class="why-content">
+            <h2>O futuro da escrita criativa ja comecou</h2>
+            <p>
+                Enquanto outras ferramentas tratam a IA como um chatbot generico, o Lore entende que cada livro e um universo.
+                Cada personagem tem historia, cada local tem segredos, e a IA precisa conhecer tudo isso para ser verdadeiramente util.
+                O Lore e a primeira ferramenta de escrita que leva worldbuilding a serio.
+            </p>
+            <p style="margin-top: 24px;">
+                Nao importa se voce esta escrevendo seu primeiro livro ou ja publicou varios. O Lore organiza seu processo criativo,
+                potencializa suas ideias com IA e entrega um resultado profissional -- do rascunho ao PDF diagramado.
+            </p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-content">
+            <h2>Comece a escrever seu livro agora</h2>
+            <p>Beta gratuito e sem limitacoes. Baixe, crie seu universo e nos conte o que achou.</p>
+
+            <div class="cta-buttons">
+                <a href="https://github.com/LoopLess-nardoto/nardoto-lore-releases/releases/latest/download/NardotoLore-Setup.exe" class="btn btn-primary btn-large">
+                    <i data-lucide="download" style="width: 20px; height: 20px;"></i>
+                    Baixar Gratis para Windows
+                </a>
+            </div>
+
+            <div class="free-badge">
+                <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
+                Beta gratuito -- Todas as funcionalidades liberadas
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="index.html">Inicio</a>
+            <a href="flow.html">Nardoto Flow</a>
+            <a href="extensoes.html">Extensoes</a>
+            <a href="precos.html">Precos</a>
+            <a href="termos.html">Termos de Uso</a>
+            <a href="privacidade.html">Privacidade</a>
+        </div>
+        <p class="footer-copy">2026 Nardoto. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
