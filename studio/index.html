@@ -230,10 +230,18 @@
       padding: 16px 28px;
       font-size: 14px;
       font-weight: 600;
-      color: var(--text-muted);
-      background: var(--bg-card);
+      color: var(--text-secondary);
+      background: var(--bg-elevated);
       border-radius: 12px;
-      cursor: default;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+
+    .btn-mac:hover {
+      background: #1E1E1E;
+      color: var(--text);
+      transform: translateY(-2px);
     }
 
     .hero-meta {
@@ -1449,14 +1457,17 @@
     <div class="hero-cta">
       <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup.exe" class="btn-primary">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        <span data-i18n="hero-cta">Começar teste grátis</span>
+        <span data-i18n="hero-cta-win">Windows</span>
       </a>
-      <span class="btn-mac" data-i18n="hero-mac">macOS em breve</span>
+      <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest" class="btn-primary" style="background: var(--bg-elevated); box-shadow: none;" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span data-i18n="hero-cta-mac">macOS (beta)</span>
+      </a>
     </div>
     <p class="hero-meta">
       <span data-i18n="hero-meta-trial">10 dias grátis</span>
       <span>|</span>
-      <span>Windows 10/11</span>
+      <span>Windows 10/11 + macOS</span>
       <span>|</span>
       <span data-i18n="hero-meta-size">~450 MB</span>
     </p>
@@ -2269,8 +2280,8 @@
       <details class="faq-item">
         <summary data-i18n="faq10-q">Funciona no macOS?</summary>
         <div class="faq-answer">
-          <strong data-i18n="faq10-h">Ainda não. Atualmente só Windows 10/11.</strong>
-          <p data-i18n="faq10-d1">O Studio é uma aplicação desktop (Electron) otimizada pra Windows. A versão macOS está em desenvolvimento ativo — a arquitetura já suporta ambas as plataformas, mas ainda faltam ajustes de compatibilidade e testes. Quando estiver pronta, será anunciada no app e nas redes.</p>
+          <strong data-i18n="faq10-h">Sim. A versão macOS já está disponível para testes.</strong>
+          <p data-i18n="faq10-d1">O Studio agora roda em Windows 10/11 e macOS (arm64). A versão macOS está em fase beta — já é funcional e permite produzir vídeos, mas ainda pode ter ajustes sendo feitos. O DMG está disponível na página de releases do GitHub. Baixe, instale e teste com os mesmos 10 dias grátis.</p>
         </div>
       </details>
 
@@ -2381,8 +2392,8 @@
         'hero-title-1': 'Seu próximo vídeo já está pronto.',
         'hero-title-2': 'Ele só não sabe disso.',
         'hero-desc': 'O Studio conecta suas IAs num único fluxo: Claude escreve o roteiro, Gemini gera imagens, 11Labs ou Inworld criam as vozes. Você traz suas assinaturas. O Studio faz tudo trabalhar junto.',
-        'hero-cta': 'Começar teste grátis',
-        'hero-mac': 'macOS em breve',
+        'hero-cta-win': 'Windows',
+        'hero-cta-mac': 'macOS (beta)',
         'hero-meta-trial': '10 dias grátis',
         'hero-meta-size': '~450 MB',
         'features-label': 'Funcionalidades',
@@ -2612,8 +2623,8 @@
         'faq9-h': 'Sim. Sem fidelidade, sem multa, sem burocracia.',
         'faq9-d1': 'Cancele a qualquer momento pelo painel de assinatura. Não tem contrato mínimo, não tem taxa de cancelamento, não precisa ligar pra ninguém. Se o Studio parar de fazer sentido pra você, cancela e pronto.',
         'faq10-q': 'Funciona no macOS?',
-        'faq10-h': 'Ainda não. Atualmente só Windows 10/11.',
-        'faq10-d1': 'O Studio é uma aplicação desktop (Electron) otimizada pra Windows. A versão macOS está em desenvolvimento ativo — a arquitetura já suporta ambas as plataformas, mas ainda faltam ajustes de compatibilidade e testes. Quando estiver pronta, será anunciada no app e nas redes.',
+        'faq10-h': 'Sim. A versão macOS já está disponível para testes.',
+        'faq10-d1': 'O Studio agora roda em Windows 10/11 e macOS (arm64). A versão macOS está em fase beta — já é funcional e permite produzir vídeos, mas ainda pode ter ajustes sendo feitos. O DMG está disponível na página de releases do GitHub. Baixe, instale e teste com os mesmos 10 dias grátis.',
         'faq11-q': 'Por que é tão caro comparado com outras ferramentas?',
         'faq11-h': 'Porque não é a mesma coisa.',
         'faq11-d1': 'Ferramentas de R$ 30-50/mês te dão um gerador de vídeo genérico: cole um texto, receba um vídeo padrão com banco de imagens. Todas as produções saem iguais. Você não tem controle sobre nada.',
@@ -2656,8 +2667,8 @@
         'hero-title-1': 'Your next video is already done.',
         'hero-title-2': 'It just doesn\'t know it yet.',
         'hero-desc': 'Studio connects your AIs in a single flow: Claude writes the script, Gemini generates images, 11Labs or Inworld create the voices. You bring your subscriptions. Studio makes everything work together.',
-        'hero-cta': 'Start free trial',
-        'hero-mac': 'macOS coming soon',
+        'hero-cta-win': 'Windows',
+        'hero-cta-mac': 'macOS (beta)',
         'hero-meta-trial': '10-day trial',
         'hero-meta-size': '~450 MB',
         'features-label': 'Features',
@@ -2887,8 +2898,8 @@
         'faq9-h': 'Yes. No commitment, no fine, no red tape.',
         'faq9-d1': 'Cancel at any time through the subscription dashboard. No minimum contract, no cancellation fee, no need to call anyone. If Studio stops making sense for you, cancel and that\'s it.',
         'faq10-q': 'Does it work on macOS?',
-        'faq10-h': 'Not yet. Currently Windows 10/11 only.',
-        'faq10-d1': 'Studio is a desktop application (Electron) optimized for Windows. The macOS version is in active development — the architecture already supports both platforms, but there are still compatibility adjustments and tests needed. When it\'s ready, it will be announced in the app and on social media.',
+        'faq10-h': 'Yes. The macOS version is now available for testing.',
+        'faq10-d1': 'Studio now runs on Windows 10/11 and macOS (arm64). The macOS version is in beta — it\'s functional and allows producing videos, but adjustments may still be in progress. The DMG is available on the GitHub releases page. Download, install and test with the same 10-day free trial.',
         'faq11-q': 'Why is it so expensive compared to other tools?',
         'faq11-h': 'Because it\'s not the same thing.',
         'faq11-d1': 'R$ 30-50/mo tools give you a generic video generator: paste text, get a standard video with stock images. All productions look the same. You have zero control.',
