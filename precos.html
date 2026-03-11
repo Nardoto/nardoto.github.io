@@ -89,9 +89,9 @@
 
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 32px;
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto 80px;
         }
 
@@ -393,7 +393,7 @@
 
             .pricing-grid {
                 grid-template-columns: 1fr;
-                max-width: 450px;
+                max-width: 500px;
             }
 
             .pricing-card {
@@ -424,7 +424,8 @@
 
             <ul class="navbar-menu" id="navbarMenu">
                 <li><a href="index.html">Início</a></li>
-                <li><a href="flow.html" style="color: #E85A2A; font-weight: 600;">Nardoto Flow</a></li>
+                <li style="display: none;"><a href="flow.html" style="color: #E85A2A; font-weight: 600;">Nardoto Flow</a></li>
+                <li><a href="studio/" style="color: #E85A2A; font-weight: 600;">Nardoto Studio</a></li>
                 <li><a href="extensoes.html">Extensões</a></li>
                 <li><a href="precos.html" class="active">Preços</a></li>
                 <li><a href="faq.html">FAQ</a></li>
@@ -455,6 +456,27 @@
     <section class="pricing-section">
         <!-- Planos Principais -->
         <div class="pricing-grid">
+            <!-- Studio Lite -->
+            <div class="pricing-card">
+                <div class="pricing-card-icon studio">
+                    <i data-lucide="puzzle"></i>
+                </div>
+                <h3>Studio Lite</h3>
+                <p class="tagline">Plugin CapCut + 11 extensões</p>
+                <div class="price">R$ 167</div>
+                <p class="price-info">por mês</p>
+                <ul class="pricing-features">
+                    <li><i data-lucide="check"></i> Plugin completo para CapCut</li>
+                    <li><i data-lucide="check"></i> 11 extensões Chrome incluídas</li>
+                    <li><i data-lucide="check"></i> Automação completa</li>
+                    <li><i data-lucide="check"></i> Sem limite de uso</li>
+                    <li><i data-lucide="check"></i> Suporte via WhatsApp</li>
+                    <li class="disabled"><i data-lucide="x"></i> Nardoto Flow</li>
+                    <li class="disabled"><i data-lucide="x"></i> Chat com IA (Claude, Gemini)</li>
+                </ul>
+                <a href="https://nardoto-labs.web.app/dashboard.html" class="pricing-btn outline">Assinar Lite</a>
+            </div>
+
             <!-- Individual -->
             <div class="pricing-card">
                 <div class="pricing-card-icon vip">
@@ -465,34 +487,13 @@
                 <div class="price">R$ 500</div>
                 <p class="price-info">por mês</p>
                 <ul class="pricing-features">
-                    <li><i data-lucide="check"></i> Todas as 11 extensões Chrome</li>
-                    <li><i data-lucide="check"></i> Nardoto Studio incluso</li>
-                    <li><i data-lucide="check"></i> Nardoto Flow completo</li>
-                    <li><i data-lucide="check"></i> Atualizações automáticas</li>
-                    <li><i data-lucide="check"></i> Suporte prioritário</li>
+                    <li><i data-lucide="check"></i> Tudo do Studio Lite</li>
+                    <li><i data-lucide="check"></i> Nardoto Studio completo</li>
+                    <li><i data-lucide="check"></i> Nardoto Flow</li>
+                    <li><i data-lucide="check"></i> Chat com IA (Claude, Gemini)</li>
                     <li><i data-lucide="check"></i> 10 dias grátis para testar</li>
                 </ul>
                 <a href="https://nardoto-labs.web.app/dashboard.html?plan=individual" class="pricing-btn outline">Começar Agora</a>
-            </div>
-
-            <!-- Familia -->
-            <div class="pricing-card">
-                <div class="pricing-card-icon vip" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.1));">
-                    <i data-lucide="users" style="color: #FFD700;"></i>
-                </div>
-                <h3>Família</h3>
-                <p class="tagline">Até 4 pessoas com acesso completo</p>
-                <div class="price">R$ 920</div>
-                <p class="price-info">por mês - R$230/pessoa</p>
-                <ul class="pricing-features">
-                    <li><i data-lucide="check"></i> Tudo do plano Individual</li>
-                    <li><i data-lucide="check"></i> Até 4 pessoas no mesmo plano</li>
-                    <li><i data-lucide="check"></i> 1 titular gerencia tudo</li>
-                    <li><i data-lucide="check"></i> Cada membro tem sua conta</li>
-                    <li><i data-lucide="check"></i> Economize R$1.080/mês vs 4 individuais</li>
-                    <li><i data-lucide="check"></i> Suporte prioritário para todos</li>
-                </ul>
-                <a href="https://nardoto-labs.web.app/dashboard.html?plan=family" class="pricing-btn outline">Quero o Família</a>
             </div>
 
             <!-- Familia Ultra -->
@@ -518,6 +519,25 @@
 
         <!-- Opcoes Adicionais -->
         <div class="pricing-grid" style="margin-top: 60px;">
+            <!-- Familia -->
+            <div class="pricing-card">
+                <div class="pricing-card-icon vip" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.1));">
+                    <i data-lucide="users" style="color: #FFD700;"></i>
+                </div>
+                <h3>Família</h3>
+                <p class="tagline">Até 4 pessoas com acesso completo</p>
+                <div class="price">R$ 920</div>
+                <p class="price-info">por mês - R$230/pessoa</p>
+                <ul class="pricing-features">
+                    <li><i data-lucide="check"></i> Tudo do plano Individual</li>
+                    <li><i data-lucide="check"></i> Até 4 pessoas no mesmo plano</li>
+                    <li><i data-lucide="check"></i> 1 titular gerencia tudo</li>
+                    <li><i data-lucide="check"></i> Cada membro tem sua conta</li>
+                    <li><i data-lucide="check"></i> Economize R$1.080/mês vs 4 individuais</li>
+                </ul>
+                <a href="https://nardoto-labs.web.app/dashboard.html?plan=family" class="pricing-btn outline">Quero o Família</a>
+            </div>
+
             <!-- VEO3 Automator -->
             <div class="pricing-card">
                 <div class="pricing-card-icon veo3" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.1));">
@@ -548,9 +568,9 @@
                 <h3>Mentoria Premium</h3>
                 <p class="tagline">Acesso direto + suporte completo</p>
                 <div class="price">R$ 2.000</div>
-                <p class="price-info">pagamento único - 1 mês VIP incluso</p>
+                <p class="price-info">pagamento único - 1 mês Individual incluso</p>
                 <ul class="pricing-features">
-                    <li><i data-lucide="check"></i> <strong>1 mês de VIP incluso</strong></li>
+                    <li><i data-lucide="check"></i> <strong>1 mês Individual incluso</strong></li>
                     <li><i data-lucide="check"></i> Suporte individual WhatsApp</li>
                     <li><i data-lucide="check"></i> Call para estrutura do canal</li>
                     <li><i data-lucide="check"></i> Call para estrutura de vídeos</li>
@@ -580,7 +600,7 @@
                         <i data-lucide="clapperboard"></i>
                     </div>
                     <h4>Nardoto Studio</h4>
-                    <p>App desktop para montar vídeos completos sem abrir o CapCut</p>
+                    <p>O maior plugin para CapCut. Automatize tarefas repetitivas com IA.</p>
                 </div>
 
                 <div class="included-card">
@@ -648,7 +668,7 @@
 
             <details class="faq-item">
                 <summary>Funciona em Mac ou só Windows?</summary>
-                <p>O Nardoto Flow e o Nardoto Studio funcionam apenas em Windows. As extensões Chrome funcionam em qualquer sistema.</p>
+                <p>O Nardoto Studio funciona em Windows e Mac. As extensões Chrome funcionam em qualquer sistema.</p>
             </details>
 
             <details class="faq-item">
