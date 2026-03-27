@@ -3230,5 +3230,19 @@
       ltUpdate()
     })()
   </script>
+
+  <!-- Afiliado: detecta ?ref= na URL e injeta nos links de compra -->
+  <script>
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var ref = params.get('ref');
+      if (!ref) return;
+      document.querySelectorAll('a[href*="nardoto-labs.web.app"]').forEach(function(a) {
+        var url = new URL(a.href);
+        url.searchParams.set('ref', ref);
+        a.href = url.toString();
+      });
+    })();
+  </script>
 </body>
 </html>
