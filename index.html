@@ -213,9 +213,9 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-            max-width: 1200px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            max-width: 1240px;
             margin: 0 auto;
         }
 
@@ -647,12 +647,21 @@
         }
 
         /* Responsive */
-        @media (max-width: 1024px) {
+        @media (max-width: 1100px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 720px;
+            }
+        }
+
+        @media (max-width: 640px) {
             .products-grid {
                 grid-template-columns: 1fr;
                 max-width: 500px;
             }
+        }
 
+        @media (max-width: 1024px) {
             .pricing-cards {
                 grid-template-columns: 1fr;
                 max-width: 450px;
@@ -802,17 +811,21 @@
             </p>
 
             <div class="hero-products-preview">
-                <div class="product-tag" style="background: linear-gradient(135deg, rgba(232, 90, 42, 0.3), rgba(232, 90, 42, 0.15)); border-color: #E85A2A;">
-                    <i data-lucide="clapperboard" style="width: 18px; height: 18px; color: #E85A2A;"></i>
-                    Nardoto Studio - Automação CapCut
-                </div>
                 <div class="product-tag">
-                    <i data-lucide="puzzle" style="width: 18px; height: 18px;"></i>
-                    11 Extensões Integradas
+                    <i data-lucide="refresh-cw" style="width: 18px; height: 18px;"></i>
+                    Nardoto Sync
                 </div>
                 <div class="product-tag">
                     <i data-lucide="zap" style="width: 18px; height: 18px;"></i>
                     Nardoto Flow
+                </div>
+                <div class="product-tag">
+                    <i data-lucide="layers" style="width: 18px; height: 18px;"></i>
+                    Nardoto Lite
+                </div>
+                <div class="product-tag" style="background: linear-gradient(135deg, rgba(232, 90, 42, 0.3), rgba(232, 90, 42, 0.15)); border-color: #E85A2A;">
+                    <i data-lucide="clapperboard" style="width: 18px; height: 18px; color: #E85A2A;"></i>
+                    Nardoto Studio
                 </div>
             </div>
 
@@ -826,11 +839,11 @@
     <!-- Products Section -->
     <section class="products-section">
         <div class="products-header">
-            <h2>Um ecossistema, tudo incluso</h2>
-            <p>Nardoto Studio é o centro do ecossistema. Flow e extensões inclusos.</p>
+            <h2>Quatro produtos. Você escolhe o que precisa.</h2>
+            <p>Sync, Flow e Lite são módulos especializados. Studio é o pacote completo com chat IA e mentoria 1-a-1.</p>
         </div>
 
-        <div class="products-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="products-grid">
             <!-- Nardoto Lore - OCULTO -->
             <a href="lore.html" class="product-card" style="display: none; border-color: #22C55E; box-shadow: 0 0 40px rgba(34, 197, 94, 0.15);">
                 <span class="product-badge" style="background: linear-gradient(135deg, #22C55E, #4ADE80); color: #000;">BETA GRATIS</span>
@@ -848,55 +861,72 @@
                 <span class="product-cta" style="color: #22C55E;">Baixar gratis <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i></span>
             </a>
 
-            <!-- Nardoto Studio - CARRO-CHEFE -->
-            <a href="studio/" class="product-card" style="border-color: #E85A2A; box-shadow: 0 0 40px rgba(232, 90, 42, 0.15);">
-                <span class="product-badge" style="background: linear-gradient(135deg, #E85A2A, #FF7A50); color: #fff;">CARRO-CHEFE</span>
-                <div class="product-icon studio">
-                    <i data-lucide="clapperboard"></i>
+            <!-- Nardoto Sync -->
+            <a href="https://nardoto-labs.web.app/checkout-sync.html" class="product-card">
+                <span class="product-badge" style="background: rgba(232, 90, 42, 0.15); color: var(--primary);">R$ 39,90/mês</span>
+                <div class="product-icon" style="background: linear-gradient(135deg, rgba(232, 90, 42, 0.2), rgba(232, 90, 42, 0.1));">
+                    <i data-lucide="refresh-cw" style="color: #E85A2A;"></i>
                 </div>
-                <h3>Nardoto Studio</h3>
-                <p class="tagline">Agentes de IA para produção de vídeo</p>
+                <h3>Nardoto Sync</h3>
+                <p class="tagline">Automação CapCut Desktop</p>
                 <ul class="product-features">
-                    <li>Chat com IA integrado</li>
-                    <li>Sync automático com CapCut</li>
-                    <li>KPIs de produção</li>
-                    <li>Skills e agentes</li>
+                    <li>Sync de N tracks de mídia</li>
+                    <li>Loop, mescla e inserção em lote</li>
+                    <li>Templates de legenda</li>
+                    <li>Plugin nativo do CapCut</li>
                 </ul>
-                <span class="product-cta">Conhecer o Studio <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i></span>
+                <span class="product-cta">Assinar Sync <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i></span>
             </a>
 
             <!-- Nardoto Flow -->
-            <a href="flow.html" class="product-card">
-                <span class="product-badge" style="background: rgba(232, 90, 42, 0.15); color: var(--primary);">INCLUSO NO STUDIO</span>
+            <a href="https://nardoto-labs.web.app/checkout-flow.html" class="product-card">
+                <span class="product-badge" style="background: rgba(232, 90, 42, 0.15); color: var(--primary);">R$ 99/mês</span>
                 <div class="product-icon" style="background: linear-gradient(135deg, rgba(232, 90, 42, 0.2), rgba(232, 90, 42, 0.1));">
                     <i data-lucide="zap" style="color: #E85A2A;"></i>
                 </div>
                 <h3>Nardoto Flow</h3>
-                <p class="tagline">Gere 20 vídeos com IA de uma vez</p>
+                <p class="tagline">Navegador IA em batch</p>
                 <ul class="product-features">
-                    <li>Sistema multi-conta VEO3</li>
-                    <li>Nardoto Studio incluso</li>
-                    <li>Extensões já integradas</li>
-                    <li>10 dias gratis para testar</li>
+                    <li>VEO3 Automator multi-conta</li>
+                    <li>Suno, Whisk, YouTube grabber</li>
+                    <li>Google TTS Free integrado</li>
+                    <li>Nardoflix: aulas inclusas</li>
                 </ul>
-                <span class="product-cta">Testar gratis <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i></span>
+                <span class="product-cta">Assinar Flow <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i></span>
             </a>
 
-            <!-- Extensões -->
-            <a href="extensoes.html" class="product-card">
-                <span class="product-badge extensions">INTEGRADAS</span>
-                <div class="product-icon extensions">
-                    <i data-lucide="puzzle"></i>
+            <!-- Nardoto Lite -->
+            <a href="https://nardoto-labs.web.app/checkout-lite.html" class="product-card">
+                <span class="product-badge" style="background: rgba(232, 90, 42, 0.15); color: var(--primary);">R$ 247/mês</span>
+                <div class="product-icon" style="background: linear-gradient(135deg, rgba(232, 90, 42, 0.2), rgba(232, 90, 42, 0.1));">
+                    <i data-lucide="layers" style="color: #E85A2A;"></i>
                 </div>
-                <h3>Extensões Automatização</h3>
-                <p class="tagline">Automatize tarefas repetitivas</p>
+                <h3>Nardoto Lite</h3>
+                <p class="tagline">Bundle de IA num app só</p>
                 <ul class="product-features">
-                    <li>VEO3, Grok, Meta AI, Wisk</li>
-                    <li>Claude, GPT, Gemini</li>
-                    <li>Suno, CapCut AI</li>
-                    <li>Já integradas no Flow</li>
+                    <li>Sync + Flow inclusos</li>
+                    <li>Creator (Gemini): roteiro + voz + imagem</li>
+                    <li>Vozes premium + Epidemic Sound</li>
+                    <li>Remotion + extensões nativas</li>
                 </ul>
-                <span class="product-cta">Ver extensões <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i></span>
+                <span class="product-cta">Assinar Lite <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i></span>
+            </a>
+
+            <!-- Nardoto Studio -->
+            <a href="https://nardoto-labs.web.app/checkout-studio.html" class="product-card" style="border-color: #E85A2A; box-shadow: 0 0 40px rgba(232, 90, 42, 0.15);">
+                <span class="product-badge" style="background: linear-gradient(135deg, #E85A2A, #FF7A50); color: #fff;">MAIS COMPLETO</span>
+                <div class="product-icon studio">
+                    <i data-lucide="clapperboard"></i>
+                </div>
+                <h3>Nardoto Studio</h3>
+                <p class="tagline">Tudo + chat IA + mentoria</p>
+                <ul class="product-features">
+                    <li>Sync + Flow + Lite inclusos</li>
+                    <li>Chat IA (Claude / Codex / Gemini)</li>
+                    <li>Mentoria 1-a-1 mensal</li>
+                    <li>R$ 500/mês — 10 dias grátis</li>
+                </ul>
+                <span class="product-cta">Conhecer o Studio <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i></span>
             </a>
         </div>
     </section>
