@@ -1426,9 +1426,10 @@
       transform: translateY(0);
     }
 
-    /* Lightbox com zoom nas screenshots do app */
+    /* Lightbox com zoom nas screenshots e GIFs do app */
     .showcase-slide img,
-    .lite-carousel img {
+    .lite-carousel img,
+    .carousel-media img {
       cursor: zoom-in;
     }
 
@@ -1485,6 +1486,59 @@
       outline: none;
     }
 
+    .img-zoom-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      border: none;
+      color: #fff;
+      font-size: 1.75rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s ease, opacity 0.15s ease;
+      z-index: 10000;
+      padding: 0;
+    }
+
+    .img-zoom-nav:hover,
+    .img-zoom-nav:focus {
+      background: rgba(255, 255, 255, 0.22);
+      outline: none;
+    }
+
+    .img-zoom-nav.is-hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .img-zoom-prev { left: 16px; }
+    .img-zoom-next { right: 16px; }
+
+    .img-zoom-counter {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.85rem;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 4px 12px;
+      border-radius: 999px;
+      z-index: 10000;
+      pointer-events: none;
+    }
+
+    .img-zoom-counter.is-hidden {
+      display: none;
+    }
+
     @keyframes imgZoomFade {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -1498,6 +1552,13 @@
         height: 48px;
         font-size: 1.65rem;
       }
+      .img-zoom-nav {
+        width: 48px;
+        height: 48px;
+        font-size: 1.5rem;
+      }
+      .img-zoom-prev { left: 8px; }
+      .img-zoom-next { right: 8px; }
     }
   </style>
 </head>
@@ -3381,21 +3442,64 @@
     })();
   </script>
 
-  <!-- Lightbox de screenshots do app: tela cheia + pinch-zoom no mobile -->
+  <!-- Lightbox de screenshots/GIFs: tela cheia + pinch-zoom mobile + navegacao -->
   <div id="imgZoom" class="img-zoom" aria-hidden="true" role="dialog" aria-label="Imagem em tamanho real">
     <button class="img-zoom-close" type="button" aria-label="Fechar">&times;</button>
+    <button class="img-zoom-nav img-zoom-prev" type="button" aria-label="Imagem anterior">&#8249;</button>
+    <button class="img-zoom-nav img-zoom-next" type="button" aria-label="Proxima imagem">&#8250;</button>
     <img id="imgZoomImg" src="" alt="">
+    <div class="img-zoom-counter" id="imgZoomCounter"></div>
   </div>
 
   <script>
     (function() {
       var zoom = document.getElementById('imgZoom');
       var zoomImg = document.getElementById('imgZoomImg');
+      var counter = document.getElementById('imgZoomCounter');
       var closeBtn = zoom.querySelector('.img-zoom-close');
+      var prevBtn = zoom.querySelector('.img-zoom-prev');
+      var nextBtn = zoom.querySelector('.img-zoom-next');
 
-      function openZoom(src, alt) {
+      var ZOOM_SELECTOR = '.showcase-slide img, .lite-carousel img, .carousel-media img';
+      var GALLERY_SELECTOR = '#workflow-carousel, #showcase-carousel, .lite-carousel';
+
+      var currentGallery = [];
+      var currentIndex = 0;
+
+      function getGallery(img) {
+        var root = img.closest(GALLERY_SELECTOR);
+        if (!root) return [img];
+        return Array.from(root.querySelectorAll(ZOOM_SELECTOR));
+      }
+
+      function getImgSrc(img) {
+        return img.currentSrc || img.src || img.dataset.gif || '';
+      }
+
+      function showAt(idx) {
+        if (!currentGallery.length) return;
+        currentIndex = (idx + currentGallery.length) % currentGallery.length;
+        var img = currentGallery[currentIndex];
+        var src = getImgSrc(img);
+        if (!src) return;
         zoomImg.src = src;
-        zoomImg.alt = alt || '';
+        zoomImg.alt = img.alt || '';
+        if (currentGallery.length > 1) {
+          counter.textContent = (currentIndex + 1) + ' / ' + currentGallery.length;
+          counter.classList.remove('is-hidden');
+          prevBtn.classList.remove('is-hidden');
+          nextBtn.classList.remove('is-hidden');
+        } else {
+          counter.classList.add('is-hidden');
+          prevBtn.classList.add('is-hidden');
+          nextBtn.classList.add('is-hidden');
+        }
+      }
+
+      function openZoom(img) {
+        currentGallery = getGallery(img);
+        var idx = currentGallery.indexOf(img);
+        showAt(idx >= 0 ? idx : 0);
         zoom.classList.add('is-open');
         zoom.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
@@ -3406,24 +3510,59 @@
         zoom.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
         zoomImg.src = '';
+        currentGallery = [];
       }
 
-      document.querySelectorAll('.showcase-slide img, .lite-carousel img').forEach(function(img) {
+      document.querySelectorAll(ZOOM_SELECTOR).forEach(function(img) {
         img.addEventListener('click', function(e) {
           e.stopPropagation();
-          openZoom(img.currentSrc || img.src, img.alt);
+          openZoom(img);
         });
       });
 
       zoom.addEventListener('click', function(e) {
-        if (e.target !== zoomImg) closeZoom();
+        if (e.target === zoom) closeZoom();
       });
 
-      closeBtn.addEventListener('click', closeZoom);
+      closeBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeZoom();
+      });
+
+      prevBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        showAt(currentIndex - 1);
+      });
+
+      nextBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        showAt(currentIndex + 1);
+      });
 
       document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && zoom.classList.contains('is-open')) closeZoom();
+        if (!zoom.classList.contains('is-open')) return;
+        if (e.key === 'Escape') closeZoom();
+        else if (e.key === 'ArrowLeft') showAt(currentIndex - 1);
+        else if (e.key === 'ArrowRight') showAt(currentIndex + 1);
       });
+
+      // Swipe horizontal no mobile (galerias com mais de 1 imagem)
+      var touchStartX = 0;
+      var touchStartY = 0;
+      zoom.addEventListener('touchstart', function(e) {
+        if (e.touches.length !== 1) return;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+      zoom.addEventListener('touchend', function(e) {
+        if (!touchStartX || currentGallery.length < 2) return;
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        var dy = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+          showAt(currentIndex + (dx < 0 ? 1 : -1));
+        }
+        touchStartX = 0;
+      }, { passive: true });
     })();
   </script>
 </body>
