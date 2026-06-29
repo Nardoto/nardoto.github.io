@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nardoto Cast - Sua voz, no seu PC (grátis)</title>
+    <meta name="description" content="Gere narração e clone vozes direto no seu computador, de graça e sem depender de nenhum site. Baixe o Nardoto Cast.">
+    <meta property="og:title" content="Nardoto Cast - Sua voz, no seu PC">
+    <meta property="og:description" content="Gerador de voz local e gratuito. Narre seus vídeos e clone vozes sem internet.">
+    <meta property="og:image" content="cast-icon.png">
+    <link rel="icon" type="image/png" href="cast-icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #E85A2A;
+            --primary-light: #F07040;
+            --bg-dark: #0A0A0A;
+            --card-dark: #1A1A1A;
+            --card-soft: #141414;
+            --text-primary: #FFFFFF;
+            --text-secondary: #9CA3AF;
+            --text-muted: #6B7280;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(ellipse at center top, #2D1810 0%, #0A0A0A 70%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            padding: 1rem;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(232, 90, 42, 0.12) 0%, transparent 55%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page-container { max-width: 1080px; margin: 0 auto; position: relative; z-index: 1; }
+
+        /* Header */
+        .page-header {
+            background: var(--card-dark);
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .brand { display: flex; align-items: center; gap: 0.75rem; }
+        .brand img { height: 32px; width: 32px; object-fit: contain; }
+        .brand h1 { font-family: 'DM Serif Display', serif; font-size: 1.25rem; font-weight: 400; }
+        .brand a { font-size: 0.75rem; color: var(--text-secondary); text-decoration: none; margin-left: 0.5rem; }
+        .brand a:hover { color: var(--text-primary); }
+        .header-actions a {
+            color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; font-weight: 500;
+            padding: 0.5rem 1rem; border-radius: 8px; transition: all 0.15s;
+        }
+        .header-actions a:hover { color: var(--text-primary); background: rgba(255, 255, 255, 0.05); }
+
+        /* Hero */
+        .hero { text-align: center; padding: 3rem 1rem 2rem; }
+        .hero-icon {
+            width: 104px; height: 104px; object-fit: contain; margin: 0 auto 1.25rem; display: block;
+            filter: drop-shadow(0 8px 28px rgba(232, 90, 42, 0.45));
+        }
+        .badge-free {
+            display: inline-block; background: rgba(232, 90, 42, 0.14); color: var(--primary-light);
+            font-size: 0.72rem; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase;
+            padding: 0.35rem 0.85rem; border-radius: 20px; margin-bottom: 1.25rem;
+        }
+        .hero h2 {
+            font-family: 'DM Serif Display', serif; font-size: clamp(2.1rem, 6vw, 3.4rem);
+            font-weight: 400; line-height: 1.1; margin-bottom: 0.85rem;
+        }
+        .hero h2 span { color: var(--primary); }
+        .hero p { color: var(--text-secondary); font-size: 1.05rem; max-width: 580px; margin: 0 auto 1.75rem; line-height: 1.55; }
+        .hero p b { color: var(--text-primary); font-weight: 600; }
+
+        .hero-ctas { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 1rem;
+            padding: 0.9rem 1.9rem; border-radius: 10px; text-decoration: none; transition: all 0.15s; cursor: pointer; border: none;
+        }
+        .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 4px 12px rgba(232, 90, 42, 0.35); }
+        .btn-primary:hover { background: var(--primary-light); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(232, 90, 42, 0.45); }
+        .btn-secondary { background: #222; color: var(--text-primary); }
+        .btn-secondary:hover { background: #2c2c2c; transform: translateY(-1px); }
+        .btn small { font-weight: 400; font-size: 0.78rem; color: rgba(255,255,255,0.7); }
+
+        /* Selos de gratis */
+        .free-strip { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; margin-top: 1.75rem; }
+        .free-strip span {
+            display: inline-flex; align-items: center; gap: 0.45rem;
+            background: rgba(232, 90, 42, 0.14); color: var(--text-primary);
+            font-size: 0.95rem; font-weight: 700; padding: 0.55rem 1.1rem; border-radius: 999px;
+        }
+        .free-strip span::before { content: '\2713'; color: var(--primary); font-weight: 800; font-size: 1rem; }
+        .free-strip span.hot { background: var(--primary); color: #fff; box-shadow: 0 6px 18px rgba(232, 90, 42, 0.45); }
+        .free-strip span.hot::before { color: #fff; }
+
+        /* Seções genéricas */
+        .section { margin: 2.5rem 0; }
+        .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.5rem, 3.5vw, 2rem); font-weight: 400; text-align: center; margin-bottom: 0.5rem; }
+        .section-sub { text-align: center; color: var(--text-secondary); font-size: 0.95rem; max-width: 560px; margin: 0 auto 1.75rem; line-height: 1.5; }
+
+        /* Showcase dos modos */
+        .showcase-row { display: flex; gap: 2rem; align-items: center; margin-bottom: 2rem; }
+        .showcase-row:nth-child(even) { flex-direction: row-reverse; }
+        .showcase-img { flex: 1 1 64%; min-width: 0; position: relative; cursor: zoom-in; }
+        .showcase-img img {
+            width: 100%; border-radius: 12px; display: block; transition: transform 0.18s, box-shadow 0.18s;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.04);
+        }
+        .showcase-img:hover img { transform: translateY(-3px); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(232,90,42,0.4); }
+        .showcase-img::after {
+            content: '\26F6  Ampliar'; position: absolute; bottom: 12px; right: 12px;
+            background: rgba(10, 10, 10, 0.82); color: #fff; font-size: 0.74rem; font-weight: 600;
+            padding: 0.35rem 0.7rem; border-radius: 8px; opacity: 0; transition: opacity 0.15s; pointer-events: none;
+        }
+        .showcase-img:hover::after { opacity: 1; }
+        .showcase-text { flex: 1 1 36%; }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed; inset: 0; z-index: 100; display: none; cursor: zoom-out;
+            background: rgba(0, 0, 0, 0.92); align-items: center; justify-content: center; padding: 2rem;
+        }
+        .lightbox.open { display: flex; }
+        .lightbox img { max-width: 95vw; max-height: 92vh; border-radius: 10px; box-shadow: 0 24px 70px rgba(0, 0, 0, 0.7); }
+        .lightbox-close {
+            position: absolute; top: 0.9rem; right: 1.25rem; color: #fff; font-size: 2.4rem; line-height: 1;
+            background: none; border: none; cursor: pointer; opacity: 0.75;
+        }
+        .lightbox-close:hover { opacity: 1; }
+        .showcase-text .step-tag { color: var(--primary); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; }
+        .showcase-text h3 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; font-weight: 400; margin: 0.4rem 0 0.6rem; }
+        .showcase-text p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; }
+
+        /* Vozes / samples */
+        .samples { background: var(--card-dark); border-radius: 16px; padding: 2rem 1.5rem; }
+        .provider-block { margin-bottom: 1.5rem; }
+        .provider-block:last-child { margin-bottom: 0; }
+        .provider-head { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.85rem; }
+        .provider-head strong { font-size: 1.05rem; font-weight: 700; }
+        .provider-head .p-meta { color: var(--text-muted); font-size: 0.8rem; }
+        .provider-head .p-pt { color: var(--primary); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; background: rgba(232,90,42,0.14); padding: 0.15rem 0.55rem; border-radius: 12px; }
+        .voices-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 0.6rem; }
+        .voice-chip {
+            display: flex; align-items: center; gap: 0.7rem; background: var(--card-soft);
+            border-radius: 10px; padding: 0.6rem 0.8rem; cursor: pointer; transition: background 0.15s; user-select: none;
+        }
+        .voice-chip:hover { background: #1f1f1f; }
+        .voice-chip.playing { background: linear-gradient(180deg, rgba(232,90,42,0.16) 0%, var(--card-soft) 60%); box-shadow: 0 0 0 1px rgba(232,90,42,0.45); }
+        .play-ico {
+            flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--primary);
+            color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.7rem;
+        }
+        .v-info { display: flex; flex-direction: column; min-width: 0; }
+        .v-name { font-weight: 600; font-size: 0.9rem; }
+        .v-meta { color: var(--text-muted); font-size: 0.74rem; }
+        .clone-note { margin-top: 1.25rem; color: var(--text-secondary); font-size: 0.88rem; text-align: center; }
+        .clone-note b { color: var(--text-primary); }
+
+        /* Benefícios */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; }
+        .feature-card { background: var(--card-dark); border-radius: 14px; padding: 1.5rem 1.25rem; transition: transform 0.15s, box-shadow 0.15s; }
+        .feature-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(232, 90, 42, 0.22); }
+        .feature-card .tag { color: var(--primary); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+        .feature-card h3 { font-size: 1.05rem; font-weight: 600; margin: 0.4rem 0 0.4rem; }
+        .feature-card p { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; }
+
+        /* Requisitos */
+        .reqs { background: var(--card-dark); border-radius: 16px; padding: 2rem 1.5rem; }
+        .req-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 1.25rem; }
+        .req-item { display: flex; gap: 0.75rem; align-items: flex-start; }
+        .req-ico { color: var(--primary); font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+        .req-item strong { display: block; font-size: 0.92rem; margin-bottom: 0.15rem; }
+        .req-item p { color: var(--text-secondary); font-size: 0.83rem; line-height: 1.45; }
+        .req-foot { color: var(--text-muted); font-size: 0.82rem; line-height: 1.5; text-align: center; }
+        .req-foot b { color: var(--text-secondary); }
+
+        /* Banner Discord */
+        .discord-banner {
+            background: linear-gradient(180deg, rgba(232, 90, 42, 0.12) 0%, var(--card-dark) 55%);
+            box-shadow: 0 0 0 1px rgba(232, 90, 42, 0.35); border-radius: 16px; padding: 2.75rem 1.5rem; text-align: center;
+        }
+        .discord-banner h3 { font-family: 'DM Serif Display', serif; font-size: clamp(1.6rem, 4vw, 2.1rem); font-weight: 400; margin-bottom: 0.6rem; }
+        .discord-banner p { color: var(--text-secondary); font-size: 0.98rem; max-width: 520px; margin: 0 auto 1.5rem; line-height: 1.55; }
+
+        /* Produtos */
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+        .product-card { background: var(--card-dark); border-radius: 14px; padding: 1.5rem 1.25rem; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: transform 0.15s, box-shadow 0.15s; }
+        .product-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(232, 90, 42, 0.22); }
+        .product-head { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+        .product-head img { width: 38px; height: 38px; object-fit: contain; border-radius: 9px; }
+        .product-head strong { font-family: 'DM Serif Display', serif; font-size: 1.2rem; font-weight: 400; }
+        .product-card p { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; flex-grow: 1; }
+        .product-link { color: var(--primary); font-size: 0.85rem; font-weight: 600; margin-top: 1rem; }
+
+        /* Download final */
+        .download-cta { text-align: center; background: var(--card-dark); border-radius: 16px; padding: 2.75rem 1.5rem; }
+        .download-cta h3 { font-family: 'DM Serif Display', serif; font-size: clamp(1.6rem, 4vw, 2.1rem); font-weight: 400; margin-bottom: 0.5rem; }
+        .download-cta p { color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem; }
+
+        /* Footer */
+        footer { text-align: center; padding: 2.5rem 1rem 1.5rem; color: var(--text-muted); font-size: 0.8rem; }
+        footer .links { margin-bottom: 0.75rem; display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; }
+        footer a { color: var(--text-secondary); text-decoration: none; }
+        footer a:hover { color: var(--primary); }
+
+        @media (max-width: 720px) {
+            .showcase-row, .showcase-row:nth-child(even) { flex-direction: column; gap: 1rem; }
+        }
+        @media (max-width: 600px) {
+            .page-header { flex-direction: column; gap: 0.6rem; padding: 1rem; }
+            .brand a { display: none; }
+            .hero { padding: 2rem 0.5rem 1.5rem; }
+            .btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <header class="page-header">
+            <div class="brand">
+                <img src="logo-nardoto.png" alt="Nardoto">
+                <h1>Nardoto Cast</h1>
+                <a href="https://nardoto.com.br/" target="_blank" rel="noopener">nardoto.com.br</a>
+            </div>
+            <div class="header-actions">
+                <a href="https://discord.gg/dmHkBTTFMB" target="_blank" rel="noopener">Comunidade</a>
+                <a href="https://nardoto-labs.web.app/dashboard.html" target="_blank" rel="noopener">Produtos</a>
+            </div>
+        </header>
+
+        <!-- Hero -->
+        <section class="hero">
+            <img class="hero-icon" src="cast-icon.png" alt="Nardoto Cast">
+            <div class="badge-free">Grátis &middot; 100% offline</div>
+            <h2>Sua voz, <span>no seu PC.</span></h2>
+            <p>Gere narração e clone vozes direto no seu computador, <b>de graça</b> e sem depender de nenhum site. Nada do seu áudio sai do PC.</p>
+            <div class="hero-ctas">
+                <a class="btn btn-primary" href="https://github.com/LoopLess-nardoto/nardoto-cast-releases/releases/latest" target="_blank" rel="noopener">
+                    Baixar grátis <small>Windows</small>
+                </a>
+                <a class="btn btn-secondary" href="https://discord.gg/dmHkBTTFMB" target="_blank" rel="noopener">
+                    Entrar no Discord
+                </a>
+            </div>
+            <div class="free-strip">
+                <span class="hot">Grátis pra sempre</span>
+                <span>Sem assinatura</span>
+                <span>Sem marca d'água</span>
+                <span>Sem limite de caracteres</span>
+            </div>
+        </section>
+
+        <!-- Os 3 modos (prints reais do app) -->
+        <section class="section">
+            <h2 class="section-title">Simples assim</h2>
+            <p class="section-sub">Quatro jeitos de criar voz no mesmo app. Escreve, escolhe a voz e gera.</p>
+
+            <div class="showcase-row">
+                <div class="showcase-img"><img src="cast-shots/narracao.png" alt="Modo narração do Nardoto Cast"></div>
+                <div class="showcase-text">
+                    <div class="step-tag">Narração</div>
+                    <h3>Texto vira voz</h3>
+                    <p>Cola o roteiro, escolhe entre dezenas de vozes prontas e gera a narração em MP3 com a legenda SRT sincronizada. Clica no play pra ouvir cada voz antes.</p>
+                </div>
+            </div>
+
+            <div class="showcase-row">
+                <div class="showcase-img"><img src="cast-shots/dialogo.png" alt="Modo diálogo do Nardoto Cast"></div>
+                <div class="showcase-text">
+                    <div class="step-tag">Diálogo</div>
+                    <h3>Vários personagens</h3>
+                    <p>Escreve um nome no começo de cada fala e cada personagem ganha uma voz própria. Dá até pra marcar pausas entre as falas. Perfeito pra histórias e esquetes.</p>
+                </div>
+            </div>
+
+            <div class="showcase-row">
+                <div class="showcase-img"><img src="cast-shots/clonagem.png" alt="Modo clonagem de voz (Chatterbox) do Nardoto Cast"></div>
+                <div class="showcase-text">
+                    <div class="step-tag">Clonar voz &middot; Chatterbox</div>
+                    <h3>A sua voz, clonada</h3>
+                    <p>O motor de clonagem, o <b>Chatterbox</b>, aprende a sua voz com um áudio curto de 15 a 30 segundos e passa a falar qualquer texto que você digitar. Treine uma vez e narre seus vídeos com a sua própria voz.</p>
+                </div>
+            </div>
+
+            <div class="showcase-row">
+                <div class="showcase-img"><img src="cast-shots/trocavoz.png" alt="Modo trocar voz (RVC) do Nardoto Cast"></div>
+                <div class="showcase-text">
+                    <div class="step-tag">Trocar voz &middot; RVC</div>
+                    <h3>Troque a voz de um áudio</h3>
+                    <p>Já tem um áudio pronto? Sobe ele e troca a voz por outro modelo (tecnologia <b>RVC</b>), mantendo a entonação e o ritmo. Use vozes prontas da internet ou treine a sua no Applio.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ouça as vozes -->
+        <section class="section">
+            <h2 class="section-title">Ouça as vozes</h2>
+            <p class="section-sub">Uma amostra das melhores vozes que já vêm prontas, separadas por motor. Clica pra ouvir.</p>
+            <div class="samples">
+                <div class="provider-block">
+                    <div class="provider-head">
+                        <strong>Kokoro</strong>
+                        <span class="p-meta">Qualidade alta &middot; roda na CPU &middot; a mais natural pra inglês</span>
+                    </div>
+                    <div class="voices-row">
+                        <div class="voice-chip" data-src="samples/cast/kokoro/heart.mp3">
+                            <span class="play-ico">&#9654;</span>
+                            <span class="v-info"><span class="v-name">Heart</span><span class="v-meta">Feminino &middot; Inglês (US)</span></span>
+                        </div>
+                        <div class="voice-chip" data-src="samples/cast/kokoro/bella.mp3">
+                            <span class="play-ico">&#9654;</span>
+                            <span class="v-info"><span class="v-name">Bella</span><span class="v-meta">Feminino &middot; Inglês (US)</span></span>
+                        </div>
+                        <div class="voice-chip" data-src="samples/cast/kokoro/michael.mp3">
+                            <span class="play-ico">&#9654;</span>
+                            <span class="v-info"><span class="v-name">Michael</span><span class="v-meta">Masculino &middot; Inglês (US)</span></span>
+                        </div>
+                        <div class="voice-chip" data-src="samples/cast/kokoro/emma.mp3">
+                            <span class="play-ico">&#9654;</span>
+                            <span class="v-info"><span class="v-name">Emma</span><span class="v-meta">Feminino &middot; Inglês (UK)</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-block">
+                    <div class="provider-head">
+                        <strong>Piper</strong>
+                        <span class="p-pt">Tem português</span>
+                        <span class="p-meta">Instantâneo &middot; roda na CPU</span>
+                    </div>
+                    <div class="voices-row">
+                        <div class="voice-chip" data-src="samples/cast/piper/faber.mp3">
+                            <span class="play-ico">&#9654;</span>
+                            <span class="v-info"><span class="v-name">Faber</span><span class="v-meta">Masculino &middot; Português (BR)</span></span>
+                        </div>
+                        <div class="voice-chip" data-src="samples/cast/piper/cadu.mp3">
+                            <span class="play-ico">&#9654;</span>
+                            <span class="v-info"><span class="v-name">Cadu</span><span class="v-meta">Masculino &middot; Português (BR)</span></span>
+                        </div>
+                        <div class="voice-chip" data-src="samples/cast/piper/jeff.mp3">
+                            <span class="play-ico">&#9654;</span>
+                            <span class="v-info"><span class="v-name">Jeff</span><span class="v-meta">Masculino &middot; Português (BR)</span></span>
+                        </div>
+                        <div class="voice-chip" data-src="samples/cast/piper/ryan.mp3">
+                            <span class="play-ico">&#9654;</span>
+                            <span class="v-info"><span class="v-name">Ryan</span><span class="v-meta">Masculino &middot; Inglês (US)</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-block">
+                    <div class="provider-head">
+                        <strong>Supertonic</strong>
+                        <span class="p-meta">Rápido &middot; usa a placa de vídeo quando tem</span>
+                    </div>
+                    <div class="voices-row">
+                        <div class="voice-chip" data-src="samples/cast/supertonic/marcus.mp3">
+                            <span class="play-ico">&#9654;</span>
+                            <span class="v-info"><span class="v-name">Marcus</span><span class="v-meta">Masculino &middot; Inglês (US)</span></span>
+                        </div>
+                        <div class="voice-chip" data-src="samples/cast/supertonic/sophie.mp3">
+                            <span class="play-ico">&#9654;</span>
+                            <span class="v-info"><span class="v-name">Sophie</span><span class="v-meta">Feminino &middot; Inglês (US)</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-block">
+                    <div class="provider-head">
+                        <strong>VieNeu</strong>
+                        <span class="p-meta">Leve &middot; roda na CPU &middot; inglês com um sotaque marcante</span>
+                    </div>
+                    <div class="voices-row">
+                        <div class="voice-chip" data-src="samples/cast/vieneu/linh.mp3">
+                            <span class="play-ico">&#9654;</span>
+                            <span class="v-info"><span class="v-name">Linh</span><span class="v-meta">Feminino &middot; sotaque vietnamita</span></span>
+                        </div>
+                        <div class="voice-chip" data-src="samples/cast/vieneu/lan.mp3">
+                            <span class="play-ico">&#9654;</span>
+                            <span class="v-info"><span class="v-name">Lan</span><span class="v-meta">Feminino &middot; sotaque vietnamita</span></span>
+                        </div>
+                        <div class="voice-chip" data-src="samples/cast/vieneu/bao.mp3">
+                            <span class="play-ico">&#9654;</span>
+                            <span class="v-info"><span class="v-name">Bao</span><span class="v-meta">Masculino &middot; sotaque vietnamita</span></span>
+                        </div>
+                        <div class="voice-chip" data-src="samples/cast/vieneu/son.mp3">
+                            <span class="play-ico">&#9654;</span>
+                            <span class="v-info"><span class="v-name">Son</span><span class="v-meta">Masculino &middot; sotaque vietnamita</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="clone-note">As vozes acima já vêm prontas. Quer a <b>sua própria voz</b>? Use a <b>clonagem (Chatterbox)</b> com um áudio curto seu.</p>
+            </div>
+        </section>
+
+        <!-- Benefícios -->
+        <section class="section">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="tag">Offline</div>
+                    <h3>Nada sai do seu PC</h3>
+                    <p>Todo o áudio é gerado localmente. Sem upload, sem nuvem, sem depender de internet.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="tag">Sem custo</div>
+                    <h3>Totalmente grátis</h3>
+                    <p>Baixe e use sem assinatura, sem limite de caracteres e sem marca d'água.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="tag">Vozes</div>
+                    <h3>Dezenas de vozes</h3>
+                    <p>Vários motores prontos, em inglês e português, mais o modo diálogo com vários personagens.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="tag">Clonagem</div>
+                    <h3>A sua voz</h3>
+                    <p>Treine um modelo com a sua própria voz e narre seus vídeos do seu jeito.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- O que seu PC precisa -->
+        <section class="section">
+            <h2 class="section-title">O que seu PC precisa</h2>
+            <p class="section-sub">Roda num computador comum. Pra clonagem e vozes aceleradas, uma placa de vídeo ajuda.</p>
+            <div class="reqs">
+                <div class="req-grid">
+                    <div class="req-item">
+                        <span class="req-ico">&#9654;</span>
+                        <div><strong>Windows 10 ou 11</strong><p>Instalador direto pra Windows. Abre e roda no seu PC.</p></div>
+                    </div>
+                    <div class="req-item">
+                        <span class="req-ico">&#9654;</span>
+                        <div><strong>Vozes prontas: qualquer PC</strong><p>Kokoro, Piper e VieNeu rodam na CPU, sem precisar de placa de vídeo.</p></div>
+                    </div>
+                    <div class="req-item">
+                        <span class="req-ico">&#9654;</span>
+                        <div><strong>Clonagem e Supertonic: melhor com NVIDIA</strong><p>Ficam bem mais rápidos com placa NVIDIA. Sem ela, caem pra CPU (a clonagem, em especial, fica lenta).</p></div>
+                    </div>
+                    <div class="req-item">
+                        <span class="req-ico">&#9654;</span>
+                        <div><strong>~600 MB de espaço</strong><p>Pras vozes leves. Mais espaço conforme você baixa outros motores e vozes.</p></div>
+                    </div>
+                </div>
+                <p class="req-foot"><b>Atenção:</b> placas AMD não são aceleradas &mdash; caem pra CPU também. Fechar programas pesados (jogos, edição de vídeo) deixa a geração mais rápida.</p>
+            </div>
+        </section>
+
+        <!-- Banner Discord -->
+        <section class="section">
+            <div class="discord-banner">
+                <h3>Entra na comunidade</h3>
+                <p>Tira dúvidas, mostra o que criou, recebe novidades em primeira mão e troca ideia com outros criadores. É de graça e o pessoal é gente boa.</p>
+                <a class="btn btn-primary" href="https://discord.gg/dmHkBTTFMB" target="_blank" rel="noopener">Entrar no Discord</a>
+            </div>
+        </section>
+
+        <!-- Produtos -->
+        <section class="section">
+            <h2 class="section-title">Conheça meus produtos</h2>
+            <p class="section-sub">O Cast é grátis. Quando quiser ir além, esses são os meus produtos completos.</p>
+            <div class="products-grid">
+                <a class="product-card" href="https://nardoto-labs.web.app/dashboard.html" target="_blank" rel="noopener">
+                    <div class="product-head">
+                        <img src="extension-icons/studio-icon.png" alt="Nardoto Studio">
+                        <strong>Nardoto Studio</strong>
+                    </div>
+                    <p>Editor de vídeo desktop com IA pra automatizar a produção. Você dirige, a IA executa.</p>
+                    <span class="product-link">Conhecer &rarr;</span>
+                </a>
+                <a class="product-card" href="https://nardoto-labs.web.app/dashboard.html" target="_blank" rel="noopener">
+                    <div class="product-head">
+                        <img src="extension-icons/flow-icon.png" alt="Nardoto Flow">
+                        <strong>Nardoto Flow</strong>
+                    </div>
+                    <p>Plataforma no navegador com extensões pra gerar imagem e vídeo com IA, incluindo VEO3.</p>
+                    <span class="product-link">Conhecer &rarr;</span>
+                </a>
+                <a class="product-card" href="https://nardoto-labs.web.app/dashboard.html" target="_blank" rel="noopener">
+                    <div class="product-head">
+                        <img src="lore-icon.png" alt="Nardoto Lore">
+                        <strong>Nardoto Lore</strong>
+                    </div>
+                    <p>App desktop exclusivo dos planos VIP pra quem leva a criação de conteúdo a sério.</p>
+                    <span class="product-link">Conhecer &rarr;</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Download final -->
+        <section class="section">
+            <div class="download-cta">
+                <h3>Pronto pra começar?</h3>
+                <p>Baixe agora, de graça. Sua voz roda no seu PC.</p>
+                <a class="btn btn-primary" href="https://github.com/LoopLess-nardoto/nardoto-cast-releases/releases/latest" target="_blank" rel="noopener">
+                    Baixar Nardoto Cast <small>Windows</small>
+                </a>
+            </div>
+        </section>
+
+        <footer>
+            <div class="links">
+                <a href="https://nardoto.com.br/" target="_blank" rel="noopener">nardoto.com.br</a>
+                <a href="https://discord.gg/dmHkBTTFMB" target="_blank" rel="noopener">Discord</a>
+                <a href="https://nardoto-labs.web.app/dashboard.html" target="_blank" rel="noopener">Meu Painel</a>
+                <a href="mailto:contato@nardoto.com">contato@nardoto.com</a>
+            </div>
+            <div>Nardoto Cast &middot; gerador de voz local e gratuito</div>
+        </footer>
+    </div>
+
+    <!-- Lightbox de imagens -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Fechar">&times;</button>
+        <img id="lightboxImg" src="" alt="">
+    </div>
+
+    <script>
+        // Lightbox: clicar num print abre ele grande
+        (function () {
+            var lb = document.getElementById('lightbox');
+            var lbImg = document.getElementById('lightboxImg');
+            function abrir(src, alt) { lbImg.src = src; lbImg.alt = alt || ''; lb.classList.add('open'); document.body.style.overflow = 'hidden'; }
+            function fechar() { lb.classList.remove('open'); lbImg.src = ''; document.body.style.overflow = ''; }
+            document.querySelectorAll('.showcase-img img').forEach(function (img) {
+                img.addEventListener('click', function () { abrir(img.getAttribute('src'), img.getAttribute('alt')); });
+            });
+            lb.addEventListener('click', function (e) { if (e.target !== lbImg) fechar(); });
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape') fechar(); });
+        })();
+
+        // Player de amostras: um audio global, clique toca/pausa, troca entre vozes
+        (function () {
+            var audio = new Audio();
+            var atual = null;
+            function parar() {
+                if (atual) { atual.classList.remove('playing'); atual.querySelector('.play-ico').innerHTML = '&#9654;'; atual = null; }
+            }
+            audio.addEventListener('ended', parar);
+            document.querySelectorAll('.voice-chip').forEach(function (chip) {
+                chip.addEventListener('click', function () {
+                    var src = chip.getAttribute('data-src');
+                    if (atual === chip) { audio.pause(); parar(); return; }
+                    parar();
+                    audio.src = src;
+                    audio.play().catch(function () {});
+                    atual = chip;
+                    chip.classList.add('playing');
+                    chip.querySelector('.play-ico').innerHTML = '&#10073;&#10073;';
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
