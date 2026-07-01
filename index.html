@@ -12,13 +12,13 @@
         gtag('config', 'G-WSY9CWHH19');
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Nardoto Studio - O maior e único plugin do mundo para CapCut. Automatize tarefas repetitivas + 11 extensões Chrome integradas. 10 dias grátis.">
+    <meta name="description" content="Nardoto Studio - O maior e único plugin do mundo para CapCut. Roteiro, voz, imagem e legenda com IA num fluxo só. 10 dias grátis.">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://nardoto.com.br/">
     <meta property="og:title" content="Nardoto - Produção de Conteúdo em Escala">
-    <meta property="og:description" content="Nardoto Studio - O maior e único plugin do mundo para CapCut. Automatize tarefas repetitivas + 11 extensões Chrome integradas. 10 dias grátis.">
+    <meta property="og:description" content="Nardoto Studio - O maior e único plugin do mundo para CapCut. Roteiro, voz, imagem e legenda com IA num fluxo só. 10 dias grátis.">
     <meta property="og:image" content="https://nardoto.com.br/favicon.png">
 
     <!-- Favicon -->
@@ -53,7 +53,7 @@
 
         /* New Hero Section */
         .hero-new {
-            padding: 120px 20px 100px;
+            padding: 96px 20px 80px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -213,9 +213,9 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-            max-width: 1240px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 18px;
+            max-width: 1340px;
             margin: 0 auto;
         }
 
@@ -253,6 +253,31 @@
         .product-card:hover::before {
             opacity: 1;
         }
+
+        /* Spotlight interativo que segue o mouse (web design pattern) */
+        .product-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background: radial-gradient(240px circle at var(--mx, 50%) var(--my, -20%), rgba(232, 90, 42, 0.18), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .product-card:hover::after { opacity: 1; }
+        .product-card > * { position: relative; z-index: 1; }
+
+        .products-section { position: relative; overflow: hidden; }
+        .products-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background: radial-gradient(620px circle at var(--smx, 50%) var(--smy, 18%), rgba(232, 90, 42, 0.10), transparent 60%);
+        }
+        .products-section > * { position: relative; z-index: 1; }
 
         .product-badge {
             display: inline-block;
@@ -616,6 +641,239 @@
             color: var(--primary);
         }
 
+        /* Topnav estilo pill (igual Dark Planner) */
+        .navbar { display: none !important; }
+        body.has-navbar { padding-top: 0 !important; }
+        .topnav {
+            position: fixed; top: 16px; left: 0; right: 0; z-index: 99999;
+            display: flex; justify-content: center; padding: 0 16px;
+        }
+        .topnav-inner {
+            width: 100%; max-width: 1120px;
+            display: flex; align-items: center; justify-content: space-between; gap: 20px;
+            background: rgba(18,18,18,0.82);
+            backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 100px; padding: 9px 12px 9px 20px;
+        }
+        .topnav-logo { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-weight: 700; font-size: 1.1rem; }
+        .topnav-logo img { width: 30px; height: 30px; border-radius: 8px; }
+        .topnav-menu { display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; }
+        .topnav-menu button {
+            background: none; border: none; cursor: pointer; font-family: inherit;
+            font-size: 0.95rem; font-weight: 500; color: var(--text-secondary);
+            padding: 8px 14px; border-radius: 100px; transition: all 0.2s ease;
+        }
+        .topnav-menu button:hover { color: #fff; background: rgba(255,255,255,0.05); }
+        .topnav-menu button.active { color: var(--primary); }
+        .topnav-cta { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+        .topnav-cta .btn-primary {
+            background: var(--primary); color: #fff; padding: 10px 22px;
+            border-radius: 100px; font-weight: 700; text-decoration: none; font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+        .topnav-cta .btn-primary:hover { background: #FF6B3D; }
+
+        /* Paineis de aba */
+        .tab-panel { animation: tabIn 0.25s ease; }
+        .tab-panel[hidden] { display: none; }
+        @keyframes tabIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+        .ppanel { max-width: 760px; margin: 0 auto; padding: 150px 20px 90px; text-align: center; }
+        .ppanel h1 { font-family: 'DM Serif Display', serif; font-size: 3rem; color: var(--text-primary); margin-bottom: 16px; }
+        .ppanel .p-sub { font-size: 1.25rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 32px; }
+        .ppanel ul { list-style: none; display: inline-flex; flex-direction: column; gap: 12px; text-align: left; margin: 0 auto 36px; }
+        .ppanel ul li { display: flex; gap: 10px; color: var(--text-secondary); font-size: 1.02rem; }
+        .ppanel ul li::before { content: '✓'; color: var(--primary); font-weight: 700; }
+
+        /* Abas que mostram a pagina completa real (iframe), atrelada ao site */
+        .tab-embed { padding-top: 0; }
+        .tab-frame { width: 100%; border: 0; display: block; min-height: 80vh; background: var(--bg-dark); }
+
+        @media (max-width: 880px) {
+            .topnav-cta .btn-dashboard { display: none; }
+            .topnav-menu { gap: 0; }
+            .topnav-menu button { padding: 8px 9px; font-size: 0.85rem; }
+            .topnav-logo span { display: none; }
+        }
+        @media (max-width: 560px) { .ppanel h1 { font-size: 2.1rem; } }
+
+        /* Tabela comparativa de planos */
+        .compare-section {
+            padding: 96px 20px 56px;
+            background: var(--bg-dark);
+            position: relative;
+        }
+
+        .compare-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            max-width: 1340px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .compare-card {
+            background: var(--card-dark);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 32px 24px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .compare-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary);
+        }
+
+        .compare-card.featured {
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 40px rgba(232, 90, 42, 0.18);
+        }
+
+        .compare-card.featured::before {
+            content: 'RECOMENDADO';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: #fff;
+            padding: 5px 16px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .compare-card .c-name {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .compare-card .c-tag {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 18px;
+            min-height: 54px;
+        }
+
+        .compare-card .c-price {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .compare-card .c-price .c-per {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .compare-card .c-annual { color: var(--text-secondary); font-size: 0.82rem; margin-top: 6px; }
+        .compare-card .c-icon { width: 46px; height: 46px; border-radius: 12px; object-fit: contain; margin-bottom: 16px; display: block; }
+
+        /* Toggle mensal/anual */
+        .billing-toggle { display: flex; justify-content: center; gap: 6px; background: var(--card-dark); border-radius: 100px; padding: 5px; width: fit-content; margin: -16px auto 44px; }
+        .billing-toggle .bt-btn { background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.95rem; font-weight: 600; color: var(--text-secondary); padding: 10px 22px; border-radius: 100px; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 8px; }
+        .billing-toggle .bt-btn.active { background: var(--primary); color: #fff; }
+        .billing-toggle .bt-save { font-size: 0.7rem; font-weight: 700; background: rgba(34,197,94,0.18); color: #22C55E; padding: 2px 8px; border-radius: 100px; }
+        .billing-toggle .bt-btn.active .bt-save { background: rgba(255,255,255,0.22); color: #fff; }
+        .bill-a { display: none; }
+        .compare-section.annual .bill-m { display: none; }
+        .compare-section.annual .bill-a { display: inline; }
+
+        .compare-card .c-free { color: #22C55E; }
+
+        .compare-card .c-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 700;
+            text-decoration: none;
+            margin: 22px 0;
+            transition: all 0.3s ease;
+        }
+
+        .compare-card .c-btn.filled { background: var(--primary); color: #fff; }
+        .compare-card .c-btn.filled:hover { background: #D4522A; transform: translateY(-2px); }
+        .compare-card .c-btn.green { background: #22C55E; color: #000; }
+        .compare-card .c-btn.green:hover { transform: translateY(-2px); }
+        .compare-card .c-btn.outline { background: transparent; color: var(--text-primary); border: 1px solid var(--border-light); }
+        .compare-card .c-btn.outline:hover { border-color: var(--primary); color: var(--primary); }
+
+        .compare-card .c-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .compare-card .c-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .compare-card .c-features li.no { opacity: 0.45; }
+
+        .compare-card .c-features .ic { flex-shrink: 0; width: 18px; height: 18px; margin-top: 1px; }
+        .compare-card .c-features .ic.yes { color: var(--primary); }
+        .compare-card .c-features li.green-y .ic.yes { color: #22C55E; }
+        .compare-card .c-features .ic.no { color: #6B7280; }
+
+        @media (max-width: 1340px) {
+            .compare-grid { grid-template-columns: repeat(3, 1fr); max-width: 820px; }
+        }
+
+        @media (max-width: 760px) {
+            .compare-grid { grid-template-columns: repeat(2, 1fr); max-width: 520px; }
+        }
+
+        @media (max-width: 480px) {
+            .compare-grid { grid-template-columns: 1fr; max-width: 360px; }
+        }
+
+        /* Escada de familia do Studio */
+        .family-ladder { max-width: 1100px; margin: 56px auto 0; text-align: center; }
+        .family-ladder h3 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--text-primary); margin-bottom: 24px; }
+        .ladder-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+        .ladder-chips .chip { background: var(--card-dark); border: 1px solid var(--border-light); border-radius: 14px; padding: 16px 22px; min-width: 132px; }
+        .ladder-chips .chip span { display: block; color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 6px; }
+        .ladder-chips .chip strong { color: var(--text-primary); font-size: 1.15rem; font-weight: 800; }
+        .ladder-chips .chip strong i { font-style: normal; color: var(--text-secondary); font-size: 0.72rem; font-weight: 500; }
+        .ladder-chips .chip.best { border-color: var(--primary); box-shadow: 0 0 24px rgba(232, 90, 42, 0.18); }
+        .ladder-chips .chip.best strong { color: var(--primary); }
+        .ladder-note { color: var(--text-secondary); font-size: 0.9rem; margin-top: 22px; }
+
+        /* Sem contornos (preferencia do Nardoto): diferenciar por tom de fundo, nunca por borda */
+        .topnav-inner, .compare-card, .compare-card.featured, .ladder-chips .chip, .ladder-chips .chip.best,
+        .product-card, .testimonial-card, .pricing-card, .site-footer, .footer-bottom, .footer-grid {
+            border: none !important;
+        }
+        .c-btn.outline, .hero-buttons .btn-secondary, .btn-dashboard {
+            border: none !important;
+            background: rgba(255, 255, 255, 0.06) !important;
+        }
+        .c-btn.outline:hover, .hero-buttons .btn-secondary:hover, .btn-dashboard:hover {
+            background: rgba(255, 255, 255, 0.12) !important;
+            color: var(--text-primary) !important;
+        }
+
         /* Final CTA */
         .final-cta {
             padding: 100px 20px;
@@ -647,6 +905,13 @@
         }
 
         /* Responsive */
+        @media (max-width: 1340px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+                max-width: 860px;
+            }
+        }
+
         @media (max-width: 1100px) {
             .products-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -770,31 +1035,33 @@
     </style>
 </head>
 <body class="has-navbar">
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="navbar-container">
-            <a href="index.html" class="navbar-logo">
+    <!-- Topnav (pill, abas na mesma pagina) -->
+    <nav class="topnav">
+        <div class="topnav-inner">
+            <a href="#" class="topnav-logo" onclick="showTab('inicio'); return false;">
                 <img src="favicon.png" alt="Nardoto">
                 <span>Nardoto</span>
             </a>
 
-            <ul class="navbar-menu" id="navbarMenu">
-                <li><a href="studio/" style="color: #E85A2A; font-weight: 600;">Nardoto Studio</a></li>
-                <li><a href="faq.html">FAQ</a></li>
-            </ul>
-
-            <div class="navbar-cta">
-                <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-dashboard">Meu Dashboard</a>
-                <a href="studio/" class="btn-primary">Começar</a>
+            <div class="topnav-menu">
+                <button data-tab="inicio" class="active" onclick="showTab('inicio')">Produtos</button>
+                <button data-tab="studio" onclick="showTab('studio')">Studio</button>
+                <button data-tab="flow" onclick="showTab('flow')">Flow</button>
+                <button data-tab="cast" onclick="showTab('cast')">Cast</button>
+                <button data-tab="lore" onclick="showTab('lore')">Lore</button>
+                <button data-tab="precos" onclick="showTab('precos')">Preço</button>
+                <button data-tab="faq" onclick="showTab('faq')">FAQ</button>
             </div>
 
-            <button class="navbar-toggle" onclick="document.getElementById('navbarMenu').classList.toggle('active')">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <div class="topnav-cta">
+                <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-dashboard">Meu Dashboard</a>
+                <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-primary">Começar</a>
+            </div>
         </div>
     </nav>
+
+    <!-- ===== ABA: PRODUTOS (inicio) ===== -->
+    <div class="tab-panel" id="tab-inicio">
 
     <!-- Hero Section -->
     <section class="hero-new">
@@ -835,28 +1102,11 @@
     <!-- Products Section -->
     <section class="products-section" id="products">
         <div class="products-header">
-            <h2>Três produtos. Você escolhe o que precisa.</h2>
-            <p>Sync e Flow são módulos especializados. Studio é o pacote completo com chat IA e mentoria 1-a-1.</p>
+            <h2>Os apps do Nardoto. Você escolhe o que precisa.</h2>
+            <p>Cada um resolve uma parte. O Studio junta tudo com chat de IA.</p>
         </div>
 
         <div class="products-grid">
-            <!-- Nardoto Lore - OCULTO -->
-            <a href="lore.html" class="product-card" style="display: none; border-color: #22C55E; box-shadow: 0 0 40px rgba(34, 197, 94, 0.15);">
-                <span class="product-badge" style="background: linear-gradient(135deg, #22C55E, #4ADE80); color: #000;">BETA GRATIS</span>
-                <div class="product-icon" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.1));">
-                    <i data-lucide="book-open" style="color: #22C55E;"></i>
-                </div>
-                <h3>Nardoto Lore</h3>
-                <p class="tagline">Escreva livros com inteligência artificial</p>
-                <ul class="product-features">
-                    <li>Editor com 9 modos de IA</li>
-                    <li>Codex de worldbuilding completo</li>
-                    <li>Personagens vivos com memória</li>
-                    <li>Diagramação profissional + export</li>
-                </ul>
-                <span class="product-cta" style="color: #22C55E;">Baixar gratis <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i></span>
-            </a>
-
             <!-- Nardoto Cast -->
             <a href="cast.html" class="product-card" style="border-color: #22C55E; box-shadow: 0 0 40px rgba(34, 197, 94, 0.15);">
                 <span class="product-badge" style="background: linear-gradient(135deg, #22C55E, #4ADE80); color: #000;">GRÁTIS</span>
@@ -875,8 +1125,8 @@
             </a>
 
             <!-- Nardoto Sync -->
-            <a href="https://nardoto-labs.web.app/checkout-sync.html" class="product-card">
-                <span class="product-badge" style="background: rgba(232, 90, 42, 0.15); color: var(--primary);">R$ 39,90/mês</span>
+            <a href="https://nardoto-labs.web.app/dashboard.html" class="product-card">
+                <span class="product-badge" style="background: linear-gradient(135deg, #22C55E, #4ADE80); color: #000;">GRÁTIS</span>
                 <div class="product-icon" style="background: rgba(232, 90, 42, 0.08); overflow: hidden; padding: 0;">
                     <img src="extension-icons/nardoto-sync.png" alt="Nardoto Sync" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
@@ -890,17 +1140,34 @@
                     <li>Exporta XML pra outros editores</li>
                     <li>Organiza pastas e projetos do canal</li>
                 </ul>
-                <span class="product-cta">Assinar Sync <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i></span>
+                <span class="product-cta">Começar grátis <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i></span>
+            </a>
+
+            <!-- Nardoto Lore -->
+            <a href="#" onclick="showTab('lore');return false;" class="product-card">
+                <span class="product-badge" style="background: rgba(232, 90, 42, 0.15); color: var(--primary);">R$ 49,90/mês</span>
+                <div class="product-icon" style="background: rgba(232, 90, 42, 0.08); overflow: hidden; padding: 0;">
+                    <img src="lore-icon.png" alt="Nardoto Lore" style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
+                <h3>Nardoto Lore</h3>
+                <p class="tagline">Escreva livros com inteligência artificial</p>
+                <ul class="product-features">
+                    <li>Editor com 9 modos de IA</li>
+                    <li>Codex de worldbuilding completo</li>
+                    <li>Personagens vivos com memória</li>
+                    <li>Diagramação profissional + export</li>
+                </ul>
+                <span class="product-cta">Conhecer o Lore <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i></span>
             </a>
 
             <!-- Nardoto Flow -->
             <a href="https://nardoto-labs.web.app/checkout-flow.html" class="product-card">
-                <span class="product-badge" style="background: rgba(232, 90, 42, 0.15); color: var(--primary);">R$ 129,90/mês</span>
+                <span class="product-badge" style="background: rgba(232, 90, 42, 0.15); color: var(--primary);">R$ 99,90/mês</span>
                 <div class="product-icon" style="background: rgba(232, 90, 42, 0.08); overflow: hidden; padding: 0;">
                     <img src="extension-icons/nardoto-flow.png" alt="Nardoto Flow" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
                 <h3>Nardoto Flow</h3>
-                <p class="tagline">Navegador exclusivo com extensões pra automatizar sites de IA</p>
+                <p class="tagline">Navegador exclusivo pra automatizar os sites de IA</p>
                 <ul class="product-features">
                     <li>VEO3 com consistência de cenas e personagens</li>
                     <li>Download em massa com nome do prompt e ordem</li>
@@ -914,19 +1181,19 @@
 
             <!-- Nardoto Studio -->
             <div class="product-card" style="border-color: #E85A2A; box-shadow: 0 0 40px rgba(232, 90, 42, 0.15); display: flex; flex-direction: column;">
-                <span class="product-badge" style="background: linear-gradient(135deg, #E85A2A, #FF7A50); color: #fff;">A partir de R$ 215/mês</span>
+                <span class="product-badge" style="background: linear-gradient(135deg, #E85A2A, #FF7A50); color: #fff;">A partir de R$ 169,90/mês</span>
                 <div class="product-icon studio" style="background: rgba(232, 90, 42, 0.08); overflow: hidden; padding: 0;">
                     <img src="studio/logo.png" alt="Nardoto Studio" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
                 <h3>Nardoto Studio</h3>
-                <p class="tagline">Sync + Flow + chat IA + mentoria</p>
+                <p class="tagline">Sync + Flow + chat de IA que faz tudo trabalhar junto</p>
                 <ul class="product-features">
                     <li>Sync + Flow inclusos</li>
+                    <li>Nardoto Lore incluso (escrever livros com IA)</li>
                     <li>Chat IA com Claude / GPT / Gemini (sua conta)</li>
                     <li>Motor de automação personalizado via chat</li>
-                    <li>Mentoria 1-a-1 mensal + grupo WhatsApp exclusivo</li>
-                    <li>Aulas de IA aplicada a vídeo + lives mensais</li>
-                    <li>Individual R$ 500 ou Família a partir de R$ 215/pessoa</li>
+                    <li>Comunidade WhatsApp + lives semanais (só no Studio)</li>
+                    <li>Individual R$ 169,90 ou família a partir de R$ 119,90/pessoa</li>
                 </ul>
                 <div style="margin-top: auto; display: flex; flex-direction: column; gap: 10px; padding-top: 16px;">
                     <a href="https://nardoto-labs.web.app/planos-familia.html" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #E85A2A; color: white; font-weight: 700; padding: 12px 20px; border-radius: 10px; text-decoration: none; transition: background 0.2s;">Conhecer o Studio <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i></a>
@@ -944,8 +1211,8 @@
                 <div class="label">Produtos</div>
             </div>
             <div class="stat-item">
-                <div class="number">11</div>
-                <div class="label">Extensões Chrome</div>
+                <div class="number">10+</div>
+                <div class="label">Automações de IA</div>
             </div>
             <div class="stat-item">
                 <div class="number">10x</div>
@@ -979,7 +1246,7 @@
             </div>
 
             <div class="testimonial-card">
-                <img src="depoimentos/depoimento-4.png" alt="Feedback positivo sobre extensões Chrome" loading="lazy">
+                <img src="depoimentos/depoimento-4.png" alt="Feedback positivo sobre as ferramentas" loading="lazy">
             </div>
 
             <div class="testimonial-card">
@@ -996,26 +1263,171 @@
         </div>
     </section>
 
-    <!-- CTA para planos -->
-    <section class="pricing-preview">
-        <div class="pricing-header">
-            <h2>Planos Simples e Diretos</h2>
-            <p>Acesso completo ao ecossistema Nardoto. Escolha o que faz sentido para você.</p>
-        </div>
-        <div class="pricing-cta" style="margin-top: 1rem;">
-            <a href="#products" class="btn btn-filled" style="display: inline-block; padding: 12px 32px; background: #E85A2A; color: white; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1rem;">Ver planos e começar</a>
-        </div>
-    </section>
-
-    <!-- Final CTA -->
+    <!-- Final CTA (so na home) -->
     <section class="final-cta">
         <h2>Pronto para produzir vídeos com IA?</h2>
         <p>Teste grátis por 10 dias. Sem compromisso, sem cartão de crédito.</p>
         <div class="hero-buttons">
-            <a href="studio/" class="btn-primary">Testar Studio Grátis</a>
-            <a href="faq.html" class="btn-secondary">Dúvidas Frequentes</a>
+            <a href="#" onclick="showTab('studio');return false;" class="btn-primary">Conhecer o Studio</a>
+            <a href="#" onclick="showTab('precos');return false;" class="btn-secondary">Ver planos</a>
         </div>
     </section>
+
+    </div><!-- /tab-inicio -->
+
+    <!-- ===== ABA: PRECO ===== -->
+    <div class="tab-panel" id="tab-precos" hidden>
+    <!-- Tabela comparativa de planos -->
+    <section class="compare-section annual" id="precos">
+        <div class="pricing-header">
+            <h2>Compare os planos</h2>
+            <p>Tudo num lugar só. Comece de graça com o Cast ou suba conforme precisar. Studio inclui tudo.</p>
+        </div>
+
+        <div class="billing-toggle">
+            <button type="button" class="bt-btn" data-bill="m" onclick="setBilling('m')">Mensal</button>
+            <button type="button" class="bt-btn active" data-bill="a" onclick="setBilling('a')">Anual <span class="bt-save">economize ~17%</span></button>
+        </div>
+
+        <div class="compare-grid">
+            <!-- Cast (Grátis) -->
+            <div class="compare-card">
+                <img class="c-icon" src="cast-icon.png" alt="Nardoto Cast">
+                <div class="c-name">Cast</div>
+                <div class="c-tag">Voz e narração no seu PC, offline e de graça.</div>
+                <div class="c-price c-free">Grátis</div>
+                <a href="https://nardoto-labs.web.app/dashboard.html" class="c-btn filled">Baixar grátis</a>
+                <ul class="c-features">
+                    <li class="green-y"><i data-lucide="check" class="ic yes"></i> Narração local (Kokoro, Piper)</li>
+                    <li class="green-y"><i data-lucide="check" class="ic yes"></i> Clonagem de voz + modo diálogo</li>
+                    <li class="green-y"><i data-lucide="check" class="ic yes"></i> Exporta MP3 + SRT</li>
+                    <li class="no"><i data-lucide="x" class="ic no"></i> Plugin do CapCut</li>
+                    <li class="no"><i data-lucide="x" class="ic no"></i> Navegador Flow / VEO3</li>
+                    <li class="no"><i data-lucide="x" class="ic no"></i> Chat IA + automação</li>
+                </ul>
+            </div>
+
+            <!-- Sync -->
+            <div class="compare-card">
+                <img class="c-icon" src="extension-icons/nardoto-sync.png" alt="Nardoto Sync">
+                <div class="c-name">Sync</div>
+                <div class="c-tag">O único plugin do CapCut do mundo.</div>
+                <div class="c-price c-free">Grátis</div>
+                <a href="https://nardoto-labs.web.app/dashboard.html" class="c-btn filled">Começar grátis</a>
+                <ul class="c-features">
+                    <li><i data-lucide="check" class="ic yes"></i> Plugin do CapCut (sem precisar do Pro)</li>
+                    <li><i data-lucide="check" class="ic yes"></i> Sincroniza fala + mídia em massa</li>
+                    <li><i data-lucide="check" class="ic yes"></i> SRT automático + exporta XML</li>
+                    <li class="no"><i data-lucide="x" class="ic no"></i> Navegador Flow / VEO3</li>
+                    <li class="no"><i data-lucide="x" class="ic no"></i> Automações de IA em massa</li>
+                    <li class="no"><i data-lucide="x" class="ic no"></i> Chat IA + automação</li>
+                </ul>
+            </div>
+
+            <!-- Lore -->
+            <div class="compare-card">
+                <img class="c-icon" src="lore-icon.png" alt="Nardoto Lore">
+                <div class="c-name">Lore</div>
+                <div class="c-tag">Escreva livros com IA: editor + worldbuilding.</div>
+                <div class="c-price">
+                    R$&nbsp;<span class="c-num" data-m="49,90" data-a="499">499</span><span class="c-per bill-m">/mês</span><span class="c-per bill-a">/ano</span>
+                </div>
+                <div class="c-annual">
+                    <span class="bill-m">ou R$ 499/ano no plano anual</span>
+                    <span class="bill-a">economize R$ 100/ano (-17%)</span>
+                </div>
+                <a href="https://nardoto-labs.web.app/dashboard.html" class="c-btn filled">Assinar Lore</a>
+                <ul class="c-features">
+                    <li><i data-lucide="check" class="ic yes"></i> Editor com modos de IA pra escrever</li>
+                    <li><i data-lucide="check" class="ic yes"></i> Worldbuilding (codex) + personagens vivos</li>
+                    <li><i data-lucide="check" class="ic yes"></i> Diagramação e PDF profissional</li>
+                    <li class="no"><i data-lucide="x" class="ic no"></i> Plugin do CapCut</li>
+                    <li class="no"><i data-lucide="x" class="ic no"></i> Navegador Flow / VEO3</li>
+                    <li class="no"><i data-lucide="x" class="ic no"></i> Chat IA + automação</li>
+                </ul>
+            </div>
+
+            <!-- Flow -->
+            <div class="compare-card">
+                <img class="c-icon" src="extension-icons/nardoto-flow.png" alt="Nardoto Flow">
+                <div class="c-name">Flow</div>
+                <div class="c-tag">Navegador que automatiza os sites de IA.</div>
+                <div class="c-price">
+                    R$&nbsp;<span class="c-num" data-m="99,90" data-a="999">999</span><span class="c-per bill-m">/mês</span><span class="c-per bill-a">/ano</span>
+                </div>
+                <div class="c-annual">
+                    <span class="bill-m">ou R$ 999/ano no plano anual</span>
+                    <span class="bill-a">economize R$ 200/ano (-17%)</span>
+                </div>
+                <a href="https://nardoto-labs.web.app/dashboard.html" class="c-btn filled">Assinar Flow</a>
+                <ul class="c-features">
+                    <li><i data-lucide="check" class="ic yes"></i> Tudo no navegador, sem instalar nada</li>
+                    <li><i data-lucide="check" class="ic yes"></i> VEO3, Suno e Whisk em massa</li>
+                    <li><i data-lucide="check" class="ic yes"></i> YouTube grabber + modo torrent</li>
+                    <li class="no"><i data-lucide="x" class="ic no"></i> Plugin do CapCut</li>
+                    <li class="no"><i data-lucide="x" class="ic no"></i> Narração local (Cast)</li>
+                    <li class="no"><i data-lucide="x" class="ic no"></i> Chat IA + automação</li>
+                </ul>
+            </div>
+
+            <!-- Studio (featured) -->
+            <div class="compare-card featured">
+                <img class="c-icon" src="studio/logo.png" alt="Nardoto Studio">
+                <div class="c-name">Studio</div>
+                <div class="c-tag">Tudo junto + a IA que orquestra o projeto inteiro.</div>
+                <div class="c-price">R$ 119,90<span class="c-per">/pessoa</span></div>
+                <div class="c-annual">no família de 6 (mais barato por cabeça). Individual R$ 169,90/mês ou R$ 1.690/ano.</div>
+                <a href="https://nardoto-labs.web.app/dashboard.html" class="c-btn filled">Conhecer o Studio</a>
+                <ul class="c-features">
+                    <li><i data-lucide="check" class="ic yes"></i> Sync + Flow inclusos</li>
+                    <li><i data-lucide="check" class="ic yes"></i> Nardoto Lore incluso (escrever livros)</li>
+                    <li><i data-lucide="check" class="ic yes"></i> Chat IA (Claude / GPT / Gemini)</li>
+                    <li><i data-lucide="check" class="ic yes"></i> Automação personalizada via chat</li>
+                    <li><i data-lucide="check" class="ic yes"></i> Comunidade WhatsApp + lives semanais</li>
+                    <li><i data-lucide="check" class="ic yes"></i> Família: R$ 159,90 a R$ 119,90/pessoa</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="family-ladder">
+            <h3>Studio em família — quanto mais gente, mais barato por pessoa</h3>
+            <div class="ladder-chips">
+                <div class="chip best"><span>6 pessoas</span><strong>R$ 119,90<i>/pessoa</i></strong></div>
+                <div class="chip"><span>5 pessoas</span><strong>R$ 129,90<i>/pessoa</i></strong></div>
+                <div class="chip"><span>4 pessoas</span><strong>R$ 139,90<i>/pessoa</i></strong></div>
+                <div class="chip"><span>3 pessoas</span><strong>R$ 149,90<i>/pessoa</i></strong></div>
+                <div class="chip"><span>2 pessoas</span><strong>R$ 159,90<i>/pessoa</i></strong></div>
+                <div class="chip"><span>Individual</span><strong>R$ 169,90</strong></div>
+            </div>
+            <p class="ladder-note">Plano anual do Studio: R$ 1.690 no Pix (ou cartão com juros). Comunidade no WhatsApp e lives semanais são exclusivas do Studio. Mentoria 1-a-1 agora é avulsa, sob demanda.</p>
+        </div>
+    </section>
+    </div><!-- /tab-precos -->
+
+    <!-- ===== ABA: STUDIO ===== -->
+    <div class="tab-panel tab-embed" id="tab-studio" hidden>
+      <iframe class="tab-frame" data-src="studio/" onload="frameClean(this)" title="Nardoto Studio"></iframe>
+    </div>
+
+    <!-- ===== ABA: FLOW ===== -->
+    <div class="tab-panel tab-embed" id="tab-flow" hidden>
+      <iframe class="tab-frame" data-src="flow.html" onload="frameClean(this)" title="Nardoto Flow"></iframe>
+    </div>
+
+    <!-- ===== ABA: CAST ===== -->
+    <div class="tab-panel tab-embed" id="tab-cast" hidden>
+      <iframe class="tab-frame" data-src="cast.html" onload="frameClean(this)" title="Nardoto Cast"></iframe>
+    </div>
+
+    <!-- ===== ABA: LORE ===== -->
+    <div class="tab-panel tab-embed" id="tab-lore" hidden>
+      <iframe class="tab-frame" data-src="lore.html" onload="frameClean(this)" title="Nardoto Lore"></iframe>
+    </div>
+
+    <!-- ===== ABA: FAQ ===== -->
+    <div class="tab-panel tab-embed" id="tab-faq" hidden>
+      <iframe class="tab-frame" data-src="faq.html" onload="frameClean(this)" title="FAQ"></iframe>
+    </div>
 
     <!-- Footer -->
     <footer class="site-footer">
@@ -1034,8 +1446,9 @@
                     <ul>
                         <li><a href="studio/">Nardoto Studio</a></li>
                         <li><a href="flow.html">Nardoto Flow</a></li>
+                        <li><a href="#" onclick="showTab('precos');return false;">Nardoto Sync</a></li>
                         <li><a href="cast.html">Nardoto Cast</a></li>
-                        <li><a href="extensoes.html">Extensões</a></li>
+                        <li><a href="lore.html">Nardoto Lore</a></li>
                     </ul>
                 </div>
 
@@ -1075,8 +1488,89 @@
         </div>
     </footer>
 
-    <!-- Initialize Lucide Icons -->
+    <!-- Abas (troca o conteudo sem mudar de pagina) + Lucide -->
     <script>
+        function showTab(name) {
+            document.querySelectorAll('.tab-panel').forEach(function (p) {
+                p.hidden = (p.id !== 'tab-' + name);
+            });
+            document.querySelectorAll('.topnav-menu button').forEach(function (b) {
+                b.classList.toggle('active', b.dataset.tab === name);
+            });
+            var panel = document.getElementById('tab-' + name);
+            if (panel) {
+                var fr = panel.querySelector('iframe.tab-frame');
+                if (fr && !fr.src && fr.dataset.src) {
+                    fr.src = fr.dataset.src + (fr.dataset.src.indexOf('?') >= 0 ? '&' : '?') + 'v=' + Date.now();
+                }
+            }
+            window.scrollTo({ top: 0 });
+            if (window.lucide) lucide.createIcons();
+        }
+        // Atrela a pagina embutida ao site: esconde a navbar e o rodape proprios,
+        // ajusta o topo pra caber sob a pill e faz o iframe ter a altura do conteudo
+        // (sem scroll interno) pra fluir como uma pagina so.
+        function frameClean(fr) {
+            try {
+                var d = fr.contentDocument;
+                if (!d) return;
+                var s = d.createElement('style');
+                s.textContent =
+                    'nav,.nav,.navbar,.page-header,.topbar,.site-header,.site-footer,footer{display:none!important}' +
+                    'html{background:#0A0A0A!important}' +
+                    'body{padding-top:92px!important;margin:0!important;background:linear-gradient(180deg,rgba(232,90,42,0.10),#0A0A0A 32%)!important}' +
+                    '[class*="hero"]{min-height:auto!important}' +
+                    '.hero,.hero-new,.hero-section,.hero-wrap,.hero-area,.page-hero{padding-top:20px!important}' +
+                    '.hero::before,.hero-new::before,.hero-section::before{display:none!important}' +
+                    '*{border-color:transparent!important}';
+                d.head.appendChild(s);
+                var fit = function () { fr.style.height = (d.body.scrollHeight + 20) + 'px'; };
+                fit();
+                setTimeout(fit, 400);
+                setTimeout(fit, 1200);
+            } catch (e) {}
+        }
+        function bpParse(s) { return parseFloat(String(s).replace(/\./g, '').replace(',', '.')); }
+        function bpFmt(n, dec) { return n.toLocaleString('pt-BR', { minimumFractionDigits: dec, maximumFractionDigits: dec }); }
+        function bpAnimate(el, from, to, dec, finalText) {
+            var start = performance.now(), dur = 650;
+            function step(t) {
+                var p = Math.min(1, (t - start) / dur);
+                var ease = 1 - Math.pow(1 - p, 3);
+                el.textContent = bpFmt(from + (to - from) * ease, dec);
+                if (p < 1) { requestAnimationFrame(step); } else { el.textContent = finalText; }
+            }
+            requestAnimationFrame(step);
+        }
+        function setBilling(mode) {
+            var sec = document.getElementById('precos');
+            if (!sec) return;
+            var annual = mode === 'a';
+            sec.classList.toggle('annual', annual);
+            sec.querySelectorAll('.billing-toggle .bt-btn').forEach(function (b) {
+                b.classList.toggle('active', b.dataset.bill === mode);
+            });
+            sec.querySelectorAll('.c-num').forEach(function (el) {
+                var target = annual ? el.dataset.a : el.dataset.m;
+                var dec = target.indexOf(',') >= 0 ? 2 : 0;
+                bpAnimate(el, bpParse(el.textContent || target), bpParse(target), dec, target);
+            });
+        }
+        document.querySelectorAll('.product-card').forEach(function (card) {
+            card.addEventListener('mousemove', function (e) {
+                var r = card.getBoundingClientRect();
+                card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+                card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+            });
+        });
+        var psec = document.querySelector('.products-section');
+        if (psec) {
+            psec.addEventListener('mousemove', function (e) {
+                var r = psec.getBoundingClientRect();
+                psec.style.setProperty('--smx', (e.clientX - r.left) + 'px');
+                psec.style.setProperty('--smy', (e.clientY - r.top) + 'px');
+            });
+        }
         lucide.createIcons();
     </script>
 </body>
