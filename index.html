@@ -1336,11 +1336,12 @@
                     <span class="bill-m">ou R$ 499/ano no plano anual</span>
                     <span class="bill-a">economize R$ 100/ano (-17%)</span>
                 </div>
-                <a href="https://nardoto-labs.web.app/dashboard.html" class="c-btn filled">Vem no Studio</a>
+                <a href="https://nardoto-labs.web.app/checkout-lore.html" class="c-btn filled">Assinar Lore</a>
                 <ul class="c-features">
                     <li><i data-lucide="check" class="ic yes"></i> Editor com modos de IA pra escrever</li>
                     <li><i data-lucide="check" class="ic yes"></i> Worldbuilding (codex) + personagens vivos</li>
                     <li><i data-lucide="check" class="ic yes"></i> Diagramação e PDF profissional</li>
+                    <li class="no"><i data-lucide="x" class="ic no"></i> Sem créditos de áudio (produto de texto)</li>
                     <li class="no"><i data-lucide="x" class="ic no"></i> Plugin do CapCut</li>
                     <li class="no"><i data-lucide="x" class="ic no"></i> Navegador Flow / VEO3</li>
                     <li class="no"><i data-lucide="x" class="ic no"></i> Chat IA + automação</li>
@@ -1359,8 +1360,9 @@
                     <span class="bill-m">ou R$ 999/ano no plano anual</span>
                     <span class="bill-a">economize R$ 200/ano (-17%)</span>
                 </div>
-                <a href="https://nardoto-labs.web.app/dashboard.html" class="c-btn filled">Assinar Flow</a>
+                <a href="https://nardoto-labs.web.app/checkout-flow.html" class="c-btn filled">Assinar Flow</a>
                 <ul class="c-features">
+                    <li><i data-lucide="check" class="ic yes"></i> 1 milhão de créditos/mês pra voz, clonagem e recursos de voz</li>
                     <li><i data-lucide="check" class="ic yes"></i> Tudo no navegador, sem instalar nada</li>
                     <li><i data-lucide="check" class="ic yes"></i> VEO3, Suno e Whisk em massa</li>
                     <li><i data-lucide="check" class="ic yes"></i> YouTube grabber + modo torrent</li>
@@ -1377,8 +1379,10 @@
                 <div class="c-tag">Tudo junto + a IA que orquestra o projeto inteiro.</div>
                 <div class="c-price">R$ 119,90<span class="c-per">/pessoa</span></div>
                 <div class="c-annual">no família de 6 (mais barato por cabeça). Individual R$ 169,90/mês ou R$ 1.690/ano.</div>
-                <a href="https://nardoto-labs.web.app/dashboard.html" class="c-btn filled">Conhecer o Studio</a>
+                <a href="https://nardoto-labs.web.app/planos-familia.html" class="c-btn filled">Assinar</a>
+                <a href="#" onclick="showTab('studio');return false;" class="c-btn outline" style="margin-top: -12px;">Conhecer o Studio</a>
                 <ul class="c-features">
+                    <li><i data-lucide="check" class="ic yes"></i> 2 milhões de créditos/mês + tudo dos planos anteriores</li>
                     <li><i data-lucide="check" class="ic yes"></i> Sync + Flow inclusos</li>
                     <li><i data-lucide="check" class="ic yes"></i> Nardoto Lore incluso (escrever livros)</li>
                     <li><i data-lucide="check" class="ic yes"></i> Chat IA (Claude / GPT / Gemini)</li>
@@ -1571,6 +1575,13 @@
                 psec.style.setProperty('--smy', (e.clientY - r.top) + 'px');
             });
         }
+        // Deep-link por hash: nardoto.com.br/#precos (e #studio, #flow...) abre a aba certa
+        function activateFromHash() {
+            var name = (location.hash || '').replace('#', '');
+            if (name && document.getElementById('tab-' + name)) showTab(name);
+        }
+        window.addEventListener('hashchange', activateFromHash);
+        activateFromHash();
         lucide.createIcons();
     </script>
 </body>
