@@ -244,11 +244,11 @@
         <!-- Hero -->
         <section class="hero">
             <img class="hero-icon" src="cast-icon.png" alt="Nardoto Cast">
-            <div class="badge-free">Grátis &middot; 100% offline</div>
+            <div class="badge-free">Grátis &middot; 100% offline<span id="verBadge"></span></div>
             <h2>Sua voz, <span>no seu PC.</span></h2>
             <p>Gere narração e clone vozes direto no seu computador, <b>de graça</b> e sem depender de nenhum site. Nada do seu áudio sai do PC.</p>
             <div class="hero-ctas">
-                <a class="btn btn-primary" href="https://github.com/LoopLess-nardoto/nardoto-cast-releases/releases/latest" target="_blank" rel="noopener">
+                <a class="btn btn-primary" id="btnBaixarHero" href="https://github.com/LoopLess-nardoto/nardoto-cast-releases/releases/latest" target="_blank" rel="noopener">
                     Baixar grátis <small>Windows</small>
                 </a>
                 <a class="btn btn-secondary" href="https://discord.gg/dmHkBTTFMB" target="_blank" rel="noopener">
@@ -506,7 +506,7 @@
             <div class="download-cta">
                 <h3>Pronto pra começar?</h3>
                 <p>Baixe agora, de graça. Sua voz roda no seu PC.</p>
-                <a class="btn btn-primary" href="https://github.com/LoopLess-nardoto/nardoto-cast-releases/releases/latest" target="_blank" rel="noopener">
+                <a class="btn btn-primary" id="btnBaixarFinal" href="https://github.com/LoopLess-nardoto/nardoto-cast-releases/releases/latest" target="_blank" rel="noopener">
                     Baixar Nardoto Cast <small>Windows</small>
                 </a>
             </div>
@@ -563,6 +563,23 @@
                     chip.querySelector('.play-ico').innerHTML = '&#10073;&#10073;';
                 });
             });
+        })();
+
+        // Busca a release mais recente no GitHub e aponta os botões direto pro .exe (em vez da página de releases)
+        (function () {
+            fetch('https://api.github.com/repos/LoopLess-nardoto/nardoto-cast-releases/releases/latest')
+                .then(function (r) { return r.json(); })
+                .then(function (release) {
+                    var exe = (release.assets || []).find(function (a) { return /\.exe$/i.test(a.name); });
+                    if (!exe) return;
+                    document.querySelectorAll('#btnBaixarHero, #btnBaixarFinal').forEach(function (btn) {
+                        btn.href = exe.browser_download_url;
+                        btn.removeAttribute('target');
+                    });
+                    var verBadge = document.getElementById('verBadge');
+                    if (verBadge && release.tag_name) verBadge.textContent = ' · ' + release.tag_name;
+                })
+                .catch(function () {}); // falha (rate limit etc) -> botão continua indo pra página de releases
         })();
     </script>
 </body>
