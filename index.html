@@ -213,7 +213,7 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(6, 1fr);
             gap: 18px;
             max-width: 1340px;
             margin: 0 auto;
@@ -707,7 +707,7 @@
 
         .compare-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(6, 1fr);
             gap: 16px;
             max-width: 1340px;
             margin: 0 auto;
@@ -1160,9 +1160,27 @@
                 <span class="product-cta">Conhecer o Lore <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i></span>
             </a>
 
+            <!-- Nardoto App Web (Labs) -->
+            <a href="https://nardoto-labs.web.app/dashboard.html" class="product-card">
+                <span class="product-badge" style="background: rgba(232, 90, 42, 0.15); color: var(--primary);"><s style="opacity: 0.5;">R$ 97</s> R$ 69,90/mês</span>
+                <div class="product-icon" style="background: rgba(232, 90, 42, 0.08); overflow: hidden; padding: 0;">
+                    <img src="extension-icons/nardoto-labs.png" alt="Nardoto App Web" style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
+                <h3>App Web</h3>
+                <p class="tagline">Dashboard + extensão Chrome pra gerar nos sites de IA</p>
+                <ul class="product-features">
+                    <li>Achador de Nichos + Dobra de Nicho</li>
+                    <li>Automação VEO3 / Suno / Whisk no navegador</li>
+                    <li>Biblioteca de mídias</li>
+                    <li>Clonagem, dublagem e troca de voz</li>
+                    <li>1 milhão de créditos premium/mês</li>
+                </ul>
+                <span class="product-cta">Assinar <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i></span>
+            </a>
+
             <!-- Nardoto Flow -->
             <a href="https://nardoto-labs.web.app/checkout-flow.html" class="product-card">
-                <span class="product-badge" style="background: rgba(232, 90, 42, 0.15); color: var(--primary);">R$ 99,90/mês</span>
+                <span class="product-badge" style="background: rgba(232, 90, 42, 0.15); color: var(--primary);">R$ 117/mês</span>
                 <div class="product-icon" style="background: rgba(232, 90, 42, 0.08); overflow: hidden; padding: 0;">
                     <img src="extension-icons/nardoto-flow.png" alt="Nardoto Flow" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
@@ -1181,7 +1199,7 @@
 
             <!-- Nardoto Studio -->
             <div class="product-card" style="border-color: #E85A2A; box-shadow: 0 0 40px rgba(232, 90, 42, 0.15); display: flex; flex-direction: column;">
-                <span class="product-badge" style="background: linear-gradient(135deg, #E85A2A, #FF7A50); color: #fff;">A partir de R$ 169,90/mês</span>
+                <span class="product-badge" style="background: linear-gradient(135deg, #E85A2A, #FF7A50); color: #fff;">R$ 197/mês</span>
                 <div class="product-icon studio" style="background: rgba(232, 90, 42, 0.08); overflow: hidden; padding: 0;">
                     <img src="studio/logo.png" alt="Nardoto Studio" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
@@ -1193,7 +1211,7 @@
                     <li>Chat IA com Claude / GPT / Gemini (sua conta)</li>
                     <li>Motor de automação personalizado via chat</li>
                     <li>Comunidade WhatsApp + lives semanais (só no Studio)</li>
-                    <li>Individual R$ 169,90 ou família a partir de R$ 119,90/pessoa</li>
+                    <li>Individual R$ 197 ou família a partir de R$ 147/pessoa</li>
                 </ul>
                 <div style="margin-top: auto; display: flex; flex-direction: column; gap: 10px; padding-top: 16px;">
                     <a href="https://nardoto-labs.web.app/planos-familia.html" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #E85A2A; color: white; font-weight: 700; padding: 12px 20px; border-radius: 10px; text-decoration: none; transition: background 0.2s;">Conhecer o Studio <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i></a>
@@ -1298,7 +1316,7 @@
                 <div class="c-price c-free">Grátis</div>
                 <a href="https://nardoto-labs.web.app/dashboard.html" class="c-btn filled">Baixar grátis</a>
                 <ul class="c-features">
-                    <li class="green-y"><i data-lucide="check" class="ic yes"></i> Narração local (Kokoro, Piper)</li>
+                    <li class="green-y"><i data-lucide="check" class="ic yes"></i> Narração local ILIMITADA (Kokoro, Piper)</li>
                     <li class="green-y"><i data-lucide="check" class="ic yes"></i> Clonagem de voz + modo diálogo</li>
                     <li class="green-y"><i data-lucide="check" class="ic yes"></i> Exporta MP3 + SRT</li>
                     <li class="no"><i data-lucide="x" class="ic no"></i> Plugin do CapCut</li>
@@ -1348,21 +1366,44 @@
                 </ul>
             </div>
 
+            <!-- App Web (Labs) -->
+            <div class="compare-card">
+                <img class="c-icon" src="extension-icons/nardoto-labs.png" alt="Nardoto App Web">
+                <div class="c-name">App Web</div>
+                <div class="c-tag">Dashboard + extensão Chrome pra gerar nos sites de IA.</div>
+                <div class="c-price">
+                    R$&nbsp;<span class="c-num" data-m="69,90" data-a="697">697</span><span class="c-per bill-m">/mês</span><span class="c-per bill-a">/ano</span>
+                </div>
+                <div class="c-annual">
+                    <span class="bill-m">de <s style="opacity:.6">R$ 97</s> · ou R$ 697/ano no anual</span>
+                    <span class="bill-a">de R$ 838 · economize R$ 142/ano (-17%)</span>
+                </div>
+                <a href="https://nardoto-labs.web.app/dashboard.html" class="c-btn filled">Assinar</a>
+                <ul class="c-features">
+                    <li><i data-lucide="check" class="ic yes"></i> 1 milhão de créditos premium/mês (voz, clonagem, dublagem, troca)</li>
+                    <li><i data-lucide="check" class="ic yes"></i> Achador de Nichos + Dobra de Nicho</li>
+                    <li><i data-lucide="check" class="ic yes"></i> Automação VEO3 / Suno / Whisk (1 aba)</li>
+                    <li><i data-lucide="check" class="ic yes"></i> Biblioteca de mídias</li>
+                    <li class="no"><i data-lucide="x" class="ic no"></i> Multiabas (gerar em paralelo)</li>
+                    <li class="no"><i data-lucide="x" class="ic no"></i> Chat IA + automação</li>
+                </ul>
+            </div>
+
             <!-- Flow -->
             <div class="compare-card">
                 <img class="c-icon" src="extension-icons/nardoto-flow.png" alt="Nardoto Flow">
                 <div class="c-name">Flow</div>
                 <div class="c-tag">Navegador que automatiza os sites de IA.</div>
                 <div class="c-price">
-                    R$&nbsp;<span class="c-num" data-m="99,90" data-a="999">999</span><span class="c-per bill-m">/mês</span><span class="c-per bill-a">/ano</span>
+                    R$&nbsp;<span class="c-num" data-m="117" data-a="1.165">1.165</span><span class="c-per bill-m">/mês</span><span class="c-per bill-a">/ano</span>
                 </div>
                 <div class="c-annual">
-                    <span class="bill-m">ou R$ 999/ano no plano anual</span>
-                    <span class="bill-a">economize R$ 200/ano (-17%)</span>
+                    <span class="bill-m">ou R$ 1.165/ano no plano anual</span>
+                    <span class="bill-a">economize R$ 239/ano (-17%)</span>
                 </div>
                 <a href="https://nardoto-labs.web.app/checkout-flow.html" class="c-btn filled">Assinar Flow</a>
                 <ul class="c-features">
-                    <li><i data-lucide="check" class="ic yes"></i> 1 milhão de créditos/mês pra voz, clonagem e recursos de voz</li>
+                    <li><i data-lucide="check" class="ic yes"></i> 1,5 milhão de créditos premium/mês (voz, clonagem, dublagem, troca de voz)</li>
                     <li><i data-lucide="check" class="ic yes"></i> Tudo no navegador, sem instalar nada</li>
                     <li><i data-lucide="check" class="ic yes"></i> VEO3, Suno e Whisk em massa</li>
                     <li><i data-lucide="check" class="ic yes"></i> YouTube grabber + modo torrent</li>
@@ -1377,18 +1418,18 @@
                 <img class="c-icon" src="studio/logo.png" alt="Nardoto Studio">
                 <div class="c-name">Studio</div>
                 <div class="c-tag">Tudo junto + a IA que orquestra o projeto inteiro.</div>
-                <div class="c-price">R$ 119,90<span class="c-per">/pessoa</span></div>
-                <div class="c-annual">no família de 6 (mais barato por cabeça). Individual R$ 169,90/mês ou R$ 1.690/ano.</div>
+                <div class="c-price">R$ 147<span class="c-per">/pessoa</span></div>
+                <div class="c-annual">no família de 6 (mais barato por cabeça). Individual R$ 197/mês ou R$ 1.970/ano.</div>
                 <a href="https://nardoto-labs.web.app/planos-familia.html" class="c-btn filled">Assinar</a>
                 <a href="#" onclick="showTab('studio');return false;" class="c-btn outline" style="margin-top: -12px;">Conhecer o Studio</a>
                 <ul class="c-features">
-                    <li><i data-lucide="check" class="ic yes"></i> 2 milhões de créditos/mês + tudo dos planos anteriores</li>
+                    <li><i data-lucide="check" class="ic yes"></i> 2 milhões de créditos premium/mês + tudo dos anteriores</li>
                     <li><i data-lucide="check" class="ic yes"></i> Sync + Flow inclusos</li>
                     <li><i data-lucide="check" class="ic yes"></i> Nardoto Lore incluso (escrever livros)</li>
                     <li><i data-lucide="check" class="ic yes"></i> Chat IA (Claude / GPT / Gemini)</li>
                     <li><i data-lucide="check" class="ic yes"></i> Automação personalizada via chat</li>
                     <li><i data-lucide="check" class="ic yes"></i> Comunidade WhatsApp + lives semanais</li>
-                    <li><i data-lucide="check" class="ic yes"></i> Família: R$ 159,90 a R$ 119,90/pessoa</li>
+                    <li><i data-lucide="check" class="ic yes"></i> Família: R$ 187 a R$ 147/pessoa</li>
                 </ul>
             </div>
         </div>
@@ -1396,14 +1437,14 @@
         <div class="family-ladder">
             <h3>Studio em família — quanto mais gente, mais barato por pessoa</h3>
             <div class="ladder-chips">
-                <div class="chip best"><span>6 pessoas</span><strong>R$ 119,90<i>/pessoa</i></strong></div>
-                <div class="chip"><span>5 pessoas</span><strong>R$ 129,90<i>/pessoa</i></strong></div>
-                <div class="chip"><span>4 pessoas</span><strong>R$ 139,90<i>/pessoa</i></strong></div>
-                <div class="chip"><span>3 pessoas</span><strong>R$ 149,90<i>/pessoa</i></strong></div>
-                <div class="chip"><span>2 pessoas</span><strong>R$ 159,90<i>/pessoa</i></strong></div>
-                <div class="chip"><span>Individual</span><strong>R$ 169,90</strong></div>
+                <div class="chip best"><span>6 pessoas</span><strong>R$ 147<i>/pessoa</i></strong></div>
+                <div class="chip"><span>5 pessoas</span><strong>R$ 157<i>/pessoa</i></strong></div>
+                <div class="chip"><span>4 pessoas</span><strong>R$ 167<i>/pessoa</i></strong></div>
+                <div class="chip"><span>3 pessoas</span><strong>R$ 177<i>/pessoa</i></strong></div>
+                <div class="chip"><span>2 pessoas</span><strong>R$ 187<i>/pessoa</i></strong></div>
+                <div class="chip"><span>Individual</span><strong>R$ 197</strong></div>
             </div>
-            <p class="ladder-note">Plano anual do Studio: R$ 1.690 no Pix (ou cartão com juros). Comunidade no WhatsApp e lives semanais são exclusivas do Studio. Mentoria 1-a-1 agora é avulsa, sob demanda.</p>
+            <p class="ladder-note">Cada crédito é seu, por inteiro — use 100% do que você tem, e a voz local é sempre ilimitada. Plano anual do Studio: R$ 1.970 no Pix (ou cartão com juros). Comunidade no WhatsApp e lives semanais são exclusivas do Studio. Mentoria 1-a-1 agora é avulsa, sob demanda.</p>
         </div>
     </section>
     </div><!-- /tab-precos -->
