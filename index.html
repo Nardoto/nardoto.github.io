@@ -213,9 +213,9 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 18px;
-            max-width: 1340px;
+            max-width: 1080px;
             margin: 0 auto;
         }
 
@@ -727,15 +727,19 @@
         .free-apps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
         .free-app-card {
             background: var(--card-dark);
-            border: 1px solid var(--border-light);
             border-radius: 16px;
             padding: 20px;
             display: flex;
             align-items: center;
             gap: 14px;
             transition: all 0.3s ease;
+            box-shadow: 0 0 26px rgba(34, 197, 94, 0.08);
         }
-        .free-app-card:hover { transform: translateY(-4px); border-color: #22C55E; }
+        .free-app-card:hover {
+            transform: translateY(-4px);
+            background: rgba(34, 197, 94, 0.06);
+            box-shadow: 0 0 44px rgba(34, 197, 94, 0.22);
+        }
         .free-app-card img { width: 40px; height: 40px; border-radius: 10px; object-fit: contain; flex-shrink: 0; }
         .free-app-card .fa-info { min-width: 0; }
         .free-app-card .fa-name { color: var(--text-primary); font-weight: 700; font-size: 0.98rem; }
@@ -744,9 +748,8 @@
         .free-app-card .fa-btn {
             margin-left: auto;
             flex-shrink: 0;
-            background: transparent;
+            background: rgba(255, 255, 255, 0.08);
             color: var(--text-primary);
-            border: 1px solid var(--border-light);
             border-radius: 10px;
             padding: 8px 14px;
             font-size: 0.8rem;
@@ -755,7 +758,7 @@
             transition: all 0.2s ease;
             white-space: nowrap;
         }
-        .free-app-card .fa-btn:hover { border-color: #22C55E; color: #22C55E; }
+        .free-app-card .fa-btn:hover { background: rgba(34, 197, 94, 0.18); color: #22C55E; }
 
         .compare-card {
             background: var(--card-dark);
@@ -1150,59 +1153,6 @@
         </div>
 
         <div class="products-grid">
-            <!-- Nardoto Cast -->
-            <a href="cast.html" class="product-card" style="border-color: #22C55E; box-shadow: 0 0 40px rgba(34, 197, 94, 0.15);">
-                <span class="product-badge" style="background: linear-gradient(135deg, #22C55E, #4ADE80); color: #000;">GRÁTIS</span>
-                <div class="product-icon" style="background: rgba(232, 90, 42, 0.08); overflow: hidden; padding: 0;">
-                    <img src="cast-icon.png" alt="Nardoto Cast" style="width: 100%; height: 100%; object-fit: contain;">
-                </div>
-                <h3>Nardoto Cast</h3>
-                <p class="tagline">Gere e clone vozes no seu PC, de graça e offline</p>
-                <ul class="product-features">
-                    <li>Narração local sem depender de site</li>
-                    <li>Vozes prontas (Kokoro, Piper) + clonagem</li>
-                    <li>Modo diálogo multi-personagem + SRT</li>
-                    <li>Troca de voz (RVC) e exporta MP3</li>
-                </ul>
-                <span class="product-cta" style="color: #22C55E;">Baixar grátis <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i></span>
-            </a>
-
-            <!-- Nardoto Sync -->
-            <a href="https://nardoto-labs.web.app/dashboard.html" class="product-card">
-                <span class="product-badge" style="background: linear-gradient(135deg, #22C55E, #4ADE80); color: #000;">GRÁTIS</span>
-                <div class="product-icon" style="background: rgba(232, 90, 42, 0.08); overflow: hidden; padding: 0;">
-                    <img src="extension-icons/nardoto-sync.png" alt="Nardoto Sync" style="width: 100%; height: 100%; object-fit: contain;">
-                </div>
-                <h3>Nardoto Sync</h3>
-                <p class="tagline">O único plugin do CapCut do mundo</p>
-                <ul class="product-features">
-                    <li>Funciona sem precisar do CapCut Pro</li>
-                    <li>Sincroniza fala com mídia automaticamente</li>
-                    <li>Inserção de mídias em massa sem travar</li>
-                    <li>SRT automático + extrai legenda do CapCut</li>
-                    <li>Exporta XML pra outros editores</li>
-                    <li>Organiza pastas e projetos do canal</li>
-                </ul>
-                <span class="product-cta">Começar grátis <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i></span>
-            </a>
-
-            <!-- Nardoto IDE -->
-            <a href="https://nardoto-labs.web.app/ide.html" class="product-card" style="border-color: #22C55E; box-shadow: 0 0 40px rgba(34, 197, 94, 0.15);">
-                <span class="product-badge" style="background: linear-gradient(135deg, #22C55E, #4ADE80); color: #000;">GRÁTIS</span>
-                <div class="product-icon" style="background: rgba(232, 90, 42, 0.08); overflow: hidden; padding: 0;">
-                    <img src="ide-icon.png" alt="Nardoto IDE" style="width: 100%; height: 100%; object-fit: contain;">
-                </div>
-                <h3>Nardoto IDE</h3>
-                <p class="tagline">Claude Code, Codex, Antigravity e Grok num só lugar</p>
-                <ul class="product-features">
-                    <li>Quatro CLIs de IA em abas próprias do terminal</li>
-                    <li>Terminal, workspaces e árvore de arquivos</li>
-                    <li>Editor integrado com destaque de sintaxe</li>
-                    <li>Git visual, editor e roda no seu PC</li>
-                </ul>
-                <span class="product-cta" style="color: #22C55E;">Baixar grátis <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i></span>
-            </a>
-
             <!-- Nardoto App Web (Labs) -->
             <a href="https://nardoto-labs.web.app/dashboard.html" class="product-card">
                 <span class="product-badge" style="background: rgba(232, 90, 42, 0.15); color: var(--primary);"><s style="opacity: 0.5;">R$ 97</s> R$ 69,90/mês</span>
@@ -1260,6 +1210,38 @@
                     <a href="https://nardoto-labs.web.app/checkout-studio.html" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #E85A2A; color: white; font-weight: 700; padding: 12px 20px; border-radius: 10px; text-decoration: none; transition: background 0.2s;">Conhecer o Studio <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i></a>
                     <a href="studio/" style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500; text-decoration: none; padding: 6px;">Ver detalhes do Studio <i data-lucide="external-link" style="width: 14px; height: 14px;"></i></a>
                 </div>
+            </div>
+        </div>
+
+        <!-- Apps grátis do ecossistema -->
+        <div class="free-apps">
+            <div class="fa-title">E três apps grátis pra começar agora</div>
+            <p class="fa-sub">Sem cadastro e sem assinatura — baixe e use. Todos funcionam junto com qualquer plano.</p>
+            <div class="free-apps-grid">
+                <a href="cast.html" class="free-app-card" style="text-decoration: none;">
+                    <img src="cast-icon.png" alt="Nardoto Cast">
+                    <div class="fa-info">
+                        <div class="fa-name">Cast<span class="fa-free">GRÁTIS</span></div>
+                        <div class="fa-desc">Narração e clonagem de voz no seu PC, offline e ilimitada.</div>
+                    </div>
+                    <span class="fa-btn">Baixar</span>
+                </a>
+                <a href="https://nardoto-labs.web.app/dashboard.html" class="free-app-card" style="text-decoration: none;">
+                    <img src="extension-icons/nardoto-sync.png" alt="Nardoto Sync">
+                    <div class="fa-info">
+                        <div class="fa-name">Sync<span class="fa-free">GRÁTIS</span></div>
+                        <div class="fa-desc">O único plugin do CapCut do mundo: fala, mídia e SRT em massa.</div>
+                    </div>
+                    <span class="fa-btn">Baixar</span>
+                </a>
+                <a href="https://nardoto-labs.web.app/ide.html" class="free-app-card" style="text-decoration: none;">
+                    <img src="ide-icon.png" alt="Nardoto IDE">
+                    <div class="fa-info">
+                        <div class="fa-name">IDE<span class="fa-free">GRÁTIS</span></div>
+                        <div class="fa-desc">Claude Code, Codex, Antigravity e Grok num só lugar, com a sua conta.</div>
+                    </div>
+                    <span class="fa-btn">Baixar</span>
+                </a>
             </div>
         </div>
     </section>
