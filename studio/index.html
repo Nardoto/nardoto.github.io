@@ -1561,6 +1561,7 @@
       .img-zoom-next { right: 8px; }
     }
   </style>
+  <script defer src="../js/download-studio.js"></script>
 </head>
 <body>
 
@@ -1575,8 +1576,8 @@
         <button class="lang-btn active" data-lang="pt" onclick="setLang('pt')">PT</button>
         <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
       </div>
-      <a href="https://nardoto-labs.web.app/dashboard.html" class="nav-download">
-        <span data-i18n="nav-download">Teste grátis</span>
+      <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup.exe" data-dl-studio class="nav-download">
+        <span data-i18n="nav-download">Baixar grátis</span>
       </a>
     </div>
   </nav>
@@ -1597,11 +1598,19 @@
       O Studio conecta suas IAs num único fluxo: Claude escreve o roteiro, Gemini gera imagens, 11Labs ou Inworld criam as vozes. Você traz suas assinaturas. O Studio faz tudo trabalhar junto.
     </p>
     <div class="hero-cta">
-      <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-primary">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        <span data-i18n="hero-cta-trial">Comecar teste gratis</span>
+      <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup.exe" data-dl-studio class="btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        <span data-i18n="hero-cta-download">Baixar o Studio</span>
+        <span style="margin-left: -6px;">(<span data-dl-os>Windows</span>)</span>
+      </a>
+      <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-mac">
+        <span data-i18n="hero-cta-trial">Começar teste grátis</span>
       </a>
     </div>
+    <p class="hero-meta" data-dl-mac-only hidden>
+      <span data-i18n="dl-mac-intel">Mac com chip Intel?</span>
+      <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup-mac-x64.dmg" style="color: var(--primary); text-decoration: none;" data-i18n="dl-mac-intel-link">baixe esta versão</a>
+    </p>
     <p class="hero-meta">
       <span data-i18n="hero-meta-trial">10 dias grátis</span>
       <span>|</span>
@@ -2158,11 +2167,16 @@
     <h2 data-i18n="cta-title">Experimente sem compromisso</h2>
     <p data-i18n="cta-desc">10 dias grátis. Sem cartão. Converse direto com o criador.</p>
     <div class="hero-cta" style="position: relative; z-index: 1;">
-      <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-primary">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup.exe" data-dl-studio class="btn-primary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        <span data-i18n="cta-btn-download">Baixar o Studio</span>
+        <span style="margin-left: -6px;">(<span data-dl-os>Windows</span>)</span>
+      </a>
+      <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-mac">
         <span data-i18n="cta-btn">Começar teste grátis</span>
       </a>
     </div>
+    <p class="hero-meta" style="position: relative; z-index: 1;" data-i18n="cta-dl-note">Instale e ative o teste dentro do app, com a sua conta.</p>
   </section>
 
   <!-- Footer -->
@@ -2177,7 +2191,13 @@
     // ── i18n ──
     const translations = {
       pt: {
-        'nav-download': 'Teste grátis',
+        'nav-download': 'Baixar grátis',
+        'hero-cta-download': 'Baixar o Studio',
+        'hero-cta-trial': 'Começar teste grátis',
+        'cta-btn-download': 'Baixar o Studio',
+        'cta-dl-note': 'Instale e ative o teste dentro do app, com a sua conta.',
+        'dl-mac-intel': 'Mac com chip Intel?',
+        'dl-mac-intel-link': 'baixe esta versão',
         'hero-badge': 'Construído com tecnologia usada pelo governo dos EUA',
         'hero-title-1': 'Seu próximo vídeo já está pronto.',
         'hero-title-2': 'Ele só não sabe disso.',
@@ -2419,7 +2439,13 @@
         'cta-btn': 'Começar teste grátis',
       },
       en: {
-        'nav-download': 'Free trial',
+        'nav-download': 'Free download',
+        'hero-cta-download': 'Download Studio',
+        'hero-cta-trial': 'Start free trial',
+        'cta-btn-download': 'Download Studio',
+        'cta-dl-note': 'Install it and activate the trial inside the app, with your account.',
+        'dl-mac-intel': 'Mac with Intel chip?',
+        'dl-mac-intel-link': 'get this version',
         'hero-badge': 'Built with technology used by the US government',
         'hero-title-1': 'Your next video is already done.',
         'hero-title-2': 'It just doesn\'t know it yet.',

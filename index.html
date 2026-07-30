@@ -32,6 +32,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script defer src="js/download-studio.js"></script>
     <style>
         /* Dashboard Button */
         .btn-dashboard {
@@ -185,6 +186,58 @@
             border-color: var(--primary);
             color: var(--primary);
         }
+
+        /* Baixar o Studio (botao repetido em varios pontos da pagina) */
+        .dl-note {
+            margin-top: 18px;
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+        }
+
+        .dl-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 700;
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .dl-btn:hover { background: #FF6B3D; }
+
+        .dl-btn-soft {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(232, 90, 42, 0.14);
+            color: var(--primary);
+            font-weight: 600;
+            padding: 11px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .dl-btn-soft:hover { background: rgba(232, 90, 42, 0.24); }
+
+        .dl-mac-intel {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .dl-mac-intel a { color: var(--primary); text-decoration: none; }
+
+        .dl-mac-intel[hidden] { display: none; }
+
+        .final-cta .dl-note { margin-bottom: 0; }
 
         /* Products Section */
         .products-section {
@@ -1139,9 +1192,14 @@
             </div>
 
             <div class="hero-buttons">
-                <a href="studio/" class="btn-primary">Conhecer o Studio</a>
+                <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup.exe" data-dl-studio class="btn-primary">Baixar o Studio (<span data-dl-os>Windows</span>)</a>
+                <a href="studio/" class="btn-secondary">Conhecer o Studio</a>
                 <a href="producoes.html" class="btn-secondary">Ver Produções</a>
             </div>
+            <p class="dl-note">
+                10 dias grátis, sem cartão. Instale, crie sua conta no app e ative o teste por lá.
+                <span class="dl-mac-intel" data-dl-mac-only hidden>Mac com chip Intel? <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup-mac-x64.dmg">baixe esta versão</a>.</span>
+            </p>
         </div>
     </section>
 
@@ -1207,7 +1265,11 @@
                     <li>Em grupo (Panela), sai a partir de R$ 147/pessoa</li>
                 </ul>
                 <div style="margin-top: auto; display: flex; flex-direction: column; gap: 10px; padding-top: 16px;">
-                    <a href="https://nardoto-labs.web.app/checkout-studio.html" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #E85A2A; color: white; font-weight: 700; padding: 12px 20px; border-radius: 10px; text-decoration: none; transition: background 0.2s;">Conhecer o Studio <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i></a>
+                    <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup.exe" data-dl-studio class="dl-btn">
+                        <i data-lucide="download" style="width: 16px; height: 16px;"></i> <span>Baixar o Studio (<span data-dl-os>Windows</span>)</span>
+                    </a>
+                    <span style="text-align: center; font-size: 0.82rem; color: var(--text-secondary); margin-top: -4px;">10 dias grátis, sem cartão</span>
+                    <a href="https://nardoto-labs.web.app/checkout-studio.html" class="dl-btn-soft">Conhecer o Studio <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i></a>
                     <a href="studio/" style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500; text-decoration: none; padding: 6px;">Ver detalhes do Studio <i data-lucide="external-link" style="width: 14px; height: 14px;"></i></a>
                 </div>
             </div>
@@ -1311,9 +1373,14 @@
         <h2>Pronto para produzir vídeos com IA?</h2>
         <p>Teste grátis por 10 dias. Sem compromisso, sem cartão de crédito.</p>
         <div class="hero-buttons">
-            <a href="#" onclick="showTab('studio');return false;" class="btn-primary">Conhecer o Studio</a>
+            <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup.exe" data-dl-studio class="btn-primary">Baixar o Studio (<span data-dl-os>Windows</span>)</a>
+            <a href="#" onclick="showTab('studio');return false;" class="btn-secondary">Conhecer o Studio</a>
             <a href="#" onclick="showTab('precos');return false;" class="btn-secondary">Ver planos</a>
         </div>
+        <p class="dl-note">
+            Instale e ative o teste dentro do app, com a sua conta.
+            <span class="dl-mac-intel" data-dl-mac-only hidden>Mac com chip Intel? <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup-mac-x64.dmg">baixe esta versão</a>.</span>
+        </p>
     </section>
 
     </div><!-- /tab-inicio -->
@@ -1393,6 +1460,7 @@
                     <span class="bill-a">economize R$ 394/ano (-17%)</span>
                 </div>
                 <a href="https://nardoto-labs.web.app/checkout-studio.html" class="c-btn filled">Assinar</a>
+                <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup.exe" data-dl-studio class="c-btn outline" style="margin-top: -12px;">Baixar e testar 10 dias grátis</a>
                 <a href="#" onclick="showTab('studio');return false;" class="c-btn outline" style="margin-top: -12px;">Conhecer o Studio</a>
                 <ul class="c-features">
                     <li><i data-lucide="check" class="ic yes"></i> A IA monta o vídeo do zero: roteiro, voz, imagem e CapCut</li>
