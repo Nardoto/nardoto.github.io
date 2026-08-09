@@ -15,10 +15,18 @@
   var plat = (uaData && uaData.platform) || navigator.platform || '';
   var isMac = /mac/i.test(plat) || /Mac OS X|Macintosh|iPhone|iPad/i.test(navigator.userAgent || '');
 
+  var REPO = 'LoopLess-nardoto/nardoto-studio-releases';
+
   function apply() {
     var href = BASE + (isMac ? 'NardotoStudio-Setup-mac.dmg' : 'NardotoStudio-Setup.exe');
     document.querySelectorAll('[data-dl-studio]').forEach(function (el) {
       el.href = href;
+      // No Mac, /latest/ da 404 quando a ultima release saiu so-Windows.
+      // mac-download-link.js troca o href pela release que TEM o .dmg.
+      if (isMac) {
+        el.setAttribute('data-mac-repo', REPO);
+        el.setAttribute('data-mac-asset', 'NardotoStudio-Setup-mac.dmg');
+      }
       var os = el.querySelector('[data-dl-os]');
       if (os) os.textContent = isMac ? 'macOS' : 'Windows';
     });
@@ -26,6 +34,7 @@
     document.querySelectorAll('[data-dl-mac-only]').forEach(function (el) {
       el.hidden = !isMac;
     });
+    if (isMac && window.nardotoFixMacLinks) window.nardotoFixMacLinks();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', apply);
