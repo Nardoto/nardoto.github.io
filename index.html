@@ -277,7 +277,6 @@
             background: var(--bg-dark);
             border-radius: 24px;
             padding: 40px 32px;
-            border: 1px solid var(--border-light);
             transition: all 0.4s ease;
             text-decoration: none;
             display: flex;
@@ -299,7 +298,7 @@
         }
 
         .product-card:hover {
-            border-color: var(--primary);
+            background: #121110;
             transform: translateY(-12px);
             box-shadow: 0 30px 60px rgba(232, 90, 42, 0.2);
         }
@@ -429,6 +428,38 @@
             content: '✓';
             color: var(--primary);
             font-weight: 700;
+        }
+
+        .voz-faixa {
+            background: linear-gradient(135deg, rgba(232, 90, 42, 0.18), rgba(232, 90, 42, 0.06));
+            border-radius: 14px;
+            padding: 14px 16px;
+            margin-bottom: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .voz-faixa .vf-top {
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--primary);
+        }
+
+        .voz-faixa .vf-num {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            line-height: 1.2;
+            color: var(--text-primary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .voz-faixa .vf-sub {
+            font-size: 0.86rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
         }
 
         .product-cta {
@@ -816,7 +847,6 @@
 
         .compare-card {
             background: var(--card-dark);
-            border: 1px solid var(--border-light);
             border-radius: 20px;
             padding: 32px 24px;
             display: flex;
@@ -827,11 +857,11 @@
 
         .compare-card:hover {
             transform: translateY(-6px);
-            border-color: var(--primary);
+            background: #221E1C;
         }
 
         .compare-card.featured {
-            border: 2px solid var(--primary);
+            background: #241E1A;
             box-shadow: 0 0 40px rgba(232, 90, 42, 0.18);
         }
 
@@ -1223,9 +1253,9 @@
                 <ul class="product-features">
                     <li>Achador de Nichos + Dobra de Nicho</li>
                     <li>Automação VEO3 / Suno no navegador</li>
+                    <li>Trilhas e músicas com Suno 4.5 pelo próprio dashboard</li>
+                    <li>1 milhão de créditos de voz por mês: clonagem, dublagem e troca de voz</li>
                     <li>Biblioteca de mídias</li>
-                    <li>Clonagem, dublagem e troca de voz</li>
-                    <li>1 milhão de créditos premium/mês</li>
                 </ul>
                 <span class="product-cta">Assinar <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i></span>
             </a>
@@ -1240,8 +1270,10 @@
                 <p class="tagline">Navegador exclusivo pra automatizar os sites de IA</p>
                 <ul class="product-features">
                     <li>VEO3 com consistência de cenas e personagens</li>
+                    <li>Vozes Premium: 15 áudios por dia de até 150 mil caracteres</li>
+                    <li>1,5 milhão de créditos de voz por mês: clonagem, dublagem e troca</li>
+                    <li>Suno 4.5: gera e baixa músicas em lote + SRT</li>
                     <li>Download em massa com nome do prompt e ordem</li>
-                    <li>Suno: gera e baixa músicas em lote + SRT</li>
                     <li>YouTube grabber: vídeo + capa + transcrição</li>
                     <li>Modo de download via torrent embutido</li>
                 </ul>
@@ -1249,16 +1281,23 @@
             </a>
 
             <!-- Nardoto Studio -->
-            <div class="product-card" style="border-color: #E85A2A; box-shadow: 0 0 40px rgba(232, 90, 42, 0.15); display: flex; flex-direction: column;">
+            <div class="product-card" style="background: #141110; box-shadow: 0 0 40px rgba(232, 90, 42, 0.15); display: flex; flex-direction: column;">
                 <span class="product-badge" style="background: linear-gradient(135deg, #E85A2A, #FF7A50); color: #fff;">R$ 197/mês</span>
                 <div class="product-icon studio" style="background: rgba(232, 90, 42, 0.08); overflow: hidden; padding: 0;">
                     <img src="studio/logo.png" alt="Nardoto Studio" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
                 <h3>Nardoto Studio</h3>
                 <p class="tagline">A IA monta o vídeo inteiro. Você só aprova.</p>
+                <div class="voz-faixa">
+                    <span class="vf-top">Narração praticamente ilimitada</span>
+                    <span class="vf-num">2,25 milhões de caracteres por dia</span>
+                    <span class="vf-sub">15 áudios nas Vozes Premium todo dia, de até 150 mil caracteres cada. Não consome seus créditos mensais.</span>
+                </div>
                 <ul class="product-features">
                     <li>A IA monta do zero: roteiro, voz, imagem e CapCut</li>
-                    <li>Você só supervisiona — não monta nada na mão</li>
+                    <li>Vozes Premium: 15 áudios por dia de até 150 mil caracteres — na prática, narração sem limite</li>
+                    <li>Trilha sonora com Suno 4.5 dentro do app: música e instrumental pro seu vídeo</li>
+                    <li>2 milhões de créditos de voz por mês pra clonagem, dublagem e troca de voz</li>
                     <li>Chat que orquestra tudo (Claude / GPT / Gemini, sua conta)</li>
                     <li>Flow incluso (multiabas + geração em massa)</li>
                     <li>Comunidade WhatsApp + lives semanais (só no Studio)</li>
@@ -1415,10 +1454,12 @@
                 </div>
                 <a href="https://nardoto-labs.web.app/checkout-app.html" class="c-btn filled">Assinar</a>
                 <ul class="c-features">
-                    <li><i data-lucide="check" class="ic yes"></i> 1 milhão de créditos premium/mês (voz, clonagem, dublagem, troca)</li>
+                    <li><i data-lucide="check" class="ic yes"></i> 1 milhão de créditos de voz/mês (clonagem, dublagem, troca)</li>
+                    <li><i data-lucide="check" class="ic yes"></i> Músicas e trilhas com Suno 4.5</li>
                     <li><i data-lucide="check" class="ic yes"></i> Achador de Nichos + Dobra de Nicho</li>
                     <li><i data-lucide="check" class="ic yes"></i> Automação VEO3 / Suno (1 aba)</li>
                     <li><i data-lucide="check" class="ic yes"></i> Biblioteca de mídias</li>
+                    <li class="no"><i data-lucide="x" class="ic no"></i> Vozes Premium (15 áudios/dia de 150 mil caracteres)</li>
                     <li class="no"><i data-lucide="x" class="ic no"></i> Multiabas (gerar em paralelo)</li>
                     <li class="no"><i data-lucide="x" class="ic no"></i> Chat IA + automação</li>
                 </ul>
@@ -1438,9 +1479,11 @@
                 </div>
                 <a href="https://nardoto-labs.web.app/checkout-flow.html" class="c-btn filled">Assinar Flow</a>
                 <ul class="c-features">
-                    <li><i data-lucide="check" class="ic yes"></i> 1,5 milhão de créditos premium/mês (voz, clonagem, dublagem, troca de voz)</li>
+                    <li><i data-lucide="check" class="ic yes"></i> Vozes Premium: 15 áudios/dia de até 150 mil caracteres</li>
+                    <li><i data-lucide="check" class="ic yes"></i> 1,5 milhão de créditos de voz/mês (clonagem, dublagem, troca de voz)</li>
+                    <li><i data-lucide="check" class="ic yes"></i> Músicas e trilhas com Suno 4.5 em massa</li>
                     <li><i data-lucide="check" class="ic yes"></i> Tudo no navegador, sem instalar nada</li>
-                    <li><i data-lucide="check" class="ic yes"></i> VEO3 e Suno em massa</li>
+                    <li><i data-lucide="check" class="ic yes"></i> VEO3 em massa</li>
                     <li><i data-lucide="check" class="ic yes"></i> YouTube grabber + modo torrent</li>
                     <li class="no"><i data-lucide="x" class="ic no"></i> Plugin do CapCut</li>
                     <li class="no"><i data-lucide="x" class="ic no"></i> Narração local (Cast)</li>
@@ -1464,11 +1507,12 @@
                 <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup.exe" data-dl-studio class="c-btn outline" style="margin-top: -12px;">Baixar e testar 10 dias grátis</a>
                 <a href="#" onclick="showTab('studio');return false;" class="c-btn outline" style="margin-top: -12px;">Conhecer o Studio</a>
                 <ul class="c-features">
+                    <li><i data-lucide="check" class="ic yes"></i> Vozes Premium: 15 áudios/dia de 150 mil caracteres — 2,25 milhões de caracteres por dia</li>
+                    <li><i data-lucide="check" class="ic yes"></i> 2 milhões de créditos de voz/mês, à parte das Vozes Premium</li>
+                    <li><i data-lucide="check" class="ic yes"></i> Trilha sonora com Suno 4.5 dentro do app</li>
                     <li><i data-lucide="check" class="ic yes"></i> A IA monta o vídeo do zero: roteiro, voz, imagem e CapCut</li>
-                    <li><i data-lucide="check" class="ic yes"></i> Você só supervisiona — nada de montar na mão</li>
                     <li><i data-lucide="check" class="ic yes"></i> Chat que orquestra o projeto (Claude / GPT / Gemini)</li>
                     <li><i data-lucide="check" class="ic yes"></i> Flow incluso (multiabas + geração em massa)</li>
-                    <li><i data-lucide="check" class="ic yes"></i> 2 milhões de créditos premium/mês</li>
                     <li><i data-lucide="check" class="ic yes"></i> Comunidade WhatsApp + lives semanais (exclusivo)</li>
                     <li><i data-lucide="check" class="ic yes"></i> Em grupo (Panela), sai a partir de R$ 147/pessoa</li>
                 </ul>
