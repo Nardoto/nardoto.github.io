@@ -267,9 +267,9 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 18px;
-            max-width: 1080px;
+            max-width: 760px;
             margin: 0 auto;
         }
 
@@ -792,9 +792,9 @@
 
         .compare-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 16px;
-            max-width: 1040px;
+            max-width: 740px;
             margin: 0 auto;
             position: relative;
         }
@@ -967,7 +967,7 @@
         .compare-card .c-features .ic.no { color: #6B7280; }
 
         @media (max-width: 1040px) {
-            .compare-grid { grid-template-columns: repeat(3, 1fr); max-width: 820px; }
+            .compare-grid { grid-template-columns: repeat(2, 1fr); max-width: 700px; }
             .free-apps-grid { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
         }
 
@@ -1036,13 +1036,6 @@
         }
 
         /* Responsive */
-        @media (max-width: 1340px) {
-            .products-grid {
-                grid-template-columns: repeat(3, 1fr);
-                max-width: 860px;
-            }
-        }
-
         @media (max-width: 1100px) {
             .products-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -1245,24 +1238,6 @@
         </div>
 
         <div class="products-grid">
-            <!-- Nardoto App Web (Labs) -->
-            <a href="https://nardoto-labs.web.app/checkout-app.html" class="product-card">
-                <span class="product-badge" style="background: rgba(232, 90, 42, 0.15); color: var(--primary);"><s style="opacity: 0.5;">R$ 97</s> R$ 69,90/mês</span>
-                <div class="product-icon" style="background: rgba(232, 90, 42, 0.08); overflow: hidden; padding: 0;">
-                    <img src="extension-icons/nardoto-labs.png" alt="Nardoto App Web" style="width: 100%; height: 100%; object-fit: contain;">
-                </div>
-                <h3>App Web</h3>
-                <p class="tagline">Dashboard + extensão Chrome pra gerar nos sites de IA</p>
-                <ul class="product-features">
-                    <li>Achador de Nichos + Dobra de Nicho</li>
-                    <li>Automação VEO3 / Suno no navegador</li>
-                    <li>Trilhas e músicas com Suno 4.5 pelo próprio dashboard</li>
-                    <li>1 milhão de créditos de voz por mês: clonagem, dublagem e troca de voz</li>
-                    <li>Biblioteca de mídias</li>
-                </ul>
-                <span class="product-cta">Assinar <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i></span>
-            </a>
-
             <!-- Nardoto Flow -->
             <a href="https://nardoto-labs.web.app/checkout-flow.html" class="product-card">
                 <span class="product-badge" style="background: rgba(232, 90, 42, 0.15); color: var(--primary);">R$ 117/mês</span>
@@ -1443,31 +1418,6 @@
         </div>
 
         <div class="compare-grid">
-            <!-- App Web (Labs) -->
-            <div class="compare-card">
-                <img class="c-icon" src="extension-icons/nardoto-labs.png" alt="Nardoto App Web">
-                <div class="c-name">App Web</div>
-                <div class="c-tag">Dashboard + extensão Chrome pra gerar nos sites de IA.</div>
-                <div class="c-price">
-                    R$&nbsp;<span class="c-num" data-m="69,90" data-a="697">697</span><span class="c-per bill-m">/mês</span><span class="c-per bill-a">/ano</span>
-                </div>
-                <div class="c-annual">
-                    <span class="bill-m">de <s style="opacity:.6">R$ 97</s> · ou R$ 697/ano no anual</span>
-                    <span class="bill-a">de R$ 838 · economize R$ 142/ano (-17%)</span>
-                </div>
-                <a href="https://nardoto-labs.web.app/checkout-app.html" class="c-btn filled">Assinar</a>
-                <ul class="c-features">
-                    <li><i data-lucide="check" class="ic yes"></i> 1 milhão de créditos de voz/mês (clonagem, dublagem, troca)</li>
-                    <li><i data-lucide="check" class="ic yes"></i> Músicas e trilhas com Suno 4.5</li>
-                    <li><i data-lucide="check" class="ic yes"></i> Achador de Nichos + Dobra de Nicho</li>
-                    <li><i data-lucide="check" class="ic yes"></i> Automação VEO3 / Suno (1 aba)</li>
-                    <li><i data-lucide="check" class="ic yes"></i> Biblioteca de mídias</li>
-                    <li class="no"><i data-lucide="x" class="ic no"></i> Vozes Premium (15 áudios/dia de 150 mil caracteres)</li>
-                    <li class="no"><i data-lucide="x" class="ic no"></i> Multiabas (gerar em paralelo)</li>
-                    <li class="no"><i data-lucide="x" class="ic no"></i> Chat IA + automação</li>
-                </ul>
-            </div>
-
             <!-- Flow -->
             <div class="compare-card">
                 <img class="c-icon" src="extension-icons/nardoto-flow.png" alt="Nardoto Flow">
