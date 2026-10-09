@@ -129,19 +129,33 @@
   .promessas span { display: inline-flex; align-items: center; gap: 8px; }
   .promessas svg { width: 18px; height: 18px; stroke: var(--laranja); }
 
-  /* Galeria */
-  .galeria { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-  .filme { background: var(--card); border-radius: 14px; overflow: hidden; }
-  .filme.destaque { grid-column: 1 / -1; }
+  /* Galeria em carrossel: um vídeo grande por vez, o maior que cabe na tela */
+  .carrossel { position: relative; width: min(1280px, calc(100vw - 40px), calc(72vh * 16 / 9)); margin: 0 auto; }
+  .galeria { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; border-radius: 16px; }
+  .galeria::-webkit-scrollbar { display: none; }
+  .filme { flex: 0 0 100%; scroll-snap-align: start; background: var(--card); overflow: hidden; }
   .filme video { display: block; width: 100%; aspect-ratio: 16/9; background: #050505; }
-  .filme div { padding: 14px 16px 16px; }
-  .filme h3 { font-size: 15px; font-weight: 600; }
-  .filme.destaque h3 { font-size: 18px; }
-  .filme p { font-size: 13px; color: var(--texto-2); margin-top: 4px; }
-  .filme span { display: block; font-size: 12px; color: var(--texto-3); margin-top: 6px; }
-  .filme span a { color: var(--laranja); font-weight: 500; }
+  .filme > div { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; padding: 18px 22px 20px; }
+  .filme h3 { font-size: 20px; font-weight: 700; }
+  .filme p { font-size: 14px; color: var(--texto-2); margin-top: 4px; }
+  .filme span { flex-shrink: 0; font-size: 13px; color: var(--texto-3); text-align: right; }
+  .filme span a { color: var(--laranja); font-weight: 600; }
   .filme span a:hover { color: var(--laranja-claro); }
+  .seta { position: absolute; top: calc((100% - 84px) / 2); transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%; border: 0; background: rgba(10,10,10,.75); color: var(--texto); display: grid; place-items: center; cursor: pointer; transition: background .2s; }
+  .seta:hover { background: var(--laranja); }
+  .seta svg { width: 22px; height: 22px; }
+  .seta.ant { left: -64px; } .seta.prox { right: -64px; }
+  .seta:disabled { opacity: .25; cursor: default; background: rgba(10,10,10,.75); }
+  .contador { position: absolute; top: 14px; right: 14px; padding: 4px 10px; border-radius: 999px; background: rgba(10,10,10,.75); font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--texto-2); pointer-events: none; }
+  .fita { position: relative; display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; width: min(1280px, calc(100vw - 40px), calc(72vh * 16 / 9)); margin: 14px auto 0; padding-bottom: 4px; }
+  .fita::-webkit-scrollbar { display: none; }
+  .fita button { flex: 1 0 140px; border: 0; padding: 0; background: var(--card); border-radius: 10px; overflow: hidden; cursor: pointer; color: var(--texto-2); text-align: left; opacity: .55; outline: 2px solid transparent; outline-offset: -2px; transition: opacity .2s, outline-color .2s; }
+  .fita button:hover { opacity: .85; }
+  .fita button.ativo { opacity: 1; outline-color: var(--laranja); color: var(--texto); }
+  .fita img { display: block; width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+  .fita small { display: block; padding: 6px 8px 7px; font-size: 12px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .nota-galeria { text-align: center; color: var(--texto-3); font-size: 13px; margin-top: 18px; }
+  @media (max-width: 1420px) { .seta.ant { left: 12px; } .seta.prox { right: 12px; } }
 
   /* Studio */
   .studio { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; background: var(--card); border-radius: 18px; padding: 44px; }
@@ -183,7 +197,10 @@
   footer a:hover { color: var(--texto); }
 
   @media (max-width: 860px) {
-    .grade, .galeria { grid-template-columns: 1fr 1fr; }
+    .grade { grid-template-columns: 1fr 1fr; }
+    .filme > div { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .filme span { text-align: left; }
+    .seta { width: 40px; height: 40px; top: 28%; }
     .studio { grid-template-columns: 1fr; padding: 28px; }
     .janela-corpo { grid-template-columns: 1fr; height: auto; }
     .janela-corpo .painel { display: none; }
@@ -191,7 +208,7 @@
     .topo nav a:not(.botao) { display: none; }
   }
   @media (max-width: 560px) {
-    .grade, .cartoes, .galeria { grid-template-columns: 1fr; }
+    .grade, .cartoes { grid-template-columns: 1fr; }
     section { padding: 56px 0; }
   }
 </style>
@@ -259,8 +276,10 @@
         <h2>Vídeos feitos com o Nardoto Studio</h2>
         <p>Pedidos no chat, montados pelo agente e entregues pelo Nardoto Editor.</p>
       </div>
+    </div>
+    <div class="carrossel">
       <div class="galeria">
-        <div class="filme destaque">
+        <div class="filme">
           <video controls preload="none" playsinline poster="videos/honda.jpg" src="videos/honda.mp4" data-completo="videos/honda-completo.mp4"></video>
           <div><h3>Como surgiu a Honda</h3><p>Documentário com fotos e filmagens de época, narração e legenda.</p><span>Trecho de 1 min · <a href="#" data-ver-completo>Assistir completo (6 min)</a></span></div>
         </div>
@@ -289,6 +308,12 @@
           <div><h3>Trechos reais do YouTube</h3><p>Propaganda montada com trechos achados pela legenda de cada vídeo.</p><span>Trecho de 1 min · <a href="#" data-ver-completo>Assistir completo (1 min 13 s)</a></span></div>
         </div>
       </div>
+      <button class="seta ant" type="button" aria-label="Vídeo anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+      <button class="seta prox" type="button" aria-label="Próximo vídeo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+      <div class="contador"></div>
+    </div>
+    <div class="fita"></div>
+    <div class="largura">
       <p class="nota-galeria">Cada card abre com um trecho de 1 minuto; o vídeo inteiro está em "Assistir completo". Qualidade reduzida para carregar rápido na página. O vídeo exportado sai na resolução do projeto.</p>
     </div>
   </section>
@@ -442,6 +467,62 @@
       link.parentNode.textContent = "Vídeo completo";
     });
   });
+
+  // Carrossel: setas, miniaturas e teclado levam ao vídeo; ao trocar, o vídeo que estava tocando pausa.
+  (function () {
+    var galeria = document.querySelector(".galeria");
+    var filmes = Array.prototype.slice.call(galeria.querySelectorAll(".filme"));
+    var fita = document.querySelector(".fita");
+    var contador = document.querySelector(".contador");
+    var ant = document.querySelector(".seta.ant");
+    var prox = document.querySelector(".seta.prox");
+    var atual = 0, alvo = null;
+
+    var miniaturas = filmes.map(function (filme, i) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.innerHTML = '<img loading="lazy" alt="" src="' + filme.querySelector("video").getAttribute("poster") + '"><small></small>';
+      b.querySelector("small").textContent = filme.querySelector("h3").textContent;
+      b.addEventListener("click", function () { ir(i); });
+      fita.appendChild(b);
+      return b;
+    });
+
+    function marcar(i) {
+      if (i !== atual) filmes[atual].querySelector("video").pause();
+      atual = i;
+      miniaturas.forEach(function (b, j) { b.classList.toggle("ativo", j === i); });
+      var b = miniaturas[i]; // rola só a fita, sem mexer na página
+      fita.scrollTo({ left: b.offsetLeft - (fita.clientWidth - b.offsetWidth) / 2, behavior: "smooth" });
+      contador.textContent = (i + 1) + " / " + filmes.length;
+      ant.disabled = i === 0;
+      prox.disabled = i === filmes.length - 1;
+    }
+
+    function ir(i) {
+      i = Math.max(0, Math.min(filmes.length - 1, i));
+      alvo = i === Math.round(galeria.scrollLeft / galeria.clientWidth) ? null : i; // durante a rolagem animada, os vídeos do meio do caminho não viram o atual
+      galeria.scrollTo({ left: i * galeria.clientWidth });
+      marcar(i);
+    }
+
+    ant.addEventListener("click", function () { ir(atual - 1); });
+    prox.addEventListener("click", function () { ir(atual + 1); });
+    galeria.addEventListener("scroll", function () {
+      var i = Math.round(galeria.scrollLeft / galeria.clientWidth);
+      if (alvo !== null) { if (i === alvo) alvo = null; return; }
+      if (i !== atual) marcar(i);
+    }, { passive: true });
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+      if (document.activeElement && document.activeElement.tagName === "VIDEO") return; // no player, a seta avança o vídeo
+      var r = galeria.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      e.preventDefault();
+      ir(atual + (e.key === "ArrowRight" ? 1 : -1));
+    });
+    marcar(0);
+  })();
 
   // Versão e tamanho vêm da última release do GitHub; se a API falhar, a página segue com o texto padrão.
   fetch("https://api.github.com/repos/LoopLess-nardoto/nardoto-editor-open/releases/latest")
