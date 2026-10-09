@@ -92,6 +92,10 @@
   .detalhe { margin-top: 14px; font-size: 13px; color: var(--texto-3); }
   .detalhe code { font-family: "JetBrains Mono", monospace; color: var(--texto-2); }
 
+  /* Vídeo de apresentação no topo */
+  .hero-video { margin: 34px auto 0; width: min(1040px, 100%); border-radius: 16px; overflow: hidden; box-shadow: 0 40px 120px rgba(0,0,0,.6), 0 0 0 1px rgba(232,90,42,.3), 0 0 80px -20px rgba(232,90,42,.35); }
+  .legenda-video { margin: 14px auto 26px; color: var(--texto-3); font-size: 14px; }
+
   /* Ilustração do editor */
   .janela {
     margin: 52px auto 0; width: min(1000px, 100%); background: var(--card); border-radius: 14px;
@@ -177,6 +181,29 @@
   .fita small { display: block; padding: 6px 8px 7px; font-size: 12px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .nota-galeria { text-align: center; color: var(--texto-3); font-size: 13px; margin-top: 18px; }
 
+  /* Prints dos apps: grade com cartões; clicar abre a imagem grande */
+  .titulo-secao .destaque { color: var(--laranja); }
+  .prints { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+  .print { grid-column: span 3; background: var(--card); border-radius: 14px; overflow: hidden; margin: 0; display: flex; flex-direction: column; }
+  .print.largo { grid-column: 1 / -1; }
+  .print.terco { grid-column: span 2; }
+  .print img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: contain; background: #0D0D0D; cursor: zoom-in; transition: transform .4s; }
+  .print.largo img { aspect-ratio: auto; }
+  .print img.quadrado { aspect-ratio: 1; object-fit: cover; }
+  .print:hover img { transform: scale(1.015); }
+  .print figcaption { padding: 16px 18px 18px; font-size: 14px; color: var(--texto-2); }
+  .print figcaption b { display: block; color: var(--texto); font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .cta-lite { padding: 30px; justify-content: center; gap: 14px; background: linear-gradient(160deg, rgba(232,90,42,.16), var(--card) 60%); box-shadow: inset 0 0 0 1px rgba(232,90,42,.3); }
+  .cta-lite h3 { font-size: 24px; font-weight: 800; }
+  .cta-lite ul { list-style: none; display: grid; gap: 8px; color: var(--texto-2); }
+  .cta-lite li { padding-left: 24px; position: relative; }
+  .cta-lite li::before { content: ""; position: absolute; left: 2px; top: 6px; width: 12px; height: 7px; border-left: 2px solid var(--laranja); border-bottom: 2px solid var(--laranja); transform: rotate(-45deg); }
+  .cta-lite .botao { align-self: flex-start; }
+  .cta-lite small { color: var(--texto-3); font-size: 12px; }
+  .zoom { position: fixed; inset: 0; z-index: 100; background: rgba(5,5,5,.92); display: grid; place-items: center; padding: 24px; cursor: zoom-out; opacity: 0; pointer-events: none; transition: opacity .2s; }
+  .zoom.aberto { opacity: 1; pointer-events: auto; }
+  .zoom img { max-width: 100%; max-height: 100%; border-radius: 10px; box-shadow: 0 30px 90px rgba(0,0,0,.8); }
+
   /* Studio */
   .studio { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; background: var(--card); border-radius: 18px; padding: 44px; }
   .studio h2 { font-size: clamp(26px, 3.4vw, 36px); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 14px; }
@@ -218,6 +245,7 @@
 
   @media (max-width: 860px) {
     .grade { grid-template-columns: 1fr 1fr; }
+    .print, .print.terco { grid-column: 1 / -1; }
     .filme > div { flex-direction: column; align-items: flex-start; gap: 8px; }
     .filme span { text-align: left; }
     .seta { width: 40px; height: 40px; }
@@ -242,7 +270,7 @@
     <a class="marca" href="#"><img src="icone.png" alt="">Nardoto Editor</a>
     <nav>
       <a href="#videos">Vídeos</a>
-      <a href="#studio">Com o Studio</a>
+      <a href="#lite">Studio Lite</a>
       <a href="#recursos">Recursos</a>
       <a href="#perguntas">Perguntas</a>
       <a class="botao pequeno" href="#baixar">Baixar grátis</a>
@@ -254,6 +282,10 @@
   <div class="hero largura">
     <div class="selo"><b>Grátis</b> · feito para trabalhar com o Nardoto Studio</div>
     <h1>O seu agente de IA monta.<br><span>O editor entrega o vídeo.</span></h1>
+    <div class="hero-video">
+      <button class="player" type="button" data-yt="vclPU6NT_YI" aria-label="Assistir: veja como funciona" data-titulo="Veja como funciona"><img src="thumbs/como-funciona.webp" alt=""><i><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></i></button>
+    </div>
+    <p class="legenda-video">Veja como funciona: você pede o vídeo, o Studio Lite monta e o editor entrega.</p>
     <p class="sub">O Nardoto Editor é grátis para baixar. Ligado ao Nardoto Studio, ele recebe o vídeo montado pelo agente que você já usa e exporta no seu computador. Sem marca-d'água e sem limite de exportação.</p>
     <div class="acoes">
       <a class="botao" data-baixar href="https://github.com/LoopLess-nardoto/nardoto-editor-open/releases/latest/download/NardotoEditor-Setup-x64.exe">
@@ -264,23 +296,6 @@
     </div>
     <p class="detalhe"><span data-versao>Versão mais recente</span> · Windows 10 e 11 (64 bits)</p>
 
-    <div class="janela" aria-hidden="true">
-      <div class="janela-barra"><i></i><i></i><i></i>&nbsp; Nardoto Editor · meu-video.drift</div>
-      <div class="janela-corpo">
-        <div class="painel"><small>Mídias</small><div class="miniaturas"><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
-        <div class="preview"><div class="cena"></div><div class="titulo-cena">O império esquecido</div><div class="legenda">e foi aí que <b>tudo</b> mudou</div></div>
-        <div class="painel"><small>Propriedades</small><div class="prop"><div class="on"></div><div></div><div class="on"></div><div></div><div></div><div class="on"></div></div></div>
-      </div>
-      <div class="timeline">
-        <div class="regua"><span>00:00</span><span>00:10</span><span>00:20</span><span>00:30</span><span>00:40</span><span>00:50</span></div>
-        <div class="faixa"><em>Motion</em><div class="trilho"><div class="clipe m" style="left:2%;width:14%"></div><div class="clipe m" style="left:58%;width:12%"></div></div></div>
-        <div class="faixa"><em>Legenda</em><div class="trilho"><div class="clipe t" style="left:4%;width:9%"></div><div class="clipe t" style="left:15%;width:12%"></div><div class="clipe t" style="left:29%;width:8%"></div><div class="clipe t" style="left:40%;width:13%"></div><div class="clipe t" style="left:56%;width:10%"></div><div class="clipe t" style="left:69%;width:14%"></div></div></div>
-        <div class="faixa"><em>Vídeo</em><div class="trilho"><div class="clipe v" style="left:0;width:22%"></div><div class="clipe v l" style="left:22.5%;width:18%"></div><div class="clipe v" style="left:41%;width:26%"></div><div class="clipe v l" style="left:67.5%;width:30%"></div></div></div>
-        <div class="faixa"><em>Narração</em><div class="trilho"><div class="clipe a" style="left:0;width:96%"></div></div></div>
-        <div class="faixa"><em>Trilha</em><div class="trilho"><div class="clipe a" style="left:0;width:60%;opacity:.7"></div><div class="clipe a" style="left:61%;width:36%;opacity:.7"></div></div></div>
-        <div class="agulha"></div>
-      </div>
-    </div>
   </div>
 
   <div class="largura">
@@ -339,7 +354,13 @@
           <h2>Grátis, e feito para<br><span>andar com o Nardoto Studio.</span></h2>
           <p>O editor é a mesa de montagem. Quem pensa o vídeo é o Nardoto Studio: você conecta nele o agente de IA que já usa, como Claude, Codex ou Gemini, e pede o vídeo no chat. O agente escreve, busca as mídias, gera a voz e monta tudo no editor. Você confere, ajusta e exporta.</p>
           <p>Dá para abrir e editar na mão sem o Studio, mas é com ele junto que o editor funciona de verdade.</p>
-          <a class="botao-sec" href="https://nardoto.com.br" target="_blank" rel="noopener">Conhecer o Nardoto Studio Lite</a>
+          <div class="acoes" style="justify-content:flex-start">
+            <a class="botao" data-baixar-lite href="https://github.com/LoopLess-nardoto/nardoto-studio-lite-releases/releases/latest/download/NardotoStudioLite-Setup.exe">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+              Baixar o Studio Lite
+            </a>
+            <a class="botao-sec" href="#lite">Ver por dentro</a>
+          </div>
         </div>
         <div class="chat" aria-hidden="true">
           <div class="msg eu">Faz um vídeo de 6 minutos contando como surgiu a Honda, com fotos de época.</div>
@@ -348,6 +369,59 @@
             <div class="passos-ia"><span>roteiro ... ok</span><span>mídias de acervo ... ok</span><span>assemble_video ... ok</span></div>
           </div>
           <div class="msg eu">Troca a cena 12 por uma foto mais escura.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="lite">
+    <div class="largura">
+      <div class="titulo-secao">
+        <h2>Por dentro do <span class="destaque">Nardoto Studio Lite</span></h2>
+        <p>Vídeo no automático, com edição profissional e dinâmica. Ilimitado e sem marca-d'água.</p>
+      </div>
+      <div class="prints">
+        <figure class="print largo">
+          <img src="prints/lite-criar.webp" alt="Tela de criar vídeo do Studio Lite com o chat ao lado" loading="lazy">
+          <figcaption><b>Você descreve, ele conduz</b>Escolha o tipo, a duração, o formato, o editor e a IA. Cole a ideia ou o roteiro pronto e o Studio Lite cuida do resto. O chat ao lado ajusta qualquer coisa pelo caminho.</figcaption>
+        </figure>
+        <figure class="print">
+          <img class="quadrado" src="prints/lite-preview.webp" alt="Prévia do vídeo com a lista de cenas e falas" loading="lazy">
+          <figcaption><b>Cena por cena, com a fala de cada uma</b>Confira o vídeo inteiro antes de abrir o editor e troque a mídia de qualquer cena com um clique.</figcaption>
+        </figure>
+        <figure class="print">
+          <img class="quadrado" src="prints/lite-preview-doc.webp" alt="Prévia de um documentário sobre a Torre de Pisa" loading="lazy">
+          <figcaption><b>Fotos e filmagens reais</b>Documentários montados com acervo de verdade, narração sincronizada, trilha e legenda.</figcaption>
+        </figure>
+        <figure class="print terco">
+          <img src="prints/lite-tipos.webp" alt="Os 15 estilos de edição do Studio Lite" loading="lazy">
+          <figcaption><b>15 estilos de edição</b>Cada um com o seu ritmo de corte, transição, movimento e legenda.</figcaption>
+        </figure>
+        <figure class="print terco">
+          <img src="prints/lite-duracao.webp" alt="Durações de 30 segundos a 10 horas" loading="lazy">
+          <figcaption><b>De 30 segundos a 10 horas</b>Shorts, vídeos médios e vídeos longos no mesmo fluxo.</figcaption>
+        </figure>
+        <figure class="print terco">
+          <img src="prints/lite-ias.webp" alt="Lista de IAs que podem executar o vídeo" loading="lazy">
+          <figcaption><b>Use a IA que você já tem</b>Claude, Codex, Gemini e opções grátis, como OpenCode e Copilot.</figcaption>
+        </figure>
+        <figure class="print">
+          <img src="prints/lite-modelos.webp" alt="Configuração de modelos de IA do chat" loading="lazy">
+          <figcaption><b>Você escolhe o modelo</b>Cada provedor com o seu modelo padrão, do mais rápido ao mais caprichado.</figcaption>
+        </figure>
+        <div class="print cta-lite">
+          <h3>Nardoto Studio Lite</h3>
+          <ul>
+            <li>Vídeos no automático, do roteiro à montagem</li>
+            <li>Edição profissional e dinâmica</li>
+            <li>Ilimitado e sem marca-d'água</li>
+            <li>Monta no Nardoto Editor ou no CapCut</li>
+          </ul>
+          <a class="botao" data-baixar-lite href="https://github.com/LoopLess-nardoto/nardoto-studio-lite-releases/releases/latest/download/NardotoStudioLite-Setup.exe">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+            Baixar o Studio Lite
+          </a>
+          <small><span data-lite-versao>Versão mais recente</span> · Windows 10 e 11 (64 bits) · <span data-lite-tamanho></span></small>
         </div>
       </div>
     </div>
@@ -562,6 +636,36 @@
     });
     marcar(0);
   })();
+
+  // Clicar num print abre ele grande; clique ou Esc fecha.
+  (function () {
+    var zoom = document.createElement("div");
+    zoom.className = "zoom";
+    zoom.innerHTML = '<img alt="">';
+    document.body.appendChild(zoom);
+    var img = zoom.querySelector("img");
+    function fechar() { zoom.classList.remove("aberto"); }
+    document.querySelectorAll(".print img").forEach(function (p) {
+      p.addEventListener("click", function () { img.src = p.src; img.alt = p.alt; zoom.classList.add("aberto"); });
+    });
+    zoom.addEventListener("click", fechar);
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") fechar(); });
+  })();
+
+  // Versão e tamanho do Studio Lite, pelo mesmo caminho do editor.
+  fetch("https://api.github.com/repos/LoopLess-nardoto/nardoto-studio-lite-releases/releases/latest")
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (rel) {
+      if (!rel) return;
+      var versao = (rel.tag_name || "").replace(/^v/i, "");
+      if (versao) document.querySelectorAll("[data-lite-versao]").forEach(function (el) { el.textContent = "Versão " + versao; });
+      var exe = (rel.assets || []).find(function (a) { return /\.exe$/i.test(a.name); });
+      if (exe) {
+        document.querySelectorAll("[data-lite-tamanho]").forEach(function (el) { el.textContent = Math.round(exe.size / 1048576) + " MB"; });
+        document.querySelectorAll("[data-baixar-lite]").forEach(function (el) { el.href = exe.browser_download_url; });
+      }
+    })
+    .catch(function () {});
 
   // Versão e tamanho vêm da última release do GitHub; se a API falhar, a página segue com o texto padrão.
   fetch("https://api.github.com/repos/LoopLess-nardoto/nardoto-editor-open/releases/latest")
