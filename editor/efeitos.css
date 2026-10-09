@@ -1,0 +1,57 @@
+/* Efeitos e animações leves, compartilhados pelas páginas do Editor e do Studio Lite. */
+
+/* Itens surgem ao rolar a página (a classe .revelar é posta pelo efeitos.js) */
+.revelar { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s cubic-bezier(.22,.8,.24,1); transition-delay: var(--atraso, 0s); }
+.revelar.visivel { opacity: 1; transform: none; }
+
+/* Prints: brilho na borda, inclinação 3D que segue o mouse e reflexo passando */
+.prints { perspective: 1400px; }
+.print { position: relative; transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--sobe, 0)); transition: transform .35s ease, box-shadow .35s ease; box-shadow: 0 20px 50px -30px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,.04); will-change: transform; }
+.print.revelar { transform: translateY(26px); }
+.print.revelar.visivel { transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--sobe, 0)); }
+.print:hover { --sobe: -6px; box-shadow: 0 30px 70px -30px rgba(0,0,0,.95), 0 0 0 1px rgba(232,90,42,.45), 0 0 50px -12px rgba(232,90,42,.45); }
+.print::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,.10) 48%, rgba(255,180,140,.16) 50%, transparent 62%); background-size: 260% 100%; background-position: 130% 0; transition: background-position 0s; }
+.print:hover::after { background-position: -30% 0; transition: background-position 1.1s ease; }
+.print img { filter: saturate(1.05) contrast(1.03); }
+.print:hover img { transform: scale(1.03); filter: saturate(1.15) contrast(1.06) brightness(1.04); }
+
+/* Botões principais pulsando de leve */
+.pulsa { position: relative; animation: pulsa 2.6s ease-in-out infinite; }
+@keyframes pulsa {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232,90,42,.55), 0 10px 30px -10px rgba(232,90,42,.6); }
+  60% { box-shadow: 0 0 0 12px rgba(232,90,42,0), 0 10px 30px -10px rgba(232,90,42,.6); }
+}
+.botao { transition: transform .2s ease, background .2s ease; }
+.botao:hover { transform: translateY(-2px); }
+
+/* Ícones dos apps flutuando com brilho */
+.app-topo img, .flutua { animation: flutua 4s ease-in-out infinite; filter: drop-shadow(0 8px 18px rgba(232,90,42,.45)); }
+@keyframes flutua { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+/* Cartão de destaque com borda em gradiente girando devagar */
+@property --giro { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.borda-viva { position: relative; isolation: isolate; }
+.borda-viva::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; border-radius: inherit; padding: 1px; background: conic-gradient(from var(--giro), rgba(232,90,42,.1), #E85A2A, rgba(255,160,110,.9), rgba(232,90,42,.1) 40%, rgba(232,90,42,.1)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: giro 6s linear infinite; }
+@keyframes giro { to { --giro: 360deg; } }
+
+/* Vídeo do topo respirando */
+.hero-video { animation: respira 5s ease-in-out infinite; }
+@keyframes respira {
+  0%, 100% { box-shadow: 0 40px 120px rgba(0,0,0,.6), 0 0 0 1px rgba(232,90,42,.3), 0 0 60px -20px rgba(232,90,42,.3); }
+  50% { box-shadow: 0 40px 120px rgba(0,0,0,.6), 0 0 0 1px rgba(232,90,42,.5), 0 0 110px -10px rgba(232,90,42,.5); }
+}
+
+/* Marcas de "ok" das listas entram uma a uma */
+.revelar.visivel li::before, .revelar.visivel .promessas svg { animation: marca .5s ease both; }
+@keyframes marca { from { transform: rotate(-45deg) scale(0); } }
+
+/* Etiqueta "10 dias grátis" brilhando */
+.etiqueta:not(.gratis), .teste b { background-image: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.35) 50%, transparent 70%); background-size: 250% 100%; animation: reflexo 3.2s ease-in-out infinite; }
+.teste b { -webkit-background-clip: text; background-clip: text; color: transparent; background-color: var(--laranja); background-image: linear-gradient(100deg, var(--laranja) 30%, #FFD2BD 50%, var(--laranja) 70%); }
+@keyframes reflexo { 0% { background-position: 130% 0; } 60%, 100% { background-position: -30% 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .revelar { opacity: 1; transform: none; transition: none; }
+  .pulsa, .app-topo img, .flutua, .borda-viva::before, .hero-video, .etiqueta, .teste b { animation: none; }
+  .print, .print img { transition: none; }
+}

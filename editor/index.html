@@ -271,12 +271,13 @@
     section { padding: 56px 0; }
   }
 </style>
+<link rel="stylesheet" href="efeitos.css">
 </head>
 <body>
 
 <header class="topo">
   <div class="largura">
-    <a class="marca" href="#"><img src="icone.png" alt="">Nardoto Editor</a>
+    <a class="marca" href="#"><img class="flutua" src="icone.png" alt="">Nardoto Editor</a>
     <nav>
       <a href="#videos">Vídeos</a>
       <a href="#por-dentro">Por dentro</a>
@@ -298,7 +299,7 @@
     <p class="legenda-video">Veja como funciona: você pede o vídeo, o Studio Lite monta e o editor entrega.</p>
     <p class="sub">O Nardoto Editor é grátis para baixar. Ligado ao Nardoto Studio, ele recebe o vídeo montado pelo agente que você já usa e exporta no seu computador. Sem marca-d'água e sem limite de exportação.</p>
     <div class="acoes">
-      <a class="botao" data-baixar href="https://github.com/LoopLess-nardoto/nardoto-editor-open/releases/latest/download/NardotoEditor-Setup-x64.exe">
+      <a class="botao pulsa" data-baixar href="https://github.com/LoopLess-nardoto/nardoto-editor-open/releases/latest/download/NardotoEditor-Setup-x64.exe">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
         Baixar para Windows
       </a>
@@ -416,8 +417,8 @@
           <img src="prints/ed-agente.webp" alt="Acesso de agente de IA ao editor" loading="lazy">
           <figcaption><b>Ligado ao seu agente de IA</b>O chat do Nardoto Studio, o Cursor ou o Claude editam o projeto: adicionam clipes, mexem na linha do tempo e conferem o resultado.</figcaption>
         </figure>
-        <div class="print cta-lite">
-          <h3>Nardoto Editor</h3>
+        <div class="print cta-lite borda-viva">
+          <div class="app-topo"><img src="icone.png" alt=""><h3>Nardoto Editor</h3></div>
           <ul>
             <li>Grátis, sem marca-d'água</li>
             <li>Sem limite de exportação</li>
@@ -493,8 +494,8 @@
           <img src="prints/lite-modelos.webp" alt="Configuração de modelos de IA do chat" loading="lazy">
           <figcaption><b>Você escolhe o modelo</b>Cada provedor com o seu modelo padrão, do mais rápido ao mais caprichado.</figcaption>
         </figure>
-        <div class="print cta-lite">
-          <h3>Nardoto Studio Lite</h3>
+        <div class="print cta-lite borda-viva">
+          <div class="app-topo"><img src="../lite/icone.png" alt=""><h3>Nardoto Studio Lite</h3></div>
           <ul>
             <li>Vídeos no automático, do roteiro à montagem</li>
             <li>Edição profissional e dinâmica</li>
@@ -565,11 +566,11 @@
           </a>
           <small><span data-versao>Versão mais recente</span> · <span data-tamanho>Instalador de cerca de 90 MB.</span></small>
         </div>
-        <div class="so app destaque-lite">
+        <div class="so app destaque-lite borda-viva">
           <div class="app-topo"><img src="../lite/icone.png" alt=""><div><h3>Nardoto Studio Lite</h3><span class="etiqueta">10 dias grátis</span></div></div>
           <p>Quem monta o vídeo no automático. Vem na assinatura do Nardoto Studio: <b>R$ 197,00 por mês</b> depois dos 10 dias grátis.</p>
           <div class="acoes" style="justify-content:flex-start">
-            <a class="botao" href="../lite/">Testar 10 dias grátis</a>
+            <a class="botao pulsa" href="../lite/">Testar 10 dias grátis</a>
             <a class="botao-sec" data-baixar-lite href="https://github.com/LoopLess-nardoto/nardoto-studio-lite-releases/releases/latest/download/NardotoStudioLite-Setup.exe">Já sou assinante: baixar</a>
           </div>
           <small><span data-lite-versao>Versão mais recente</span> · <span data-lite-tamanho></span></small>
@@ -769,5 +770,6 @@
     })
     .catch(function () {});
 </script>
+<script src="efeitos.js"></script>
 </body>
 </html>

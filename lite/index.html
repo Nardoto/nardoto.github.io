@@ -261,6 +261,11 @@
     .grade, .cartoes { grid-template-columns: 1fr; }
     section { padding: 56px 0; }
   }
+  /* Cartões com ícone */
+  .app-topo { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+  .app-topo img { width: 52px; height: 52px; border-radius: 13px; }
+  .etiqueta { display: inline-block; margin-top: 4px; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; background: rgba(232,90,42,.14); color: var(--laranja); }
+  .etiqueta.gratis { background: rgba(255,255,255,.08); color: var(--texto); }
   /* Landing do Lite */
   .passos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
   .passo { background: var(--card); border-radius: 14px; padding: 24px; }
@@ -275,12 +280,13 @@
   @media (max-width: 860px) { .passos { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 560px) { .passos { grid-template-columns: 1fr; } }
 </style>
+<link rel="stylesheet" href="../editor/efeitos.css">
 </head>
 <body>
 
 <header class="topo">
   <div class="largura">
-    <a class="marca" href="#"><img src="icone.png" alt="">Nardoto Studio Lite</a>
+    <a class="marca" href="#"><img class="flutua" src="icone.png" alt="">Nardoto Studio Lite</a>
     <nav>
       <a href="#videos">Vídeos</a>
       <a href="#como">Como funciona</a>
@@ -301,7 +307,7 @@
     <p class="legenda-video">Veja o Studio Lite montando um vídeo do começo ao fim.</p>
     <p class="sub">Entregue o título e a ideia, ou o roteiro pronto. O Studio Lite usa a IA que você já tem para escrever, narrar, buscar as mídias e montar o vídeo no Nardoto Editor ou no CapCut. Edição profissional e dinâmica, no automático.</p>
     <div class="acoes">
-      <a class="botao" href="https://labs.nardoto.com.br/planos-familia.html" target="_blank" rel="noopener">Testar 10 dias grátis</a>
+      <a class="botao pulsa" href="https://labs.nardoto.com.br/planos-familia.html" target="_blank" rel="noopener">Testar 10 dias grátis</a>
       <a class="botao-sec" data-baixar-lite href="https://github.com/LoopLess-nardoto/nardoto-studio-lite-releases/releases/latest/download/NardotoStudioLite-Setup.exe">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
         Já sou assinante: baixar
@@ -447,8 +453,8 @@
         <p>Teste por 10 dias grátis. Depois, o Studio Lite vem junto com a assinatura do Nardoto Studio, pelo mesmo valor.</p>
       </div>
       <div class="cartoes">
-        <div class="so cta-lite">
-          <h3>Assinatura do Nardoto Studio</h3>
+        <div class="so cta-lite borda-viva">
+          <div class="app-topo"><img src="icone-studio.png" alt=""><img src="icone.png" alt="" style="animation-delay:-2s"><div><h3>Assinatura do Nardoto Studio</h3><span class="etiqueta">Studio + Studio Lite</span></div></div>
           <div class="preco">R$ 197,00 <small>por mês</small></div>
           <p class="teste"><b>10 dias grátis</b> para testar antes de pagar.</p>
           <ul>
@@ -457,10 +463,10 @@
             <li>Edição profissional e dinâmica</li>
             <li>Monta no Nardoto Editor ou no CapCut</li>
           </ul>
-          <a class="botao" href="https://labs.nardoto.com.br/planos-familia.html" target="_blank" rel="noopener">Começar os 10 dias grátis</a>
+          <a class="botao pulsa" href="https://labs.nardoto.com.br/planos-familia.html" target="_blank" rel="noopener">Começar os 10 dias grátis</a>
         </div>
         <div class="so">
-          <h3>Já sou assinante</h3>
+          <div class="app-topo"><img src="icone.png" alt=""><div><h3>Já sou assinante</h3><span class="etiqueta gratis">Nardoto Studio Lite</span></div></div>
           <p>Baixe, entre com a sua conta e comece a criar. <span data-lite-tamanho></span></p>
           <a class="botao" data-baixar-lite href="https://github.com/LoopLess-nardoto/nardoto-studio-lite-releases/releases/latest/download/NardotoStudioLite-Setup.exe">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
@@ -658,5 +664,6 @@
     })
     .catch(function () {});
 </script>
+<script src="../editor/efeitos.js"></script>
 </body>
 </html>
