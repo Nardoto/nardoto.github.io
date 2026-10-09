@@ -261,6 +261,13 @@
     .grade, .cartoes { grid-template-columns: 1fr; }
     section { padding: 56px 0; }
   }
+  /* Faixa que liga as duas páginas */
+  .faixa-irma { display: flex; align-items: center; gap: 16px; margin: 6px auto 0; padding: 14px 18px; max-width: 760px; background: var(--card); border-radius: 14px; text-decoration: none; box-shadow: inset 0 0 0 1px rgba(232,90,42,.25); transition: box-shadow .2s, transform .2s; }
+  .faixa-irma:hover { box-shadow: inset 0 0 0 1px rgba(232,90,42,.6), 0 0 40px -12px rgba(232,90,42,.5); transform: translateY(-2px); }
+  .faixa-irma img { width: 44px; height: 44px; border-radius: 11px; }
+  .faixa-irma span { flex: 1; font-size: 14px; color: var(--texto-2); }
+  .faixa-irma b { display: block; color: var(--texto); font-size: 15px; }
+  .faixa-irma i { font-style: normal; color: var(--laranja); font-weight: 700; white-space: nowrap; }
   /* Cartões com ícone */
   .app-topo { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
   .app-topo img { width: 52px; height: 52px; border-radius: 13px; }
@@ -292,6 +299,7 @@
       <a href="#como">Como funciona</a>
       <a href="#lite">Por dentro</a>
       <a href="#perguntas">Perguntas</a>
+      <a href="../editor/">Editor grátis</a>
       <a class="botao pequeno" href="#assinar">Testar grátis</a>
     </nav>
   </div>
@@ -323,6 +331,7 @@
       <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Ilimitado</span>
       <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Sem marca-d'água</span>
     </div>
+    <a class="faixa-irma" href="../editor/"><img src="../editor/icone.png" alt=""><span><b>O Nardoto Editor é grátis</b>É nele que o vídeo é montado. Baixe e use sem marca-d'água.</span><i>Conhecer o editor</i></a>
   </div>
 
   <section id="videos">
