@@ -129,11 +129,14 @@
   .promessas span { display: inline-flex; align-items: center; gap: 8px; }
   .promessas svg { width: 18px; height: 18px; stroke: var(--laranja); }
 
-  /* Galeria em carrossel: um vídeo grande por vez, o maior que cabe na tela */
-  .carrossel { position: relative; width: min(1280px, calc(100vw - 40px), calc(72vh * 16 / 9)); margin: 0 auto; }
-  .galeria { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; border-radius: 16px; }
-  .galeria::-webkit-scrollbar { display: none; }
-  .filme { flex: 0 0 100%; scroll-snap-align: start; background: var(--card); overflow: hidden; }
+  /* Galeria em carrossel 3D: o vídeo do centro fica de frente e grande, os vizinhos giram para trás nas laterais */
+  #videos { overflow: hidden; }
+  .carrossel { --w: min(1040px, calc(100vw - 40px), calc(64vh * 16 / 9)); position: relative; perspective: 2000px; }
+  .galeria { display: grid; justify-items: center; transform-style: preserve-3d; touch-action: pan-y; }
+  .filme { grid-area: 1 / 1; width: var(--w); background: var(--card); border-radius: 16px; overflow: hidden; cursor: pointer; transform-origin: center; transition: transform .7s cubic-bezier(.22,.8,.24,1), opacity .7s, filter .7s, box-shadow .7s; box-shadow: 0 30px 60px -30px rgba(0,0,0,.9); -webkit-box-reflect: below 6px linear-gradient(transparent 82%, rgba(255,255,255,.07)); }
+  .filme.ativo { cursor: default; box-shadow: 0 40px 90px -30px rgba(0,0,0,.95), 0 0 0 1px rgba(232,90,42,.35), 0 0 60px -10px rgba(232,90,42,.25); }
+  .filme:not(.ativo) video, .filme:not(.ativo) a { pointer-events: none; }
+  .filme:not(.ativo) > div { opacity: .4; }
   .filme video { display: block; width: 100%; aspect-ratio: 16/9; background: #050505; }
   .filme > div { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; padding: 18px 22px 20px; }
   .filme h3 { font-size: 20px; font-weight: 700; }
@@ -141,13 +144,12 @@
   .filme span { flex-shrink: 0; font-size: 13px; color: var(--texto-3); text-align: right; }
   .filme span a { color: var(--laranja); font-weight: 600; }
   .filme span a:hover { color: var(--laranja-claro); }
-  .seta { position: absolute; top: calc((100% - 84px) / 2); transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%; border: 0; background: rgba(10,10,10,.75); color: var(--texto); display: grid; place-items: center; cursor: pointer; transition: background .2s; }
+  .seta { position: absolute; z-index: 20; top: calc(var(--w) * 9 / 32); transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%; border: 0; background: rgba(10,10,10,.75); color: var(--texto); display: grid; place-items: center; cursor: pointer; transition: background .2s; }
   .seta:hover { background: var(--laranja); }
   .seta svg { width: 22px; height: 22px; }
-  .seta.ant { left: -64px; } .seta.prox { right: -64px; }
-  .seta:disabled { opacity: .25; cursor: default; background: rgba(10,10,10,.75); }
-  .contador { position: absolute; top: 14px; right: 14px; padding: 4px 10px; border-radius: 999px; background: rgba(10,10,10,.75); font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--texto-2); pointer-events: none; }
-  .fita { position: relative; display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; width: min(1280px, calc(100vw - 40px), calc(72vh * 16 / 9)); margin: 14px auto 0; padding-bottom: 4px; }
+  .seta.ant { left: calc(50% - var(--w) / 2 - 24px); } .seta.prox { right: calc(50% - var(--w) / 2 - 24px); }
+  .contador { position: absolute; z-index: 20; top: 14px; right: calc(50% - var(--w) / 2 + 14px); padding: 4px 10px; border-radius: 999px; background: rgba(10,10,10,.75); font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--texto-2); pointer-events: none; }
+  .fita { position: relative; display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; width: min(1040px, calc(100vw - 40px), calc(64vh * 16 / 9)); margin: 70px auto 0; padding-bottom: 4px; }
   .fita::-webkit-scrollbar { display: none; }
   .fita button { flex: 1 0 140px; border: 0; padding: 0; background: var(--card); border-radius: 10px; overflow: hidden; cursor: pointer; color: var(--texto-2); text-align: left; opacity: .55; outline: 2px solid transparent; outline-offset: -2px; transition: opacity .2s, outline-color .2s; }
   .fita button:hover { opacity: .85; }
@@ -155,7 +157,6 @@
   .fita img { display: block; width: 100%; aspect-ratio: 16/9; object-fit: cover; }
   .fita small { display: block; padding: 6px 8px 7px; font-size: 12px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .nota-galeria { text-align: center; color: var(--texto-3); font-size: 13px; margin-top: 18px; }
-  @media (max-width: 1420px) { .seta.ant { left: 12px; } .seta.prox { right: 12px; } }
 
   /* Studio */
   .studio { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; background: var(--card); border-radius: 18px; padding: 44px; }
@@ -200,7 +201,9 @@
     .grade { grid-template-columns: 1fr 1fr; }
     .filme > div { flex-direction: column; align-items: flex-start; gap: 8px; }
     .filme span { text-align: left; }
-    .seta { width: 40px; height: 40px; top: 28%; }
+    .seta { width: 40px; height: 40px; }
+    .seta.ant { left: 8px; } .seta.prox { right: 8px; }
+    .fita { margin-top: 40px; }
     .studio { grid-template-columns: 1fr; padding: 28px; }
     .janela-corpo { grid-template-columns: 1fr; height: auto; }
     .janela-corpo .painel { display: none; }
@@ -476,7 +479,14 @@
     var contador = document.querySelector(".contador");
     var ant = document.querySelector(".seta.ant");
     var prox = document.querySelector(".seta.prox");
-    var atual = 0, alvo = null;
+    var atual = 0, n = filmes.length;
+    // Posição de cada vídeo conforme a distância até o do centro (d): vai para o lado, afunda e gira.
+    var POSES = [
+      { x: 0, z: 0, gira: 0, op: 1, luz: 1 },
+      { x: 58, z: -260, gira: 42, op: .75, luz: .55 },
+      { x: 92, z: -520, gira: 52, op: .35, luz: .35 },
+      { x: 110, z: -700, gira: 58, op: 0, luz: .2 }
+    ];
 
     var miniaturas = filmes.map(function (filme, i) {
       var b = document.createElement("button");
@@ -494,25 +504,36 @@
       miniaturas.forEach(function (b, j) { b.classList.toggle("ativo", j === i); });
       var b = miniaturas[i]; // rola só a fita, sem mexer na página
       fita.scrollTo({ left: b.offsetLeft - (fita.clientWidth - b.offsetWidth) / 2, behavior: "smooth" });
-      contador.textContent = (i + 1) + " / " + filmes.length;
-      ant.disabled = i === 0;
-      prox.disabled = i === filmes.length - 1;
+      contador.textContent = (i + 1) + " / " + n;
+      filmes.forEach(function (filme, j) {
+        var d = ((j - i) % n + n + Math.floor(n / 2)) % n - Math.floor(n / 2); // em loop: o último fica à esquerda do primeiro
+        var p = POSES[Math.min(Math.abs(d), POSES.length - 1)], lado = d < 0 ? -1 : 1;
+        filme.style.transform = "translateX(" + (lado * p.x) + "%) translateZ(" + p.z + "px) rotateY(" + (-lado * p.gira) + "deg)";
+        filme.style.opacity = p.op;
+        filme.style.filter = "brightness(" + p.luz + ")";
+        filme.style.zIndex = 10 - Math.abs(d);
+        filme.style.visibility = p.op ? "visible" : "hidden";
+        filme.classList.toggle("ativo", d === 0);
+      });
     }
 
-    function ir(i) {
-      i = Math.max(0, Math.min(filmes.length - 1, i));
-      alvo = i === Math.round(galeria.scrollLeft / galeria.clientWidth) ? null : i; // durante a rolagem animada, os vídeos do meio do caminho não viram o atual
-      galeria.scrollTo({ left: i * galeria.clientWidth });
-      marcar(i);
-    }
+    function ir(i) { marcar((i % n + n) % n); }
 
     ant.addEventListener("click", function () { ir(atual - 1); });
     prox.addEventListener("click", function () { ir(atual + 1); });
-    galeria.addEventListener("scroll", function () {
-      var i = Math.round(galeria.scrollLeft / galeria.clientWidth);
-      if (alvo !== null) { if (i === alvo) alvo = null; return; }
-      if (i !== atual) marcar(i);
-    }, { passive: true });
+    // Clicar num vídeo do lado traz ele para o centro.
+    filmes.forEach(function (filme, i) {
+      filme.addEventListener("click", function () { if (i !== atual) ir(i); });
+    });
+    // No celular, arrastar o dedo para o lado troca de vídeo.
+    var toqueX = null;
+    galeria.addEventListener("touchstart", function (e) { toqueX = e.touches[0].clientX; }, { passive: true });
+    galeria.addEventListener("touchend", function (e) {
+      if (toqueX === null) return;
+      var dx = e.changedTouches[0].clientX - toqueX;
+      toqueX = null;
+      if (Math.abs(dx) > 50) ir(atual + (dx < 0 ? 1 : -1));
+    });
     document.addEventListener("keydown", function (e) {
       if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
       if (document.activeElement && document.activeElement.tagName === "VIDEO") return; // no player, a seta avança o vídeo
