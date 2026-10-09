@@ -135,9 +135,15 @@
   .galeria { display: grid; justify-items: center; transform-style: preserve-3d; touch-action: pan-y; }
   .filme { grid-area: 1 / 1; width: var(--w); background: var(--card); border-radius: 16px; overflow: hidden; cursor: pointer; transform-origin: center; transition: transform .7s cubic-bezier(.22,.8,.24,1), opacity .7s, filter .7s, box-shadow .7s; box-shadow: 0 30px 60px -30px rgba(0,0,0,.9); -webkit-box-reflect: below 6px linear-gradient(transparent 82%, rgba(255,255,255,.07)); }
   .filme.ativo { cursor: default; box-shadow: 0 40px 90px -30px rgba(0,0,0,.95), 0 0 0 1px rgba(232,90,42,.35), 0 0 60px -10px rgba(232,90,42,.25); }
-  .filme:not(.ativo) video, .filme:not(.ativo) a { pointer-events: none; }
+  .filme:not(.ativo) .player, .filme:not(.ativo) a { pointer-events: none; }
   .filme:not(.ativo) > div { opacity: .4; }
-  .filme video { display: block; width: 100%; aspect-ratio: 16/9; background: #050505; }
+  .player { position: relative; display: block; width: 100%; aspect-ratio: 16/9; border: 0; padding: 0; background: #050505; cursor: pointer; }
+  .player img, .player iframe { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border: 0; }
+  .player i { position: absolute; left: 50%; top: 50%; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 50%; background: rgba(232,90,42,.92); display: grid; place-items: center; box-shadow: 0 10px 40px rgba(0,0,0,.5); transition: transform .2s, background .2s; }
+  .player i svg { width: 34px; height: 34px; fill: #fff; margin-left: 4px; }
+  .player:hover i { transform: scale(1.08); background: var(--laranja-claro); }
+  .filme:not(.ativo) .player i { opacity: 0; }
+  .carrossel:has(.filme.ativo iframe) .contador { opacity: 0; }
   .filme > div { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; padding: 18px 22px 20px; }
   .filme h3 { font-size: 20px; font-weight: 700; }
   .filme p { font-size: 14px; color: var(--texto-2); margin-top: 4px; }
@@ -283,32 +289,32 @@
     <div class="carrossel">
       <div class="galeria">
         <div class="filme">
-          <video controls preload="none" playsinline poster="thumbs/honda-v1.webp" src="videos/honda.mp4" data-completo="videos/honda-completo.mp4"></video>
-          <div><h3>Como surgiu a Honda</h3><p>Documentário com fotos e filmagens de época, narração e legenda.</p><span>Trecho de 1 min · <a href="#" data-ver-completo>Assistir completo (6 min)</a></span></div>
+          <button class="player" type="button" data-yt="H4bvP8zi7jM" aria-label="Assistir"><img src="thumbs/honda-v1.webp" alt="" loading="lazy"><i><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></i></button>
+          <div><h3>Como surgiu a Honda</h3><p>Documentário com fotos e filmagens de época, narração e legenda.</p><span>6 min · <a href="https://youtu.be/H4bvP8zi7jM" target="_blank" rel="noopener">Abrir no YouTube</a></span></div>
         </div>
         <div class="filme">
-          <video controls preload="none" playsinline poster="thumbs/occult-reich-v1.webp" src="videos/occult-reich.mp4" data-completo="videos/occult-reich-completo.mp4"></video>
-          <div><h3>The Occult Reich</h3><p>Documentário histórico com acervo real e títulos animados.</p><span>Trecho de 1 min · <a href="#" data-ver-completo>Assistir completo (7 min)</a></span></div>
+          <button class="player" type="button" data-yt="36F27nrhiFw" aria-label="Assistir"><img src="thumbs/occult-reich-v1.webp" alt="" loading="lazy"><i><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></i></button>
+          <div><h3>The Occult Reich</h3><p>Documentário histórico com acervo real e títulos animados.</p><span>7 min · <a href="https://youtu.be/36F27nrhiFw" target="_blank" rel="noopener">Abrir no YouTube</a></span></div>
         </div>
         <div class="filme">
-          <video controls preload="none" playsinline poster="thumbs/jesus-v1.webp" src="videos/jesus.mp4" data-completo="videos/jesus-completo.mp4"></video>
-          <div><h3>Os ensinamentos de Jesus</h3><p>Vídeo longo dividido em capítulos, com aberturas animadas.</p><span>Trecho de 1 min · <a href="#" data-ver-completo>Assistir completo (16 min)</a></span></div>
+          <button class="player" type="button" data-yt="sJv0Xem8xDs" aria-label="Assistir"><img src="thumbs/jesus-v1.webp" alt="" loading="lazy"><i><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></i></button>
+          <div><h3>Os ensinamentos de Jesus</h3><p>Vídeo longo dividido em capítulos, com aberturas animadas.</p><span>16 min · <a href="https://youtu.be/sJv0Xem8xDs" target="_blank" rel="noopener">Abrir no YouTube</a></span></div>
         </div>
         <div class="filme">
-          <video controls preload="none" playsinline poster="thumbs/projeto-2-v1.webp" src="videos/projeto-2.mp4" data-completo="videos/projeto-2-completo.mp4"></video>
-          <div><h3>Agentes de IA</h3><p>Explicativo de tecnologia com legenda palavra a palavra.</p><span>Trecho de 1 min · <a href="#" data-ver-completo>Assistir completo (2 min 45 s)</a></span></div>
+          <button class="player" type="button" data-yt="vTR-sefA4r4" aria-label="Assistir"><img src="thumbs/projeto-2-v1.webp" alt="" loading="lazy"><i><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></i></button>
+          <div><h3>Agentes de IA</h3><p>Explicativo de tecnologia com legenda palavra a palavra.</p><span>2 min 45 s · <a href="https://youtu.be/vTR-sefA4r4" target="_blank" rel="noopener">Abrir no YouTube</a></span></div>
         </div>
         <div class="filme">
-          <video controls preload="none" playsinline poster="thumbs/fique-leve-v1.webp" src="videos/fique-leve.mp4" data-completo="videos/fique-leve-completo.mp4"></video>
-          <div><h3>Fique leve</h3><p>Ilustração com traço de giz, cenas desenhadas e títulos à mão.</p><span>Trecho de 1 min · <a href="#" data-ver-completo>Assistir completo (3 min)</a></span></div>
+          <button class="player" type="button" data-yt="agvXxN0UiDk" aria-label="Assistir"><img src="thumbs/fique-leve-v1.webp" alt="" loading="lazy"><i><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></i></button>
+          <div><h3>Fique leve</h3><p>Ilustração com traço de giz, cenas desenhadas e títulos à mão.</p><span>3 min · <a href="https://youtu.be/agvXxN0UiDk" target="_blank" rel="noopener">Abrir no YouTube</a></span></div>
         </div>
         <div class="filme">
-          <video controls preload="none" playsinline poster="thumbs/amostra-v1.webp" src="videos/amostra.mp4" data-completo="videos/amostra-completo.mp4"></video>
-          <div><h3>Animação de palito</h3><p>História contada com personagem animado e cenário próprio.</p><span>Trecho de 1 min · <a href="#" data-ver-completo>Assistir completo (10 min)</a></span></div>
+          <button class="player" type="button" data-yt="kwrXRb-F9VE" aria-label="Assistir"><img src="thumbs/amostra-v1.webp" alt="" loading="lazy"><i><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></i></button>
+          <div><h3>Animação de palito</h3><p>História contada com personagem animado e cenário próprio.</p><span>10 min · <a href="https://youtu.be/kwrXRb-F9VE" target="_blank" rel="noopener">Abrir no YouTube</a></span></div>
         </div>
         <div class="filme">
-          <video controls preload="none" playsinline poster="thumbs/propaganda-v1.webp" src="videos/propaganda.mp4" data-completo="videos/propaganda-completo.mp4"></video>
-          <div><h3>Trechos reais do YouTube</h3><p>Propaganda montada com trechos achados pela legenda de cada vídeo.</p><span>Trecho de 1 min · <a href="#" data-ver-completo>Assistir completo (1 min 13 s)</a></span></div>
+          <button class="player" type="button" data-yt="gUn5aaCmmfY" aria-label="Assistir"><img src="thumbs/propaganda-v1.webp" alt="" loading="lazy"><i><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></i></button>
+          <div><h3>Trechos reais do YouTube</h3><p>Propaganda montada com trechos achados pela legenda de cada vídeo.</p><span>1 min 13 s · <a href="https://youtu.be/gUn5aaCmmfY" target="_blank" rel="noopener">Abrir no YouTube</a></span></div>
         </div>
       </div>
       <button class="seta ant" type="button" aria-label="Vídeo anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
@@ -317,7 +323,7 @@
     </div>
     <div class="fita"></div>
     <div class="largura">
-      <p class="nota-galeria">Cada card abre com um trecho de 1 minuto; o vídeo inteiro está em "Assistir completo". Qualidade reduzida para carregar rápido na página. O vídeo exportado sai na resolução do projeto.</p>
+      <p class="nota-galeria">Os vídeos tocam pelo YouTube, na qualidade que a sua conexão aguentar. O vídeo exportado sai na resolução do projeto.</p>
     </div>
   </section>
 
@@ -460,15 +466,22 @@
 </footer>
 
 <script>
-  // "Assistir completo" troca o trecho de 1 minuto pelo vídeo inteiro no mesmo player.
-  document.querySelectorAll("[data-ver-completo]").forEach(function (link) {
-    link.addEventListener("click", function (e) {
-      e.preventDefault();
-      var video = link.closest(".filme").querySelector("video");
-      video.src = video.dataset.completo;
-      video.play();
-      link.parentNode.textContent = "Vídeo completo";
-    });
+  // A capa fica na frente; o player do YouTube só carrega (já tocando) quando a pessoa clica.
+  function tocar(player) {
+    if (player.querySelector("iframe")) return;
+    var f = document.createElement("iframe");
+    f.src = "https://www.youtube-nocookie.com/embed/" + player.dataset.yt + "?autoplay=1&rel=0&modestbranding=1&playsinline=1";
+    f.allow = "autoplay; encrypted-media; fullscreen; picture-in-picture";
+    f.allowFullscreen = true;
+    player.appendChild(f);
+  }
+  // Ao sair do centro, o vídeo para e volta a capa.
+  function parar(player) {
+    var f = player.querySelector("iframe");
+    if (f) f.remove();
+  }
+  document.querySelectorAll(".player").forEach(function (p) {
+    p.addEventListener("click", function () { tocar(p); });
   });
 
   // Carrossel: setas, miniaturas e teclado levam ao vídeo; ao trocar, o vídeo que estava tocando pausa.
@@ -491,7 +504,7 @@
     var miniaturas = filmes.map(function (filme, i) {
       var b = document.createElement("button");
       b.type = "button";
-      b.innerHTML = '<img loading="lazy" alt="" src="' + filme.querySelector("video").getAttribute("poster") + '"><small></small>';
+      b.innerHTML = '<img loading="lazy" alt="" src="' + filme.querySelector(".player img").getAttribute("src") + '"><small></small>';
       b.querySelector("small").textContent = filme.querySelector("h3").textContent;
       b.addEventListener("click", function () { ir(i); });
       fita.appendChild(b);
@@ -499,7 +512,7 @@
     });
 
     function marcar(i) {
-      if (i !== atual) filmes[atual].querySelector("video").pause();
+      if (i !== atual) parar(filmes[atual].querySelector(".player"));
       atual = i;
       miniaturas.forEach(function (b, j) { b.classList.toggle("ativo", j === i); });
       var b = miniaturas[i]; // rola só a fita, sem mexer na página
