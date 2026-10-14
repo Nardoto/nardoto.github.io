@@ -142,6 +142,10 @@
         }
 
         .ic-sim { color: #E85A2A; }
+        .app-ic { width: 22px; height: 22px; border-radius: 6px; object-fit: contain; flex-shrink: 0; }
+        .faq-section h2 .app-ic { width: 32px; height: 32px; border-radius: 8px; }
+        .incluso-card li .app-ic, .faq-item .answer li .app-ic { width: 20px; height: 20px; margin-top: 1px; }
+        .par { display: inline-flex; gap: 4px; flex-shrink: 0; }
         .ic-nao { color: #6B6B6B; }
 
         .incluso-grid {
@@ -183,8 +187,8 @@
         }
 
         .incluso-card li svg {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             flex-shrink: 0;
             margin-top: 2px;
         }
@@ -241,22 +245,22 @@
                 <div class="incluso-card">
                     <h3><i data-lucide="circle-check" class="ic-sim"></i> Está incluso</h3>
                     <ul>
-                        <li><i data-lucide="clapperboard" class="ic-sim"></i> Nardoto Studio e Nardoto Studio Lite, na mesma assinatura</li>
+                        <li><span class="par"><img class="app-ic" src="studio/logo.png" alt="Nardoto Studio"><img class="app-ic" src="lite/icone.png" alt="Nardoto Studio Lite"></span> Nardoto Studio e Nardoto Studio Lite, na mesma assinatura</li>
                         <li><i data-lucide="wand-sparkles" class="ic-sim"></i> Gerador de vídeos: roteiro, narração, mídias, legenda e montagem</li>
                         <li><i data-lucide="mic" class="ic-sim"></i> Vozes Premium: 15 áudios por dia de até 150 mil caracteres (créditos diários DarkPlanner)</li>
                         <li><i data-lucide="audio-lines" class="ic-sim"></i> 2 milhões de créditos de voz por mês (créditos mensais AI33)</li>
                         <li><i data-lucide="user-round-pen" class="ic-sim"></i> Clonagem, dublagem e troca de voz</li>
-                        <li><i data-lucide="music" class="ic-sim"></i> Trilha sonora feita dentro do Studio (Suno 4.5)</li>
-                        <li><i data-lucide="globe" class="ic-sim"></i> Nardoto Flow: o navegador que automatiza o VEO3 em massa, com multiabas</li>
-                        <li><i data-lucide="users" class="ic-sim"></i> Comunidade no WhatsApp e lives semanais</li>
+                        <li><img class="app-ic" src="https://cdn.simpleicons.org/suno/E85A2A" alt="Suno"> Trilha sonora feita dentro do Studio (Suno 4.5)</li>
+                        <li><img class="app-ic" src="extension-icons/nardoto-flow.png" alt="Nardoto Flow"> Nardoto Flow: o navegador que automatiza o VEO3 em massa, com multiabas</li>
+                        <li><img class="app-ic" src="https://cdn.simpleicons.org/whatsapp/E85A2A" alt="WhatsApp"> Comunidade no WhatsApp e lives semanais</li>
                     </ul>
                 </div>
                 <div class="incluso-card">
                     <h3><i data-lucide="circle-x" class="ic-nao"></i> Não está incluso</h3>
                     <ul>
-                        <li><i data-lucide="bot" class="ic-nao"></i> A assinatura da IA do chat (Claude, ChatGPT/Codex ou Gemini). Você usa a sua conta, ou uma opção grátis como OpenCode e Copilot</li>
-                        <li><i data-lucide="video" class="ic-nao"></i> O plano do Google para gerar vídeo no VEO3. A geração de imagem no Flow é grátis</li>
-                        <li><i data-lucide="scissors" class="ic-nao"></i> CapCut Pro. Não é necessário: o vídeo pode ser montado no Nardoto Editor, que é grátis</li>
+                        <li><span class="par"><img class="app-ic" src="https://cdn.simpleicons.org/claude/8A8A8A" alt="Claude"><img class="app-ic" src="https://cdn.simpleicons.org/googlegemini/8A8A8A" alt="Gemini"></span> A assinatura da IA do chat (Claude, ChatGPT/Codex ou Gemini). Você usa a sua conta, ou uma opção grátis como OpenCode e Copilot</li>
+                        <li><img class="app-ic" src="https://cdn.simpleicons.org/google/8A8A8A" alt="Google"> O plano do Google para gerar vídeo no VEO3. A geração de imagem no Flow é grátis</li>
+                        <li><img class="app-ic" src="editor/icone.png" alt="Nardoto Editor"> CapCut Pro. Não é necessário: o vídeo pode ser montado no Nardoto Editor, que é grátis</li>
                         <li><i data-lucide="infinity" class="ic-nao"></i> Créditos acima do limite: os diários voltam no dia seguinte e os mensais no mês seguinte</li>
                     </ul>
                 </div>
@@ -265,13 +269,13 @@
             <!-- Nardoto Studio -->
             <div class="faq-section">
                 <h2>
-                    <i data-lucide="clapperboard"></i>
+                    <img class="app-ic" src="studio/logo.png" alt="Nardoto Studio">
                     <span>Nardoto Studio</span>
                     <span class="badge badge-studio">APP DESKTOP</span>
                 </h2>
 
                 <details class="faq-item">
-                    <summary><span class="q"><i data-lucide="sparkles"></i>O que é o Nardoto Studio?</span></summary>
+                    <summary><span class="q"><img class="app-ic" src="studio/logo.png" alt="Nardoto Studio">O que é o Nardoto Studio?</span></summary>
                     <div class="answer">
                         <p>É um app para Windows e Mac em que a IA monta o vídeo inteiro e você só aprova: roteiro, narração, imagens, vídeos, trilha sonora e legenda.</p>
                         <p>Tudo é conduzido por um chat de IA dentro do app. O vídeo sai montado no Nardoto Editor ou no CapCut.</p>
@@ -287,7 +291,7 @@
                 </details>
 
                 <details class="faq-item">
-                    <summary><span class="q"><i data-lucide="scissors"></i>Preciso do CapCut instalado?</span></summary>
+                    <summary><span class="q"><img class="app-ic" src="editor/icone.png" alt="Nardoto Editor">Preciso do CapCut instalado?</span></summary>
                     <div class="answer">
                         <p>Não é obrigatório. O vídeo pode ser montado no Nardoto Editor, que é grátis e não coloca marca-d'água.</p>
                         <p>Se você já trabalha no CapCut, o Studio também monta o projeto direto nele, sem precisar do CapCut Pro.</p>
@@ -303,7 +307,7 @@
                 </details>
 
                 <details class="faq-item">
-                    <summary><span class="q"><i data-lucide="bot"></i>Qual IA o chat usa? Preciso pagar à parte?</span></summary>
+                    <summary><span class="q"><img class="app-ic" src="https://cdn.simpleicons.org/claude/E85A2A" alt="Claude">Qual IA o chat usa? Preciso pagar à parte?</span></summary>
                     <div class="answer">
                         <p>Você usa a IA que já tem: Claude, ChatGPT/Codex ou Gemini, com a sua conta. A assinatura dessa IA não vem no Studio.</p>
                         <p>Também funciona com opções grátis, como OpenCode e o plano grátis do Copilot.</p>
@@ -314,13 +318,13 @@
             <!-- Studio Lite -->
             <div class="faq-section">
                 <h2>
-                    <i data-lucide="zap"></i>
+                    <img class="app-ic" src="lite/icone.png" alt="Nardoto Studio Lite">
                     <span>Nardoto Studio Lite</span>
                     <span class="badge badge-studio">GERADOR DE VÍDEOS</span>
                 </h2>
 
                 <details class="faq-item">
-                    <summary><span class="q"><i data-lucide="zap"></i>O que é o Studio Lite?</span></summary>
+                    <summary><span class="q"><img class="app-ic" src="lite/icone.png" alt="Nardoto Studio Lite">O que é o Studio Lite?</span></summary>
                     <div class="answer">
                         <p>É a versão leve e direta do Studio, focada em gerar vídeos. Você entrega a ideia ou o roteiro e ele escreve, narra, busca as mídias e monta o vídeo no Nardoto Editor ou no CapCut.</p>
                         <p>Bom para PC mais simples e para quem quer só produzir, sem as outras ferramentas do Studio.</p>
@@ -390,7 +394,7 @@
                 </details>
 
                 <details class="faq-item">
-                    <summary><span class="q"><i data-lucide="music"></i>Dá para fazer a trilha sonora no Studio?</span></summary>
+                    <summary><span class="q"><img class="app-ic" src="https://cdn.simpleicons.org/suno/E85A2A" alt="Suno">Dá para fazer a trilha sonora no Studio?</span></summary>
                     <div class="answer">
                         <p>Sim. A trilha é feita direto no Studio com o Suno 4.5: música e instrumental no clima de cada parte do vídeo.</p>
                         <p>O Studio também coloca efeitos sonoros nos momentos certos e deixa a música baixa e constante por baixo da narração.</p>
@@ -401,13 +405,13 @@
             <!-- Flow -->
             <div class="faq-section">
                 <h2>
-                    <i data-lucide="globe"></i>
+                    <img class="app-ic" src="extension-icons/nardoto-flow.png" alt="Nardoto Flow">
                     <span>Nardoto Flow</span>
                     <span class="badge badge-navegador">NAVEGADOR</span>
                 </h2>
 
                 <details class="faq-item">
-                    <summary><span class="q"><i data-lucide="globe"></i>O que é o Nardoto Flow?</span></summary>
+                    <summary><span class="q"><img class="app-ic" src="extension-icons/nardoto-flow.png" alt="Nardoto Flow">O que é o Nardoto Flow?</span></summary>
                     <div class="answer">
                         <p>Navegador dedicado que automatiza os sites de IA: VEO3 em massa com consistência de cenas e personagens, Suno, download em massa, YouTube grabber e modo torrent.</p>
                         <p>O Nardoto Flow já vem na assinatura do Nardoto Studio. Também pode ser assinado sozinho.</p>
@@ -431,8 +435,8 @@
                     <summary><span class="q"><i data-lucide="tags"></i>Quais são os planos?</span></summary>
                     <div class="answer">
                         <ul>
-                            <li><i data-lucide="clapperboard" class="ic-sim"></i><span><strong>Nardoto Studio + Studio Lite</strong>: R$ 197/mês ou R$ 1.970/ano. Em grupo (Panela), a partir de R$ 147 por pessoa.</span></li>
-                            <li><i data-lucide="globe" class="ic-sim"></i><span><strong>Nardoto Flow</strong>: R$ 117/mês ou R$ 1.165/ano.</span></li>
+                            <li><span class="par"><img class="app-ic" src="studio/logo.png" alt="Nardoto Studio"><img class="app-ic" src="lite/icone.png" alt="Nardoto Studio Lite"></span><span><strong>Nardoto Studio + Studio Lite</strong>: R$ 197/mês ou R$ 1.970/ano. Em grupo (Panela), a partir de R$ 147 por pessoa.</span></li>
+                            <li><img class="app-ic" src="extension-icons/nardoto-flow.png" alt="Nardoto Flow"><span><strong>Nardoto Flow</strong>: R$ 117/mês ou R$ 1.165/ano.</span></li>
                             <li><i data-lucide="gift" class="ic-sim"></i><span><strong>Grátis, com cadastro</strong>: Nardoto Editor, Cast (voz offline no seu PC), Sync (plugin do CapCut) e IDE.</span></li>
                         </ul>
                         <p>Veja todos os detalhes em <a href="index.html#precos" style="color: var(--primary);">nardoto.com.br/#precos</a>.</p>
@@ -466,7 +470,7 @@
                 <h2><i data-lucide="life-buoy"></i><span>Suporte</span></h2>
 
                 <details class="faq-item">
-                    <summary><span class="q"><i data-lucide="message-circle"></i>Como funciona o suporte?</span></summary>
+                    <summary><span class="q"><img class="app-ic" src="https://cdn.simpleicons.org/whatsapp/E85A2A" alt="WhatsApp">Como funciona o suporte?</span></summary>
                     <div class="answer">
                         <p>Direto comigo pelo WhatsApp. Sem chatbot e sem fila de atendimento.</p>
                         <p>Quem assina o Studio também entra na comunidade do WhatsApp e nas lives semanais.</p>
@@ -474,7 +478,7 @@
                 </details>
 
                 <details class="faq-item">
-                    <summary><span class="q"><i data-lucide="youtube"></i>Tem tutorial?</span></summary>
+                    <summary><span class="q"><img class="app-ic" src="https://cdn.simpleicons.org/youtube/E85A2A" alt="YouTube">Tem tutorial?</span></summary>
                     <div class="answer">
                         <p>Sim. Tem vídeos no YouTube mostrando cada ferramenta, e o próprio app mostra as novidades a cada atualização.</p>
                     </div>
