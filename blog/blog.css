@@ -26,6 +26,7 @@ article .cab .lead{color:var(--txt2);font-size:19px;margin:0 0 18px}
 .prose>*{max-width:760px}.prose>figure,.prose>pre{max-width:none}
 .prose figure{margin:36px 0}.prose figure img{width:100%;height:auto;display:block;border-radius:14px}
 .prose figcaption{color:var(--muted);font-size:14px;margin-top:10px;max-width:760px}
+.prose>a:has(>img){display:block;margin:28px 0}.prose>a>img{width:100%;height:auto;display:block;border-radius:14px}
 .toc{position:sticky;top:96px;align-self:start;display:flex;flex-direction:column;gap:8px;font-size:14px}
 .toc strong{color:var(--txt);font-size:13px;text-transform:uppercase;letter-spacing:.06em}.toc a{color:var(--muted)}.toc a:hover{color:var(--primary)}
 .prose{font-size:17px;color:#E5E7EB}.prose h2{font-family:'DM Serif Display',serif;font-weight:400;font-size:32px;line-height:1.2;margin:48px 0 14px;color:#fff}

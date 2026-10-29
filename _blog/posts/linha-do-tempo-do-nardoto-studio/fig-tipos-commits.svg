@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 512" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Gráfico de barras: 672 commits de funcionalidade, 533 de correção, 114 de release e o resto em menor número</title>
+<rect width="1200" height="512" rx="18" fill="#141414"/>
+<text x="40" y="54" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">O QUE OS 1.647 COMMITS FIZERAM</text>
+<text x="40" y="116" fill="#fff" font-size="19" font-weight="700">feat (funcionalidade nova)</text><rect x="360" y="96" width="524" height="26" rx="6" fill="#E85A2A"/><text x="896" y="117" fill="#fff" font-size="19" font-weight="700">672</text>
+<text x="40" y="158" fill="#fff" font-size="19" font-weight="700">fix (correção)</text><rect x="360" y="138" width="416" height="26" rx="6" fill="#E85A2A"/><text x="788" y="159" fill="#fff" font-size="19" font-weight="700">533</text>
+<text x="40" y="200" fill="#B4B9C2" font-size="19" >release (versão publicada)</text><rect x="360" y="180" width="89" height="26" rx="6" fill="#7A3419"/><text x="461" y="201" fill="#fff" font-size="19" font-weight="700">114</text>
+<text x="40" y="242" fill="#B4B9C2" font-size="19" >docs (documentação)</text><rect x="360" y="222" width="76" height="26" rx="6" fill="#7A3419"/><text x="448" y="243" fill="#fff" font-size="19" font-weight="700">97</text>
+<text x="40" y="284" fill="#B4B9C2" font-size="19" >chore (manutenção)</text><rect x="360" y="264" width="74" height="26" rx="6" fill="#7A3419"/><text x="446" y="285" fill="#fff" font-size="19" font-weight="700">95</text>
+<text x="40" y="326" fill="#B4B9C2" font-size="19" >outros (merge e afins)</text><rect x="360" y="306" width="51" height="26" rx="6" fill="#7A3419"/><text x="423" y="327" fill="#fff" font-size="19" font-weight="700">66</text>
+<text x="40" y="368" fill="#B4B9C2" font-size="19" >refactor (reorganização)</text><rect x="360" y="348" width="22" height="26" rx="6" fill="#7A3419"/><text x="394" y="369" fill="#fff" font-size="19" font-weight="700">28</text>
+<text x="40" y="410" fill="#B4B9C2" font-size="19" >perf (desempenho)</text><rect x="360" y="390" width="21" height="26" rx="6" fill="#7A3419"/><text x="393" y="411" fill="#fff" font-size="19" font-weight="700">27</text>
+<text x="40" y="452" fill="#B4B9C2" font-size="19" >test (testes)</text><rect x="360" y="432" width="12" height="26" rx="6" fill="#7A3419"/><text x="384" y="453" fill="#fff" font-size="19" font-weight="700">15</text>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 540" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Gráfico de barras com os commits por mês, de dezembro de 2025 a outubro de 2026; maio tem o pico com 270</title>
+<rect width="1200" height="540" rx="18" fill="#141414"/>
+<text x="40" y="54" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">COMMITS POR MÊS, DEZ/2025 A OUT/2026</text>
+<line x1="40" y1="450" x2="1160" y2="450" stroke="#2A2A2A" stroke-width="2"/>
+<rect x="62" y="413" width="64" height="37" rx="8" fill="#7A3419"/><text x="94" y="401" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">32</text><text x="94" y="480" fill="#B4B9C2" font-size="19"  text-anchor="middle">dez</text>
+<rect x="160" y="256" width="64" height="194" rx="8" fill="#7A3419"/><text x="192" y="244" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">169</text><text x="192" y="480" fill="#B4B9C2" font-size="19"  text-anchor="middle">jan</text>
+<rect x="258" y="267" width="64" height="183" rx="8" fill="#7A3419"/><text x="290" y="255" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">159</text><text x="290" y="480" fill="#B4B9C2" font-size="19"  text-anchor="middle">fev</text>
+<rect x="356" y="215" width="64" height="235" rx="8" fill="#7A3419"/><text x="388" y="203" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">204</text><text x="388" y="480" fill="#B4B9C2" font-size="19"  text-anchor="middle">mar</text>
+<rect x="454" y="388" width="64" height="62" rx="8" fill="#7A3419"/><text x="486" y="376" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">54</text><text x="486" y="480" fill="#B4B9C2" font-size="19"  text-anchor="middle">abr</text>
+<rect x="552" y="139" width="64" height="311" rx="8" fill="#E85A2A"/><text x="584" y="127" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">270</text><text x="584" y="480" fill="#fff" font-size="19" font-weight="700" text-anchor="middle">mai</text>
+<rect x="650" y="321" width="64" height="129" rx="8" fill="#7A3419"/><text x="682" y="309" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">112</text><text x="682" y="480" fill="#B4B9C2" font-size="19"  text-anchor="middle">jun</text>
+<rect x="748" y="222" width="64" height="228" rx="8" fill="#7A3419"/><text x="780" y="210" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">198</text><text x="780" y="480" fill="#B4B9C2" font-size="19"  text-anchor="middle">jul</text>
+<rect x="846" y="314" width="64" height="136" rx="8" fill="#7A3419"/><text x="878" y="302" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">118</text><text x="878" y="480" fill="#B4B9C2" font-size="19"  text-anchor="middle">ago</text>
+<rect x="944" y="211" width="64" height="239" rx="8" fill="#7A3419"/><text x="976" y="199" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">208</text><text x="976" y="480" fill="#B4B9C2" font-size="19"  text-anchor="middle">set</text>
+<rect x="1042" y="309" width="64" height="141" rx="8" fill="#7A3419"/><text x="1074" y="297" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">123</text><text x="1074" y="480" fill="#B4B9C2" font-size="19"  text-anchor="middle">out</text>
+<text x="40" y="510" fill="#9CA3AF" font-size="17">Dezembro começa no dia 20 e outubro vai até o dia 29. Em 27/05 foram 67 commits num dia só.</text>
+</svg>
