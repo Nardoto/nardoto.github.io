@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 410" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Ciclo de trabalho com a IA: descrever, agir, provar e registrar, com o registro voltando para o próximo pedido</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E85A2A"/></marker></defs>
+<rect width="1200" height="410" rx="18" fill="#141414"/>
+<text x="40" y="52" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">O CICLO DE CADA TAREFA</text>
+<rect x="40" y="90" width="250" height="170" rx="14" fill="#1A1A1A"/>
+<text x="62" y="130" fill="#fff" font-size="24" font-weight="700">1. Descrever</text>
+<text x="62" y="166" fill="#B4B9C2" font-size="18">Pedido curto no</text>
+<text x="62" y="192" fill="#B4B9C2" font-size="18">chat. O contexto</text>
+<text x="62" y="218" fill="#B4B9C2" font-size="18">vem do CLAUDE.md</text>
+<text x="62" y="244" fill="#B4B9C2" font-size="18">e da memória.</text>
+<rect x="330" y="90" width="250" height="170" rx="14" fill="#1A1A1A"/>
+<text x="352" y="130" fill="#fff" font-size="24" font-weight="700">2. Agir</text>
+<text x="352" y="166" fill="#B4B9C2" font-size="18">A IA edita o</text>
+<text x="352" y="192" fill="#B4B9C2" font-size="18">código, chama</text>
+<text x="352" y="218" fill="#B4B9C2" font-size="18">skills e manda a</text>
+<text x="352" y="244" fill="#B4B9C2" font-size="18">busca a subagentes.</text>
+<rect x="620" y="90" width="250" height="170" rx="14" fill="#2A1710"/>
+<text x="642" y="130" fill="#FF8A5C" font-size="24" font-weight="700">3. Provar</text>
+<text x="642" y="166" fill="#B4B9C2" font-size="18">tsc e testes, e</text>
+<text x="642" y="192" fill="#B4B9C2" font-size="18">print do app real</text>
+<text x="642" y="218" fill="#B4B9C2" font-size="18">a cada passo. Sem</text>
+<text x="642" y="244" fill="#B4B9C2" font-size="18">prova, não vale.</text>
+<rect x="910" y="90" width="250" height="170" rx="14" fill="#1A1A1A"/>
+<text x="932" y="130" fill="#fff" font-size="24" font-weight="700">4. Registrar</text>
+<text x="932" y="166" fill="#B4B9C2" font-size="18">Nota de memória</text>
+<text x="932" y="192" fill="#B4B9C2" font-size="18">com sintoma,</text>
+<text x="932" y="218" fill="#B4B9C2" font-size="18">causa e como</text>
+<text x="932" y="244" fill="#B4B9C2" font-size="18">aplicar.</text>
+<path d="M294 175H326" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+<path d="M584 175H616" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+<path d="M874 175H906" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+<path d="M1035 264V318H165V266" stroke="#E85A2A" stroke-width="2.5" fill="none" stroke-dasharray="7 6" marker-end="url(#a)"/>
+<text x="600" y="308" fill="#B4B9C2" font-size="17" text-anchor="middle">o que doeu vira regra e entra no próximo pedido</text>
+<text x="600" y="372" fill="#9CA3AF" font-size="18" text-anchor="middle">Eu não leio cada linha que a IA escreve. Por isso a etapa 3 é obrigatória.</text>
+</svg>

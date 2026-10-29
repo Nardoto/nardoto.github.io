@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Arquitetura: CLI da IA, servidor MCP, processo principal do Electron e as ações do app</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E85A2A"/></marker></defs>
+<rect width="1200" height="400" rx="18" fill="#141414"/>
+<text x="40" y="52" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">COMO A IA CHEGA NO APP</text>
+<rect x="30" y="90" width="230" height="150" rx="14" fill="#1A1A1A"/>
+<text x="52" y="132" fill="#fff" font-size="24" font-weight="700">CLI da IA</text>
+<text x="52" y="168" fill="#B4B9C2" font-size="18">Claude Code,</text>
+<text x="52" y="194" fill="#B4B9C2" font-size="18">Codex, Gemini,</text>
+<text x="52" y="220" fill="#B4B9C2" font-size="18">Antigravity, Grok</text>
+<rect x="350" y="90" width="280" height="150" rx="14" fill="#2A1710"/>
+<text x="372" y="132" fill="#FF8A5C" font-size="24" font-weight="700">studio-server.js</text>
+<text x="372" y="168" fill="#B4B9C2" font-size="18">servidor MCP</text>
+<text x="372" y="194" fill="#B4B9C2" font-size="18">88 ferramentas</text>
+<text x="372" y="220" fill="#B4B9C2" font-size="18">processo filho do CLI</text>
+<rect x="720" y="90" width="210" height="150" rx="14" fill="#1A1A1A"/>
+<text x="742" y="132" fill="#fff" font-size="24" font-weight="700">Electron</text>
+<text x="742" y="168" fill="#B4B9C2" font-size="18">processo principal</text>
+<text x="742" y="194" fill="#B4B9C2" font-size="18">porta 9879</text>
+<text x="742" y="220" fill="#B4B9C2" font-size="18">executa a ação</text>
+<path d="M264 165H346" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+<text x="305" y="148" fill="#9CA3AF" font-size="16" text-anchor="middle">stdio</text>
+<text x="305" y="194" fill="#9CA3AF" font-size="16" text-anchor="middle">MCP</text>
+<path d="M634 165H716" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+<text x="675" y="148" fill="#9CA3AF" font-size="15" text-anchor="middle">WebSocket</text>
+<text x="675" y="194" fill="#9CA3AF" font-size="16" text-anchor="middle">JSON</text>
+<path d="M934 165H960M960 87V243" stroke="#E85A2A" stroke-width="2.5" fill="none"/>
+<g stroke="#E85A2A" stroke-width="2.5" fill="none"><path d="M960 87H992" marker-end="url(#a)"/><path d="M960 139H992" marker-end="url(#a)"/><path d="M960 191H992" marker-end="url(#a)"/><path d="M960 243H992" marker-end="url(#a)"/></g>
+<g font-size="17" fill="#fff"><rect x="996" y="67" width="184" height="40" rx="10" fill="#1A1A1A"/><text x="1012" y="93">Projeto e CapCut</text>
+<rect x="996" y="119" width="184" height="40" rx="10" fill="#1A1A1A"/><text x="1012" y="145">Voz e roteiro</text>
+<rect x="996" y="171" width="184" height="40" rx="10" fill="#1A1A1A"/><text x="1012" y="197">Render de vídeo</text></g>
+<rect x="996" y="223" width="184" height="40" rx="10" fill="#2A1710"/><text x="1012" y="249" fill="#FF8A5C" font-size="17" font-weight="700">A tela do app</text>
+<path d="M825 244V306H145V250" stroke="#E85A2A" stroke-width="2.5" fill="none" stroke-dasharray="7 6" marker-end="url(#a)"/>
+<text x="485" y="296" fill="#B4B9C2" font-size="17" text-anchor="middle">resposta {id, success, data}</text>
+<text x="600" y="362" fill="#9CA3AF" font-size="18" text-anchor="middle">A IA lê o resultado (inclusive um print da tela) e decide o próximo passo.</text>
+</svg>

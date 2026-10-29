@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 430" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Onde o tempo do export do Nardoto Editor vai no laço serial: placa 28 por cento, cena 23, NVENC 22, áudio 15; prévia aberta derruba de 170 para 110 quadros por segundo</title>
+<rect width="1200" height="430" rx="18" fill="#141414"/>
+<text x="40" y="54" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">EXPORT DO EDITOR, 1080P30: FATIA DE CADA ETAPA NO LAÇO SERIAL</text>
+<text x="40" y="120" fill="#fff" font-size="20" font-weight="700">Composição na placa</text><rect x="300" y="100" width="654" height="26" rx="6" fill="#E85A2A"/><text x="966" y="121" fill="#fff" font-size="20" font-weight="700">28%</text>
+<text x="40" y="164" fill="#B4B9C2" font-size="20">Montagem da cena</text><rect x="300" y="144" width="537" height="26" rx="6" fill="#7A3419"/><text x="849" y="165" fill="#fff" font-size="20" font-weight="700">23%</text>
+<text x="40" y="208" fill="#B4B9C2" font-size="20">Codificação NVENC</text><rect x="300" y="188" width="514" height="26" rx="6" fill="#7A3419"/><text x="826" y="209" fill="#fff" font-size="20" font-weight="700">22%</text>
+<text x="40" y="252" fill="#B4B9C2" font-size="20">Mixagem do áudio</text><rect x="300" y="232" width="350" height="26" rx="6" fill="#7A3419"/><text x="662" y="253" fill="#fff" font-size="20" font-weight="700">15%</text>
+<text x="40" y="292" fill="#9CA3AF" font-size="17">Somam 88%. O resto não foi detalhado na medição.</text>
+<rect x="30" y="316" width="555" height="84" rx="14" fill="#1A1A1A"/>
+<rect x="615" y="316" width="555" height="84" rx="14" fill="#2A1710"/>
+<text x="56" y="348" fill="#9CA3AF" font-size="17" font-weight="700" letter-spacing="1.5">SEM JANELA DE PRÉVIA</text>
+<text x="56" y="382" fill="#fff" font-size="26" font-weight="700">cerca de 170 quadros/s</text>
+<text x="641" y="348" fill="#E85A2A" font-size="17" font-weight="700" letter-spacing="1.5">COM A JANELA ABERTA</text>
+<text x="641" y="382" fill="#FF8A5C" font-size="26" font-weight="700">cerca de 110 quadros/s</text>
+</svg>

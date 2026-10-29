@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 610" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Seis casos de bugs que só apareciam no instalado, com sintoma, causa e a trava que impede a volta</title>
+<rect width="1200" height="610" rx="18" fill="#141414"/>
+<text x="20" y="46" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">SEIS CASOS: SINTOMA, CAUSA E TRAVA</text>
+<g font-size="17" font-weight="700" fill="#9CA3AF"><text x="46" y="92">CASO</text><text x="250" y="92">SINTOMA</text><text x="590" y="92">CAUSA</text><text x="890" y="92" fill="#FF8A5C">TRAVA</text></g>
+<g fill="#1A1A1A">
+<rect x="30" y="104" width="1140" height="70" rx="12"/><rect x="30" y="182" width="1140" height="70" rx="12"/><rect x="30" y="260" width="1140" height="70" rx="12"/><rect x="30" y="338" width="1140" height="70" rx="12"/><rect x="30" y="416" width="1140" height="70" rx="12"/><rect x="30" y="494" width="1140" height="70" rx="12"/></g>
+<g font-size="18" font-weight="700" fill="#fff">
+<text x="46" y="146">Defender</text><text x="46" y="224">Recurso do .exe</text><text x="46" y="302">Preload</text><text x="46" y="380">Ouvinte</text><text x="46" y="458">Lixeira</text><text x="46" y="536">Caminho</text></g>
+<g font-size="17" fill="#B4B9C2">
+<text x="250" y="132">sync_engine.exe removido</text><text x="250" y="158">após atualizar</text>
+<text x="250" y="210">texto e legenda sumiam</text><text x="250" y="236">só no instalado</text>
+<text x="250" y="288">window.electron undefined</text><text x="250" y="314">tela presa em Verificando</text>
+<text x="250" y="366">ouvinte recebe undefined</text><text x="250" y="392">e ignora calado</text>
+<text x="250" y="444">apagar pasta não apaga</text><text x="250" y="470">só no instalado</text>
+<text x="250" y="522">Cannot find module</text><text x="250" y="548">no boot do cliente</text>
+<text x="590" y="132">Nuitka sem reputação</text><text x="590" y="158">lido como Trojan</text>
+<text x="590" y="210">__file__ aponta para a</text><text x="590" y="236">pasta temporária</text>
+<text x="590" y="288">require de JSON</text><text x="590" y="314">no bundle do preload</text>
+<text x="590" y="366">preload entrega só</text><text x="590" y="392">o conteúdo, sem evento</text>
+<text x="590" y="444">shell.trashItem falha</text><text x="590" y="470">sob o exe do app</text>
+<text x="590" y="522">caminho da máquina de</text><text x="590" y="548">build vazou no bundle</text></g>
+<g font-size="17" font-weight="700" fill="#FF8A5C">
+<text x="890" y="132">python-runtime.js</text><text x="890" y="158">e smoke-test.js</text>
+<text x="890" y="210">py-guards.js</text><text x="890" y="236">add-text real no pacote</text>
+<text x="890" y="288">preloadSemRequire</text><text x="890" y="314">DeArquivo.test.ts</text>
+<text x="890" y="366">nenhuma ainda</text><text x="890" y="392" fill="#B4B9C2" font-weight="400">só regra e conferência</text>
+<text x="890" y="444">trashOrDelete.test.ts</text><text x="890" y="470" fill="#B4B9C2" font-weight="400">fallback no código</text>
+<text x="890" y="522">failOnBuildMachinePaths</text><text x="890" y="548" fill="#B4B9C2" font-weight="400">vite.main.config.mjs</text></g>
+</svg>

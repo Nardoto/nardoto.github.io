@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 530" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Onde cada ferramenta entra: voz, mídia real, motion e montagem</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E85A2A"/></marker></defs>
+<rect width="1200" height="530" rx="18" fill="#141414"/>
+<text x="40" y="52" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">ONDE CADA FERRAMENTA ENTRA</text>
+<rect x="30" y="80" width="255" height="330" rx="14" fill="#1A1A1A"/>
+<text x="50" y="120" fill="#fff" font-size="24" font-weight="700">Voz</text>
+<text x="50" y="148" fill="#9CA3AF" font-size="17">etapa voz</text>
+<text x="50" y="196" fill="#fff" font-size="17">vozes_buscar</text>
+<text x="50" y="230" fill="#fff" font-size="17">tts_generate</text>
+<text x="50" y="264" fill="#fff" font-size="17">vozes do app</text>
+<text x="50" y="298" fill="#fff" font-size="17">login da pessoa</text>
+<text x="50" y="332" fill="#fff" font-size="17">SRT palavra a palavra</text>
+<text x="50" y="366" fill="#fff" font-size="17">sem chave de API</text>
+<path d="M289 245H321" stroke="#E85A2A" stroke-width="2.5" fill="none" marker-end="url(#a)"/>
+<rect x="325" y="80" width="255" height="330" rx="14" fill="#1A1A1A"/>
+<text x="345" y="120" fill="#fff" font-size="24" font-weight="700">Mídia real</text>
+<text x="345" y="148" fill="#9CA3AF" font-size="17">etapa midias</text>
+<text x="345" y="196" fill="#fff" font-size="17">find_entity_media</text>
+<text x="345" y="230" fill="#fff" font-size="17">search_footage</text>
+<text x="345" y="264" fill="#fff" font-size="17">search_archives</text>
+<text x="345" y="298" fill="#fff" font-size="17">youtube_search</text>
+<text x="345" y="332" fill="#fff" font-size="17">youtube_moments</text>
+<text x="345" y="366" fill="#fff" font-size="17">youtube_clip</text>
+<text x="345" y="400" fill="#fff" font-size="17">33 bancos no catálogo</text>
+<path d="M584 245H616" stroke="#E85A2A" stroke-width="2.5" fill="none" marker-end="url(#a)"/>
+<rect x="620" y="80" width="255" height="330" rx="14" fill="#1A1A1A"/>
+<text x="640" y="120" fill="#fff" font-size="24" font-weight="700">Motion</text>
+<text x="640" y="148" fill="#9CA3AF" font-size="17">etapa motion</text>
+<text x="640" y="196" fill="#fff" font-size="17">HyperFrames</text>
+<text x="640" y="230" fill="#fff" font-size="17">Remotion</text>
+<text x="640" y="264" fill="#fff" font-size="17">meta.json por peça</text>
+<text x="640" y="298" fill="#fff" font-size="17">Editor: ao vivo</text>
+<text x="640" y="332" fill="#fff" font-size="17">CapCut: clipe.mov</text>
+<text x="640" y="366" fill="#fff" font-size="17">fundo transparente</text>
+<path d="M879 245H911" stroke="#E85A2A" stroke-width="2.5" fill="none" marker-end="url(#a)"/>
+<rect x="915" y="80" width="255" height="330" rx="14" fill="#2A1710"/>
+<text x="935" y="120" fill="#FF8A5C" font-size="24" font-weight="700">Montagem</text>
+<text x="935" y="148" fill="#9CA3AF" font-size="17">etapa montagem</text>
+<text x="935" y="196" fill="#fff" font-size="17">Nardoto Editor</text>
+<text x="935" y="230" fill="#fff" font-size="17">assemble_video</text>
+<text x="935" y="264" fill="#fff" font-size="17">media_starts</text>
+<text x="935" y="298" fill="#fff" font-size="17">CapCut</text>
+<text x="935" y="332" fill="#fff" font-size="17">receita + validate</text>
+<text x="935" y="366" fill="#fff" font-size="17">analyze_loudness</text>
+<rect x="30" y="436" width="1140" height="64" rx="14" fill="#2A1710"/>
+<text x="56" y="476" fill="#FF8A5C" font-size="19" font-weight="700">HyperFrames e Remotion só entregam peças. Quem monta é o Editor ou o CapCut.</text>
+</svg>

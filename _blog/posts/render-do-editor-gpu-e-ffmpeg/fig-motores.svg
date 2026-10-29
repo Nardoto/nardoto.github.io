@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Onde cada motor entra: Remotion e HyperFrames geram clipes de motion transparentes, o Editor ou o CapCut montam o vídeo, e o export usa NVENC, Rust ou FFmpeg</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E85A2A"/></marker></defs>
+<rect width="1200" height="400" rx="18" fill="#141414"/>
+<text x="40" y="54" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">QUEM FAZ O QUÊ NA PRODUÇÃO DE UM VÍDEO</text>
+<rect x="45" y="84" width="340" height="190" rx="14" fill="#1A1A1A"/>
+<rect x="430" y="84" width="340" height="190" rx="14" fill="#1A1A1A"/>
+<rect x="815" y="84" width="340" height="190" rx="14" fill="#2A1710"/>
+<g font-size="17" font-weight="700" letter-spacing="1.5"><text x="69" y="120" fill="#9CA3AF">MOTION</text><text x="454" y="120" fill="#9CA3AF">MONTAGEM</text><text x="839" y="120" fill="#E85A2A">EXPORT</text></g>
+<g font-size="21" font-weight="700" fill="#fff"><text x="69" y="156">Remotion e HyperFrames</text><text x="454" y="156">Editor ou CapCut</text><text x="839" y="156" fill="#FF8A5C">Editor, Rust ou FFmpeg</text></g>
+<g font-size="19" fill="#B4B9C2">
+<text x="69" y="196">Clipe com fundo</text><text x="69" y="224">transparente (ProRes 4444)</text>
+<text x="454" y="196">Cortes, narração, trilha</text><text x="454" y="224">e os clipes de motion</text>
+<text x="839" y="196">NVENC, QSV, AMF ou</text><text x="839" y="224">VideoToolbox; reserva x264</text></g>
+<path d="M385 179 L426 179" stroke="#E85A2A" stroke-width="3" fill="none" marker-end="url(#a)"/>
+<path d="M770 179 L811 179" stroke="#E85A2A" stroke-width="3" fill="none" marker-end="url(#a)"/>
+<text x="45" y="326" fill="#fff" font-size="20">Os motores de motion não montam o vídeo.</text>
+<text x="45" y="358" fill="#9CA3AF" font-size="18">O visualizador Nardoto Frames saiu do Studio; sobrou o render de peças.</text>
+</svg>

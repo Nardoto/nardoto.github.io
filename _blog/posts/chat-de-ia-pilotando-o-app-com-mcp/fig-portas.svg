@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 430" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">O servidor MCP tenta as portas 9879, 9889 e 9899 até achar a janela que está viva</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E85A2A"/></marker>
+<marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#6B7280"/></marker></defs>
+<rect width="1200" height="430" rx="18" fill="#141414"/>
+<text x="40" y="52" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">ERRO 2: A PORTA FIXA</text>
+<rect x="40" y="150" width="280" height="130" rx="14" fill="#2A1710"/>
+<text x="64" y="196" fill="#FF8A5C" font-size="24" font-weight="700">studio-server.js</text>
+<text x="64" y="230" fill="#B4B9C2" font-size="18">servidor MCP</text>
+<text x="64" y="256" fill="#B4B9C2" font-size="18">procura a janela viva</text>
+<rect x="760" y="64" width="400" height="90" rx="14" fill="#1A1A1A"/>
+<text x="786" y="102" fill="#6B7280" font-size="23" font-weight="700">Janela w1 · porta 9879</text><text x="786" y="132" fill="#6B7280" font-size="18">fechada: ninguém escuta</text>
+<rect x="760" y="168" width="400" height="90" rx="14" fill="#2A1710"/>
+<text x="786" y="206" fill="#fff" font-size="23" font-weight="700">Janela w2 · porta 9889</text><text x="786" y="236" fill="#FF8A5C" font-size="18">aberta: a única viva</text>
+<rect x="760" y="272" width="400" height="90" rx="14" fill="#1A1A1A"/>
+<text x="786" y="310" fill="#6B7280" font-size="23" font-weight="700">Janela w3 · porta 9899</text><text x="786" y="340" fill="#6B7280" font-size="18">não existe</text>
+<path d="M324 190L754 110" stroke="#6B7280" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#g)"/>
+<text x="340" y="138" fill="#9CA3AF" font-size="17">1ª tentativa: recusada</text>
+<path d="M324 212L754 213" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+<text x="520" y="204" fill="#fff" font-size="17" font-weight="700">2ª tentativa: conectou</text>
+<path d="M324 234L754 316" stroke="#6B7280" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#g)"/>
+<text x="330" y="304" fill="#9CA3AF" font-size="17">3ª: só se as outras falharem</text>
+<text x="600" y="402" fill="#9CA3AF" font-size="18" text-anchor="middle">Porta da janela = 9879 + 10 × posição. Fechar a w1 deixa só a w2 no ar.</text>
+</svg>

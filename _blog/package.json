@@ -1,0 +1,12 @@
+{
+  "name": "nardoto-blog",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "gerar": "node gerar.mjs"
+  },
+  "dependencies": {
+    "markdown-it": "^14.1.0",
+    "sharp": "^0.35.5"
+  }
+}

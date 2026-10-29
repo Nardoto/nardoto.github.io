@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 460" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Como o preload descobria a janela: antes pela URL, ainda vazia; depois pelo argv que o processo principal envia</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E85A2A"/></marker>
+<marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#6B7280"/></marker></defs>
+<rect width="1200" height="460" rx="18" fill="#141414"/>
+<text x="40" y="52" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">ERRO 1: A IDENTIDADE QUE NASCIA VAZIA</text>
+<text x="40" y="100" fill="#9CA3AF" font-size="16" font-weight="700" letter-spacing="2">ANTES: LIA A URL</text>
+<rect x="40" y="116" width="330" height="100" rx="14" fill="#1A1A1A"/>
+<text x="62" y="156" fill="#fff" font-size="20" font-weight="700">1. O preload roda</text>
+<text x="62" y="190" fill="#B4B9C2" font-size="18">a URL ainda não foi commitada</text>
+<rect x="435" y="116" width="330" height="100" rx="14" fill="#1A1A1A"/>
+<text x="457" y="156" fill="#fff" font-size="20" font-weight="700">2. location.search vazio</text>
+<text x="457" y="190" fill="#B4B9C2" font-size="18">não há o que ler</text>
+<rect x="830" y="116" width="330" height="100" rx="14" fill="#2A1710"/>
+<text x="852" y="156" fill="#FF8A5C" font-size="20" font-weight="700">3. Cai nos defaults</text>
+<text x="852" y="190" fill="#B4B9C2" font-size="18">w1 e porta 9876, em toda janela</text>
+<path d="M374 166L431 166" stroke="#6B7280" stroke-width="2.5" marker-end="url(#g)"/>
+<path d="M769 166L826 166" stroke="#6B7280" stroke-width="2.5" marker-end="url(#g)"/>
+<text x="40" y="262" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">DEPOIS: LÊ O ARGV</text>
+<rect x="40" y="278" width="330" height="100" rx="14" fill="#1A1A1A"/>
+<text x="62" y="318" fill="#fff" font-size="20" font-weight="700">1. O main manda o JSON</text>
+<text x="62" y="352" fill="#B4B9C2" font-size="18">em additionalArguments</text>
+<rect x="435" y="278" width="330" height="100" rx="14" fill="#1A1A1A"/>
+<text x="457" y="318" fill="#fff" font-size="20" font-weight="700">2. O preload lê o argv</text>
+<text x="457" y="352" fill="#B4B9C2" font-size="18">sempre disponível</text>
+<rect x="830" y="278" width="330" height="100" rx="14" fill="#E85A2A"/>
+<text x="852" y="318" fill="#fff" font-size="20" font-weight="700">3. windowInfo certo</text>
+<text x="852" y="352" fill="#fff" font-size="18">w2, portas 9886 a 9889</text>
+<path d="M374 328L431 328" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+<path d="M769 328L826 328" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+<text x="600" y="428" fill="#9CA3AF" font-size="18" text-anchor="middle">Nunca deu erro: só entregava o default. E o default, por acaso, é a janela 1.</text>
+</svg>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 470" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Mapa do CLAUDE.md e da pasta .claude para os espelhos de outros CLIs gerados pelo script sync-cross-cli.js</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E85A2A"/></marker></defs>
+<rect width="1200" height="470" rx="18" fill="#141414"/>
+<text x="40" y="52" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">UMA FONTE, VÁRIOS ESPELHOS</text>
+<rect x="30" y="100" width="260" height="130" rx="14" fill="#2A1710"/>
+<text x="52" y="140" fill="#FF8A5C" font-size="24" font-weight="700">CLAUDE.md</text>
+<text x="52" y="172" fill="#B4B9C2" font-size="18">fonte da verdade</text>
+<text x="52" y="198" fill="#B4B9C2" font-size="18">361 linhas</text>
+<text x="52" y="222" fill="#B4B9C2" font-size="17">32 commits em 2026</text>
+<rect x="30" y="270" width="260" height="130" rx="14" fill="#1A1A1A"/>
+<text x="52" y="310" fill="#fff" font-size="24" font-weight="700">Em .claude/</text>
+<text x="52" y="342" fill="#B4B9C2" font-size="18">68 skills (pastas</text>
+<text x="52" y="368" fill="#B4B9C2" font-size="18">e arquivos .md)</text>
+<text x="52" y="392" fill="#B4B9C2" font-size="17">7 subagentes</text>
+<rect x="380" y="120" width="250" height="260" rx="14" fill="#1A1A1A"/>
+<text x="402" y="162" fill="#fff" font-size="20" font-weight="700">sync-cross-cli.js</text>
+<text x="402" y="198" fill="#B4B9C2" font-size="18">381 linhas</text>
+<text x="402" y="228" fill="#B4B9C2" font-size="18">traduz o cabeçalho</text>
+<text x="402" y="254" fill="#B4B9C2" font-size="18">dos subagentes</text>
+<text x="402" y="284" fill="#B4B9C2" font-size="18">preserva extras só</text>
+<text x="402" y="310" fill="#B4B9C2" font-size="18">do destino</text>
+<text x="402" y="346" fill="#9CA3AF" font-size="17">tem modo --dry-run</text>
+<path d="M294 165H376" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+<path d="M294 335H376" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+<path d="M634 250H690M690 98V308" stroke="#E85A2A" stroke-width="2.5" fill="none"/>
+<g stroke="#E85A2A" stroke-width="2.5" fill="none"><path d="M690 98H726" marker-end="url(#a)"/><path d="M690 168H726" marker-end="url(#a)"/><path d="M690 238H726" marker-end="url(#a)"/><path d="M690 308H726" marker-end="url(#a)"/></g>
+<rect x="730" y="68" width="440" height="60" rx="10" fill="#1A1A1A"/>
+<text x="750" y="94" fill="#fff" font-size="18" font-weight="700">AGENTS.md</text>
+<text x="750" y="118" fill="#B4B9C2" font-size="17">cópia de 360 linhas para Codex e outros</text>
+<rect x="730" y="138" width="440" height="60" rx="10" fill="#1A1A1A"/>
+<text x="750" y="164" fill="#fff" font-size="18" font-weight="700">.codex/skills e .codex/agents</text>
+<text x="750" y="188" fill="#B4B9C2" font-size="17">cópia direta para o Codex CLI</text>
+<rect x="730" y="208" width="440" height="60" rx="10" fill="#1A1A1A"/>
+<text x="750" y="234" fill="#fff" font-size="18" font-weight="700">.agents/skills e .agents/agents</text>
+<text x="750" y="258" fill="#B4B9C2" font-size="17">cabeçalho traduzido para o Antigravity</text>
+<rect x="730" y="278" width="440" height="60" rx="10" fill="#2A1710"/>
+<text x="750" y="304" fill="#FF8A5C" font-size="18" font-weight="700">src/studio-skills</text>
+<text x="750" y="328" fill="#B4B9C2" font-size="17">26 skills que viajam no instalador</text>
+<rect x="730" y="358" width="440" height="60" rx="10" fill="#141414" stroke="#6B7280" stroke-width="1.5" stroke-dasharray="6 5"/>
+<text x="750" y="384" fill="#9CA3AF" font-size="18" font-weight="700">GEMINI.md</text>
+<text x="750" y="408" fill="#6B7280" font-size="17">editado à mão, o script não toca</text>
+</svg>

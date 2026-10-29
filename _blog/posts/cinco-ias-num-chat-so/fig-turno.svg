@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">O caminho de um turno do chat até o CLI e a falha que já aconteceu em cada etapa</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E85A2A"/></marker></defs>
+<rect width="1200" height="480" rx="18" fill="#141414"/>
+<text x="40" y="52" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">O CAMINHO DE UM TURNO E ONDE ELE JÁ QUEBROU</text>
+
+<rect x="30" y="84" width="200" height="130" rx="14" fill="#1A1A1A"/>
+<text x="50" y="124" fill="#fff" font-size="22" font-weight="700">Aba do chat</text>
+<text x="50" y="158" fill="#B4B9C2" font-size="18">useCLIChat</text>
+<text x="50" y="184" fill="#B4B9C2" font-size="18">streamId novo</text>
+
+<rect x="265" y="84" width="200" height="130" rx="14" fill="#1A1A1A"/>
+<text x="285" y="124" fill="#fff" font-size="22" font-weight="700">Canal IPC</text>
+<text x="285" y="158" fill="#B4B9C2" font-size="18">prompt-stream</text>
+<text x="285" y="184" fill="#B4B9C2" font-size="18">um por CLI</text>
+
+<rect x="500" y="84" width="200" height="130" rx="14" fill="#2A1710"/>
+<text x="520" y="124" fill="#FF8A5C" font-size="22" font-weight="700">Serviço</text>
+<text x="520" y="158" fill="#B4B9C2" font-size="18">*CodeService.js</text>
+<text x="520" y="184" fill="#B4B9C2" font-size="18">monta args e MCP</text>
+
+<rect x="735" y="84" width="200" height="130" rx="14" fill="#1A1A1A"/>
+<text x="755" y="124" fill="#fff" font-size="22" font-weight="700">Pool</text>
+<text x="755" y="158" fill="#B4B9C2" font-size="18">processo vivo</text>
+<text x="755" y="184" fill="#B4B9C2" font-size="18">stdin e stdout</text>
+
+<rect x="970" y="84" width="200" height="130" rx="14" fill="#1A1A1A"/>
+<text x="990" y="124" fill="#fff" font-size="22" font-weight="700">O CLI</text>
+<text x="990" y="158" fill="#B4B9C2" font-size="18">eventos até</text>
+<text x="990" y="184" fill="#B4B9C2" font-size="18">o result</text>
+
+<path d="M232 149H263" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+<path d="M467 149H498" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+<path d="M702 149H733" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+<path d="M937 149H968" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+
+<path d="M130 216V262" stroke="#6B7280" stroke-width="2" stroke-dasharray="5 5"/>
+<path d="M365 216V262" stroke="#6B7280" stroke-width="2" stroke-dasharray="5 5"/>
+<path d="M600 216V262" stroke="#6B7280" stroke-width="2" stroke-dasharray="5 5"/>
+<path d="M835 216V262" stroke="#6B7280" stroke-width="2" stroke-dasharray="5 5"/>
+<path d="M1070 216V262" stroke="#6B7280" stroke-width="2" stroke-dasharray="5 5"/>
+
+<rect x="30" y="264" width="200" height="150" rx="14" fill="#2A1710"/>
+<text x="50" y="298" fill="#FF8A5C" font-size="18" font-weight="700">Turno obsoleto</text>
+<text x="50" y="328" fill="#B4B9C2" font-size="17">resposta atrasada</text>
+<text x="50" y="352" fill="#B4B9C2" font-size="17">fechava o turno</text>
+<text x="50" y="376" fill="#B4B9C2" font-size="17">novo (streamId)</text>
+
+<rect x="265" y="264" width="200" height="150" rx="14" fill="#2A1710"/>
+<text x="285" y="298" fill="#FF8A5C" font-size="18" font-weight="700">Promessa solta</text>
+<text x="285" y="328" fill="#B4B9C2" font-size="17">reply was never</text>
+<text x="285" y="352" fill="#B4B9C2" font-size="17">sent: o invoke</text>
+<text x="285" y="376" fill="#B4B9C2" font-size="17">ficava pendurado</text>
+
+<rect x="500" y="264" width="200" height="150" rx="14" fill="#2A1710"/>
+<text x="520" y="298" fill="#FF8A5C" font-size="18" font-weight="700">Result vazio</text>
+<text x="520" y="328" fill="#B4B9C2" font-size="17">ack de 0 turnos</text>
+<text x="520" y="352" fill="#B4B9C2" font-size="17">fechava o turno</text>
+<text x="520" y="376" fill="#B4B9C2" font-size="17">antes da hora</text>
+
+<rect x="735" y="264" width="200" height="150" rx="14" fill="#2A1710"/>
+<text x="755" y="298" fill="#FF8A5C" font-size="18" font-weight="700">Servidor mudo</text>
+<text x="755" y="328" fill="#B4B9C2" font-size="17">aceita o turn e</text>
+<text x="755" y="352" fill="#B4B9C2" font-size="17">não responde:</text>
+<text x="755" y="376" fill="#B4B9C2" font-size="17">corte aos 9 min</text>
+
+<rect x="970" y="264" width="200" height="150" rx="14" fill="#2A1710"/>
+<text x="990" y="298" fill="#FF8A5C" font-size="18" font-weight="700">Tool result</text>
+<text x="990" y="328" fill="#B4B9C2" font-size="17">vinha como</text>
+<text x="990" y="352" fill="#B4B9C2" font-size="17">mensagem user,</text>
+<text x="990" y="376" fill="#B4B9C2" font-size="17">sem tratamento</text>
+
+<text x="40" y="452" fill="#9CA3AF" font-size="18">Cada falha virou uma guarda no código. O pool é o que mantém o processo vivo entre as mensagens.</text>
+</svg>

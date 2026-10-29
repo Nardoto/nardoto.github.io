@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8">
+<script>if(!/^(localhost|127.0.0.1)$/.test(location.hostname)){var g=document.createElement('script');g.async=true;g.src='https://www.googletagmanager.com/gtag/js?id=G-WSY9CWHH19';document.head.appendChild(g);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-WSY9CWHH19')}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Como fiz o chat de IA pilotar o próprio app com MCP | Blog do Nardoto Studio</title><meta name="description" content="O chat do Nardoto Studio cria projeto, narra, busca mídia e clica na tela por 88 ferramentas MCP. A arquitetura e os cinco erros que mais me custaram tempo.">
+<link rel="canonical" href="https://nardoto.com.br/blog/chat-de-ia-pilotando-o-app-com-mcp/"><meta property="og:type" content="article"><meta property="og:url" content="https://nardoto.com.br/blog/chat-de-ia-pilotando-o-app-com-mcp/">
+<meta property="og:title" content="Como fiz o chat de IA pilotar o próprio app com MCP | Blog do Nardoto Studio"><meta property="og:description" content="O chat do Nardoto Studio cria projeto, narra, busca mídia e clica na tela por 88 ferramentas MCP. A arquitetura e os cinco erros que mais me custaram tempo."><meta property="og:image" content="https://nardoto.com.br/blog/chat-de-ia-pilotando-o-app-com-mcp/capa.jpg">
+<link rel="icon" type="image/png" href="/favicon.png"><meta name="theme-color" content="#E85A2A">
+<link rel="alternate" type="application/rss+xml" title="Blog do Nardoto" href="/blog/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/blog/blog.css"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Como fiz o chat de IA pilotar o próprio app com MCP","description":"O chat do Nardoto Studio cria projeto, narra, busca mídia e clica na tela por 88 ferramentas MCP. A arquitetura e os cinco erros que mais me custaram tempo.","datePublished":"2026-10-29","author":{"@type":"Person","name":"Tharcisio Nardoto"},"mainEntityOfPage":"https://nardoto.com.br/blog/chat-de-ia-pilotando-o-app-com-mcp/"}</script></head><body>
+<header class="topo"><div class="wrap"><a class="marca" href="/"><img src="/favicon.png" alt="">Nardoto</a>
+<nav class="nav"><a href="/">Apps</a><a href="/studio/">Studio</a><a href="/blog/" class="on">Blog</a></nav></div></header>
+<main><article><div class="wrap"><div class="cab"><a class="eyebrow" href="/blog/">Blog / Diário de construção</a>
+<h1>Como fiz o chat de IA pilotar o próprio app com MCP</h1><p class="lead">O chat do Nardoto Studio cria projeto, narra, busca mídia e clica na tela por 88 ferramentas MCP. A arquitetura e os cinco erros que mais me custaram tempo.</p>
+<div class="meta">Tharcisio Nardoto · 29 out. 2026 · 8 min de leitura</div>
+<div class="tags"><a class="tag" href="/blog/tags/mcp/">mcp</a><a class="tag" href="/blog/tags/agentes/">agentes</a><a class="tag" href="/blog/tags/electron/">electron</a></div></div>
+<img class="capa" src="/blog/chat-de-ia-pilotando-o-app-com-mcp/capa.jpg" alt="" width="1200" height="630">
+<div class="corpo-post"><nav class="toc"><strong>Neste artigo</strong><a href="#a-arquitetura-em-uma-frase">A arquitetura em uma frase</a><a href="#o-que-as-88-ferramentas-fazem">O que as 88 ferramentas fazem</a><a href="#erro-1-o-print-cego-e-o-mouse-do-usuario">Erro 1: o print cego e o mouse do usuário</a><a href="#erro-2-a-janela-2-que-ninguem-atendia">Erro 2: a janela 2 que ninguém atendia</a><a href="#erro-3-o-executavel-que-nao-era-node">Erro 3: o executável que não era Node</a><a href="#erro-4-mcp-demais-trava-o-computador">Erro 4: MCP demais trava o computador</a><a href="#erro-5-a-resposta-certa-da-pagina-errada">Erro 5: a resposta certa da página errada</a><a href="#o-que-eu-levaria-para-qualquer-projeto-com-mcp">O que eu levaria para qualquer projeto com MCP</a><a href="#referencias">Referências</a></nav>
+<div class="prose"><p>O Nardoto Studio é um editor de vídeo para Windows e Mac. Dentro dele roda um chat em que a pessoa conecta a própria IA (Claude Code, Codex, Gemini, Antigravity ou Grok) e pede o que quer: &quot;cria um projeto&quot;, &quot;narra esse roteiro&quot;, &quot;acha imagens reais sobre a Torre Eiffel&quot;, &quot;monta no CapCut&quot;.</p>
+<p>Para isso funcionar, a IA não pode só responder texto. Ela precisa <strong>operar o aplicativo</strong>. Este post conta como fiz essa ponte com o Model Context Protocol (MCP), o padrão aberto que os agentes de IA usam para chamar ferramentas externas <a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener">1</a>, e os erros que me custaram mais tempo. Dois deles só apareceram com o app instalado no computador do cliente.</p>
+<blockquote>
+<p><strong>O que o código diz hoje (29/10/2026)</strong></p>
+<ul>
+<li>O servidor MCP do Studio expõe <strong>88 ferramentas</strong>, mais 9 do navegador interno e 4 de memória.</li>
+<li>Servidores e bibliotecas do MCP somam cerca de 5.900 linhas, em 60 commits desde fevereiro de 2026.</li>
+<li>Uso real medido em 30 dias: o servidor do Studio foi aberto em 86 sessões de chat; o do navegador, em 20.</li>
+</ul>
+</blockquote>
+<h2 id="a-arquitetura-em-uma-frase">A arquitetura em uma frase</h2>
+<p>A IA conversa com um processo pequeno, e esse processo conversa com o aplicativo por WebSocket.</p>
+<ol>
+<li>O CLI da IA (Claude Code, por exemplo) inicia o <code>studio-server.js</code> como processo filho e fala com ele por entrada e saída padrão, do jeito que o MCP define.</li>
+<li>O <code>studio-server.js</code> não sabe fazer nada sozinho. Cada chamada vira uma mensagem <code>{id, action, params}</code> enviada por WebSocket para o processo principal do Electron, na porta 9879.</li>
+<li>O processo principal executa a ação de verdade (criar projeto, gerar áudio, clicar na tela) e devolve <code>{id, success, data}</code>.</li>
+</ol>
+<figure><a href="fig-arquitetura.svg" target="_blank" rel="noopener"><img src="fig-arquitetura.svg" alt="Diagrama: o CLI da IA fala por stdio com o servidor MCP, que fala por WebSocket com o processo principal do Electron, que executa a ação e devolve a resposta." loading="lazy"></a><figcaption>Figura 1. O caminho de uma chamada: da IA até a tela do app, e a resposta voltando.</figcaption></figure><p>A vantagem dessa separação é que o mesmo conjunto de ferramentas serve dois servidores: o local, por stdio, e um servidor HTTP remoto, que usa a mesma fábrica de ferramentas. Quem define o que existe é um arquivo só.</p>
+<h2 id="o-que-as-88-ferramentas-fazem">O que as 88 ferramentas fazem</h2>
+<p>Não comecei com 88. Cada ferramenta nasceu de um pedido real que o chat não conseguia atender.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Grupo</th>
+<th style="text-align:left">Exemplos</th>
+<th style="text-align:left">Para que serve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Projeto e CapCut</td>
+<td style="text-align:left"><code>create_project</code>, <code>sync_project</code>, <code>insert_srt</code>, <code>export_to_capcut</code></td>
+<td style="text-align:left">Montar e sincronizar o projeto de vídeo</td>
+</tr>
+<tr>
+<td style="text-align:left">Voz e roteiro</td>
+<td style="text-align:left"><code>generate_script</code>, <code>tts_generate</code>, <code>check_script_length</code></td>
+<td style="text-align:left">Escrever e narrar com as vozes do app</td>
+</tr>
+<tr>
+<td style="text-align:left">Mídia</td>
+<td style="text-align:left"><code>search_archives</code>, <code>youtube_moments</code>, <code>download_footage</code>, <code>search_music</code></td>
+<td style="text-align:left">Achar imagem real, trecho de vídeo e trilha</td>
+</tr>
+<tr>
+<td style="text-align:left">Vídeo e motion</td>
+<td style="text-align:left"><code>remotion_render</code>, <code>video_render</code>, <code>render_motion_pecas</code></td>
+<td style="text-align:left">Renderizar motion graphics e o vídeo final</td>
+</tr>
+<tr>
+<td style="text-align:left">Delegação</td>
+<td style="text-align:left"><code>delegar</code>, <code>mega_brain</code></td>
+<td style="text-align:left">Uma IA passar tarefa para outra</td>
+</tr>
+<tr>
+<td style="text-align:left">Pilotar a tela</td>
+<td style="text-align:left"><code>screenshot</code>, <code>mouse_click</code>, <code>type_text</code>, <code>navigate_panel</code></td>
+<td style="text-align:left">Ver e operar a interface como uma pessoa</td>
+</tr>
+<tr>
+<td style="text-align:left">Planejamento</td>
+<td style="text-align:left"><code>planning_add_card</code>, <code>planning_move_card</code></td>
+<td style="text-align:left">Quadro de tarefas da produção</td>
+</tr>
+</tbody>
+</table>
+<figure><a href="fig-grupos.svg" target="_blank" rel="noopener"><img src="fig-grupos.svg" alt="Gráfico de barras horizontais com as 88 ferramentas divididas em 12 grupos. Projeto e CapCut tem 17 e Mídia tem 15." loading="lazy"></a><figcaption>Figura 2. As 88 ferramentas por grupo. Pilotar a tela, em laranja, tem só 6, mas é a que fecha o ciclo.</figcaption></figure><p>O grupo mais curioso é o de pilotar a tela. Com <code>screenshot</code> a IA recebe a imagem da tela e <strong>vê</strong> o resultado. Com <code>mouse_click</code> e <code>type_text</code> ela age. Isso fecha o ciclo: agir, olhar, conferir.</p>
+<h2 id="erro-1-o-print-cego-e-o-mouse-do-usuario">Erro 1: o print cego e o mouse do usuário</h2>
+<p>A primeira versão do <code>screenshot</code> usava a captura de tela do próprio Electron. Funcionava, até a janela ficar minimizada: aí vinha o erro &quot;Current display surface not available for capture&quot;. A IA ficava cega justamente quando a pessoa estava fazendo outra coisa.</p>
+<p>O <code>mouse_click</code> tinha um problema pior. Ele movia o <strong>cursor real do Windows</strong> por meio do PowerShell. Cada clique travava o processo principal por cerca de 300 milissegundos, brigava com o mouse de quem estava usando o computador e simplesmente não existia no Mac.</p>
+<p>A saída foi usar o Chrome DevTools Protocol (CDP) quando a automação está ligada. O CDP tira print mesmo com a janela escondida e clica pelo DOM, sem tocar no mouse físico <a href="https://chromedevtools.github.io/devtools-protocol/" target="_blank" rel="noopener">2</a>. Hoje uso o CDP para testar funcionalidades no app real e gravar tutoriais.</p>
+<figure><a href="fig-antes-depois.svg" target="_blank" rel="noopener"><img src="fig-antes-depois.svg" alt="Comparação em duas colunas entre o clique pelo cursor real do Windows e o clique pelo CDP, em print, clique, mouse do usuário e dependências." loading="lazy"></a><figcaption>Figura 3. O mesmo clique, por dois caminhos.</figcaption></figure><p>Uma lição pequena que veio junto: o clique por seletor mira no centro do elemento. Se o seletor pega um contêiner largo, o centro cai em outro painel e o clique erra sem dar erro nenhum.</p>
+<h2 id="erro-2-a-janela-2-que-ninguem-atendia">Erro 2: a janela 2 que ninguém atendia</h2>
+<p>O Studio abre várias janelas, e cada uma tem as próprias portas: a primeira usa 9879, a segunda 9889, a terceira 9899. O número da janela é reciclado. Se a pessoa fecha a primeira e continua na segunda, fica só a 9889 escutando.</p>
+<p>Só que o servidor MCP tinha a porta 9879 fixa no código. Numa noite inteira de trabalho, delegação, quadro de tarefas e navegador interno falharam com &quot;Não conectado ao Nardoto Studio&quot;, com o app aberto na frente.</p>
+<figure><a href="fig-portas.svg" target="_blank" rel="noopener"><img src="fig-portas.svg" alt="Diagrama: o servidor MCP tenta a porta 9879 da janela 1, que está fechada, e conecta na 9889 da janela 2." loading="lazy"></a><figcaption>Figura 4. Com a janela 1 fechada, só a 9889 responde. O servidor precisa procurar.</figcaption></figure><p>O diagnóstico levou dez segundos depois que eu soube onde olhar: <code>netstat</code> mostrando qual porta estava viva. A correção foi o servidor tentar 9879, depois 9889, depois 9899, e o ideal é o app passar a porta certa da janela pelo ambiente do processo filho.</p>
+<h2 id="erro-3-o-executavel-que-nao-era-node">Erro 3: o executável que não era Node</h2>
+<p>Esse é o meu favorito, porque o sintoma não aponta para o culpado.</p>
+<p>Para não depender de Node instalado no computador do cliente, mudei o lançamento dos servidores MCP: em vez de <code>node</code>, eles passaram a rodar pelo próprio executável do Studio, com a variável <code>ELECTRON_RUN_AS_NODE</code>. Em desenvolvimento, perfeito.</p>
+<p>No instalador, os três servidores MCP morriam com &quot;Connection closed&quot;. O motivo: o empacotamento grava as <em>fuses</em> do Electron, chaves que ficam dentro do binário, e a <code>RunAsNode</code> estava desligada por segurança <a href="https://www.electronjs.org/docs/latest/tutorial/fuses" target="_blank" rel="noopener">3</a>. Com ela desligada a variável é ignorada. O &quot;processo filho&quot; subia como um segundo Studio, batia na trava de instância única e fechava na hora.</p>
+<figure><a href="fig-fuses.svg" target="_blank" rel="noopener"><img src="fig-fuses.svg" alt="Dois fluxos: em desenvolvimento a variável ELECTRON_RUN_AS_NODE faz o executável rodar como Node; no instalador a fuse desligada ignora a variável e o filho sobe como um segundo Studio, que fecha." loading="lazy"></a><figcaption>Figura 5. A mesma variável, dois resultados. Só o instalador tinha a fuse desligada.</figcaption></figure><p>A correção foi embarcar um <code>node.exe</code> próprio no instalador e criar um teste que trava a regressão: &quot;empacotado sem Node nenhum, nunca o executável do Studio&quot;. O diagnóstico que decide em um minuto ficou anotado: ler as fuses do executável. Se <code>RunAsNode</code> estiver desligada, aquela variável não existe para ele.</p>
+<h2 id="erro-4-mcp-demais-trava-o-computador">Erro 4: MCP demais trava o computador</h2>
+<p>Cada sessão de cada IA abria todos os servidores MCP configurados. Com várias abas de chat e vários CLIs, o computador ficava cheio de processos que ninguém estava usando.</p>
+<p>A regra nova: só o servidor do Studio abre junto. O resto liga <strong>sob demanda</strong>. O servidor do Studio tem duas ferramentas, <code>ferramentas_extras</code> e <code>usar_ferramenta_extra</code>, que sobem o servidor extra na hora, e ele desliga sozinho depois de 10 minutos parado.</p>
+<p>Um detalhe que só descobri testando: o Claude Code esconde parte das ferramentas atrás de uma busca interna. Um modelo menor, sem achar a ferramenta, foi procurar a resposta na internet. A correção foi colocar o catálogo das ferramentas extras nas <strong>instruções do servidor</strong>, que o modelo lê sempre.</p>
+<p>Antes de decidir, medi. Em 30 dias, o servidor do Studio apareceu em 86 sessões. O de edição de vídeo, em 2. Não fazia sentido os dois abrirem sempre.</p>
+<figure><a href="fig-uso-mcp.svg" target="_blank" rel="noopener"><img src="fig-uso-mcp.svg" alt="Gráfico de barras com as sessões de chat que abriram cada servidor MCP em 30 dias: nardoto-studio 86, nardoto-time 32, nardoto-browser 20, playwright 16, nardoto-memory 3 e nardoto-video-editor 2." loading="lazy"></a><figcaption>Figura 6. Sessões de chat que abriram cada servidor MCP em 30 dias, medidas em 22/09/2026, antes da mudança.</figcaption></figure><h2 id="erro-5-a-resposta-certa-da-pagina-errada">Erro 5: a resposta certa da página errada</h2>
+<p>O servidor do navegador interno tem uma ferramenta que roda JavaScript na página aberta. Ela procurava abas do tipo <code>webview</code>. Só que as abas do navegador tinham migrado para outro componente do Electron, o <code>WebContentsView</code>.</p>
+<p>Resultado: o JavaScript rodava em outra página qualquer da janela e respondia com sucesso. Perdi um bom tempo achando que a aba não estava aberta. Desde então, a regra é conferir o endereço da página que a ferramenta devolve antes de confiar no resultado.</p>
+<h2 id="o-que-eu-levaria-para-qualquer-projeto-com-mcp">O que eu levaria para qualquer projeto com MCP</h2>
+<ul>
+<li><strong>Ferramenta nasce de pedido real.</strong> As 88 vieram de conversas em que o chat travou, não de uma lista planejada.</li>
+<li><strong>A IA precisa ver o resultado.</strong> Um print depois de cada ação vale mais que qualquer &quot;pronto, funcionou&quot;.</li>
+<li><strong>Teste no instalador, não só em desenvolvimento.</strong> Dois dos cinco erros acima só existiam com o app instalado.</li>
+<li><strong>Meça antes de mudar.</strong> O número de sessões por servidor decidiu o que ficava ligado.</li>
+<li><strong>Escreva o diagnóstico.</strong> Cada erro virou uma nota com o sintoma, a causa e o comando que confirma em um minuto.</li>
+</ul>
+<h2 id="referencias">Referências</h2>
+<ol>
+<li><a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener">Model Context Protocol, documentação oficial</a></li>
+<li><a href="https://chromedevtools.github.io/devtools-protocol/" target="_blank" rel="noopener">Chrome DevTools Protocol</a></li>
+<li><a href="https://www.electronjs.org/docs/latest/tutorial/fuses" target="_blank" rel="noopener">Electron Fuses, documentação oficial</a></li>
+</ol>
+<p class="assina">Escrito por Tharcisio Nardoto, engenheiro civil e criador do <a href="/studio/">Nardoto Studio</a>.</p></div></div></div></article>
+<section class="relacionados"><div class="wrap"><h2>Continue a leitura.</h2><div class="grid" style="padding-bottom:0"><a class="card" href="/blog/bugs-que-so-aparecem-no-cliente/"><img src="/blog/bugs-que-so-aparecem-no-cliente/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">29 out. 2026 · 8 min de leitura</span><h2>Bugs que só aparecem no computador do cliente</h2><p>Seis bugs do Nardoto Studio que funcionavam em desenvolvimento e quebravam no instalador, e a trava (teste, guard ou build) que impede cada um de voltar.</p><span class="ler">Ler artigo &rarr;</span></div></a><a class="card" href="/blog/cinco-ias-num-chat-so/"><img src="/blog/cinco-ias-num-chat-so/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">29 out. 2026 · 8 min de leitura</span><h2>Cinco IAs num chat só: o protocolo de cada CLI por dentro</h2><p>Como o chat do Nardoto Studio conversa com Claude Code, Codex, agy e Grok pelo CLI de cada um: o protocolo, o que mudou de um para outro e o que quebrou.</p><span class="ler">Ler artigo &rarr;</span></div></a><a class="card" href="/blog/como-eu-trabalho-com-ia-memoria-skills-regras/"><img src="/blog/como-eu-trabalho-com-ia-memoria-skills-regras/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">29 out. 2026 · 9 min de leitura</span><h2>Como eu trabalho com IA: memória, skills e regras</h2><p>Como organizo agentes de código: CLAUDE.md espelhado em outros CLIs, 364 arquivos de memória, 68 skills, subagentes e prova em teste, com os erros.</p><span class="ler">Ler artigo &rarr;</span></div></a></div></div></section></main>
+<footer><div class="wrap"><span>Blog do Nardoto Studio. Escrito por Tharcisio Nardoto.</span><span><a href="/">nardoto.com.br</a> · <a href="/blog/feed.xml">RSS</a></span></div></footer>
+</body></html>

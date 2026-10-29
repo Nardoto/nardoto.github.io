@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Como o render do Studio escolhe o motor: no Windows o gate separa projeto com imagem de projeto só de vídeo, no Mac só existe o caminho FFmpeg</title>
+<rect width="1200" height="520" rx="18" fill="#141414"/>
+<rect x="30" y="30" width="555" height="460" rx="14" fill="#1A1A1A"/>
+<rect x="615" y="30" width="555" height="460" rx="14" fill="#1A1A1A"/>
+<text x="56" y="70" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">WINDOWS</text>
+<text x="56" y="106" fill="#fff" font-size="26" font-weight="700">Dois motores e um gate</text>
+<text x="641" y="70" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">MAC</text>
+<text x="641" y="106" fill="#fff" font-size="26" font-weight="700">Um motor só: FFmpeg</text>
+<g fill="#2A1710"><rect x="56" y="132" width="503" height="82" rx="10"/><rect x="641" y="132" width="503" height="82" rx="10"/></g>
+<g fill="#0F0F0F"><rect x="56" y="230" width="503" height="82" rx="10"/><rect x="56" y="328" width="503" height="82" rx="10"/><rect x="641" y="230" width="503" height="82" rx="10"/><rect x="641" y="328" width="503" height="82" rx="10"/></g>
+<g font-size="17" font-weight="700" letter-spacing="1.5" fill="#9CA3AF">
+<text x="76" y="160">COM IMAGEM OU KEN BURNS</text><text x="76" y="258">SÓ VÍDEO</text><text x="76" y="356">SEM PLACA NEM QSV</text>
+<text x="661" y="160">MÓDULO RUST</text><text x="661" y="258">PLACA DETECTADA</text><text x="661" y="356">SEM ENCODER DE PLACA</text></g>
+<g font-size="21" fill="#FF8A5C">
+<text x="76" y="196">FFmpeg, NVENC na NVIDIA (nível 0)</text>
+<text x="661" y="196">Não carrega: só existe para win32</text></g>
+<g font-size="21" fill="#fff">
+<text x="76" y="294">Rust: D3D11 compõe, QSV codifica</text>
+<text x="76" y="392">x264 por software</text>
+<text x="661" y="294">VideoToolbox só codifica (nível 2)</text>
+<text x="661" y="392">libx264 otimizado (nível 3)</text></g>
+<g font-size="18" fill="#B4B9C2">
+<text x="56" y="448">Hoje o encoder do Rust nunca usa NVENC.</text>
+<text x="56" y="474">Só vídeo na GTX: compõe nela, codifica fora.</text>
+<text x="641" y="448">A decodificação fica na CPU nos dois níveis.</text></g>
+</svg>

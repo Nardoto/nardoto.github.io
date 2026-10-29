@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8">
+<script>if(!/^(localhost|127.0.0.1)$/.test(location.hostname)){var g=document.createElement('script');g.async=true;g.src='https://www.googletagmanager.com/gtag/js?id=G-WSY9CWHH19';document.head.appendChild(g);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-WSY9CWHH19')}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Como funciona o gerador de vídeo do Nardoto Studio | Blog do Nardoto Studio</title><meta name="description" content="O Criar Vídeo roda 10 etapas pelo painel e o chat só ajusta. Veja a ficha única, os gates, a busca de mídia real, a mixagem medida e a fila de vídeos.">
+<link rel="canonical" href="https://nardoto.com.br/blog/gerador-de-video-por-etapas/"><meta property="og:type" content="article"><meta property="og:url" content="https://nardoto.com.br/blog/gerador-de-video-por-etapas/">
+<meta property="og:title" content="Como funciona o gerador de vídeo do Nardoto Studio | Blog do Nardoto Studio"><meta property="og:description" content="O Criar Vídeo roda 10 etapas pelo painel e o chat só ajusta. Veja a ficha única, os gates, a busca de mídia real, a mixagem medida e a fila de vídeos."><meta property="og:image" content="https://nardoto.com.br/blog/gerador-de-video-por-etapas/capa.jpg">
+<link rel="icon" type="image/png" href="/favicon.png"><meta name="theme-color" content="#E85A2A">
+<link rel="alternate" type="application/rss+xml" title="Blog do Nardoto" href="/blog/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/blog/blog.css"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Como funciona o gerador de vídeo do Nardoto Studio","description":"O Criar Vídeo roda 10 etapas pelo painel e o chat só ajusta. Veja a ficha única, os gates, a busca de mídia real, a mixagem medida e a fila de vídeos.","datePublished":"2026-10-29","author":{"@type":"Person","name":"Tharcisio Nardoto"},"mainEntityOfPage":"https://nardoto.com.br/blog/gerador-de-video-por-etapas/"}</script></head><body>
+<header class="topo"><div class="wrap"><a class="marca" href="/"><img src="/favicon.png" alt="">Nardoto</a>
+<nav class="nav"><a href="/">Apps</a><a href="/studio/">Studio</a><a href="/blog/" class="on">Blog</a></nav></div></header>
+<main><article><div class="wrap"><div class="cab"><a class="eyebrow" href="/blog/">Blog / Diário de construção</a>
+<h1>Como funciona o gerador de vídeo do Nardoto Studio</h1><p class="lead">O Criar Vídeo roda 10 etapas pelo painel e o chat só ajusta. Veja a ficha única, os gates, a busca de mídia real, a mixagem medida e a fila de vídeos.</p>
+<div class="meta">Tharcisio Nardoto · 29 out. 2026 · 9 min de leitura</div>
+<div class="tags"><a class="tag" href="/blog/tags/video/">vídeo</a><a class="tag" href="/blog/tags/producao/">produção</a><a class="tag" href="/blog/tags/arquitetura/">arquitetura</a></div></div>
+<img class="capa" src="/blog/gerador-de-video-por-etapas/capa.jpg" alt="" width="1200" height="630">
+<div class="corpo-post"><nav class="toc"><strong>Neste artigo</strong><a href="#tres-desenhos-ate-chegar-neste">Três desenhos até chegar neste</a><a href="#as-etapas-e-onde-ficam-os-gates">As etapas e onde ficam os gates</a><a href="#onde-cada-ferramenta-entra">Onde cada ferramenta entra</a><a href="#midia-real-fidelidade-vale-mais-que-qualidade">Mídia real: fidelidade vale mais que qualidade</a><a href="#montagem-regras-que-a-ia-nao-adivinha">Montagem: regras que a IA não adivinha</a><a href="#filme-no-estilo-e-o-piloto-de-engenharia">Filme no estilo e o piloto de engenharia</a><a href="#fila-vigia-e-celular">Fila, vigia e celular</a><a href="#o-que-eu-levaria-para-qualquer-projeto">O que eu levaria para qualquer projeto</a><a href="#referencias">Referências</a></nav>
+<div class="prose"><p>O &quot;Criar Vídeo&quot; é a parte do Nardoto Studio que recebe uma ideia ou um roteiro pronto e devolve um vídeo montado no Nardoto Editor ou no CapCut. Este post conta como organizei o caminho e onde errei.</p>
+<p>Quem leu o post sobre o <a href="/blog/chat-de-ia-pilotando-o-app-com-mcp/">chat que pilota o app com MCP</a> já conhece a ponte. Aqui o assunto é o que passa por ela quando o pedido é &quot;faz um vídeo de 10 minutos&quot;. O chat aceita <a href="/blog/cinco-ias-num-chat-so/">cinco IAs</a>, e o fluxo vale para qualquer uma.</p>
+<blockquote>
+<p><strong>O que o código diz hoje (29/10/2026)</strong></p>
+<ul>
+<li>O painel conduz <strong>10 etapas</strong> (de 7 a 11, conforme o modo), e 3 ferramentas MCP (<code>producao_*</code>) deixam o chat dirigir o mesmo painel.</li>
+<li>O código do Criar Vídeo soma <strong>8.732 linhas em 45 arquivos</strong>, em 34 commits desde 01/09/2026.</li>
+<li><strong>305 casos de teste</strong> em 24 arquivos cobrem plano, briefing, vigia, fila e gates.</li>
+</ul>
+</blockquote>
+<h2 id="tres-desenhos-ate-chegar-neste">Três desenhos até chegar neste</h2>
+<p>O primeiro, em junho, foi uma &quot;Linha de Produção&quot; com 11 etapas, em que o renderer chamava a IA direto e o chat ficava escondido. O segundo, em julho, foi o oposto: &quot;chat-first&quot;, com o painel só como visualização.</p>
+<p>O terceiro é o de hoje, decidido em 08/10: a pessoa usa o painel, e o chat mostra o que o painel faz e serve para ajustar. O que me fez largar o chat-first: a tela recarregou, a sessão nova do chat não sabia do pedido oculto do painel, improvisou um roteiro, e o painel voltou sozinho para &quot;Analisar&quot;.</p>
+<p>A solução foi uma <strong>ficha única por vídeo</strong>: o arquivo <code>.nardoto-video/estado.json</code>, com etapas, status, resumo e arquivos. O painel lê a ficha a cada 3 segundos e o agente grava nela a cada passo. Nada de estado só em React.</p>
+<figure><a href="fig-ficha-unica.svg" target="_blank" rel="noopener"><img src="fig-ficha-unica.svg" alt="Diagrama: o agente do chat grava no estado.json, o painel lê a cada 3 segundos, e o pedido do painel ou do chat vira briefing devolvido ao agente." loading="lazy"></a><figcaption>Figura 1. Painel e chat são duas telas da mesma ficha.</figcaption></figure><p>Quando o chat chama <code>producao_iniciar</code>, o painel preenche o mesmo formulário, grava o plano e <strong>devolve o briefing como resposta da ferramenta</strong>. O agente executa no mesmo turno.</p>
+<p>Um erro típico: o briefing pede <code>etapas</code> como lista, mas o agente às vezes gravava um mapa (<code>{&quot;roteiro&quot;: &quot;pronto&quot;}</code>). O painel descartava o formato calado e ficava parado, com a produção andando atrás. Hoje <code>normalizarEtapas</code> aceita os dois.</p>
+<h2 id="as-etapas-e-onde-ficam-os-gates">As etapas e onde ficam os gates</h2>
+<p>A VEO3 só entra se houver cena dela (9 ou 10 etapas no modo comum). O &quot;Filme no estilo&quot; tem 7, o documentário com templates 8, e um vídeo de referência acrescenta uma.</p>
+<figure><a href="fig-etapas.svg" target="_blank" rel="noopener"><img src="fig-etapas.svg" alt="Duas fileiras de cinco etapas: roteiro, voz, cortes, prompts, veo3, motion, trilha, mídias, revisão e montagem. Roteiro, trilha, revisão e montagem aparecem em destaque por terem conferência." loading="lazy"></a><figcaption>Figura 2. As 10 etapas do modo comum. As destacadas só fecham depois de uma conferência.</figcaption></figure><table>
+<thead>
+<tr>
+<th style="text-align:left">Etapa</th>
+<th style="text-align:left">O que a faz fechar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>roteiro</code></td>
+<td style="text-align:left">Júri feito por quem não escreveu o texto, até 3 rodadas</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>voz</code></td>
+<td style="text-align:left">Narração das vozes do app e o SRT do motor de voz</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>midias</code></td>
+<td style="text-align:left">Mídia real da entidade citada na fala, com créditos</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>revisao</code></td>
+<td style="text-align:left">Juiz das cenas: <code>ffprobe</code> em todas, depois avaliação visual</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>trilha</code></td>
+<td style="text-align:left">Voz e música medidas, não ajustadas de ouvido</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>montagem</code></td>
+<td style="text-align:left">Projeto salvo; o MP4 só sai se a pessoa ligou &quot;Renderizar ao terminar&quot;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="o-gate-que-virou-codigo-e-ficou-de-fora">O gate que virou código e ficou de fora</h3>
+<p>Esta é a parte que mais me incomoda. Pedir 18 minutos rendia vídeos de 21, 15, 13 ou 11. A regra existia em prosa, e prosa não executa. Virou código em <code>videoAssetGates.js</code>: palavras divididas por 145, o ritmo medido em português, então 18 minutos são 2.610 palavras. O módulo tem 18 testes e, desde 31/07, o motor antigo de TTS recusa gerar áudio com o roteiro fora da faixa.</p>
+<p>Só que a narração do Criar Vídeo hoje passa pelas vozes do app, no renderer, e não por esse motor. Nenhuma skill nem o briefing chama <code>check_script_length</code> ou <code>set_video_target</code>. A duração é guiada pelo briefing e pelo júri, sem recusa dura. Escrevo porque o post é sobre o que o código diz, não sobre o que eu queria que dissesse.</p>
+<p>É código: ids do pedido validados, fila de vídeos, contadores do vigia e mixagem medida. É só instrução no briefing: não gastar com geração paga sem aprovação e não exportar o MP4 sem ordem. Um agente poderia ignorar essas.</p>
+<h2 id="onde-cada-ferramenta-entra">Onde cada ferramenta entra</h2>
+<figure><a href="fig-ferramentas.svg" target="_blank" rel="noopener"><img src="fig-ferramentas.svg" alt="Quatro colunas ligadas por setas: voz, mídia real, motion e montagem, com as ferramentas de cada uma. Montagem em destaque." loading="lazy"></a><figcaption>Figura 3. A cadeia de ferramentas por etapa.</figcaption></figure><p><strong>Voz.</strong> A narração sai sempre das vozes do próprio app, com o login da pessoa e sem chave de API. <code>vozes_buscar</code> procura no catálogo e <code>tts_generate</code> gera. O SRT palavra a palavra que volta do motor é a base de tempo de tudo: o plano estima as cenas a 145 palavras por minuto, mas o SRT decide a duração real.</p>
+<p><strong>Motion.</strong> HyperFrames e Remotion não montam vídeo, só entregam peças (rótulo, contador, título) em <code>motion/&lt;id&gt;/</code>. No Editor a peça entra ao vivo pelo <code>fonte/index.html</code>, editável sem renderizar. No CapCut entra o <code>clipe.mov</code> transparente.</p>
+<h2 id="midia-real-fidelidade-vale-mais-que-qualidade">Mídia real: fidelidade vale mais que qualidade</h2>
+<p>Na primeira versão de um vídeo sobre a história de uma fabricante de motos, o agente trocava a entidade citada por um banco genérico e bonito, e o juiz aprovava. Ficou &quot;genérico, sem graça&quot;. Na segunda (03/10) a cena passou a mostrar <strong>exatamente</strong> a pessoa, o produto, o lugar ou o evento que a fala cita, mesmo com foto pequena, velha ou granulada.</p>
+<p>Duas decisões sustentam isso. O juiz: mídia genérica numa cena com nome próprio nunca sai <code>aprovada</code>. A camada técnica usa os filtros <code>blackdetect</code> e <code>freezedetect</code> do FFmpeg <a href="https://ffmpeg.org/ffmpeg-filters.html" target="_blank" rel="noopener">1</a> e reprova vídeo com menos de 90% da duração da cena ou com mais de 30% de quadro preto ou congelado.</p>
+<p>A escada de busca: para lugar, evento e época, vídeo primeiro: acervos de arquivo e YouTube, com <code>youtube_moments</code> achando o segundo exato pela legenda e <code>youtube_clip</code> baixando só o trecho. A busca vai em inglês e na língua de origem, com a data local (Hamamatsu 1946 vira <code>浜松 昭和21年</code>). O catálogo tem 33 bancos, e a época da mídia deve bater com a da fala em até 5 anos.</p>
+<p>A foto pequena entra menor, inteira, sobre um fundo. No <code>compor-fotos.cjs</code>, foto 16:9 com 1.600 pixels ou mais ocupa a tela. O resto entra com 778 de 1.080 pixels de altura (72%) sobre a própria imagem ampliada, desfocada e escurecida. Nunca esticada, nunca com barra preta.</p>
+<p>Outro erro: a chave do Pexels colada na configuração dos MCPs era gravada como <code>mcp:mcp-pexels:PEXELS_API_KEY</code>, e a busca lia <code>pexels_api_key</code>. Resultado: &quot;criei a API e não funciona&quot;. Hoje <code>getChaveBanco</code> lê os dois nomes.</p>
+<h2 id="montagem-regras-que-a-ia-nao-adivinha">Montagem: regras que a IA não adivinha</h2>
+<figure><a href="fig-regras-montagem.svg" target="_blank" rel="noopener"><img src="fig-regras-montagem.svg" alt="Tabela visual com oito regras de montagem e o valor de cada uma no código, de foto em tela cheia até o limite de renders simultâneos." loading="lazy"></a><figcaption>Figura 4. Regras de montagem e os valores que o código aplica.</figcaption></figure><p><strong>Imagem parada.</strong> Um vídeo saiu com as fotos paradas porque o template clonado tinha &quot;câmera parada&quot;. Agora o briefing sempre manda <code>motion: kenburns</code>. No documentário, depois do piloto, o movimento é só zoom de 5% entrando e saindo, em clipes feitos com <code>zoompan</code> <a href="https://ffmpeg.org/ffmpeg-filters.html" target="_blank" rel="noopener">1</a>. As duas regras coexistem.</p>
+<p><strong>Tempo de leitura.</strong> Edição com IA costuma ignorar o tempo de leitura. Depois que a última letra entra, o texto fica parado 10 caracteres por segundo, no mínimo 1,5 segundo. &quot;Em 1850, 3 mil crianças limpavam chaminés&quot; tem 41 caracteres e fica 4,1 segundos.</p>
+<p><strong>Som.</strong> O Editor mede loudness e pico verdadeiro, grandezas que a recomendação ITU-R BS.1770 define <a href="https://www.itu.int/rec/R-REC-BS.1770" target="_blank" rel="noopener">2</a>. A voz fica em -14 LUFS. A música tem volume de faixa constante: -16 dB no Editor (<code>music_volume: 0.158</code>, <code>duck: false</code>) e -25 dB no CapCut. Antes de exportar, <code>analyze_loudness</code> precisa devolver a voz entre -15 e -13 LUFS.</p>
+<h2 id="filme-no-estilo-e-o-piloto-de-engenharia">Filme no estilo e o piloto de engenharia</h2>
+<p>Quando a pessoa escolhe um estilo completo da biblioteca de templates, o vídeo inteiro sai pelo motor do próprio estilo. A dor veio do render: com 2 workers a memória estourou e o filme saiu com trecho preto. O briefing agora manda <code>--workers 1</code> e uma conferência de quadro preto no final.</p>
+<p>O piloto de engenharia (Torre Eiffel, 16,6 minutos) provou o processo. Custo medido: 568 chamadas de IA, 1 h 57 min de relógio e entre 70 e 86 dólares em preço de API. Cerca de 75% foi contexto relido ou criado. O custo está em reler, não em escrever.</p>
+<h2 id="fila-vigia-e-celular">Fila, vigia e celular</h2>
+<p>Em 14/10 a máquina caiu com 8 vídeos começados juntos. Cada vídeo sobe a própria IA com seus servidores MCP, perto de 2 GB. A fila agora conta memória: (RAM total menos 6 GB) dividido por 2 GB, com mínimo de 1.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">RAM do computador</th>
+<th style="text-align:left">Vídeos juntos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">8 GB</td>
+<td style="text-align:left">1</td>
+</tr>
+<tr>
+<td style="text-align:left">16 GB</td>
+<td style="text-align:left">5</td>
+</tr>
+<tr>
+<td style="text-align:left">32 GB</td>
+<td style="text-align:left">13</td>
+</tr>
+</tbody>
+</table>
+<p>Os renders têm fila à parte (veja o <a href="/blog/render-do-editor-gpu-e-ffmpeg/">render do Editor</a>). Um vídeo já esgotou a memória com 75 Chrome de render abertos.</p>
+<p>O vigia olha cada vídeo a cada 15 segundos e, com &quot;Aprovar sozinho&quot;, retoma a etapa parada. Três retomadas sem progresso mandam pular a etapa, e oito no total, desistir. Etapa que falha duas vezes vira <code>erro</code> e o fluxo segue, com um cartão &quot;CENA PENDENTE&quot; no lugar da mídia. O MP4 final sempre espera a pessoa.</p>
+<p>O celular (Beta, v11.2.1) pede um vídeo por ideia ou roteiro de até 4.000 caracteres. Segue o caminho do MCP e a regra da fila: sem vaga, o vídeo espera.</p>
+<h2 id="o-que-eu-levaria-para-qualquer-projeto">O que eu levaria para qualquer projeto</h2>
+<ul>
+<li><strong>Uma ficha só, em disco.</strong> Se a interface e a IA guardam estados separados, um dia divergem. Um arquivo lido pelos dois resolve, inclusive o reload.</li>
+<li><strong>Regra em prosa vira código, e o código tem que estar no caminho certo.</strong> Meu gate de duração mostra os dois lados do problema.</li>
+<li><strong>Fidelidade antes de beleza.</strong> Um juiz que aprova imagem bonita e errada é pior que nenhum. Foi assim que passei a <a href="/blog/como-eu-trabalho-com-ia-memoria-skills-regras/">trabalhar com IA, memória e regras</a>: cada queixa vira regra.</li>
+<li><strong>Meça som e tempo.</strong> Nível medido e leitura a 10 caracteres por segundo valem mais que &quot;mais baixo&quot; e &quot;mais lento&quot;.</li>
+<li><strong>Limite por memória, não por vontade.</strong> Paralelismo precisa de fila, e a conta é de RAM.</li>
+</ul>
+<h2 id="referencias">Referências</h2>
+<ol>
+<li><a href="https://ffmpeg.org/ffmpeg-filters.html" target="_blank" rel="noopener">FFmpeg Filters Documentation (blackdetect, freezedetect, zoompan)</a></li>
+<li><a href="https://www.itu.int/rec/R-REC-BS.1770" target="_blank" rel="noopener">ITU-R BS.1770, algoritmos de loudness e pico verdadeiro</a></li>
+</ol>
+<p class="assina">Escrito por Tharcisio Nardoto, engenheiro civil e criador do <a href="/studio/">Nardoto Studio</a>.</p></div></div></div></article>
+<section class="relacionados"><div class="wrap"><h2>Continue a leitura.</h2><div class="grid" style="padding-bottom:0"><a class="card" href="/blog/bugs-que-so-aparecem-no-cliente/"><img src="/blog/bugs-que-so-aparecem-no-cliente/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">29 out. 2026 · 8 min de leitura</span><h2>Bugs que só aparecem no computador do cliente</h2><p>Seis bugs do Nardoto Studio que funcionavam em desenvolvimento e quebravam no instalador, e a trava (teste, guard ou build) que impede cada um de voltar.</p><span class="ler">Ler artigo &rarr;</span></div></a><a class="card" href="/blog/cinco-ias-num-chat-so/"><img src="/blog/cinco-ias-num-chat-so/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">29 out. 2026 · 8 min de leitura</span><h2>Cinco IAs num chat só: o protocolo de cada CLI por dentro</h2><p>Como o chat do Nardoto Studio conversa com Claude Code, Codex, agy e Grok pelo CLI de cada um: o protocolo, o que mudou de um para outro e o que quebrou.</p><span class="ler">Ler artigo &rarr;</span></div></a><a class="card" href="/blog/render-do-editor-gpu-e-ffmpeg/"><img src="/blog/render-do-editor-gpu-e-ffmpeg/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">29 out. 2026 · 8 min de leitura</span><h2>O render do Editor: GPU no Windows, FFmpeg no Mac</h2><p>Como o Nardoto Studio renderiza vídeo: módulo Rust no Windows, FFmpeg no Mac, o export do CapCut aberto no Ghidra e os bugs de Remotion e HyperFrames.</p><span class="ler">Ler artigo &rarr;</span></div></a></div></div></section></main>
+<footer><div class="wrap"><span>Blog do Nardoto Studio. Escrito por Tharcisio Nardoto.</span><span><a href="/">nardoto.com.br</a> · <a href="/blog/feed.xml">RSS</a></span></div></footer>
+</body></html>

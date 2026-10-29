@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 570" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Cinco etapas de proteção antes de o instalador chegar ao cliente: validate-build, fetch-python-runtime, package, smoke-test e sandbox:packed</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E85A2A"/></marker></defs>
+<rect width="1200" height="570" rx="18" fill="#141414"/>
+<text x="20" y="46" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">O CAMINHO ATÉ O INSTALADOR E O QUE CADA ETAPA PEGA</text>
+<g fill="#1A1A1A"><rect x="20" y="70" width="400" height="70" rx="12"/><rect x="20" y="156" width="400" height="70" rx="12"/><rect x="20" y="242" width="400" height="70" rx="12"/><rect x="20" y="328" width="400" height="70" rx="12"/></g>
+<rect x="20" y="414" width="400" height="70" rx="12" fill="#2A1710"/>
+<g fill="#1A1A1A"><rect x="450" y="70" width="730" height="70" rx="12"/><rect x="450" y="156" width="730" height="70" rx="12"/><rect x="450" y="242" width="730" height="70" rx="12"/><rect x="450" y="328" width="730" height="70" rx="12"/></g>
+<rect x="450" y="414" width="730" height="70" rx="12" fill="#2A1710"/>
+<g font-size="20" font-weight="700" fill="#fff">
+<text x="40" y="100">1. validate-build</text><text x="40" y="186">2. fetch-python-runtime</text><text x="40" y="272">3. electron-forge package</text><text x="40" y="358">4. smoke-test</text><text x="40" y="444" fill="#FF8A5C">5. sandbox:packed</text></g>
+<g font-size="17" fill="#B4B9C2">
+<text x="40" y="126">9 seções, antes de tudo</text><text x="40" y="212">baixa o Python assinado</text><text x="40" y="298">gera o bundle do app</text><text x="40" y="384">roda no pacote, não no repo</text><text x="40" y="470">manual, com perfil limpo</text></g>
+<g font-size="18" fill="#fff">
+<text x="470" y="111">Recurso faltando, dependência, processo órfão, canal IPC</text>
+<text x="470" y="197">Garante o runtime que evita o exe sem reputação</text>
+<text x="470" y="283">Caminho da máquina de build no bundle: aborta</text>
+<text x="470" y="369">Runtime, templates, exe velho e add-text real</text>
+<text x="470" y="455" fill="#FF8A5C">O que nenhum script previu: abrir o pacote e usar</text></g>
+<g stroke="#E85A2A" stroke-width="2.5"><path d="M220 140V152" marker-end="url(#a)"/><path d="M220 226V238" marker-end="url(#a)"/><path d="M220 312V324" marker-end="url(#a)"/><path d="M220 398V410" marker-end="url(#a)"/></g>
+<text x="600" y="530" fill="#9CA3AF" font-size="18" text-anchor="middle">As etapas 1 a 4 fazem parte das 19 do _dist:win. A 5 eu rodo à mão.</text>
+</svg>

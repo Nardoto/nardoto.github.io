@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 530" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Regras de montagem do Criar Vídeo com os valores que estão no código</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E85A2A"/></marker></defs>
+<rect width="1200" height="530" rx="18" fill="#141414"/>
+<text x="40" y="52" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">AS REGRAS DE MONTAGEM, COM OS VALORES DO CÓDIGO</text>
+<rect x="30" y="76" width="1140" height="46" rx="10" fill="#1A1A1A"/>
+<text x="56" y="106" fill="#B4B9C2" font-size="19">Foto 16:9 com 1600 px ou mais</text>
+<text x="520" y="106" fill="#fff" font-size="20" font-weight="700">Tela cheia</text>
+<rect x="30" y="130" width="1140" height="46" rx="10" fill="#1A1A1A"/>
+<text x="56" y="160" fill="#B4B9C2" font-size="19">Foto menor, 4:3 ou vertical</text>
+<text x="520" y="160" fill="#fff" font-size="20" font-weight="700">72% da altura, sobre a própria imagem desfocada</text>
+<rect x="30" y="184" width="1140" height="46" rx="10" fill="#1A1A1A"/>
+<text x="56" y="214" fill="#B4B9C2" font-size="19">Imagem parada</text>
+<text x="520" y="214" fill="#fff" font-size="20" font-weight="700">Zoom ou pan lento, 5 a 8% na cena, alternando</text>
+<rect x="30" y="238" width="1140" height="46" rx="10" fill="#1A1A1A"/>
+<text x="56" y="268" fill="#B4B9C2" font-size="19">Época da mídia</text>
+<text x="520" y="268" fill="#fff" font-size="20" font-weight="700">Até 5 anos de diferença da fala</text>
+<rect x="30" y="292" width="1140" height="46" rx="10" fill="#1A1A1A"/>
+<text x="56" y="322" fill="#B4B9C2" font-size="19">Texto na tela</text>
+<text x="520" y="322" fill="#fff" font-size="20" font-weight="700">Parado 10 caracteres por segundo, mínimo 1,5 s</text>
+<rect x="30" y="346" width="1140" height="46" rx="10" fill="#1A1A1A"/>
+<text x="56" y="376" fill="#B4B9C2" font-size="19">Voz</text>
+<text x="520" y="376" fill="#fff" font-size="20" font-weight="700">-14 LUFS, pico até -1 dBTP</text>
+<rect x="30" y="400" width="1140" height="46" rx="10" fill="#1A1A1A"/>
+<text x="56" y="430" fill="#B4B9C2" font-size="19">Música</text>
+<text x="520" y="430" fill="#fff" font-size="20" font-weight="700">Constante: -16 dB no Editor, -25 dB no CapCut</text>
+<rect x="30" y="454" width="1140" height="46" rx="10" fill="#1A1A1A"/>
+<text x="56" y="484" fill="#B4B9C2" font-size="19">Renders ao mesmo tempo</text>
+<text x="520" y="484" fill="#fff" font-size="20" font-weight="700">No máximo 2 (o filme no estilo, 1)</text>
+</svg>

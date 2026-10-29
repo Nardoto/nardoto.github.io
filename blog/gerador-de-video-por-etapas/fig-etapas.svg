@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 530" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">As 10 etapas do painel Criar Vídeo, na ordem, com as etapas que têm conferência em destaque</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E85A2A"/></marker></defs>
+<rect width="1200" height="530" rx="18" fill="#141414"/>
+<text x="40" y="52" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">AS 10 ETAPAS DO PAINEL, NA ORDEM</text>
+<text x="1160" y="52" fill="#9CA3AF" font-size="17" text-anchor="end">Destaque: etapa com conferência</text>
+<rect x="30" y="80" width="200" height="120" rx="14" fill="#2A1710"/>
+<text x="50" y="120" fill="#FF8A5C" font-size="22" font-weight="700">1 roteiro</text>
+<text x="50" y="150" fill="#B4B9C2" font-size="17">texto humano</text>
+<text x="50" y="179" fill="#FF8A5C" font-size="17" font-weight="700">júri, 3 rodadas</text>
+<path d="M234 140H261" stroke="#E85A2A" stroke-width="2.5" fill="none" marker-end="url(#a)"/>
+<rect x="265" y="80" width="200" height="120" rx="14" fill="#1A1A1A"/>
+<text x="285" y="120" fill="#fff" font-size="22" font-weight="700">2 voz</text>
+<text x="285" y="150" fill="#B4B9C2" font-size="17">vozes do app</text>
+<path d="M469 140H496" stroke="#E85A2A" stroke-width="2.5" fill="none" marker-end="url(#a)"/>
+<rect x="500" y="80" width="200" height="120" rx="14" fill="#1A1A1A"/>
+<text x="520" y="120" fill="#fff" font-size="22" font-weight="700">3 cortes</text>
+<text x="520" y="150" fill="#B4B9C2" font-size="17">cenas pelo SRT</text>
+<path d="M704 140H731" stroke="#E85A2A" stroke-width="2.5" fill="none" marker-end="url(#a)"/>
+<rect x="735" y="80" width="200" height="120" rx="14" fill="#1A1A1A"/>
+<text x="755" y="120" fill="#fff" font-size="22" font-weight="700">4 prompts</text>
+<text x="755" y="150" fill="#B4B9C2" font-size="17">pacote prompts/</text>
+<path d="M939 140H966" stroke="#E85A2A" stroke-width="2.5" fill="none" marker-end="url(#a)"/>
+<rect x="970" y="80" width="200" height="120" rx="14" fill="#1A1A1A"/>
+<text x="990" y="120" fill="#fff" font-size="22" font-weight="700">5 veo3</text>
+<text x="990" y="150" fill="#B4B9C2" font-size="17">se houver cena</text>
+<rect x="30" y="290" width="200" height="120" rx="14" fill="#1A1A1A"/>
+<text x="50" y="330" fill="#fff" font-size="22" font-weight="700">6 motion</text>
+<text x="50" y="360" fill="#B4B9C2" font-size="17">peças em motion/</text>
+<path d="M234 350H261" stroke="#E85A2A" stroke-width="2.5" fill="none" marker-end="url(#a)"/>
+<rect x="265" y="290" width="200" height="120" rx="14" fill="#2A1710"/>
+<text x="285" y="330" fill="#FF8A5C" font-size="22" font-weight="700">7 trilha</text>
+<text x="285" y="360" fill="#B4B9C2" font-size="17">música e efeitos</text>
+<text x="285" y="389" fill="#FF8A5C" font-size="17" font-weight="700">LUFS e pico</text>
+<path d="M469 350H496" stroke="#E85A2A" stroke-width="2.5" fill="none" marker-end="url(#a)"/>
+<rect x="500" y="290" width="200" height="120" rx="14" fill="#1A1A1A"/>
+<text x="520" y="330" fill="#fff" font-size="22" font-weight="700">8 mídias</text>
+<text x="520" y="360" fill="#B4B9C2" font-size="17">busca real</text>
+<path d="M704 350H731" stroke="#E85A2A" stroke-width="2.5" fill="none" marker-end="url(#a)"/>
+<rect x="735" y="290" width="200" height="120" rx="14" fill="#2A1710"/>
+<text x="755" y="330" fill="#FF8A5C" font-size="22" font-weight="700">9 revisão</text>
+<text x="755" y="360" fill="#B4B9C2" font-size="17">conferir mídia</text>
+<text x="755" y="389" fill="#FF8A5C" font-size="17" font-weight="700">ffprobe + IA</text>
+<path d="M939 350H966" stroke="#E85A2A" stroke-width="2.5" fill="none" marker-end="url(#a)"/>
+<rect x="970" y="290" width="200" height="120" rx="14" fill="#2A1710"/>
+<text x="990" y="330" fill="#FF8A5C" font-size="22" font-weight="700">10 montagem</text>
+<text x="990" y="360" fill="#B4B9C2" font-size="17">Editor ou CapCut</text>
+<text x="990" y="389" fill="#FF8A5C" font-size="17" font-weight="700">MP4 só aprovado</text>
+<path d="M1070 204V245H130V286" stroke="#E85A2A" stroke-width="2.5" fill="none" marker-end="url(#a)"/>
+<text x="600" y="234" fill="#9CA3AF" font-size="17" text-anchor="middle">motion e trilha andam enquanto o VEO3 gera</text>
+<rect x="30" y="440" width="1140" height="64" rx="14" fill="#1A1A1A"/>
+<text x="56" y="480" fill="#fff" font-size="19">Em volta das 10 etapas: fila por memória, pausa e vigia que retoma o que parou</text>
+</svg>

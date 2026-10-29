@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8">
+<script>if(!/^(localhost|127.0.0.1)$/.test(location.hostname)){var g=document.createElement('script');g.async=true;g.src='https://www.googletagmanager.com/gtag/js?id=G-WSY9CWHH19';document.head.appendChild(g);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-WSY9CWHH19')}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Como eu trabalho com IA: memória, skills e regras | Blog do Nardoto Studio</title><meta name="description" content="Como organizo agentes de código: CLAUDE.md espelhado em outros CLIs, 364 arquivos de memória, 68 skills, subagentes e prova em teste, com os erros.">
+<link rel="canonical" href="https://nardoto.com.br/blog/como-eu-trabalho-com-ia-memoria-skills-regras/"><meta property="og:type" content="article"><meta property="og:url" content="https://nardoto.com.br/blog/como-eu-trabalho-com-ia-memoria-skills-regras/">
+<meta property="og:title" content="Como eu trabalho com IA: memória, skills e regras | Blog do Nardoto Studio"><meta property="og:description" content="Como organizo agentes de código: CLAUDE.md espelhado em outros CLIs, 364 arquivos de memória, 68 skills, subagentes e prova em teste, com os erros."><meta property="og:image" content="https://nardoto.com.br/blog/como-eu-trabalho-com-ia-memoria-skills-regras/capa.jpg">
+<link rel="icon" type="image/png" href="/favicon.png"><meta name="theme-color" content="#E85A2A">
+<link rel="alternate" type="application/rss+xml" title="Blog do Nardoto" href="/blog/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/blog/blog.css"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Como eu trabalho com IA: memória, skills e regras","description":"Como organizo agentes de código: CLAUDE.md espelhado em outros CLIs, 364 arquivos de memória, 68 skills, subagentes e prova em teste, com os erros.","datePublished":"2026-10-29","author":{"@type":"Person","name":"Tharcisio Nardoto"},"mainEntityOfPage":"https://nardoto.com.br/blog/como-eu-trabalho-com-ia-memoria-skills-regras/"}</script></head><body>
+<header class="topo"><div class="wrap"><a class="marca" href="/"><img src="/favicon.png" alt="">Nardoto</a>
+<nav class="nav"><a href="/">Apps</a><a href="/studio/">Studio</a><a href="/blog/" class="on">Blog</a></nav></div></header>
+<main><article><div class="wrap"><div class="cab"><a class="eyebrow" href="/blog/">Blog / Diário de construção</a>
+<h1>Como eu trabalho com IA: memória, skills e regras</h1><p class="lead">Como organizo agentes de código: CLAUDE.md espelhado em outros CLIs, 364 arquivos de memória, 68 skills, subagentes e prova em teste, com os erros.</p>
+<div class="meta">Tharcisio Nardoto · 29 out. 2026 · 9 min de leitura</div>
+<div class="tags"><a class="tag" href="/blog/tags/agentes/">agentes</a><a class="tag" href="/blog/tags/claude-code/">claude-code</a><a class="tag" href="/blog/tags/workflow/">workflow</a></div></div>
+<img class="capa" src="/blog/como-eu-trabalho-com-ia-memoria-skills-regras/capa.jpg" alt="" width="1200" height="630">
+<div class="corpo-post"><nav class="toc"><strong>Neste artigo</strong><a href="#o-ciclo-descrever-agir-provar-registrar">O ciclo: descrever, agir, provar, registrar</a><a href="#claude-md-uma-fonte-varios-espelhos">CLAUDE.md: uma fonte, vários espelhos</a><a href="#memoria-uma-nota-um-fato">Memória: uma nota, um fato</a><a href="#skills-e-a-poda">Skills, e a poda</a><a href="#subagentes-e-economia-de-tokens">Subagentes e economia de tokens</a><a href="#provar-testes-e-print">Provar: testes e print</a><a href="#paridade-studio-e-ide">Paridade Studio e IDE</a><a href="#modo-time-uma-ia-faz-outra-confere">Modo Time: uma IA faz, outra confere</a><a href="#onde-o-metodo-falha">Onde o método falha</a><a href="#o-que-eu-levaria-para-qualquer-projeto">O que eu levaria para qualquer projeto</a><a href="#referencias">Referências</a></nav>
+<div class="prose"><p>Sou engenheiro civil e construí o Nardoto Studio quase todo com agentes de código. Isso só funciona porque a IA não começa do zero a cada conversa: cada sessão abre com um contexto escrito, regras que cresceram com os erros e um jeito fixo de provar que a mudança funciona. Vagas de AI Engineer chamam esse conjunto de <em>harness</em>.</p>
+<p>Este post mostra o que existe de fato no repositório, o que cortei e onde o método ainda falha. Os bugs que ele ajudou a achar estão em <a href="/blog/bugs-que-so-aparecem-no-cliente/">Bugs que só aparecem no cliente</a>.</p>
+<blockquote>
+<p><strong>O que o código diz hoje (29/10/2026)</strong></p>
+<ul>
+<li>A pasta de memória do projeto tem <strong>364 arquivos</strong>: 163 de projeto, 157 de feedback (regras) e 30 de referência.</li>
+<li>Em <code>.claude/</code> moram <strong>68 skills e 7 subagentes</strong>; o <code>CLAUDE.md</code> tem 361 linhas e 32 commits desde fevereiro de 2026.</li>
+<li>Há <strong>592 arquivos de teste</strong> em <code>tests/</code> (578 de unidade, 14 de ponta a ponta) e 12 arquivos de pytest.</li>
+</ul>
+</blockquote>
+<h2 id="o-ciclo-descrever-agir-provar-registrar">O ciclo: descrever, agir, provar, registrar</h2>
+<p>Toda tarefa segue quatro passos. Descrevo o pedido em poucas linhas, a IA age (edita código, chama skills, manda busca larga a um subagente), vem a prova e só então o registro: o que doeu vira uma nota de memória.</p>
+<figure><a href="fig-ciclo.svg" target="_blank" rel="noopener"><img src="fig-ciclo.svg" alt="Ciclo em quatro etapas: descrever, agir, provar e registrar, com seta tracejada do registro de volta ao próximo pedido." loading="lazy"></a><figcaption>Figura 1. O ciclo de cada tarefa. A etapa 3 existe porque eu não leio cada linha que a IA escreve.</figcaption></figure><p>A frase da figura é a mais importante do post. Como não reviso todo o código gerado, a confiança vem de teste, tipos e, quando a mudança é de tela, um print do app real.</p>
+<h2 id="claude-md-uma-fonte-varios-espelhos"><a href="http://CLAUDE.md" target="_blank" rel="noopener">CLAUDE.md</a>: uma fonte, vários espelhos</h2>
+<p>O <code>CLAUDE.md</code> da raiz é a fonte da verdade: stack, comandos, arquitetura, regras de cor e de idioma, mapa de portas. O Claude Code o lê por padrão <a href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">1</a>. Mas uso também Codex, Antigravity e Gemini, e cada um procura as instruções num lugar.</p>
+<p>Em vez de manter vários arquivos à mão, o <code>scripts/sync-cross-cli.js</code> (381 linhas, 22 commits desde maio) gera os espelhos. Ele copia o <code>CLAUDE.md</code> para o <code>AGENTS.md</code>, um formato aberto que vários agentes já leem <a href="https://agents.md/" target="_blank" rel="noopener">2</a>, e replica <code>.claude/skills</code> e <code>.claude/agents</code> em <code>.codex/</code> e <code>.agents/</code>. O <code>GEMINI.md</code> fica de fora de propósito, porque o papel do Gemini é outro.</p>
+<figure><a href="fig-espelhos.svg" target="_blank" rel="noopener"><img src="fig-espelhos.svg" alt="Mapa: CLAUDE.md e a pasta .claude entram no script sync-cross-cli.js, que gera AGENTS.md, .codex, .agents e src/studio-skills; GEMINI.md fica fora, editado à mão." loading="lazy"></a><figcaption>Figura 2. Uma fonte, vários espelhos. O espelho do Antigravity traduz o cabeçalho dos subagentes.</figcaption></figure><p>Um detalhe custou caro: o Antigravity pula em silêncio o subagente cujo <code>model</code> não seja um nível que ele conhece, e um nome de ferramenta desconhecido trava o agente. Por isso o script traduz o cabeçalho (<code>haiku</code> vira <code>flash</code>) em vez de copiar. Nenhum erro aparece: o agente simplesmente não existe.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Peça</th>
+<th style="text-align:left">Onde mora</th>
+<th style="text-align:left">Para que serve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>CLAUDE.md</code></td>
+<td style="text-align:left">raiz</td>
+<td style="text-align:left">Regras e contexto de toda sessão</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AGENTS.md</code>, <code>.codex</code>, <code>.agents</code></td>
+<td style="text-align:left">gerados</td>
+<td style="text-align:left">O mesmo conteúdo para os outros CLIs</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>.claude/skills</code></td>
+<td style="text-align:left">68 itens</td>
+<td style="text-align:left">Procedimentos que a IA carrega sob demanda</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>.claude/agents</code></td>
+<td style="text-align:left">7 arquivos</td>
+<td style="text-align:left">Subagentes com ferramentas e modelo próprios</td>
+</tr>
+<tr>
+<td style="text-align:left">Memória</td>
+<td style="text-align:left">364 arquivos</td>
+<td style="text-align:left">Fatos que sobrevivem entre sessões</td>
+</tr>
+</tbody>
+</table>
+<h2 id="memoria-uma-nota-um-fato">Memória: uma nota, um fato</h2>
+<p>A memória fica em arquivos pequenos. Cada nota guarda um fato, com frontmatter (nome, descrição, tipo) e um corpo que responde duas perguntas: por que isso importa e como aplicar. O índice <code>MEMORY.md</code> tem 69 linhas e cerca de 18 KB, uma por nota. Só as primeiras 200 linhas ou 25 KB entram no início da sessão <a href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">1</a>, então estou em cerca de 70% do teto.</p>
+<figure><a href="fig-memoria.svg" target="_blank" rel="noopener"><img src="fig-memoria.svg" alt="Gráfico de barras com os 364 arquivos de memória por tipo: project 163, feedback 157, reference 30, outros 14." loading="lazy"></a><figcaption>Figura 3. Arquivos da memória por prefixo do nome, contados em 29/10/2026.</figcaption></figure><p>O tipo que mais ajuda é o <em>feedback</em>, a regra aprendida com um erro. Em setembro, os servidores MCP internos morriam no instalador com &quot;Connection closed&quot;. A nota guarda o sintoma, a causa (uma <em>fuse</em> do Electron desligada), o comando que decide em um minuto e a regra para o futuro. O caso está em <a href="/blog/chat-de-ia-pilotando-o-app-com-mcp/">Como fiz o chat de IA pilotar o próprio app com MCP</a>.</p>
+<p>Para os outros CLIs lerem a mesma memória, criei o servidor MCP <code>nardoto-memory</code> (maio de 2026): quatro ferramentas e teto de 80 KB de saída por sessão.</p>
+<h2 id="skills-e-a-poda">Skills, e a poda</h2>
+<p>São 68 skills: 37 em pasta e 31 em arquivo único. Predominam as de produção de vídeo e as de release. Vinte e seis estão em <code>STUDIO_APP_SKILLS</code> e viajam no instalador, porque o próprio app as usa.</p>
+<p>Em 13/09/2026 podei 18 skills genéricas de referência (React, Zustand, TypeScript, Tailwind, Python e semelhantes), no commit <code>f8ec9405</code>. Tinham zero uso em 30 dias e o modelo já conhece essas tecnologias. Errei na primeira passada: tirei também a <code>remotion-best-practices</code>, e o <code>sync-cross-cli.js</code> quebrou, porque o app a embarca para os clientes. Ela voltou. Antes de tirar uma skill, confiro <code>STUDIO_APP_SKILLS</code> e as fichas dos agentes que a citam.</p>
+<p>A mesma limpeza valeu para MCPs: toda sessão herdava a frota e o IDE chegou a 424 processos e 17,6 GB, 295 deles de MCP. Agora só o servidor do Studio sobe junto; o resto liga sob demanda.</p>
+<h2 id="subagentes-e-economia-de-tokens">Subagentes e economia de tokens</h2>
+<p>Os sete subagentes têm função clara: <code>explorar</code> (busca só de leitura, modelo barato), <code>tech-lead</code> (plano em ondas paralelas), <code>qa-engineer</code> e os de Electron, interface, prompts e animação. Busca que varre vários arquivos vai para o <code>explorar</code>, que devolve a conclusão e não o conteúdo. O cabeçalho com <code>name</code> e <code>description</code> é obrigatório; sem ele os CLIs ignoram o agente sem avisar. A documentação exige só esses dois campos <a href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener">3</a>.</p>
+<p>Os outros combinados de economia estão no mesmo arquivo: antes de escrever, ver se já existe no código; ler só o trecho necessário; não reler o que acabei de editar. Ao enxugar prompts do app cortei 31% do texto de dois arquivos, depois de aprender que a duplicação real está entre funções que se compõem. O agente de busca me prometeu 40% a 50% de ganho em um trecho; na prática era zero. Desde então confiro cada veredito de subagente.</p>
+<h2 id="provar-testes-e-print">Provar: testes e print</h2>
+<p>A prova vem em camadas: Vitest (578 arquivos), Playwright (14 de ponta a ponta), pytest para o Python e <code>tsc --noEmit</code> com baseline de zero erros. Bug que doeu vira teste: o clique da janela 2 que digitava na aba da janela 1 tem <code>cdpFlowPorJanela.test.ts</code>.</p>
+<p>Teste de unidade não pega tudo. Ao mexer numa feature, a IA a pilota no app real e tira print a cada passo. A regra nasceu de um erro do motor de tutoriais, que tratava &quot;achei o botão&quot; como sucesso: um projeto com nome repetido não era criado, e o vídeo saía errado sem aviso. Pilotar um pedido real de vídeo achou, em dez minutos, o que duas auditorias de código não acharam: das oito etapas, o agente usou a ferramenta nativa em apenas quatro, e o contexto estourou.</p>
+<h2 id="paridade-studio-e-ide">Paridade Studio e IDE</h2>
+<p>O chat do meu outro app, o Nardoto IDE, é um porte do chat do Studio. Em 23/07/2026 virou regra: toda mudança no chat do Studio é replicada no IDE na mesma sessão, pois antes se acumularam mais de sete correções e portei tudo de uma vez. A regra lista as diferenças (o IDE usa <code>contextBridge</code> puro e grava em <code>.nardoto/</code>), para adaptar em vez de copiar às cegas.</p>
+<h2 id="modo-time-uma-ia-faz-outra-confere">Modo Time: uma IA faz, outra confere</h2>
+<p>No Modo Time o chat vira maestro: a tool <code>delegar</code> manda subtarefas para outros CLIs já logados, somando as assinaturas que a pessoa já paga. A recursão é barrada pelo ambiente: o delegado recebe <code>NARDOTO_NO_DELEGAR=1</code> e nem enxerga a ferramenta.</p>
+<figure><a href="fig-time.svg" target="_blank" rel="noopener"><img src="fig-time.svg" alt="Fluxo do Modo Time: maestro delega ao executor, que entrega ao revisor; o revisor aprova e a entrega segue, ou manda corrigir e o parecer volta ao executor." loading="lazy"></a><figcaption>Figura 4. A revisão cruzada. Quem confere não é quem fez.</figcaption></figure><p>A revisão cruzada nasceu de uma queixa: o time estava tímido, cada IA falava só com o maestro. Com a revisão opcional, medi no disco que o maestro a pedia em 7 de 108 delegações. Hoje ela liga sozinha em texto e em código ou análise de peso médio ou pesado, no arquivo <code>revisaoCruzada.js</code>.</p>
+<p>Também errei ali. Pus um teto de tokens por delegação, e em setembro um job de tradução foi cortado em 293.342 tokens com o trabalho indo bem. Removi o teto. Ficaram vigias que medem vida, não consumo: 8 minutos de silêncio ou 2 sem arrancar.</p>
+<h2 id="onde-o-metodo-falha">Onde o método falha</h2>
+<ul>
+<li><strong>O <a href="http://CLAUDE.md" target="_blank" rel="noopener">CLAUDE.md</a> está grande.</strong> Tem 361 linhas, e a documentação recomenda menos de 200 <a href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">1</a>. E há trecho velho: ainda diz &quot;Versão atual: 6.1.0&quot;, e o último release no git é o v11.2.1.</li>
+<li><strong>Instrução não é garantia.</strong> O próprio manual trata o <a href="http://CLAUDE.md" target="_blank" rel="noopener">CLAUDE.md</a> como contexto, não como configuração imposta. O que não pode falhar precisa de teste ou de um <em>hook</em>.</li>
+<li><strong>A memória envelhece.</strong> Nota de setembro pode descrever código que já mudou; confiro o arquivo antes de agir.</li>
+<li><strong>Eu não leio tudo.</strong> Esse é o motivo de toda a prova acima.</li>
+</ul>
+<h2 id="o-que-eu-levaria-para-qualquer-projeto">O que eu levaria para qualquer projeto</h2>
+<ul>
+<li><strong>Uma fonte da verdade, gerada para o resto.</strong> Se os espelhos são escritos à mão, divergem.</li>
+<li><strong>Memória em notas pequenas, com o porquê.</strong> Sintoma, causa e como aplicar.</li>
+<li><strong>Pode skill e MCP por uso medido.</strong> O que ninguém usa só ocupa contexto.</li>
+<li><strong>Delegue busca larga e confira.</strong> O resumo de um subagente é uma hipótese.</li>
+<li><strong>Prova antes de &quot;pronto&quot;.</strong> Teste, tipos e print do app real; sem isso, você descobre no cliente.</li>
+<li><strong>Quem confere não é quem fez.</strong> Revisão cruzada entre modelos pega o que a autocrítica deixa passar.</li>
+</ul>
+<h2 id="referencias">Referências</h2>
+<ol>
+<li><a href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">Como o Claude Code lembra do seu projeto: CLAUDE.md e memória automática</a></li>
+<li><a href="https://agents.md/" target="_blank" rel="noopener">AGENTS.md, formato aberto para guiar agentes de código</a></li>
+<li><a href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener">Subagentes no Claude Code, documentação oficial</a></li>
+</ol>
+<p class="assina">Escrito por Tharcisio Nardoto, engenheiro civil e criador do <a href="/studio/">Nardoto Studio</a>.</p></div></div></div></article>
+<section class="relacionados"><div class="wrap"><h2>Continue a leitura.</h2><div class="grid" style="padding-bottom:0"><a class="card" href="/blog/chat-de-ia-pilotando-o-app-com-mcp/"><img src="/blog/chat-de-ia-pilotando-o-app-com-mcp/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">29 out. 2026 · 8 min de leitura</span><h2>Como fiz o chat de IA pilotar o próprio app com MCP</h2><p>O chat do Nardoto Studio cria projeto, narra, busca mídia e clica na tela por 88 ferramentas MCP. A arquitetura e os cinco erros que mais me custaram tempo.</p><span class="ler">Ler artigo &rarr;</span></div></a><a class="card" href="/blog/cinco-ias-num-chat-so/"><img src="/blog/cinco-ias-num-chat-so/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">29 out. 2026 · 8 min de leitura</span><h2>Cinco IAs num chat só: o protocolo de cada CLI por dentro</h2><p>Como o chat do Nardoto Studio conversa com Claude Code, Codex, agy e Grok pelo CLI de cada um: o protocolo, o que mudou de um para outro e o que quebrou.</p><span class="ler">Ler artigo &rarr;</span></div></a></div></div></section></main>
+<footer><div class="wrap"><span>Blog do Nardoto Studio. Escrito por Tharcisio Nardoto.</span><span><a href="/">nardoto.com.br</a> · <a href="/blog/feed.xml">RSS</a></span></div></footer>
+</body></html>

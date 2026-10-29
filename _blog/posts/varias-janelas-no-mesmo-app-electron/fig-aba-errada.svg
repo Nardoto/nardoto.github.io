@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Antes e depois do erro da aba errada: a janela 2 resolvia a aba pelo primeiro manager; agora resolve pela janela que pediu</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E85A2A"/></marker>
+<marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#6B7280"/></marker></defs>
+<rect width="1200" height="620" rx="18" fill="#141414"/>
+<text x="40" y="52" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">ERRO 2: A ABA DA JANELA ERRADA</text>
+<rect x="30" y="72" width="555" height="480" rx="14" fill="#1A1A1A"/>
+<rect x="615" y="72" width="555" height="480" rx="14" fill="#2A1710"/>
+<text x="56" y="108" fill="#9CA3AF" font-size="16" font-weight="700" letter-spacing="2">ANTES</text>
+<text x="641" y="108" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">DEPOIS</text>
+<rect x="56" y="124" width="503" height="66" rx="12" fill="#141414"/>
+<text x="76" y="164" fill="#fff" font-size="20" font-weight="700">w2 pede para preencher o prompt</text>
+<rect x="56" y="222" width="503" height="84" rx="12" fill="#141414"/>
+<text x="76" y="256" fill="#fff" font-size="20" font-weight="700">ctx.iaBrowserViewManager</text>
+<text x="76" y="288" fill="#B4B9C2" font-size="18">devolve o 1º manager do Map: sempre a w1</text>
+<rect x="56" y="338" width="503" height="84" rx="12" fill="#141414"/>
+<text x="76" y="372" fill="#fff" font-size="20" font-weight="700">tabId da w2 não existe lá</text>
+<text x="76" y="404" fill="#B4B9C2" font-size="18">cai em webContents.getAllWebContents()</text>
+<rect x="56" y="454" width="503" height="72" rx="12" fill="#2A1710"/>
+<text x="76" y="496" fill="#FF8A5C" font-size="20" font-weight="700">Digita e clica na aba da w1</text>
+<path d="M307 190L307 218" stroke="#6B7280" stroke-width="2.5" marker-end="url(#g)"/>
+<path d="M307 306L307 334" stroke="#6B7280" stroke-width="2.5" marker-end="url(#g)"/>
+<path d="M307 422L307 450" stroke="#6B7280" stroke-width="2.5" marker-end="url(#g)"/>
+<rect x="641" y="124" width="503" height="66" rx="12" fill="#1A1A1A"/>
+<text x="661" y="164" fill="#fff" font-size="20" font-weight="700">w2 pede para preencher o prompt</text>
+<rect x="641" y="222" width="503" height="84" rx="12" fill="#1A1A1A"/>
+<text x="661" y="256" fill="#fff" font-size="20" font-weight="700">ctx.getOriginWindow(event)</text>
+<text x="661" y="288" fill="#B4B9C2" font-size="18">descobre a janela pelo remetente do IPC</text>
+<rect x="641" y="338" width="503" height="84" rx="12" fill="#1A1A1A"/>
+<text x="661" y="372" fill="#fff" font-size="20" font-weight="700">manager da w2</text>
+<text x="661" y="404" fill="#B4B9C2" font-size="18">só varre as views e os slots dela</text>
+<rect x="641" y="454" width="503" height="72" rx="12" fill="#E85A2A"/>
+<text x="661" y="496" fill="#fff" font-size="20" font-weight="700">Digita e clica na aba da w2</text>
+<path d="M892 190L892 218" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+<path d="M892 306L892 334" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+<path d="M892 422L892 450" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+<text x="600" y="590" fill="#9CA3AF" font-size="18" text-anchor="middle">O fallback global saiu do código. A trava é um teste com 5 casos: cdpFlowPorJanela.test.ts.</text>
+</svg>

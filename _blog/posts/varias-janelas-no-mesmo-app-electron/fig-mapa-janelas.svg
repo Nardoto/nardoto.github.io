@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 490" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Mapa de três janelas do Studio: cada uma com identidade, quatro portas e a sessão do navegador interno</title>
+<rect width="1200" height="490" rx="18" fill="#141414"/>
+<text x="40" y="52" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">O MAPA DE JANELAS</text>
+<g font-size="17" fill="#9CA3AF" font-weight="700">
+<text x="64" y="108">janela</text><text x="250" y="108">ext</text><text x="350" y="108">flow</text><text x="450" y="108">mcp-browser</text><text x="590" y="108">mcp-studio</text><text x="750" y="108">sessão do navegador</text></g>
+<rect x="40" y="124" width="1120" height="94" rx="14" fill="#2A1710"/>
+<rect x="40" y="230" width="1120" height="94" rx="14" fill="#1A1A1A"/>
+<rect x="40" y="336" width="1120" height="94" rx="14" fill="#1A1A1A"/>
+<g font-size="28" font-weight="700" fill="#fff"><text x="64" y="166">w1</text><text x="64" y="272">w2</text><text x="64" y="378">w3</text></g>
+<g font-size="17" fill="#9CA3AF"><text x="64" y="196">índice 0</text><text x="64" y="302">índice 1</text><text x="64" y="408">índice 2</text></g>
+<g font-size="22" font-weight="700" fill="#fff">
+<text x="250" y="172">9876</text><text x="350" y="172">9877</text><text x="450" y="172">9878</text><text x="590" y="172">9879</text>
+<text x="250" y="278">9886</text><text x="350" y="278">9887</text><text x="450" y="278">9888</text><text x="590" y="278">9889</text>
+<text x="250" y="384">9896</text><text x="350" y="384">9897</text><text x="450" y="384">9898</text><text x="590" y="384">9899</text></g>
+<g font-size="20" font-weight="700" fill="#FF8A5C">
+<text x="750" y="170">persist:ia-browser</text><text x="750" y="276">persist:ia-browser-w2</text><text x="750" y="382">persist:ia-browser-w3</text></g>
+<g font-size="17" fill="#B4B9C2">
+<text x="750" y="198">nome histórico: ninguém perde login</text><text x="750" y="304">login próprio, outra conta se quiser</text><text x="750" y="410">login próprio, outra conta se quiser</text></g>
+<text x="600" y="462" fill="#9CA3AF" font-size="18" text-anchor="middle">Porta = base + 10 × índice. O índice é o menor livre: fechou a w1, a janela nova nasce w1 de novo.</text>
+</svg>

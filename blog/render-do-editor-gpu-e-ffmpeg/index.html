@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8">
+<script>if(!/^(localhost|127.0.0.1)$/.test(location.hostname)){var g=document.createElement('script');g.async=true;g.src='https://www.googletagmanager.com/gtag/js?id=G-WSY9CWHH19';document.head.appendChild(g);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-WSY9CWHH19')}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O render do Editor: GPU no Windows, FFmpeg no Mac | Blog do Nardoto Studio</title><meta name="description" content="Como o Nardoto Studio renderiza vídeo: módulo Rust no Windows, FFmpeg no Mac, o export do CapCut aberto no Ghidra e os bugs de Remotion e HyperFrames.">
+<link rel="canonical" href="https://nardoto.com.br/blog/render-do-editor-gpu-e-ffmpeg/"><meta property="og:type" content="article"><meta property="og:url" content="https://nardoto.com.br/blog/render-do-editor-gpu-e-ffmpeg/">
+<meta property="og:title" content="O render do Editor: GPU no Windows, FFmpeg no Mac | Blog do Nardoto Studio"><meta property="og:description" content="Como o Nardoto Studio renderiza vídeo: módulo Rust no Windows, FFmpeg no Mac, o export do CapCut aberto no Ghidra e os bugs de Remotion e HyperFrames."><meta property="og:image" content="https://nardoto.com.br/blog/render-do-editor-gpu-e-ffmpeg/capa.jpg">
+<link rel="icon" type="image/png" href="/favicon.png"><meta name="theme-color" content="#E85A2A">
+<link rel="alternate" type="application/rss+xml" title="Blog do Nardoto" href="/blog/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/blog/blog.css"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"O render do Editor: GPU no Windows, FFmpeg no Mac","description":"Como o Nardoto Studio renderiza vídeo: módulo Rust no Windows, FFmpeg no Mac, o export do CapCut aberto no Ghidra e os bugs de Remotion e HyperFrames.","datePublished":"2026-10-29","author":{"@type":"Person","name":"Tharcisio Nardoto"},"mainEntityOfPage":"https://nardoto.com.br/blog/render-do-editor-gpu-e-ffmpeg/"}</script></head><body>
+<header class="topo"><div class="wrap"><a class="marca" href="/"><img src="/favicon.png" alt="">Nardoto</a>
+<nav class="nav"><a href="/">Apps</a><a href="/studio/">Studio</a><a href="/blog/" class="on">Blog</a></nav></div></header>
+<main><article><div class="wrap"><div class="cab"><a class="eyebrow" href="/blog/">Blog / Diário de construção</a>
+<h1>O render do Editor: GPU no Windows, FFmpeg no Mac</h1><p class="lead">Como o Nardoto Studio renderiza vídeo: módulo Rust no Windows, FFmpeg no Mac, o export do CapCut aberto no Ghidra e os bugs de Remotion e HyperFrames.</p>
+<div class="meta">Tharcisio Nardoto · 29 out. 2026 · 8 min de leitura</div>
+<div class="tags"><a class="tag" href="/blog/tags/render/">render</a><a class="tag" href="/blog/tags/video/">vídeo</a><a class="tag" href="/blog/tags/arquitetura/">arquitetura</a></div></div>
+<img class="capa" src="/blog/render-do-editor-gpu-e-ffmpeg/capa.jpg" alt="" width="1200" height="630">
+<div class="corpo-post"><nav class="toc"><strong>Neste artigo</strong><a href="#dois-motores-no-windows-um-no-mac">Dois motores no Windows, um no Mac</a><a href="#abrindo-o-export-do-capcut-no-ghidra">Abrindo o export do CapCut no Ghidra</a><a href="#motion-graphics-remotion-e-hyperframes">Motion graphics: Remotion e HyperFrames</a><a href="#o-que-eu-levaria-para-qualquer-projeto">O que eu levaria para qualquer projeto</a><a href="#referencias">Referências</a></nav>
+<div class="prose"><p>Renderizar vídeo parece um problema de uma linha: pegar os clipes e escrever um MP4. No Nardoto Studio virou quatro problemas, em motores diferentes, e dois deles eu só descobri quebrados quando fui testar no app de verdade.</p>
+<p>Este post conta como o render está montado em Windows e Mac, o que aprendi abrindo o export do CapCut num descompilador, onde entram Remotion e HyperFrames e os erros que mais custaram tempo. O contexto do produto está em <a href="/blog/como-eu-trabalho-com-ia-memoria-skills-regras/">como eu trabalho com IA</a> e na <a href="/blog/gerador-de-video-por-etapas/">geração de vídeo por etapas</a>.</p>
+<blockquote>
+<p><strong>O que o código diz hoje (29/10/2026)</strong></p>
+<ul>
+<li>O pipeline de render por FFmpeg tem <strong>1.272 linhas</strong> em <code>ffmpegGpuPipeline.js</code>, mais 456 no detector de GPU, em 11 commits.</li>
+<li>O módulo nativo em Rust tem <strong>4.825 linhas em 20 arquivos</strong>, 8 commits, o primeiro em 25/02/2026.</li>
+<li>O exportador do Nardoto Editor (C++/Qt) tem <strong>2.878 linhas</strong> em <code>Exporter.cpp</code>.</li>
+</ul>
+</blockquote>
+<h2 id="dois-motores-no-windows-um-no-mac">Dois motores no Windows, um no Mac</h2>
+<p>Para renderizar o projeto de CapCut, o Studio tem dois motores. O primeiro é um módulo Rust carregado como addon do Node: decodifica em paralelo, compõe os quadros na GPU com D3D11 e codifica com QSV, caindo para x264 se a Intel não responder. O segundo é o FFmpeg por linha de comando.</p>
+<p>Quem decide é um gate de uma linha em <code>preview.js</code>: <code>if (ctx.nativeRender &amp;&amp; !hasImages)</code>. Projeto só de vídeo vai para o Rust. Projeto com imagem ou Ken Burns vai para o FFmpeg, porque o motor nativo não anima.</p>
+<figure><a href="fig-plataformas.svg" target="_blank" rel="noopener"><img src="fig-plataformas.svg" alt="Dois painéis: no Windows o gate escolhe entre FFmpeg e Rust; no Mac só existe o FFmpeg." loading="lazy"></a><figcaption>Figura 1. Quem renderiza o quê. O módulo Rust só existe para Windows.</figcaption></figure><p>No Mac o <code>main.js</code> procura um arquivo chamado <code>nardoto-render.win32-x64-msvc.node</code>, não acha, e o motor nativo fica nulo. Sobra o FFmpeg, com um detector que classifica a máquina em níveis. O nível 0 é o caminho que mantém tudo na memória da placa NVIDIA, da decodificação ao NVENC <a href="https://docs.nvidia.com/video-technologies/video-codec-sdk/13.0/ffmpeg-with-nvidia-gpu/index.html" target="_blank" rel="noopener">1</a>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Nível</th>
+<th style="text-align:left">Quando</th>
+<th style="text-align:left">Decodifica</th>
+<th style="text-align:left">Codifica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">NVIDIA com <code>scale_cuda</code> e <code>overlay_cuda</code></td>
+<td style="text-align:left">NVDEC</td>
+<td style="text-align:left">NVENC</td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">AMD (ou NVIDIA sem filtros CUDA)</td>
+<td style="text-align:left">placa</td>
+<td style="text-align:left">AMF ou NVENC</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">Intel QSV ou Apple VideoToolbox</td>
+<td style="text-align:left">CPU</td>
+<td style="text-align:left">placa</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">nenhum encoder de placa</td>
+<td style="text-align:left">CPU</td>
+<td style="text-align:left">x264</td>
+</tr>
+</tbody>
+</table>
+<p>Eu costumava dizer &quot;no Mac é software&quot;. O código diz outra coisa: se o FFmpeg tiver <code>h264_videotoolbox</code>, o detector codifica pela placa e deixa a decodificação na CPU. Software puro é o último nível.</p>
+<h3 id="o-furo-que-eu-so-vi-lendo-o-codigo">O furo que eu só vi lendo o código</h3>
+<p>Numa auditoria de GPU em junho, com <code>nvidia-smi</code> aberto, achei algo contra-intuitivo. O Chromium do app já usa a placa dedicada. Mas o módulo Rust usa a GTX só para <strong>compor</strong>: o encoder dele tenta QSV e depois software, e <code>nvenc</code> não aparece uma vez sequer no código Rust.</p>
+<p>Na prática, projeto só de vídeo, o caso mais comum, compõe na NVIDIA e comprime na CPU ou na Intel. O NVENC só abre quando há imagens. Documentei o conserto na época (detectar a GPU antes do gate), com uma armadilha: o cache do detector está frio no primeiro render, e um <code>getCached()</code> ali viraria um no-op silencioso. Conferi hoje: o gate continua igual. O conserto não foi aplicado.</p>
+<h2 id="abrindo-o-export-do-capcut-no-ghidra">Abrindo o export do CapCut no Ghidra</h2>
+<p>O README do módulo Rust cita o CapCut como alvo (uma DLL de 62 MB, 174 threads). Em 13/10/2026 fui ver por dentro: instalei o Ghidra 12.1.4 com JDK 21 para descompilar o <code>videoeditor.dll</code> do CapCut 9.5.0.4050. Analisar uma DLL de 68 MB inteira é lento. O truque foi importar sem análise (cerca de 1 minuto) e usar um script que desmonta só a função pedida e as que ela chama.</p>
+<p>O relatório saiu com 69 linhas, cada item marcado como confirmado, provável ou não encontrado. Essa marcação é a regra de ouro da engenharia reversa. Entre os confirmados:</p>
+<ul>
+<li><strong>Export separado da prévia</strong>, por padrão em outro processo.</li>
+<li><strong>Grafo de etapas com filas</strong> e threads nomeadas, não um laço.</li>
+<li><strong>Áudio em grafo próprio</strong>, copiado sem recodificar quando não foi editado.</li>
+<li><strong>Export paralelo por segmentos</strong>, concatenados no fim.</li>
+<li><strong>Pré-render de trechos pesados</strong> em cache com chave md5.</li>
+</ul>
+<p>Tamanho das filas e preset exato do NVENC ficaram como &quot;não encontrado&quot;.</p>
+<h3 id="medir-o-nosso-antes-de-copiar">Medir o nosso antes de copiar</h3>
+<p>Antes de copiar, medi o export do Nardoto Editor num projeto de pintura em 1080p30. O exportador grava um cronômetro por etapa num log temporário. Sem a janela de prévia ele fazia cerca de 170 quadros por segundo. Com a janela aberta, cerca de 110. O laço era serial.</p>
+<figure><a href="fig-laco-export.svg" target="_blank" rel="noopener"><img src="fig-laco-export.svg" alt="Barras com a fatia de cada etapa do export do Editor: placa 28 por cento, cena 23, NVENC 22, áudio 15." loading="lazy"></a><figcaption>Figura 2. Cada etapa esperava a anterior. Medido num projeto de pintura, 1080p30.</figcaption></figure><p>O relatório listou sete coisas para copiar, da maior vantagem para a menor. A primeira ataca exatamente a queda de 170 para 110. A terceira, áudio fora do laço de vídeo, já está no código de trabalho do Editor: uma thread produz os pacotes AAC e o laço só grava. Um comentário ali diz que o áudio dentro do laço custava cerca de 30 segundos num export de 12:37 de vídeo. Essa mudança ainda não foi commitada, então ainda não é entrega.</p>
+<p>Baixei também o FilmCraft e o EffectCraft, de licença permissiva, e listei seis algoritmos para portar, como os 38 modos de mistura e o medidor de loudness. Sendo franco, é uma lista, não um porte feito: nenhum arquivo do Editor cita os dois projetos hoje.</p>
+<h2 id="motion-graphics-remotion-e-hyperframes">Motion graphics: Remotion e HyperFrames</h2>
+<p>Remotion e HyperFrames não montam vídeo no Studio. Só fazem motion graphics: um clipe de fundo transparente (ProRes 4444, em <code>.mov</code>) que o Editor ou o CapCut coloca na linha do tempo.</p>
+<figure><a href="fig-motores.svg" target="_blank" rel="noopener"><img src="fig-motores.svg" alt="Três cartões: motion gera clipe transparente, Editor ou CapCut montam, o export codifica." loading="lazy"></a><figcaption>Figura 3. Onde cada motor entra. O de motion nunca é o último da cadeia.</figcaption></figure><h3 id="o-remotion-que-nunca-renderizou">O Remotion que nunca renderizou</h3>
+<p>Em 16/08/2026 testei o Remotion no app real e descobri que <strong>ele nunca tinha produzido um vídeo</strong>. Não era regressão, era um caminho que nunca fechou. Dos quatro caminhos de render, só um funcionava, e o que o chat usava era um dos mortos: chamava um <code>render-cli.js</code> que não existe no disco nem no instalador. Os bugs vinham em cascata, cada um só aparecia depois de consertar o anterior.</p>
+<p>O mais bobo: a tela mandava &quot;Qualidade&quot; em porcentagem (60, 80, 90, 100) para a opção <code>crf</code>, que aceita de 1 a 51. Toda escolha da interface estourava. O cancelamento também falhava, porque o Remotion quer o retorno de <code>makeCancelSignal()</code>, não um <code>AbortSignal</code> <a href="https://www.remotion.dev/docs/renderer/render-media" target="_blank" rel="noopener">2</a>.</p>
+<p>O erro de método foi pior que os bugs. O código tinha um <code>catch</code> que caía no caminho antigo e trocava o erro real por um &quot;spawn ENOENT&quot; que não dizia nada. Tirei o <code>catch</code>. A regra desde então: testar render olhando o MP4 no disco, nunca por <code>success: true</code>. O chat chama esse render pelas ferramentas de <a href="/blog/chat-de-ia-pilotando-o-app-com-mcp/">MCP</a>, então o caminho quebrado era justamente o que a IA usava.</p>
+<p>Sobrou um risco de ambiente: o primeiro render baixa cerca de 107 MB de um Chrome próprio, sem aviso. Hoje o código tenta reaproveitar um Chrome ou Edge local antes. Mais casos em <a href="/blog/bugs-que-so-aparecem-no-cliente/">bugs que só aparecem no cliente</a>.</p>
+<h3 id="hyperframes-a-lentidao-que-nao-era-do-motor">HyperFrames: a lentidão que não era do motor</h3>
+<p>Abrir um projeto pronto no estúdio do HyperFrames demorava uma eternidade. Minhas hipóteses (os 1.962 tweens do GSAP, os filtros de desfoque, o DOM) caíram uma a uma nas medições. A resposta estava no log da própria ferramenta: de 847 linhas, 542 eram a mesma, <code>Thumbnail generation failed: Navigation timeout of 10000 ms exceeded</code>.</p>
+<p>Cada miniatura reabre a composição inteira, e várias navegações juntas estouram o teto de 10 segundos. Desligar as miniaturas pelo botão da interface não fez diferença. A saída foi não usar o estúdio para assistir e criar um render pelo motor do próprio player.</p>
+<figure><a href="fig-tempo-hyperframes.svg" target="_blank" rel="noopener"><img src="fig-tempo-hyperframes.svg" alt="Barras: CLI com disco 50 s, CLI sem disco 72 s, motor próprio 23 s." loading="lazy"></a><figcaption>Figura 4. Persegui os temporários em disco por vários turnos. O gargalo era outro.</figcaption></figure><p>Persegui os 19,5 GB de JPEGs temporários achando que eram o gargalo. Não eram: sem disco o CLI ficou 44% mais lento. O custo era por quadro, cerca de 100 ms contra 16 ms do player.</p>
+<p>O pior bug foi uma armadilha da janela invisível do Electron <a href="https://www.electronjs.org/docs/latest/tutorial/offscreen-rendering" target="_blank" rel="noopener">3</a>. Chamar <code>invalidate()</code> depois do <code>seek</code> <strong>não gera um quadro novo</strong>, devolve o anterior: 119 quadros errados em 120. O padrão certo é contra-intuitivo, armar o ouvinte do <code>paint</code> antes do <code>seek</code> e nunca chamar <code>invalidate()</code>. E contar quadros entregues não prova nada, então carimbei o número do quadro numa cor e li de volta de dentro do MP4 codificado: 480 de 480.</p>
+<h2 id="o-que-eu-levaria-para-qualquer-projeto">O que eu levaria para qualquer projeto</h2>
+<ul>
+<li><strong>Meça o seu antes de copiar o dos outros.</strong> O cronômetro por etapa mostrou onde o tempo ia.</li>
+<li><strong>Marque o que você confirmou e o que é palpite.</strong> &quot;Provável&quot; é uma resposta honesta.</li>
+<li><strong>Teste render olhando o arquivo.</strong> Um <code>success: true</code> já escondeu um motor inteiro quebrado.</li>
+<li><strong>Leia o log da ferramenta antes de culpar o motor.</strong> 542 linhas iguais valem mais que três hipóteses.</li>
+<li><strong>Registre o conserto que você não fez.</strong> O furo do NVENC está documentado, com a armadilha. Só não está aplicado.</li>
+</ul>
+<h2 id="referencias">Referências</h2>
+<ol>
+<li><a href="https://docs.nvidia.com/video-technologies/video-codec-sdk/13.0/ffmpeg-with-nvidia-gpu/index.html" target="_blank" rel="noopener">Using FFmpeg with NVIDIA GPU Hardware Acceleration, NVIDIA</a></li>
+<li><a href="https://www.remotion.dev/docs/renderer/render-media" target="_blank" rel="noopener">renderMedia(), documentação do Remotion</a></li>
+<li><a href="https://www.electronjs.org/docs/latest/tutorial/offscreen-rendering" target="_blank" rel="noopener">Offscreen Rendering, documentação do Electron</a></li>
+</ol>
+<p class="assina">Escrito por Tharcisio Nardoto, engenheiro civil e criador do <a href="/studio/">Nardoto Studio</a>.</p></div></div></div></article>
+<section class="relacionados"><div class="wrap"><h2>Continue a leitura.</h2><div class="grid" style="padding-bottom:0"><a class="card" href="/blog/cinco-ias-num-chat-so/"><img src="/blog/cinco-ias-num-chat-so/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">29 out. 2026 · 8 min de leitura</span><h2>Cinco IAs num chat só: o protocolo de cada CLI por dentro</h2><p>Como o chat do Nardoto Studio conversa com Claude Code, Codex, agy e Grok pelo CLI de cada um: o protocolo, o que mudou de um para outro e o que quebrou.</p><span class="ler">Ler artigo &rarr;</span></div></a><a class="card" href="/blog/gerador-de-video-por-etapas/"><img src="/blog/gerador-de-video-por-etapas/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">29 out. 2026 · 9 min de leitura</span><h2>Como funciona o gerador de vídeo do Nardoto Studio</h2><p>O Criar Vídeo roda 10 etapas pelo painel e o chat só ajusta. Veja a ficha única, os gates, a busca de mídia real, a mixagem medida e a fila de vídeos.</p><span class="ler">Ler artigo &rarr;</span></div></a><a class="card" href="/blog/varias-janelas-no-mesmo-app-electron/"><img src="/blog/varias-janelas-no-mesmo-app-electron/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">29 out. 2026 · 8 min de leitura</span><h2>Várias janelas no mesmo app Electron, sem se misturar</h2><p>Como o Studio roda N janelas no mesmo processo Electron: portas, sessões e downloads por janela, e o bug em que a janela 2 clicava na aba da janela 1.</p><span class="ler">Ler artigo &rarr;</span></div></a></div></div></section></main>
+<footer><div class="wrap"><span>Blog do Nardoto Studio. Escrito por Tharcisio Nardoto.</span><span><a href="/">nardoto.com.br</a> · <a href="/blog/feed.xml">RSS</a></span></div></footer>
+</body></html>

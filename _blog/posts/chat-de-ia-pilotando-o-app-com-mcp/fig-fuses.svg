@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Em desenvolvimento a variável ELECTRON_RUN_AS_NODE funciona; no instalador a fuse desligada faz o filho subir como um segundo Studio</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E85A2A"/></marker>
+<marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#6B7280"/></marker></defs>
+<rect width="1200" height="420" rx="18" fill="#141414"/>
+<text x="20" y="46" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">ERRO 3: O EXECUTÁVEL QUE NÃO ERA NODE</text>
+<text x="20" y="92" fill="#fff" font-size="18" font-weight="700">EM DESENVOLVIMENTO: funciona</text>
+<rect x="20" y="104" width="262" height="90" rx="12" fill="#1A1A1A"/><text x="40" y="140" fill="#fff" font-size="21" font-weight="700">electron.exe (dev)</text><text x="40" y="168" fill="#B4B9C2" font-size="17">fuse RunAsNode ligada</text>
+<rect x="320" y="104" width="262" height="90" rx="12" fill="#1A1A1A"/><text x="340" y="140" fill="#fff" font-size="17" font-weight="700">ELECTRON_RUN_AS_NODE=1</text><text x="340" y="168" fill="#B4B9C2" font-size="17">variável de ambiente</text>
+<rect x="620" y="104" width="262" height="90" rx="12" fill="#2A1710"/><text x="640" y="140" fill="#FF8A5C" font-size="21" font-weight="700">Roda como Node</text><text x="640" y="168" fill="#B4B9C2" font-size="17">os servidores MCP sobem</text>
+<g stroke="#E85A2A" stroke-width="2.5"><path d="M286 149H314" marker-end="url(#a)"/><path d="M586 149H614" marker-end="url(#a)"/></g>
+<text x="20" y="242" fill="#fff" font-size="18" font-weight="700">NO INSTALADOR: Connection closed</text>
+<rect x="20" y="254" width="262" height="90" rx="12" fill="#1A1A1A"/><text x="40" y="290" fill="#fff" font-size="21" font-weight="700">Studio.exe (instalado)</text><text x="40" y="318" fill="#B4B9C2" font-size="17">fuse RunAsNode desligada</text>
+<rect x="320" y="254" width="262" height="90" rx="12" fill="#1A1A1A"/><text x="340" y="290" fill="#fff" font-size="21" font-weight="700">Variável ignorada</text><text x="340" y="318" fill="#B4B9C2" font-size="17">o filho não vira Node</text>
+<rect x="620" y="254" width="262" height="90" rx="12" fill="#1A1A1A"/><text x="640" y="290" fill="#fff" font-size="21" font-weight="700">Sobe um 2º Studio</text><text x="640" y="318" fill="#B4B9C2" font-size="17">bate na instância única</text>
+<rect x="920" y="254" width="262" height="90" rx="12" fill="#1A1A1A"/><text x="940" y="290" fill="#6B7280" font-size="21" font-weight="700">Fecha na hora</text><text x="940" y="318" fill="#9CA3AF" font-size="17">mostra Connection closed</text>
+<g stroke="#6B7280" stroke-width="2.5"><path d="M286 299H314" marker-end="url(#g)"/><path d="M586 299H614" marker-end="url(#g)"/><path d="M886 299H914" marker-end="url(#g)"/></g>
+<text x="600" y="394" fill="#9CA3AF" font-size="18" text-anchor="middle">Correção: embarcar um node.exe próprio (v22.13.0) e rodar os servidores MCP com ele.</text>
+</svg>

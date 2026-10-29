@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Arquivos da memória do projeto por tipo: project 163, feedback 157, reference 30 e outros 14</title>
+<rect width="1200" height="420" rx="18" fill="#141414"/>
+<text x="40" y="54" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">364 ARQUIVOS DE MEMÓRIA, POR TIPO</text>
+<text x="40" y="126" fill="#B4B9C2" font-size="20">project (decisões e bugs)</text><rect x="380" y="104" width="680" height="30" rx="6" fill="#7A3419"/><text x="1072" y="127" fill="#fff" font-size="20" font-weight="700">163</text>
+<text x="40" y="186" fill="#fff" font-size="20" font-weight="700">feedback (regras)</text><rect x="380" y="164" width="655" height="30" rx="6" fill="#E85A2A"/><text x="1047" y="187" fill="#fff" font-size="20" font-weight="700">157</text>
+<text x="40" y="246" fill="#B4B9C2" font-size="20">reference (consulta)</text><rect x="380" y="224" width="125" height="30" rx="6" fill="#7A3419"/><text x="517" y="247" fill="#fff" font-size="20" font-weight="700">30</text>
+<text x="40" y="306" fill="#B4B9C2" font-size="20">outros</text><rect x="380" y="284" width="58" height="30" rx="6" fill="#7A3419"/><text x="450" y="307" fill="#fff" font-size="20" font-weight="700">14</text>
+<text x="40" y="364" fill="#B4B9C2" font-size="18">O índice MEMORY.md tem 69 linhas e cerca de 18 KB, uma linha por nota, e é lido em toda sessão.</text>
+<text x="40" y="394" fill="#9CA3AF" font-size="18">199 notas têm a seção "How to apply": a regra vem com o jeito de aplicar.</text>
+</svg>

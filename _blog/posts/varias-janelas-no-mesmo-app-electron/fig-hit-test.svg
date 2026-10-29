@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Hit-test em grade sobre a view do Flow: pontos cobertos por um modal mostram que algo está na frente</title>
+<rect width="1200" height="520" rx="18" fill="#141414"/>
+<text x="40" y="52" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">O FLOW FICA POR CIMA DO DOM</text>
+<rect x="60" y="100" width="700" height="350" rx="12" fill="#1A1A1A" stroke="#6B7280" stroke-width="2"/>
+<text x="80" y="130" fill="#9CA3AF" font-size="18">WebContentsView do Flow</text>
+<rect x="500" y="200" width="240" height="150" rx="12" fill="#2A1710" stroke="#E85A2A" stroke-width="2.5"/>
+<text x="520" y="232" fill="#FF8A5C" font-size="18" font-weight="700">modal aberto</text>
+<g fill="#6B7280">
+<circle cx="130" cy="158" r="7"/><circle cx="270" cy="158" r="7"/><circle cx="410" cy="158" r="7"/><circle cx="550" cy="158" r="7"/><circle cx="690" cy="158" r="7"/>
+<circle cx="130" cy="275" r="7"/><circle cx="270" cy="275" r="7"/><circle cx="410" cy="275" r="7"/>
+<circle cx="130" cy="392" r="7"/><circle cx="270" cy="392" r="7"/><circle cx="410" cy="392" r="7"/><circle cx="550" cy="392" r="7"/><circle cx="690" cy="392" r="7"/></g>
+<g fill="#E85A2A"><circle cx="550" cy="275" r="9"/><circle cx="690" cy="275" r="9"/></g>
+<g font-size="20" fill="#fff" font-weight="700">
+<text x="796" y="136">1. Grade de pontos, 140 px</text>
+<text x="796" y="214">2. elementFromPoint em cada um</text>
+<text x="796" y="292">3. Topo não é a view?</text></g>
+<g font-size="18" fill="#B4B9C2">
+<text x="796" y="164">sobre a superfície nativa</text>
+<text x="796" y="242">o que o Chromium vê no topo</text>
+<text x="796" y="320">algo na frente: esconde a view</text></g>
+<text x="796" y="388" fill="#9CA3AF" font-size="18">Sem z-index, classe ou portal.</text>
+<text x="796" y="416" fill="#9CA3AF" font-size="18">Ilustração: 2 pontos cobertos de 15.</text>
+<circle cx="70" cy="490" r="7" fill="#6B7280"/><text x="88" y="496" fill="#B4B9C2" font-size="17">ponto livre</text>
+<circle cx="230" cy="490" r="8" fill="#E85A2A"/><text x="248" y="496" fill="#B4B9C2" font-size="17">ponto coberto</text>
+</svg>

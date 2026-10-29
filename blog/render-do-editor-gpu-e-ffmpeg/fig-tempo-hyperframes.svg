@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 380" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Tempo para renderizar o mesmo trecho: CLI do HyperFrames com disco 50 segundos, CLI sem disco 72 segundos, motor próprio 23 segundos</title>
+<rect width="1200" height="380" rx="18" fill="#141414"/>
+<text x="40" y="54" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">MESMO TRECHO, MESMO FPS: SEGUNDOS ATÉ O MP4</text>
+<text x="40" y="124" fill="#B4B9C2" font-size="20">CLI, com disco</text><rect x="300" y="104" width="486" height="28" rx="6" fill="#7A3419"/><text x="798" y="125" fill="#fff" font-size="20" font-weight="700">50 s</text>
+<text x="40" y="184" fill="#B4B9C2" font-size="20">CLI, sem disco</text><rect x="300" y="164" width="700" height="28" rx="6" fill="#7A3419"/><text x="1012" y="185" fill="#fff" font-size="20" font-weight="700">72 s</text>
+<text x="40" y="244" fill="#fff" font-size="20" font-weight="700">Motor próprio</text><rect x="300" y="224" width="224" height="28" rx="6" fill="#E85A2A"/><text x="536" y="245" fill="#fff" font-size="20" font-weight="700">23 s</text>
+<text x="40" y="304" fill="#B4B9C2" font-size="18">Temporário em disco: CLI com disco 343 MB, motor próprio zero.</text>
+<text x="40" y="338" fill="#9CA3AF" font-size="18">Tirar o disco do CLI deixou 44% mais lento: o modo sem disco exige um worker só.</text>
+</svg>

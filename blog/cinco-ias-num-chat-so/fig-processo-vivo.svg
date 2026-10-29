@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 470" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Tempo de um turno com processo novo por mensagem contra processo vivo, em Claude, Codex e agy</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E85A2A"/></marker></defs>
+<rect width="1200" height="470" rx="18" fill="#141414"/>
+<text x="40" y="52" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">PROCESSO NOVO POR MENSAGEM CONTRA PROCESSO VIVO</text>
+<text x="300" y="92" fill="#9CA3AF" font-size="17" font-weight="700" letter-spacing="1.5">ANTES</text>
+<text x="720" y="92" fill="#E85A2A" font-size="17" font-weight="700" letter-spacing="1.5">DEPOIS</text>
+
+<text x="52" y="164" fill="#fff" font-size="24" font-weight="700">Claude Code</text>
+<rect x="300" y="108" width="340" height="92" rx="14" fill="#1A1A1A"/>
+<text x="322" y="148" fill="#fff" font-size="28" font-weight="700">4.150 ms</text>
+<text x="322" y="180" fill="#B4B9C2" font-size="17">spawn a frio de cada mensagem</text>
+<path d="M650 154H708" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+<rect x="720" y="108" width="450" height="92" rx="14" fill="#2A1710"/>
+<text x="742" y="148" fill="#FF8A5C" font-size="28" font-weight="700">7 ms</text>
+<text x="742" y="180" fill="#B4B9C2" font-size="17">reuso do processo da aba</text>
+
+<text x="52" y="274" fill="#fff" font-size="24" font-weight="700">Codex</text>
+<rect x="300" y="218" width="340" height="92" rx="14" fill="#1A1A1A"/>
+<text x="322" y="258" fill="#fff" font-size="28" font-weight="700">6 s ou mais</text>
+<text x="322" y="290" fill="#B4B9C2" font-size="17">thread/start com os MCPs</text>
+<path d="M650 264H708" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+<rect x="720" y="218" width="450" height="92" rx="14" fill="#2A1710"/>
+<text x="742" y="258" fill="#FF8A5C" font-size="28" font-weight="700">30 ms</text>
+<text x="742" y="290" fill="#B4B9C2" font-size="17">turn/started no servidor vivo</text>
+
+<text x="52" y="384" fill="#fff" font-size="24" font-weight="700">agy</text>
+<rect x="300" y="328" width="340" height="92" rx="14" fill="#1A1A1A"/>
+<text x="322" y="368" fill="#fff" font-size="28" font-weight="700">11,2 s</text>
+<text x="322" y="400" fill="#B4B9C2" font-size="17">turnos 2 e 3, com 9 MCPs</text>
+<path d="M650 374H708" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+<rect x="720" y="328" width="450" height="92" rx="14" fill="#2A1710"/>
+<text x="742" y="368" fill="#FF8A5C" font-size="28" font-weight="700">2,8 s</text>
+<text x="742" y="400" fill="#B4B9C2" font-size="17">mesmo teste, processo vivo</text>
+
+<text x="40" y="452" fill="#9CA3AF" font-size="18">A métrica muda em cada linha: é a que o comentário de medição de cada pool registra.</text>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 450" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Modo Time: o maestro delega, um executor faz, outra IA revisa e, se o veredito for corrigir, o parecer volta ao executor</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E85A2A"/></marker></defs>
+<rect width="1200" height="450" rx="18" fill="#141414"/>
+<text x="40" y="52" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">MODO TIME: UMA IA FAZ, OUTRA CONFERE</text>
+<rect x="30" y="90" width="250" height="170" rx="14" fill="#1A1A1A"/>
+<text x="52" y="130" fill="#fff" font-size="24" font-weight="700">Maestro</text>
+<text x="52" y="166" fill="#B4B9C2" font-size="18">Recebe o pedido</text>
+<text x="52" y="192" fill="#B4B9C2" font-size="18">e chama a tool</text>
+<text x="52" y="218" fill="#B4B9C2" font-size="18">delegar, com o</text>
+<text x="52" y="244" fill="#B4B9C2" font-size="18">briefing.</text>
+<rect x="330" y="90" width="250" height="170" rx="14" fill="#1A1A1A"/>
+<text x="352" y="130" fill="#fff" font-size="24" font-weight="700">Executor</text>
+<text x="352" y="166" fill="#B4B9C2" font-size="18">Outra IA, logada</text>
+<text x="352" y="192" fill="#B4B9C2" font-size="18">na assinatura,</text>
+<text x="352" y="218" fill="#B4B9C2" font-size="18">faz a tarefa e</text>
+<text x="352" y="244" fill="#B4B9C2" font-size="18">entrega no disco.</text>
+<rect x="630" y="90" width="250" height="170" rx="14" fill="#2A1710"/>
+<text x="652" y="130" fill="#FF8A5C" font-size="24" font-weight="700">Revisor</text>
+<text x="652" y="166" fill="#B4B9C2" font-size="18">Uma terceira IA</text>
+<text x="652" y="192" fill="#B4B9C2" font-size="18">confere no disco</text>
+<text x="652" y="218" fill="#B4B9C2" font-size="18">e dá o veredito:</text>
+<text x="652" y="244" fill="#FF8A5C" font-size="17" font-weight="700">APROVADO/CORRIGIR</text>
+<rect x="930" y="90" width="240" height="170" rx="14" fill="#1A1A1A"/>
+<text x="952" y="130" fill="#fff" font-size="24" font-weight="700">Entrega</text>
+<text x="952" y="166" fill="#B4B9C2" font-size="18">Vai ao maestro</text>
+<text x="952" y="192" fill="#B4B9C2" font-size="18">com o parecer</text>
+<text x="952" y="218" fill="#B4B9C2" font-size="18">anexado. Veredito</text>
+<text x="952" y="244" fill="#B4B9C2" font-size="18">ilegível aprova.</text>
+<path d="M284 175H326" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+<path d="M584 175H626" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+<path d="M884 175H926" stroke="#E85A2A" stroke-width="2.5" marker-end="url(#a)"/>
+<path d="M755 264V324H455V266" stroke="#E85A2A" stroke-width="2.5" fill="none" stroke-dasharray="7 6" marker-end="url(#a)"/>
+<text x="605" y="356" fill="#B4B9C2" font-size="17" text-anchor="middle">CORRIGIR: o parecer volta ao executor, na mesma sessão</text>
+<text x="600" y="414" fill="#9CA3AF" font-size="18" text-anchor="middle">Medido em 27/08/2026: a revisão opcional foi pedida em 7 de 108 delegações. Virou padrão.</text>
+</svg>

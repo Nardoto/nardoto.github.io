@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Chamadas de ferramenta com saída visível no chat: Claude antes e depois da correção, e Codex</title>
+<rect width="1200" height="400" rx="18" fill="#141414"/>
+<text x="40" y="54" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">CHAMADAS DE FERRAMENTA QUE MOSTRAM A SAÍDA NO CHAT</text>
+
+<text x="40" y="130" fill="#B4B9C2" font-size="20">Claude, antes de 20/08</text>
+<rect x="360" y="110" width="6" height="26" rx="3" fill="#7A3419"/>
+<text x="378" y="131" fill="#fff" font-size="20" font-weight="700">10 de 1.188 (0,8%)</text>
+
+<text x="40" y="198" fill="#fff" font-size="20" font-weight="700">Claude, depois de 20/08</text>
+<rect x="360" y="178" width="490" height="26" rx="6" fill="#E85A2A"/>
+<text x="862" y="199" fill="#fff" font-size="20" font-weight="700">97 de 103 (94%)</text>
+
+<text x="40" y="266" fill="#B4B9C2" font-size="20">Codex, todo o período</text>
+<rect x="360" y="246" width="520" height="26" rx="6" fill="#7A3419"/>
+<text x="892" y="267" fill="#fff" font-size="20" font-weight="700">106 de 106 (100%)</text>
+
+<text x="40" y="338" fill="#9CA3AF" font-size="18">Amostra pequena: 28 históricos de chat de uma máquina. A correção do Claude entrou em 19/08/2026.</text>
+<text x="40" y="364" fill="#9CA3AF" font-size="18">Antes dela, o app só lia o tool_result quando ele vinha dentro de stream_event.</text>
+</svg>

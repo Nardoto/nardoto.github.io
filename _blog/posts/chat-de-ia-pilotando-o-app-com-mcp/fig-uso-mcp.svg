@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 398" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Quantas sessões de chat abriram cada servidor MCP em 30 dias</title>
+<rect width="1200" height="398" rx="18" fill="#141414"/>
+<text x="40" y="54" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">QUAL MCP ABRIA, E QUANTAS VEZES (30 DIAS)</text>
+<text x="40" y="120" fill="#fff" font-size="20" font-weight="700">nardoto-studio</text><rect x="360" y="100" width="722" height="26" rx="6" fill="#E85A2A"/><text x="1094" y="121" fill="#fff" font-size="20" font-weight="700">86</text>
+<text x="40" y="164" fill="#B4B9C2" font-size="20">nardoto-time (Modo Time)</text><rect x="360" y="144" width="269" height="26" rx="6" fill="#7A3419"/><text x="641" y="165" fill="#fff" font-size="20" font-weight="700">32</text>
+<text x="40" y="208" fill="#B4B9C2" font-size="20">nardoto-browser</text><rect x="360" y="188" width="168" height="26" rx="6" fill="#7A3419"/><text x="540" y="209" fill="#fff" font-size="20" font-weight="700">20</text>
+<text x="40" y="252" fill="#B4B9C2" font-size="20">playwright</text><rect x="360" y="232" width="134" height="26" rx="6" fill="#7A3419"/><text x="506" y="253" fill="#fff" font-size="20" font-weight="700">16</text>
+<text x="40" y="296" fill="#B4B9C2" font-size="20">nardoto-memory</text><rect x="360" y="276" width="25" height="26" rx="6" fill="#7A3419"/><text x="397" y="297" fill="#fff" font-size="20" font-weight="700">3</text>
+<text x="40" y="340" fill="#B4B9C2" font-size="20">nardoto-video-editor</text><rect x="360" y="320" width="17" height="26" rx="6" fill="#7A3419"/><text x="389" y="341" fill="#fff" font-size="20" font-weight="700">2</text>
+</svg>

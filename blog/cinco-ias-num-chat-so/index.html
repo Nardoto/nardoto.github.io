@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8">
+<script>if(!/^(localhost|127.0.0.1)$/.test(location.hostname)){var g=document.createElement('script');g.async=true;g.src='https://www.googletagmanager.com/gtag/js?id=G-WSY9CWHH19';document.head.appendChild(g);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-WSY9CWHH19')}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinco IAs num chat só: o protocolo de cada CLI por dentro | Blog do Nardoto Studio</title><meta name="description" content="Como o chat do Nardoto Studio conversa com Claude Code, Codex, agy e Grok pelo CLI de cada um: o protocolo, o que mudou de um para outro e o que quebrou.">
+<link rel="canonical" href="https://nardoto.com.br/blog/cinco-ias-num-chat-so/"><meta property="og:type" content="article"><meta property="og:url" content="https://nardoto.com.br/blog/cinco-ias-num-chat-so/">
+<meta property="og:title" content="Cinco IAs num chat só: o protocolo de cada CLI por dentro | Blog do Nardoto Studio"><meta property="og:description" content="Como o chat do Nardoto Studio conversa com Claude Code, Codex, agy e Grok pelo CLI de cada um: o protocolo, o que mudou de um para outro e o que quebrou."><meta property="og:image" content="https://nardoto.com.br/blog/cinco-ias-num-chat-so/capa.jpg">
+<link rel="icon" type="image/png" href="/favicon.png"><meta name="theme-color" content="#E85A2A">
+<link rel="alternate" type="application/rss+xml" title="Blog do Nardoto" href="/blog/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/blog/blog.css"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Cinco IAs num chat só: o protocolo de cada CLI por dentro","description":"Como o chat do Nardoto Studio conversa com Claude Code, Codex, agy e Grok pelo CLI de cada um: o protocolo, o que mudou de um para outro e o que quebrou.","datePublished":"2026-10-29","author":{"@type":"Person","name":"Tharcisio Nardoto"},"mainEntityOfPage":"https://nardoto.com.br/blog/cinco-ias-num-chat-so/"}</script></head><body>
+<header class="topo"><div class="wrap"><a class="marca" href="/"><img src="/favicon.png" alt="">Nardoto</a>
+<nav class="nav"><a href="/">Apps</a><a href="/studio/">Studio</a><a href="/blog/" class="on">Blog</a></nav></div></header>
+<main><article><div class="wrap"><div class="cab"><a class="eyebrow" href="/blog/">Blog / Diário de construção</a>
+<h1>Cinco IAs num chat só: o protocolo de cada CLI por dentro</h1><p class="lead">Como o chat do Nardoto Studio conversa com Claude Code, Codex, agy e Grok pelo CLI de cada um: o protocolo, o que mudou de um para outro e o que quebrou.</p>
+<div class="meta">Tharcisio Nardoto · 29 out. 2026 · 8 min de leitura</div>
+<div class="tags"><a class="tag" href="/blog/tags/agentes/">agentes</a><a class="tag" href="/blog/tags/arquitetura/">arquitetura</a><a class="tag" href="/blog/tags/claude-code/">claude-code</a></div></div>
+<img class="capa" src="/blog/cinco-ias-num-chat-so/capa.jpg" alt="" width="1200" height="630">
+<div class="corpo-post"><nav class="toc"><strong>Neste artigo</strong><a href="#cinco-nomes-quatro-protocolos">Cinco nomes, quatro protocolos</a><a href="#processo-vivo-em-vez-de-processo-por-mensagem">Processo vivo em vez de processo por mensagem</a><a href="#claude-code-json-nos-dois-sentidos">Claude Code: JSON nos dois sentidos</a><a href="#codex-um-servidor-para-todas-as-abas">Codex: um servidor para todas as abas</a><a href="#agy-o-prompt-entra-pelo-stdin">agy: o prompt entra pelo stdin</a><a href="#grok-o-limite-dos-sete">Grok: o limite dos sete</a><a href="#login-e-atualizacao-o-cli-nao-e-seu">Login e atualização: o CLI não é seu</a><a href="#o-turno-que-ninguem-esperava">O turno que ninguém esperava</a><a href="#o-que-eu-levaria-para-qualquer-projeto">O que eu levaria para qualquer projeto</a><a href="#referencias">Referências</a></nav>
+<div class="prose"><p>O chat do Nardoto Studio não chama a API de nenhum modelo. Ele abre o CLI que a pessoa já instalou e logou (Claude Code, Codex, Antigravity ou Grok) e conversa com ele como um terminal sem tela. Cada um traz ferramentas, sessões e MCP próprios, e o app não reimplementa agente nenhum.</p>
+<p>O problema é que não existe &quot;o protocolo dos CLIs&quot;. Cada um fala um dialeto, e cada dialeto quebra de um jeito. Este post é o mapa deles e do que me custou tempo. Completa o <a href="/blog/chat-de-ia-pilotando-o-app-com-mcp/">post sobre MCP</a>, que conta o outro lado: a IA pilotando o app.</p>
+<blockquote>
+<p><strong>O que o código diz hoje (29/10/2026)</strong></p>
+<ul>
+<li>Quatro serviços (Claude, Codex, agy e Grok) somam <strong>6.644 linhas</strong>, mais 1.035 nos pools de processo que os mantêm vivos.</li>
+<li>Eles têm <strong>205 commits</strong> desde 20/01/2026.</li>
+<li><strong>49 arquivos de teste</strong> unitário cobrem essas pontes e o que gira em volta: login, atualização e cota.</li>
+</ul>
+</blockquote>
+<h2 id="cinco-nomes-quatro-protocolos">Cinco nomes, quatro protocolos</h2>
+<p>Chegou a haver cinco serviços ao mesmo tempo: Claude Code, Gemini, Codex, agy e Grok. O Gemini CLI saiu do código em 24/07/2026, com 1.447 linhas. O agy é o sucessor dele, e o nome <code>gemini</code> guardado numa configuração antiga hoje roda pelo agy. Por isso o título diz cinco IAs e o código tem quatro protocolos.</p>
+<figure><a href="fig-mapa-clis.svg" target="_blank" rel="noopener"><img src="fig-mapa-clis.svg" alt="Mapa dos quatro CLIs com o processo, o protocolo e o ponto onde entra o MCP de cada um." loading="lazy"></a><figcaption>Figura 1. Um chat, quatro dialetos. A coluna do meio é o que muda o código.</figcaption></figure><p>O lado do app é igual para todos: a aba gera um <code>streamId</code>, chama o canal IPC <code>prompt-stream</code> do CLI, o serviço monta os argumentos e entrega o prompt a um processo vivo, e os eventos voltam até um <code>result</code>.</p>
+<h2 id="processo-vivo-em-vez-de-processo-por-mensagem">Processo vivo em vez de processo por mensagem</h2>
+<p>A primeira versão subia um processo por mensagem. Cada boot refaz autenticação, leitura da sessão e, o que mais pesa, a subida de todos os MCPs. Hoje cada CLI tem um pool: Claude e agy mantêm um processo por aba (o pool do agy é a mesma classe do Claude), o Codex mantém um <code>app-server</code> para todas as abas e o Grok mantém um agente por par de modelo e esforço.</p>
+<figure><a href="fig-processo-vivo.svg" target="_blank" rel="noopener"><img src="fig-processo-vivo.svg" alt="Três linhas comparando o tempo de um turno com processo novo e com processo vivo em Claude, Codex e agy." loading="lazy"></a><figcaption>Figura 2. Os números vêm dos comentários de medição no código de cada pool. A métrica difere por linha.</figcaption></figure><p>O preço é que as garantias do processo por turno não viajam junto. Processo morto avisa que morreu. Processo vivo pode estar mudo, com a thread esquecida ou com um turno que ele mesmo começou. Quase todos os bugs abaixo são variações disso.</p>
+<h2 id="claude-code-json-nos-dois-sentidos">Claude Code: JSON nos dois sentidos</h2>
+<p>O Claude sobe com <code>--input-format stream-json --output-format stream-json</code> e <code>--permission-prompt-tool stdio</code> <a href="https://code.claude.com/docs/en/headless" target="_blank" rel="noopener">1</a>. Cada mensagem é uma linha JSON no stdin. Cada pedido de permissão chega no stdout como <code>control_request</code>, e a resposta do card de aprovação volta pelo stdin.</p>
+<p>Duas surpresas, achadas olhando o fio e não a documentação:</p>
+<ul>
+<li><strong>Result que não é fim de turno.</strong> O CLI manda <code>result</code> também como confirmação de uma mensagem que ele mesmo injetou, num <code>--resume</code> com agente em segundo plano: <code>num_turns</code> 0 e texto vazio. Quem fecha o turno ali joga fora o resto, inclusive os pedidos de aprovação. Hoje esse caso é ignorado.</li>
+<li><strong>Tool result como mensagem user.</strong> O serviço só lia <code>tool_result</code> dentro de <code>stream_event</code>, mas o CLI o entrega como mensagem <code>user</code>. Sem esse <code>case</code>, nenhuma ação do Claude mostrava saída no chat.</li>
+</ul>
+<figure><a href="fig-tool-result.svg" target="_blank" rel="noopener"><img src="fig-tool-result.svg" alt="Barras com a fração de chamadas de ferramenta que mostram a saída no chat: Claude antes e depois da correção, e Codex." loading="lazy"></a><figcaption>Figura 3. Medi de novo nos históricos locais: de 10 em 1.188 para 97 em 103 chamadas.</figcaption></figure><p>O tool result foi o que mais me ensinou: ninguém reclama de um chat que parece normal. Só apareceu quando contei no histórico, com o Claude quase sem saídas e o Codex com todas. A correção entrou em 19/08/2026.</p>
+<h2 id="codex-um-servidor-para-todas-as-abas">Codex: um servidor para todas as abas</h2>
+<p>O <code>codex app-server</code> fala JSON-RPC 2.0 por linha <a href="https://www.jsonrpc.org/specification" target="_blank" rel="noopener">2</a>: cada aba é uma <code>thread</code> e cada mensagem um <code>turn/start</code> <a href="https://github.com/openai/codex/blob/main/codex-rs/app-server/README.md" target="_blank" rel="noopener">3</a>. O CLI gera o schema dos próprios eventos (<code>generate-json-schema</code>), o que acabou com o meu chute sobre o formato das edições de arquivo.</p>
+<p>Três coisas doeram:</p>
+<ul>
+<li><strong>MCP só no app-server.</strong> Em 16/08/2026 provei que o <code>codex exec</code> não carrega MCP nenhum, mesmo com o <code>config.toml</code> certo. Isso colide com variável de ambiente por turno, porque o servidor é global e fixa o ambiente no boot. Turno com ambiente próprio vai para o <code>exec</code> legado.</li>
+<li><strong>Config lido só no boot.</strong> Ligar um MCP na interface não valia até reabrir o app. Hoje o serviço compara o hash do <code>config.toml</code> e reinicia o servidor quando ninguém está em turno.</li>
+<li><strong>Timeout que não viajou.</strong> O servidor aceitava o <code>turn/start</code> e emudecia, e a Promise do IPC ficava pendurada. Agora um vigia dá 3 minutos por toque, e 3 toques sem sinal interrompem a thread (20 se houver ferramenta rodando, para não matar um build longo).</li>
+</ul>
+<h2 id="agy-o-prompt-entra-pelo-stdin">agy: o prompt entra pelo stdin</h2>
+<p>O agy começou como <code>agy --print &quot;&lt;prompt&gt;&quot;</code>, com o prompt na linha de comando, e o Windows corta essa linha perto de 32 mil caracteres. Hoje, acima de 20 mil, o prompt vai para um arquivo temporário. No processo vivo ele sobe pelo stdin com <code>--input-format stream-json</code>, uma linha por turno, e o limite deixa de existir. O mesmo erro já tinha custado 5 de 15 janelas numa live de quase 5 horas no app de cortes.</p>
+<p>O agy também mostrou o risco de integrar um CLI que se atualiza sozinho. A versão 1.1.16 trocou a chave <code>type</code> por <code>event</code> nessa linha, e todo turno virou faixa vermelha. Agora, se o CLI recusa a linha, o serviço refaz o turno uma vez pelo caminho antigo. O <code>--print-timeout</code> de 5 minutos encerrava o turno sem avisar, e o chat mostrava o último erro que passou, de uma ferramenta qualquer. O app agora manda 24 horas.</p>
+<p>Uma nota minha de maio dizia que o agy não suportava MCP. Hoje o serviço regrava o <code>mcp_config.json</code> global antes de cada spawn: a nota envelheceu.</p>
+<h2 id="grok-o-limite-dos-sete">Grok: o limite dos sete</h2>
+<p>O Grok usa o ACP, o Agent Client Protocol, JSON-RPC por stdio <a href="https://agentclientprotocol.com/" target="_blank" rel="noopener">4</a>: <code>session/new</code> por aba e <code>session/prompt</code> por mensagem. Em 18/09/2026 um &quot;oi&quot; levava de 30 a 66 segundos. A causa, medida: o Grok sobe todos os MCPs de todas as configurações, e com mais de uns 7 servidores stdio juntos o handshake de todos trava até o tempo limite. Com 7 foi 1,1 s, com 9 foram 70 s. Hoje o construtor não manda extensões stdio, e o mesmo &quot;oi&quot; caiu para 8,6 s.</p>
+<h2 id="login-e-atualizacao-o-cli-nao-e-seu">Login e atualização: o CLI não é seu</h2>
+<p>O <code>claude mcp login</code> verifica <code>stdin.isTTY</code> e sai com erro se recebe pipes, então o login roda num PTY oculto. O link do Codex tem uns 450 caracteres e quebra em 3 linhas no terminal, então o assistente o mostra inteiro, com botão de copiar.</p>
+<p>Atualizar também tem armadilha: a máquina tem várias cópias do binário, e <code>npm install -g</code> atualizava a que o PATH nunca executa. O app classifica a instalação pelo primeiro caminho resolvido e usa o <code>&lt;bin&gt; update</code> embutido, depois de checar se o binário está em uso. Trocar a pasta debaixo de um <code>app-server</code> vivo o derrubou com <code>0xC0000409</code> em 20/08/2026.</p>
+<h2 id="o-turno-que-ninguem-esperava">O turno que ninguém esperava</h2>
+<figure><a href="fig-turno.svg" target="_blank" rel="noopener"><img src="fig-turno.svg" alt="Cinco etapas do caminho de um turno e, abaixo de cada uma, a falha que já aconteceu ali." loading="lazy"></a><figcaption>Figura 4. O caminho de um turno e onde cada falha apareceu.</figcaption></figure><p>O pior bug foi o turno obsoleto. Depois de uma sessão longa com o Codex, troquei para o Claude na mesma conversa e a resposta veio rotulada como Codex. O vigia do Codex disparou &quot;9 min sem sinal&quot; e resolveu a chamada de um turno velho. O código depois do <code>await</code> lia as referências globais da aba e fechava o turno novo com o provedor errado. A correção é uma guarda por <code>streamId</code> em três pontos do <code>useCLIChat.ts</code>. O diagnóstico saiu do histórico: achei 5 pares de pedido e resposta com provedor trocado em 7 dias.</p>
+<p>O oposto também acontece: o Claude volta sozinho. Agente em segundo plano e agendamento fazem o CLI responder sem prompt, e meu serviço largava o leitor no fim do turno. Hoje a aba adota esse turno espontâneo.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">CLI</th>
+<th style="text-align:left">O que quebrou</th>
+<th style="text-align:left">Causa</th>
+<th style="text-align:left">Data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Claude</td>
+<td style="text-align:left">Saída das ferramentas sumida</td>
+<td style="text-align:left"><code>tool_result</code> vem como <code>user</code></td>
+<td style="text-align:left">19/08/2026</td>
+</tr>
+<tr>
+<td style="text-align:left">Codex</td>
+<td style="text-align:left">Chamada pendurada</td>
+<td style="text-align:left">Servidor aceita o turno e emudece</td>
+<td style="text-align:left">11/08/2026</td>
+</tr>
+<tr>
+<td style="text-align:left">Codex</td>
+<td style="text-align:left">MCP invisível</td>
+<td style="text-align:left">Só o app-server carrega MCP</td>
+<td style="text-align:left">16/08/2026</td>
+</tr>
+<tr>
+<td style="text-align:left">agy</td>
+<td style="text-align:left">Prompt grande falha</td>
+<td style="text-align:left">Linha de comando corta em 32 mil</td>
+<td style="text-align:left">02/10/2026</td>
+</tr>
+<tr>
+<td style="text-align:left">Grok</td>
+<td style="text-align:left">Turno de 30 a 66 s</td>
+<td style="text-align:left">Mais de 7 MCPs stdio</td>
+<td style="text-align:left">18/09/2026</td>
+</tr>
+<tr>
+<td style="text-align:left">Todos</td>
+<td style="text-align:left">Provedor errado na resposta</td>
+<td style="text-align:left">Turno obsoleto sem guarda</td>
+<td style="text-align:left">09/09/2026</td>
+</tr>
+</tbody>
+</table>
+<h2 id="o-que-eu-levaria-para-qualquer-projeto">O que eu levaria para qualquer projeto</h2>
+<ul>
+<li><strong>Olhe o fio, não a documentação.</strong> Captura ao vivo achou o <code>result</code> vazio e o tool result como <code>user</code>.</li>
+<li><strong>Processo vivo troca um problema por outro.</strong> Ganha-se 4 segundos por turno e perde-se o timeout e a certeza de que a thread existe.</li>
+<li><strong>Todo <code>await</code> precisa saber se ainda é o turno certo.</strong> Resposta atrasada é o jeito mais barato de corromper estado.</li>
+<li><strong>Bug sem reclamação ainda é bug.</strong> Conte no histórico real.</li>
+<li><strong>Anote o diagnóstico com o comando que confirma.</strong> Cada item acima virou uma nota com sintoma e causa.</li>
+</ul>
+<h2 id="referencias">Referências</h2>
+<ol>
+<li><a href="https://code.claude.com/docs/en/headless" target="_blank" rel="noopener">Claude Code, executar programaticamente (stream-json)</a></li>
+<li><a href="https://www.jsonrpc.org/specification" target="_blank" rel="noopener">Especificação JSON-RPC 2.0</a></li>
+<li><a href="https://github.com/openai/codex/blob/main/codex-rs/app-server/README.md" target="_blank" rel="noopener">Codex app-server, README oficial</a></li>
+<li><a href="https://agentclientprotocol.com/" target="_blank" rel="noopener">Agent Client Protocol</a></li>
+</ol>
+<p class="assina">Escrito por Tharcisio Nardoto, engenheiro civil e criador do <a href="/studio/">Nardoto Studio</a>.</p></div></div></div></article>
+<section class="relacionados"><div class="wrap"><h2>Continue a leitura.</h2><div class="grid" style="padding-bottom:0"><a class="card" href="/blog/chat-de-ia-pilotando-o-app-com-mcp/"><img src="/blog/chat-de-ia-pilotando-o-app-com-mcp/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">29 out. 2026 · 8 min de leitura</span><h2>Como fiz o chat de IA pilotar o próprio app com MCP</h2><p>O chat do Nardoto Studio cria projeto, narra, busca mídia e clica na tela por 88 ferramentas MCP. A arquitetura e os cinco erros que mais me custaram tempo.</p><span class="ler">Ler artigo &rarr;</span></div></a><a class="card" href="/blog/como-eu-trabalho-com-ia-memoria-skills-regras/"><img src="/blog/como-eu-trabalho-com-ia-memoria-skills-regras/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">29 out. 2026 · 9 min de leitura</span><h2>Como eu trabalho com IA: memória, skills e regras</h2><p>Como organizo agentes de código: CLAUDE.md espelhado em outros CLIs, 364 arquivos de memória, 68 skills, subagentes e prova em teste, com os erros.</p><span class="ler">Ler artigo &rarr;</span></div></a><a class="card" href="/blog/gerador-de-video-por-etapas/"><img src="/blog/gerador-de-video-por-etapas/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">29 out. 2026 · 9 min de leitura</span><h2>Como funciona o gerador de vídeo do Nardoto Studio</h2><p>O Criar Vídeo roda 10 etapas pelo painel e o chat só ajusta. Veja a ficha única, os gates, a busca de mídia real, a mixagem medida e a fila de vídeos.</p><span class="ler">Ler artigo &rarr;</span></div></a></div></div></section></main>
+<footer><div class="wrap"><span>Blog do Nardoto Studio. Escrito por Tharcisio Nardoto.</span><span><a href="/">nardoto.com.br</a> · <a href="/blog/feed.xml">RSS</a></span></div></footer>
+</body></html>

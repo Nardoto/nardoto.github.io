@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8">
+<script>if(!/^(localhost|127.0.0.1)$/.test(location.hostname)){var g=document.createElement('script');g.async=true;g.src='https://www.googletagmanager.com/gtag/js?id=G-WSY9CWHH19';document.head.appendChild(g);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-WSY9CWHH19')}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Várias janelas no mesmo app Electron, sem se misturar | Blog do Nardoto Studio</title><meta name="description" content="Como o Studio roda N janelas no mesmo processo Electron: portas, sessões e downloads por janela, e o bug em que a janela 2 clicava na aba da janela 1.">
+<link rel="canonical" href="https://nardoto.com.br/blog/varias-janelas-no-mesmo-app-electron/"><meta property="og:type" content="article"><meta property="og:url" content="https://nardoto.com.br/blog/varias-janelas-no-mesmo-app-electron/">
+<meta property="og:title" content="Várias janelas no mesmo app Electron, sem se misturar | Blog do Nardoto Studio"><meta property="og:description" content="Como o Studio roda N janelas no mesmo processo Electron: portas, sessões e downloads por janela, e o bug em que a janela 2 clicava na aba da janela 1."><meta property="og:image" content="https://nardoto.com.br/blog/varias-janelas-no-mesmo-app-electron/capa.jpg">
+<link rel="icon" type="image/png" href="/favicon.png"><meta name="theme-color" content="#E85A2A">
+<link rel="alternate" type="application/rss+xml" title="Blog do Nardoto" href="/blog/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/blog/blog.css"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Várias janelas no mesmo app Electron, sem se misturar","description":"Como o Studio roda N janelas no mesmo processo Electron: portas, sessões e downloads por janela, e o bug em que a janela 2 clicava na aba da janela 1.","datePublished":"2026-10-29","author":{"@type":"Person","name":"Tharcisio Nardoto"},"mainEntityOfPage":"https://nardoto.com.br/blog/varias-janelas-no-mesmo-app-electron/"}</script></head><body>
+<header class="topo"><div class="wrap"><a class="marca" href="/"><img src="/favicon.png" alt="">Nardoto</a>
+<nav class="nav"><a href="/">Apps</a><a href="/studio/">Studio</a><a href="/blog/" class="on">Blog</a></nav></div></header>
+<main><article><div class="wrap"><div class="cab"><a class="eyebrow" href="/blog/">Blog / Diário de construção</a>
+<h1>Várias janelas no mesmo app Electron, sem se misturar</h1><p class="lead">Como o Studio roda N janelas no mesmo processo Electron: portas, sessões e downloads por janela, e o bug em que a janela 2 clicava na aba da janela 1.</p>
+<div class="meta">Tharcisio Nardoto · 29 out. 2026 · 8 min de leitura</div>
+<div class="tags"><a class="tag" href="/blog/tags/electron/">electron</a><a class="tag" href="/blog/tags/arquitetura/">arquitetura</a><a class="tag" href="/blog/tags/bugs/">bugs</a></div></div>
+<img class="capa" src="/blog/varias-janelas-no-mesmo-app-electron/capa.jpg" alt="" width="1200" height="630">
+<div class="corpo-post"><nav class="toc"><strong>Neste artigo</strong><a href="#uma-janela-e-uma-identidade-quatro-portas-e-um-processo">Uma janela é uma identidade, quatro portas e um processo</a><a href="#o-que-e-de-cada-janela-e-o-que-e-de-todas">O que é de cada janela e o que é de todas</a><a href="#erro-1-toda-janela-se-achava-a-w1">Erro 1: toda janela se achava a w1</a><a href="#erro-2-a-janela-2-digitava-na-aba-da-janela-1">Erro 2: a janela 2 digitava na aba da janela 1</a><a href="#sessao-propria-um-arquivo-manda">Sessão própria: um arquivo manda</a><a href="#projeto-aberto-e-flow-por-cima-de-tudo">Projeto aberto e Flow por cima de tudo</a><a href="#o-que-ficou-de-fora">O que ficou de fora</a><a href="#o-que-eu-levaria-para-qualquer-projeto">O que eu levaria para qualquer projeto</a><a href="#referencias">Referências</a></nav>
+<div class="prose"><p>O Nardoto Studio abre quantas janelas a pessoa quiser dentro do mesmo processo do Electron. Cada uma tem o próprio projeto, o próprio chat e o próprio navegador interno, onde roda a automação do Flow, o gerador de vídeo do Google.</p>
+<p>Fazer isso funcionar foi menos &quot;abrir outra <code>BrowserWindow</code>&quot; e mais caçar tudo que o app guardava em um lugar só. A base entrou em 18/05/2026 e saiu na v7.2.0, como beta, no dia seguinte. Os erros deste post só apareceram em 09/09/2026, quando duas janelas passaram a usar o Flow juntas.</p>
+<blockquote>
+<p><strong>O que o código diz hoje (29/10/2026)</strong></p>
+<ul>
+<li>O código pergunta &quot;de qual janela veio este pedido?&quot; (<code>getOriginWindow</code>) 124 vezes, em 52 arquivos.</li>
+<li>Cada janela ocupa 4 portas, com salto de 10 entre janelas: 9876 a 9879 na primeira, 9886 a 9889 na segunda.</li>
+<li>Quem decide a sessão do navegador de cada janela é um arquivo de 53 linhas, <code>iaBrowserPartitions.js</code>, usado por outros 3 módulos.</li>
+</ul>
+</blockquote>
+<h2 id="uma-janela-e-uma-identidade-quatro-portas-e-um-processo">Uma janela é uma identidade, quatro portas e um processo</h2>
+<p>Cada <code>BrowserWindow</code> carrega a página em um processo de renderização próprio <a href="https://www.electronjs.org/docs/latest/tutorial/process-model" target="_blank" rel="noopener">1</a>. Por isso as stores Zustand de cada janela são independentes sem eu escrever uma linha. O trabalho foi dar identidade às janelas e separar o que mora no processo principal.</p>
+<p>O <code>createWindow</code> pede ao contexto o menor índice livre, vira <code>windowId = w{índice + 1}</code> e calcula as portas: base mais índice vezes 10. São quatro serviços por janela: ponte da extensão, ponte do Flow, MCP do navegador e MCP do Studio. Se a porta estiver ocupada, o <code>tryListen</code> tenta a seguinte, até 3 vezes. Toda mensagem do processo principal sobre uma janela leva o prefixo <code>[Win-wN]</code>, a única forma de ler o log de duas automações sem adivinhar quem falou.</p>
+<figure><a href="fig-mapa-janelas.svg" target="_blank" rel="noopener"><img src="fig-mapa-janelas.svg" alt="Tabela visual com as janelas w1, w2 e w3, as quatro portas de cada uma e o nome da sessão do navegador interno." loading="lazy"></a><figcaption>Figura 1. Três janelas: a identidade define as portas e a sessão.</figcaption></figure><p>Como o índice é sempre o menor livre, o id é reciclável: fechei a w1 e abri outra, nasce w1 de novo. Isso me custou depois: todo mapa por janela precisa ser limpo no fechamento. O <code>main.js</code> apaga a pasta de download e o projeto ativo no evento <code>closed</code>, porque uma entrada velha mandaria os downloads da janela nova para o projeto da antiga. O problema da porta fixa do servidor MCP, que só enxergava a janela 1, está no <a href="/blog/chat-de-ia-pilotando-o-app-com-mcp/">post sobre o chat pilotando o app</a>.</p>
+<h2 id="o-que-e-de-cada-janela-e-o-que-e-de-todas">O que é de cada janela e o que é de todas</h2>
+<p>Inventário montado a cada bug. Tudo aqui já foi, um dia, variável global.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Estado</th>
+<th style="text-align:left">Como separa</th>
+<th style="text-align:left">Onde mora</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Portas das 4 pontes</td>
+<td style="text-align:left">base + 10 × índice</td>
+<td style="text-align:left"><code>main.js</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Sessão do navegador</td>
+<td style="text-align:left"><code>persist:ia-browser</code> (w1), <code>persist:ia-browser-wN</code></td>
+<td style="text-align:left"><code>iaBrowserPartitions.js</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Aba do Flow</td>
+<td style="text-align:left">manager da janela de origem</td>
+<td style="text-align:left"><code>bridge-browser-cdp.js</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Pasta de download</td>
+<td style="text-align:left">mapa por <code>windowId</code></td>
+<td style="text-align:left"><code>iaBrowserDownloadPathPorJanela</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Projeto ativo</td>
+<td style="text-align:left">mapa por <code>windowId</code></td>
+<td style="text-align:left"><code>ctx._activeProjectPorJanela</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Dono do projeto</td>
+<td style="text-align:left">mapa caminho para <code>windowId</code></td>
+<td style="text-align:left"><code>ctx.openProjects</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Sidepanel do VEO3</td>
+<td style="text-align:left">prefixo <code>veo3_</code> (w1) ou <code>veo3_wN_</code></td>
+<td style="text-align:left"><code>storage-wrapper.js</code></td>
+</tr>
+</tbody>
+</table>
+<p>Continuam compartilhados o diretório de dados, o Python, a GPU e duas travas de dono único, a do Multi-VEO e a do Multi-TTS. A partition da janela principal também é a mesma, então o <code>localStorage</code> do renderer é um só. Há 68 ocorrências de <code>localStorage</code> em <code>src/stores</code>, e não auditei uma a uma se alguma vaza entre janelas.</p>
+<h2 id="erro-1-toda-janela-se-achava-a-w1">Erro 1: toda janela se achava a w1</h2>
+<p><code>window.nardoto.windowInfo</code> devolvia <code>w1</code> em toda janela, com as portas da w1, mesmo com a URL da janela 2 trazendo <code>?win=w2</code> e as portas 9886 em diante. O <code>parseWindowInfo()</code> do preload lia <code>window.location.search</code>. Só que, quando o preload roda, a URL ainda não foi commitada: o <code>search</code> vem vazio e a função cai nos defaults, que por acaso são os da w1.</p>
+<p>Esse código nunca funcionou; o bug só não aparecia porque a w1 é o default. Na janela 2, ela aceitava os eventos de download da janela 1 e rejeitava os seus, então o cartão do VEO3 nunca casava com o vídeo baixado. E &quot;Nova Janela&quot; nunca abria na tela inicial.</p>
+<figure><a href="fig-preload-argv.svg" target="_blank" rel="noopener"><img src="fig-preload-argv.svg" alt="Dois fluxos em três passos: antes o preload lia a URL, vazia, e caía nos defaults; depois o processo principal manda a identidade em additionalArguments e o preload lê do argv." loading="lazy"></a><figcaption>Figura 2. A mesma pergunta, duas fontes. Só o argv já existe quando o preload roda.</figcaption></figure><p>A correção foi mandar a identidade em <code>additionalArguments</code>, que o Electron acrescenta ao <code>process.argv</code> do renderer justamente para passar pequenos dados aos preloads <a href="https://www.electronjs.org/docs/latest/api/structures/web-preferences" target="_blank" rel="noopener">2</a>. A lição: o preload parece rodar dentro da página, mas roda antes da navegação, e o que depende de <code>location</code> ali não dá erro, só entrega o default. Mais casos em <a href="/blog/bugs-que-so-aparecem-no-cliente/">bugs que só aparecem no cliente</a>.</p>
+<h2 id="erro-2-a-janela-2-digitava-na-aba-da-janela-1">Erro 2: a janela 2 digitava na aba da janela 1</h2>
+<p>O Flow só aceita digitação e clique com <code>isTrusted</code> real, então o prompt e o clique em &quot;Criar&quot; saem por CDP, o protocolo de depuração do Chromium, em dois handlers (<code>cdp:fill-prompt-flow-auto</code> e <code>cdp:click-submit-flow-auto</code>). Eles achavam a aba pelo getter <code>ctx.iaBrowserViewManager</code>, que devolve o primeiro manager do mapa, sempre o da w1.</p>
+<p>O <code>tabId</code> da janela 2 não existe nesse manager. O código caía num fallback com <code>webContents.getAllWebContents()</code> e pegava a primeira aba de Flow do processo. Os handlers nem recebiam o <code>event</code>. As duas automações viravam uma só, e o que doeu foi o silêncio: o prompt era digitado, o botão era clicado, tudo com sucesso. Só que na janela errada.</p>
+<figure><a href="fig-aba-errada.svg" target="_blank" rel="noopener"><img src="fig-aba-errada.svg" alt="Antes e depois do erro: antes, a janela 2 passava pelo primeiro manager e caía em getAllWebContents, acabando na aba da w1; depois, getOriginWindow leva ao manager da w2 e à aba certa." loading="lazy"></a><figcaption>Figura 3. O caminho do pedido da janela 2, antes e depois da correção.</figcaption></figure><p>Agora o <code>resolveFlowWebContents(event, tabId)</code> descobre a janela pelo remetente com <code>ctx.getOriginWindow(event)</code> e procura só nas views dela, abas e slots do Multi-VEO. O fallback global saiu. O teste <code>tests/unit/ipc/cdpFlowPorJanela.test.ts</code> tem 5 casos, com duas janelas falsas; um garante que o <code>tabId</code> de outra janela não serve de atalho. Provei também no app real, numa instância isolada: a pasta <code>Partitions/ia-browser-w2</code> nasceu quando a janela 2 abriu o Flow.</p>
+<p>Ficou um degrau: quando a janela de origem não resolve, o código ainda cai no primeiro manager. O comentário diz que é melhor falhar, e o código faz um pouco menos que o comentário.</p>
+<h2 id="sessao-propria-um-arquivo-manda">Sessão própria: um arquivo manda</h2>
+<p>Cada janela tem a sessão própria do navegador interno: cookies separados e, se a pessoa quiser, contas Google diferentes. A w1 ficou na partition histórica <code>persist:ia-browser</code>, para ninguém perder login ao atualizar; as demais usam <code>persist:ia-browser-wN</code>. O prefixo <code>persist:</code> é o que torna a sessão persistente <a href="https://www.electronjs.org/docs/latest/api/session" target="_blank" rel="noopener">3</a>.</p>
+<p>O nome sai de um único módulo, por decisão. Quem varre sessões (sair da conta, limpar cache, limpar service workers no upgrade) chama <code>partitionsDoNavegador()</code>. Com listas próprias, &quot;sair da conta&quot; deixaria a janela 2 logada. A função junta a base, as janelas abertas e as pastas de janelas já fechadas. Aqui a reciclagem do id é desejada: a nova w2 herda o login da anterior.</p>
+<p>O sidepanel do VEO3 teve o mesmo vazamento: todas as janelas o rodam na origem <code>nardoto-sidepanel://</code>, com um <code>localStorage</code> só, e o rascunho de prompts de uma aparecia na outra. Agora as chaves levam o prefixo <code>veo3_wN_</code>, e a w1 mantém o antigo para não perder o que já estava salvo.</p>
+<h2 id="projeto-aberto-e-flow-por-cima-de-tudo">Projeto aberto e Flow por cima de tudo</h2>
+<p>Duas janelas editando o mesmo <code>draft_content.json</code> corrompem o arquivo por corrida. O processo principal guarda um mapa do caminho para o <code>windowId</code> dono. Quem tenta abrir o mesmo projeto escolhe entre focar a janela dona, abrir em somente leitura ou cancelar. Se a dona crashou, a posse velha é limpa; ao fechar, ela avisa as outras com <code>workspace:released</code>. O limite, admitido no comentário do contexto: o bloqueio de escrita é da interface, não do disco.</p>
+<p>A aba do Flow é uma <code>WebContentsView</code>, que vive acima do DOM, então todo modal precisa esconder a view. Durante meses isso foi uma lista de regras (<code>z-index</code>, classe <code>fixed</code>, portal), e cada modal fora dos critérios virava um remendo. Em 06/09/2026 troquei por um hit-test: o hook <code>useOverlayCobreView.ts</code> varre a view com pontos a cada 140 px e pergunta ao Chromium, com <code>elementFromPoint</code>, quem está no topo.</p>
+<figure><a href="fig-hit-test.svg" target="_blank" rel="noopener"><img src="fig-hit-test.svg" alt="Uma view retangular com uma grade de pontos e um modal cobrindo parte dela; os pontos sob o modal ficam em laranja." loading="lazy"></a><figcaption>Figura 4. O hit-test pergunta ao navegador, em vez de adivinhar pela classe ou pelo z-index.</figcaption></figure><p>O Nardoto IDE teve a mesma doença: o workspace ativo era um único <code>activeId</code> em arquivo, e a janela 2 virava cópia da 1. Em 22/09/2026 virou um mapa por <code>webContents.id</code>.</p>
+<h2 id="o-que-ficou-de-fora">O que ficou de fora</h2>
+<ul>
+<li><strong>Multi-VEO, uma janela por vez.</strong> Os 6 slots usam partitions globais, então a trava segue. A aba individual do Flow não tem essa limitação.</li>
+<li><strong>Sem arrastar entre janelas</strong> e sem lembrar as janelas abertas ao fechar o app.</li>
+<li><strong>Retry de porta ingênuo.</strong> O <code>tryListen</code> tenta a porta mais 1, e a mais 1 da ponte da extensão (9876) é a ponte do Flow (9877) da mesma janela. Não vi acontecer e não testei.</li>
+</ul>
+<h2 id="o-que-eu-levaria-para-qualquer-projeto">O que eu levaria para qualquer projeto</h2>
+<ul>
+<li><strong>Dê identidade à janela por um canal que já existe no uso.</strong> O argv, não a URL.</li>
+<li><strong>Todo estado global é suspeito.</strong> Com duas janelas, o &quot;atual&quot; é de quem?</li>
+<li><strong>Um módulo só para o nome do recurso por janela.</strong></li>
+<li><strong>Fallback global esconde bug.</strong> Falhar alto vale mais que operar a janela errada em silêncio.</li>
+<li><strong>Id reciclável pede limpeza no fechamento.</strong></li>
+<li><strong>Teste com duas janelas desde o dia um.</strong></li>
+<li><strong>Escreva sintoma, causa e como conferir</strong>, como conto em <a href="/blog/como-eu-trabalho-com-ia-memoria-skills-regras/">como eu trabalho com IA</a>.</li>
+</ul>
+<h2 id="referencias">Referências</h2>
+<ol>
+<li><a href="https://www.electronjs.org/docs/latest/tutorial/process-model" target="_blank" rel="noopener">Electron, modelo de processos</a></li>
+<li><a href="https://www.electronjs.org/docs/latest/api/structures/web-preferences" target="_blank" rel="noopener">Electron, WebPreferences e additionalArguments</a></li>
+<li><a href="https://www.electronjs.org/docs/latest/api/session" target="_blank" rel="noopener">Electron, API de session e partitions</a></li>
+</ol>
+<p class="assina">Escrito por Tharcisio Nardoto, engenheiro civil e criador do <a href="/studio/">Nardoto Studio</a>.</p></div></div></div></article>
+<section class="relacionados"><div class="wrap"><h2>Continue a leitura.</h2><div class="grid" style="padding-bottom:0"><a class="card" href="/blog/bugs-que-so-aparecem-no-cliente/"><img src="/blog/bugs-que-so-aparecem-no-cliente/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">29 out. 2026 · 8 min de leitura</span><h2>Bugs que só aparecem no computador do cliente</h2><p>Seis bugs do Nardoto Studio que funcionavam em desenvolvimento e quebravam no instalador, e a trava (teste, guard ou build) que impede cada um de voltar.</p><span class="ler">Ler artigo &rarr;</span></div></a><a class="card" href="/blog/chat-de-ia-pilotando-o-app-com-mcp/"><img src="/blog/chat-de-ia-pilotando-o-app-com-mcp/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">29 out. 2026 · 8 min de leitura</span><h2>Como fiz o chat de IA pilotar o próprio app com MCP</h2><p>O chat do Nardoto Studio cria projeto, narra, busca mídia e clica na tela por 88 ferramentas MCP. A arquitetura e os cinco erros que mais me custaram tempo.</p><span class="ler">Ler artigo &rarr;</span></div></a><a class="card" href="/blog/cinco-ias-num-chat-so/"><img src="/blog/cinco-ias-num-chat-so/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">29 out. 2026 · 8 min de leitura</span><h2>Cinco IAs num chat só: o protocolo de cada CLI por dentro</h2><p>Como o chat do Nardoto Studio conversa com Claude Code, Codex, agy e Grok pelo CLI de cada um: o protocolo, o que mudou de um para outro e o que quebrou.</p><span class="ler">Ler artigo &rarr;</span></div></a></div></div></section></main>
+<footer><div class="wrap"><span>Blog do Nardoto Studio. Escrito por Tharcisio Nardoto.</span><span><a href="/">nardoto.com.br</a> · <a href="/blog/feed.xml">RSS</a></span></div></footer>
+</body></html>

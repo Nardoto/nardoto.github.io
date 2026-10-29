@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 450" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Antes e depois: print e clique pelo cursor do Windows contra o Chrome DevTools Protocol</title>
+<rect width="1200" height="450" rx="18" fill="#141414"/>
+<rect x="30" y="30" width="555" height="390" rx="14" fill="#1A1A1A"/>
+<rect x="615" y="30" width="555" height="390" rx="14" fill="#2A1710"/>
+<text x="56" y="76" fill="#9CA3AF" font-size="16" font-weight="700" letter-spacing="2">ANTES</text>
+<text x="56" y="112" fill="#fff" font-size="26" font-weight="700">Cursor real do Windows</text>
+<text x="641" y="76" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">DEPOIS</text>
+<text x="641" y="112" fill="#fff" font-size="26" font-weight="700">Chrome DevTools Protocol</text>
+<g font-size="15" fill="#9CA3AF" font-weight="700" letter-spacing="1.5">
+<text x="56" y="164">PRINT</text><text x="56" y="228">CLIQUE</text><text x="56" y="292">SEU MOUSE</text><text x="56" y="356">DEPENDE DE</text>
+<text x="641" y="164">PRINT</text><text x="641" y="228">CLIQUE</text><text x="641" y="292">SEU MOUSE</text><text x="641" y="356">DEPENDE DE</text></g>
+<g font-size="21" fill="#B4B9C2">
+<text x="56" y="192">Falha com a janela minimizada</text>
+<text x="56" y="256">PowerShell, ~300 ms de trava</text>
+<text x="56" y="320">Movido à força enquanto você usa</text>
+<text x="56" y="384">PowerShell e user32 (só Windows)</text></g>
+<g font-size="21" fill="#fff">
+<text x="641" y="192">Funciona com a janela escondida</text>
+<text x="641" y="256">Clica pelo DOM, sem travar o app</text>
+<text x="641" y="320">Não é tocado</text>
+<text x="641" y="384">Do próprio Chromium do Electron</text></g>
+</svg>

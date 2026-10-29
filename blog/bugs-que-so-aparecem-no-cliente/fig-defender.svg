@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 430" font-family="Inter,'Segoe UI',Arial,sans-serif" role="img" aria-labelledby="t">
+<title id="t">Antes, o Defender removia o executável Nuitka do cliente; depois, o módulo roda como script pelo Python embarcado assinado</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E85A2A"/></marker>
+<marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#6B7280"/></marker></defs>
+<rect width="1200" height="430" rx="18" fill="#141414"/>
+<text x="20" y="46" fill="#E85A2A" font-size="16" font-weight="700" letter-spacing="2">O DEFENDER E O PYTHON EMBARCADO</text>
+<text x="20" y="92" fill="#fff" font-size="18" font-weight="700">ANTES: executável Nuitka auto-assinado</text>
+<rect x="20" y="104" width="262" height="90" rx="12" fill="#1A1A1A"/><text x="40" y="140" fill="#fff" font-size="21" font-weight="700">Instalador</text><text x="40" y="168" fill="#B4B9C2" font-size="17">extrai os exes Nuitka</text>
+<rect x="320" y="104" width="262" height="90" rx="12" fill="#1A1A1A"/><text x="340" y="140" fill="#fff" font-size="21" font-weight="700">Defender (nuvem)</text><text x="340" y="168" fill="#B4B9C2" font-size="17">assinatura FastPath</text>
+<rect x="620" y="104" width="262" height="90" rx="12" fill="#1A1A1A"/><text x="640" y="140" fill="#fff" font-size="21" font-weight="700">sync_engine.exe</text><text x="640" y="168" fill="#B4B9C2" font-size="17">removido do cliente</text>
+<rect x="920" y="104" width="262" height="90" rx="12" fill="#1A1A1A"/><text x="940" y="140" fill="#6B7280" font-size="21" font-weight="700">App quebrado</text><text x="940" y="168" fill="#9CA3AF" font-size="17">Instalação incompleta</text>
+<g stroke="#6B7280" stroke-width="2.5"><path d="M286 149H314" marker-end="url(#g)"/><path d="M586 149H614" marker-end="url(#g)"/><path d="M886 149H914" marker-end="url(#g)"/></g>
+<text x="20" y="242" fill="#fff" font-size="18" font-weight="700">DEPOIS: script lido por um python.exe assinado</text>
+<rect x="20" y="254" width="262" height="90" rx="12" fill="#1A1A1A"/><text x="40" y="290" fill="#fff" font-size="21" font-weight="700">Instalador</text><text x="40" y="318" fill="#B4B9C2" font-size="17">traz o python.exe</text>
+<rect x="320" y="254" width="262" height="90" rx="12" fill="#1A1A1A"/><text x="340" y="290" fill="#fff" font-size="21" font-weight="700">Python embarcado</text><text x="340" y="318" fill="#B4B9C2" font-size="17">assinado pela PSF</text>
+<rect x="620" y="254" width="262" height="90" rx="12" fill="#2A1710"/><text x="640" y="290" fill="#FF8A5C" font-size="21" font-weight="700">sync_engine.py</text><text x="640" y="318" fill="#B4B9C2" font-size="17">roda como script</text>
+<rect x="920" y="254" width="262" height="90" rx="12" fill="#2A1710"/><text x="940" y="290" fill="#FF8A5C" font-size="21" font-weight="700">Nada a remover</text><text x="940" y="318" fill="#B4B9C2" font-size="17">o exe fica de reserva</text>
+<g stroke="#E85A2A" stroke-width="2.5"><path d="M286 299H314" marker-end="url(#a)"/><path d="M586 299H614" marker-end="url(#a)"/><path d="M886 299H914" marker-end="url(#a)"/></g>
+<text x="600" y="394" fill="#9CA3AF" font-size="18" text-anchor="middle">Só 8 módulos sem dependência de terceiros usam o runtime. O Python embarcado não tem pip.</text>
+</svg>
