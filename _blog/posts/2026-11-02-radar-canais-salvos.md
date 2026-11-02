@@ -47,6 +47,14 @@ A consulta de canais parecidos passa a oferecer filtros de idade, visualizaçõe
 
 O botão de salvar também aparece nesses resultados. A pessoa pode explorar uma referência, guardá-la e continuar a pesquisa sem voltar à lista inicial. Em telas estreitas, os cartões reorganizam seus vídeos e o painel de pastas permanece dentro da largura disponível.
 
+## Carregar e conferir a atualização
+
+O Radar agora abre com cartões de espera e prioriza os canais recém-adicionados. A ordenação Em Alta continua disponível: nela, os mesmos canais fortes podem permanecer no topo mesmo quando a base recebe novidades.
+
+O botão Atualizar confere a publicação no servidor. A tela mostra a data da base e informa se chegou uma versão nova ou se continua igual. Essa data não significa que todos os canais foram coletados naquele instante. Consultas demoradas oferecem nova tentativa, e respostas antigas não substituem uma busca mais recente.
+
+![Carregamento do Radar com cartões de espera](prints/carregamento.png "Figura 2. O carregamento permanece visível enquanto o servidor prepara a consulta, sem inventar uma porcentagem de conclusão.")
+
 ## A autorização continua no servidor
 
 Esconder um botão não protege uma base de dados. Por isso, os serviços do Radar verificam o acesso da conta antes de consultar as informações. A regra desta atualização reserva o recurso aos planos pagos e remove a exceção que permitia acesso durante o teste gratuito.
