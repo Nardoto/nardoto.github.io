@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8">
+<script>if(!/^(localhost|127.0.0.1)$/.test(location.hostname)){var g=document.createElement('script');g.async=true;g.src='https://www.googletagmanager.com/gtag/js?id=G-WSY9CWHH19';document.head.appendChild(g);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-WSY9CWHH19')}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salvar canais uma vez, organizar em qualquer tela | Blog do Nardoto Studio</title><meta name="description" content="O Radar de Nichos ganhou pastas no dashboard, salvamento com confirmação e filtros de canais parecidos, compartilhando a mesma base pessoal do Studio.">
+<link rel="canonical" href="https://nardoto.com.br/blog/radar-canais-salvos/"><meta property="og:type" content="article"><meta property="og:url" content="https://nardoto.com.br/blog/radar-canais-salvos/">
+<meta property="og:title" content="Salvar canais uma vez, organizar em qualquer tela | Blog do Nardoto Studio"><meta property="og:description" content="O Radar de Nichos ganhou pastas no dashboard, salvamento com confirmação e filtros de canais parecidos, compartilhando a mesma base pessoal do Studio."><meta property="og:image" content="https://nardoto.com.br/blog/radar-canais-salvos/capa.jpg">
+<link rel="icon" type="image/png" href="/favicon.png"><meta name="theme-color" content="#E85A2A">
+<link rel="alternate" type="application/rss+xml" title="Blog do Nardoto" href="/blog/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/blog/blog.css"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Salvar canais uma vez, organizar em qualquer tela","description":"O Radar de Nichos ganhou pastas no dashboard, salvamento com confirmação e filtros de canais parecidos, compartilhando a mesma base pessoal do Studio.","datePublished":"2026-11-02","author":{"@type":"Person","name":"Tharcisio Nardoto"},"mainEntityOfPage":"https://nardoto.com.br/blog/radar-canais-salvos/"}</script></head><body>
+<header class="topo"><div class="wrap"><a class="marca" href="/"><img src="/favicon.png" alt="">Nardoto</a>
+<nav class="nav"><a href="/">Apps</a><a href="/studio/">Studio</a><a href="/blog/" class="on">Blog</a></nav></div></header>
+<main><article><div class="wrap"><div class="cab"><a class="eyebrow" href="/blog/">Blog / Diário de construção</a>
+<h1>Salvar canais uma vez, organizar em qualquer tela</h1><p class="lead">O Radar de Nichos ganhou pastas no dashboard, salvamento com confirmação e filtros de canais parecidos, compartilhando a mesma base pessoal do Studio.</p>
+<div class="meta">Tharcisio Nardoto · 02 nov. 2026 · 4 min de leitura</div>
+<div class="tags"><a class="tag" href="/blog/tags/workflow/">workflow</a><a class="tag" href="/blog/tags/arquitetura/">arquitetura</a><a class="tag" href="/blog/tags/bugs/">bugs</a></div></div>
+<img class="capa" src="/blog/radar-canais-salvos/capa.jpg" alt="" width="1200" height="630">
+<div class="corpo-post"><nav class="toc"><strong>Neste artigo</strong><a href="#a-mesma-colecao-no-studio-e-no-dashboard">A mesma coleção no Studio e no dashboard</a><a href="#remover-uma-pasta-nao-remove-a-pesquisa">Remover uma pasta não remove a pesquisa</a><a href="#salvo-precisa-significar-que-foi-gravado">Salvo precisa significar que foi gravado</a><a href="#parecidos-com-filtros-e-contexto">Parecidos com filtros e contexto</a><a href="#a-autorizacao-continua-no-servidor">A autorização continua no servidor</a></nav>
+<div class="prose"><p>Salvar um canal deveria encerrar uma decisão simples: quero guardar esta referência para consultar depois. Quando o mesmo botão também remove o canal, ou quando cada tela parece ter sua própria coleção, essa decisão fica menos previsível. A atualização do Radar de Nichos leva ao dashboard o fluxo de organização que já havia sido preparado no Studio, usando a mesma base pessoal da conta.</p>
+<p>O botão passa de <strong>Salvar</strong> para <strong>Salvo</strong> depois que o servidor confirma a gravação. Clicar novamente em Salvo abre as pastas. Para remover o canal, existe uma ação separada, chamada <strong>Tirar dos salvos</strong>. A diferença aparece no comportamento, sem exigir que a pessoa aprenda uma nova tela antes de conseguir guardar uma referência.</p>
+<h2 id="a-mesma-colecao-no-studio-e-no-dashboard">A mesma coleção no Studio e no dashboard</h2>
+<p>A aba Minha base reúne os canais salvos e as pastas da conta. O dashboard consulta o mesmo serviço usado pelo Studio. Assim, a organização não depende do computador em que a pessoa começou a pesquisa, nem exige exportar uma lista para continuar em outra tela.</p>
+<p>Essa continuidade usa a estrutura que já existia no servidor. Não foi criada uma segunda coleção para o site. Essa escolha também preserva os canais antigos, inclusive os registros que ainda guardavam apenas uma pasta por canal. Eles continuam aparecendo na organização atual, que permite selecionar várias pastas.</p>
+<figure><a href="prints/minha-base.png" target="_blank" rel="noopener"><img src="prints/minha-base.png" alt="Grade de pastas com dados fictícios no ensaio do dashboard" loading="lazy"></a><figcaption>Figura 1. A aba Minha base no ensaio local. Os nomes e canais são dados fictícios usados para conferir a interface.</figcaption></figure><p>O campo Procurar ou criar pasta serve para as duas tarefas. Enquanto a pessoa digita, a lista mostra os nomes correspondentes. Se o nome ainda não existe, aparece a ação para criar a pasta. Depois, basta marcar os destinos e salvar. Um canal pode servir a pesquisas diferentes e aparecer em mais de uma pasta, sem precisar ser salvo de novo como outra referência.</p>
+<h2 id="remover-uma-pasta-nao-remove-a-pesquisa">Remover uma pasta não remove a pesquisa</h2>
+<p>Separar a existência de um canal da sua organização evita uma consequência indesejada: perder referências ao reorganizar a coleção. Apagar uma pasta retira aquela classificação. Os canais continuam salvos e permanecem nas outras pastas escolhidas. Quando não têm mais nenhuma pasta, aparecem em Sem pasta.</p>
+<table>
+<thead>
+<tr>
+<th>Ação</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Salvar um canal</td>
+<td>Guarda a referência na base pessoal</td>
+</tr>
+<tr>
+<td>Clicar em Salvo</td>
+<td>Abre a organização em pastas</td>
+</tr>
+<tr>
+<td>Marcar várias pastas</td>
+<td>Mantém o mesmo canal em diferentes grupos</td>
+</tr>
+<tr>
+<td>Apagar uma pasta</td>
+<td>Preserva os canais salvos</td>
+</tr>
+<tr>
+<td>Tirar dos salvos</td>
+<td>Remove a referência da base pessoal</td>
+</tr>
+</tbody>
+</table>
+<p>Os cartões também mostram há quanto tempo o canal está postando. Períodos curtos aparecem em dias e recebem destaque laranja. Meses e anos usam um destaque mais discreto. Quando a base não conhece a data inicial, a interface não inventa uma idade para preencher o espaço.</p>
+<h2 id="salvo-precisa-significar-que-foi-gravado">Salvo precisa significar que foi gravado</h2>
+<p>A primeira versão do dashboard mudava o estado visual antes de receber a confirmação do servidor. Esse tipo de resposta imediata pode funcionar bem, mas precisa lidar com falhas e com respostas que chegam fora de ordem. Nesta atualização, a confirmação de salvamento passou a depender da resposta da gravação.</p>
+<p>Também foi tratado um caso menos visível: uma leitura antiga pode chegar depois de uma gravação recente. Se a tela aceitar essa leitura sem verificar sua ordem, o canal recém-salvo pode parecer ter sumido. O controle de revisão descarta essa atualização atrasada. O ensaio reproduziu a sequência, segurando uma resposta de leitura enquanto o salvamento era concluído.</p>
+<p>Cliques repetidos não iniciam gravações simultâneas. Se a gravação falha, o botão continua disponível como Salvar e a mensagem informa o problema. Isso evita apresentar uma confirmação que a pessoa não conseguiria encontrar ao abrir sua base novamente.</p>
+<h2 id="parecidos-com-filtros-e-contexto">Parecidos com filtros e contexto</h2>
+<p>A consulta de canais parecidos passa a oferecer filtros de idade, visualizações por vídeo, idioma e duração. Canais mais novos têm prioridade por faixa de idade; dentro da faixa, a semelhança ajuda a ordenar os resultados. Canais sem atividade no mês ficam para o fim.</p>
+<p>O botão de salvar também aparece nesses resultados. A pessoa pode explorar uma referência, guardá-la e continuar a pesquisa sem voltar à lista inicial. Em telas estreitas, os cartões reorganizam seus vídeos e o painel de pastas permanece dentro da largura disponível.</p>
+<h2 id="a-autorizacao-continua-no-servidor">A autorização continua no servidor</h2>
+<p>Esconder um botão não protege uma base de dados. Por isso, os serviços do Radar verificam o acesso da conta antes de consultar as informações. A regra desta atualização reserva o recurso aos planos pagos e remove a exceção que permitia acesso durante o teste gratuito.</p>
+<p>Os testes locais executaram o código do servidor com contas simuladas e conferiram também o comportamento da tela no Chrome. Foram exercitados salvamento, pastas, filtros, falhas de gravação, troca de conta e perda de acesso. Essa validação é distinta de uma sessão real autenticada: os dados das capturas são fictícios, e nenhuma coleção pessoal foi usada como massa de teste.</p>
+<p>A decisão central foi manter um significado estável para cada ação. Salvar guarda a referência. Organizar muda suas pastas. Remover exige uma ação própria. Quando a pesquisa atravessa o Studio e o dashboard, esses significados continuam os mesmos.</p>
+<p class="assina">Escrito por Tharcisio Nardoto, engenheiro civil e criador do <a href="/studio/">Nardoto Studio</a>.</p></div></div></div></article>
+<section class="relacionados"><div class="wrap"><h2>Continue a leitura.</h2><div class="grid" style="padding-bottom:0"><a class="card" href="/blog/bugs-que-so-aparecem-no-cliente/"><img src="/blog/bugs-que-so-aparecem-no-cliente/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">29 out. 2026 · 8 min de leitura</span><h2>Bugs que só aparecem no computador do cliente</h2><p>Seis bugs do Nardoto Studio que funcionavam em desenvolvimento e quebravam no instalador, e a trava (teste, guard ou build) que impede cada um de voltar.</p><span class="ler">Ler artigo &rarr;</span></div></a><a class="card" href="/blog/cinco-ias-num-chat-so/"><img src="/blog/cinco-ias-num-chat-so/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">29 out. 2026 · 8 min de leitura</span><h2>Cinco IAs num chat só: o protocolo de cada CLI por dentro</h2><p>Como o chat do Nardoto Studio conversa com Claude Code, Codex, agy e Grok pelo CLI de cada um: o protocolo, o que mudou de um para outro e o que quebrou.</p><span class="ler">Ler artigo &rarr;</span></div></a><a class="card" href="/blog/como-eu-trabalho-com-ia-memoria-skills-regras/"><img src="/blog/como-eu-trabalho-com-ia-memoria-skills-regras/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">29 out. 2026 · 9 min de leitura</span><h2>Como eu trabalho com IA: memória, skills e regras</h2><p>Como organizo agentes de código: CLAUDE.md espelhado em outros CLIs, 364 arquivos de memória, 68 skills, subagentes e prova em teste, com os erros.</p><span class="ler">Ler artigo &rarr;</span></div></a></div></div></section></main>
+<footer><div class="wrap"><span>Blog do Nardoto Studio. Escrito por Tharcisio Nardoto.</span><span><a href="/">nardoto.com.br</a> · <a href="/blog/feed.xml">RSS</a></span></div></footer>
+</body></html>
