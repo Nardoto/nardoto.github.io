@@ -19,6 +19,10 @@ Com a personalização, aconteceu algo parecido. Eu gosto de mudar o ambiente em
 
 O novo tema permite escolher fundos e usar imagens próprias. Existe também a opção de manter uma coleção e alternar as imagens. Quero que a pessoa possa abrir o Studio e encontrar um espaço que pareça dela, sem precisar abrir mão de enxergar o que está fazendo.
 
+<figure><a href="galeria-ensaio.png" target="_blank" rel="noopener"><img src="galeria-ensaio.png" alt="Prévia de uma galeria de fundos do Liquid Glass" loading="lazy" style="aspect-ratio:1360 / 575;object-fit:cover;object-position:top"></a><figcaption>Ensaio visual da galeria de fundos durante o desenvolvimento da personalização.</figcaption></figure>
+
+<figure><a href="camadas.svg" target="_blank" rel="noopener"><picture><source media="(max-width: 600px)" srcset="camadas-celular.svg"><img src="camadas.svg" alt="Esquema visual de camadas: fundo, vidro e conteúdo" loading="lazy"></picture></a><figcaption>O fundo dá personalidade; o vidro e o contraste mantêm o conteúdo em primeiro plano. Ilustração conceitual.</figcaption></figure>
+
 ## A inspiração no Liquid Glass da Apple
 
 A inspiração visual veio do [Liquid Glass apresentado pela Apple](https://developer.apple.com/videos/play/wwdc2025/219/), com suas superfícies que lembram vidro e deixam o conteúdo ao fundo participar da interface. Estou trazendo essa ideia para o Studio e adaptando o visual ao que um programa de produção precisa.
@@ -27,8 +31,6 @@ O objetivo é deixar a interface mais limpa, dar profundidade às janelas e cria
 
 Por isso, há um cuidado com a intensidade do vidro e com o contraste entre o fundo, os textos e os controles. O tema também oferece fundos preparados para esse ambiente. Uma foto pessoal pode ficar bonita, mas imagens com muitos detalhes ou cores muito contrastantes podem disputar atenção com o trabalho. A escolha do fundo e o ajuste da transparência ajudam a encontrar um equilíbrio.
 
-![Personalização com legibilidade](figura.svg "Figura 1. O tema procura equilibrar personalização, contraste e clareza.")
-
 ## O desafio de mostrar o que importa
 
 Um aplicativo de produção reúne muitas possibilidades. Com o tempo, é fácil adicionar uma opção aqui, outro botão ali e uma janela nova para resolver mais um problema. Cada decisão pode fazer sentido sozinha. Quando todas aparecem juntas, porém, a tela fica difícil de percorrer.
@@ -36,6 +38,8 @@ Um aplicativo de produção reúne muitas possibilidades. Com o tempo, é fácil
 Estou tentando olhar para o Studio também pelos olhos de quem nunca o viu. O que precisa aparecer primeiro? O que a pessoa procura durante o trabalho? O que pode ficar acessível em um segundo momento, para quem quiser se aprofundar?
 
 Simplificar não significa tirar tudo. Significa organizar melhor a experiência. Quem está começando precisa encontrar o essencial; quem quer explorar mais deve continuar conseguindo descobrir as funções. Esse equilíbrio exige observar o uso, testar e corrigir, porque a ideia que parece clara para quem construiu nem sempre é clara para quem acabou de chegar.
+
+<figure><a href="essencial.svg" target="_blank" rel="noopener"><picture><source media="(max-width: 600px)" srcset="essencial-celular.svg"><img src="essencial.svg" alt="Esquema da interface com o essencial à vista e outras opções para explorar" loading="lazy"></picture></a><figcaption>A intenção é deixar o essencial fácil de encontrar e manter as opções de aprofundamento acessíveis.</figcaption></figure>
 
 ## Design também é parte da ferramenta
 

@@ -9,6 +9,8 @@ O Nardoto Studio nasceu para reunir ferramentas de produção em um lugar onde a
 
 Uma das novidades em desenvolvimento é o Mark-I, que ganhou espaço próprio no chat do Studio. Quero contar por que estou trazendo essa opção para o aplicativo e como ela se conecta ao meu objetivo de simplificar a produção de vídeos.
 
+<figure><a href="caminho.svg" target="_blank" rel="noopener"><picture><source media="(max-width: 600px)" srcset="caminho-celular.svg"><img src="caminho.svg" alt="Do pedido no chat à revisão do vídeo, com publicação como objetivo em desenvolvimento" loading="lazy"></picture></a><figcaption>O fluxo que está sendo construído começa na conversa e termina com revisão e publicação quando a pessoa quiser.</figcaption></figure>
+
 ## O Mark-I dentro do chat
 
 O Mark-I já foi desenvolvido por um amigo programador, que agora está me ajudando a integrá-lo ao Nardoto Studio. Durante a implementação, ele também ajuda a identificar e resolver bugs que aparecem pelo caminho. Juntos, estamos buscando tornar o chat mais eficiente e a experiência de uso mais fluida. A ideia nasceu de algo que escuto de quem usa o Studio: muitas pessoas querem assinar uma ferramenta e começar a trabalhar, sem precisar contratar e configurar vários serviços de IA separadamente.
@@ -21,8 +23,6 @@ A parceria com quem desenvolveu o Mark-I e o acesso ao código-fonte ajudam a aj
 
 Minha intenção é que o Mark-I faça parte de uma experiência simples dentro do Studio. A pessoa que escolher o pacote adicional poderá conversar no chat e usar a IA no seu trabalho, sem precisar lidar com detalhes técnicos de conexão. As condições e a disponibilidade serão apresentadas quando o pacote estiver pronto.
 
-![Uma experiência de criação mais simples](figura.svg "Figura 1. A proposta é aproximar o pedido da produção, com espaço para conferir o resultado.")
-
 ## O que uma produção precisa comprovar
 
 Uma parte dos ajustes recentes veio da revisão do fluxo de produção de vídeo. Um arquivo exportado é um resultado importante, mas ele não responde a todas as perguntas. A mídia corresponde ao que a narração diz? A pessoa consegue reabrir o projeto e continuar a edição? A imagem foi realmente conferida? O áudio foi ouvido ou apenas medido?
@@ -30,6 +30,8 @@ Uma parte dos ajustes recentes veio da revisão do fluxo de produção de vídeo
 O trabalho registrado no projeto acrescentou uma proteção conservadora na limpeza quando o Studio não consegue ler o projeto do Editor. Também houve ajustes para identificar candidatos, metadados e falhas na busca de mídia, além de instruções que pedem revisão com evidências e nova conferência após correções.
 
 Essas mudanças ainda exigem validação no aplicativo. Elas não significam que toda imagem encontrada esteja correta nem que uma revisão automática de qualidade já esteja comprovada. Na busca de material real, por exemplo, um resultado relacionado a um nome pode ser um homônimo, uma réplica ou uma imagem ilustrativa. É preciso examinar o contexto antes de usá-lo como registro de um fato.
+
+<figure><a href="conferencia.svg" target="_blank" rel="noopener"><picture><source media="(max-width: 600px)" srcset="conferencia-celular.svg"><img src="conferencia.svg" alt="Quatro perguntas de conferência sobre imagem, referências, áudio e projeto editável" loading="lazy"></picture></a><figcaption>Exportar é uma etapa; imagem, referências, áudio e projeto editável também precisam ser conferidos.</figcaption></figure>
 
 ## Cuidar do desempenho também faz parte
 
