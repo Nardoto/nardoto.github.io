@@ -21,7 +21,7 @@ O novo tema permite escolher fundos e usar imagens próprias. Existe também a o
 
 <figure><a href="galeria-ensaio.png" target="_blank" rel="noopener"><img src="galeria-ensaio.png" alt="Prévia de uma galeria de fundos do Liquid Glass" loading="lazy" style="aspect-ratio:1360 / 575;object-fit:cover;object-position:top"></a><figcaption>Ensaio visual da galeria de fundos durante o desenvolvimento da personalização.</figcaption></figure>
 
-<figure><a href="camadas.svg" target="_blank" rel="noopener"><picture><source media="(max-width: 600px)" srcset="camadas-celular.svg"><img src="camadas.svg" alt="Esquema visual de camadas: fundo, vidro e conteúdo" loading="lazy"></picture></a><figcaption>O fundo dá personalidade; o vidro e o contraste mantêm o conteúdo em primeiro plano. Ilustração conceitual.</figcaption></figure>
+<figure><a href="camadas.svg?v=glass-2" target="_blank" rel="noopener"><picture><source media="(max-width: 600px)" srcset="camadas-celular.svg?v=glass-2"><img src="camadas.svg?v=glass-2" alt="Esquema visual de camadas: fundo, vidro e conteúdo" loading="lazy"></picture></a><figcaption>O fundo dá personalidade; o vidro e o contraste mantêm o conteúdo em primeiro plano. Ilustração conceitual.</figcaption></figure>
 
 ## A inspiração no Liquid Glass da Apple
 
@@ -39,7 +39,7 @@ Estou tentando olhar para o Studio também pelos olhos de quem nunca o viu. O qu
 
 Simplificar não significa tirar tudo. Significa organizar melhor a experiência. Quem está começando precisa encontrar o essencial; quem quer explorar mais deve continuar conseguindo descobrir as funções. Esse equilíbrio exige observar o uso, testar e corrigir, porque a ideia que parece clara para quem construiu nem sempre é clara para quem acabou de chegar.
 
-<figure><a href="essencial.svg" target="_blank" rel="noopener"><picture><source media="(max-width: 600px)" srcset="essencial-celular.svg"><img src="essencial.svg" alt="Esquema da interface com o essencial à vista e outras opções para explorar" loading="lazy"></picture></a><figcaption>A intenção é deixar o essencial fácil de encontrar e manter as opções de aprofundamento acessíveis.</figcaption></figure>
+<figure><a href="essencial.svg?v=glass-2" target="_blank" rel="noopener"><picture><source media="(max-width: 600px)" srcset="essencial-celular.svg?v=glass-2"><img src="essencial.svg?v=glass-2" alt="Esquema da interface com o essencial à vista e outras opções para explorar" loading="lazy"></picture></a><figcaption>A intenção é deixar o essencial fácil de encontrar e manter as opções de aprofundamento acessíveis.</figcaption></figure>
 
 ## Design também é parte da ferramenta
 
