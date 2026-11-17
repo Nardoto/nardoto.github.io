@@ -18,7 +18,7 @@
   <meta property="og:url" content="https://nardoto.com.br/studio/">
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -66,11 +66,12 @@
       left: 0;
       right: 0;
       z-index: 100;
-      padding: 16px 24px;
+      padding: 14px max(clamp(18px, 4vw, 64px), calc((100% - 1408px) / 2));
+      border-bottom: 1px solid #ffffff12;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(5, 5, 5, 0.8);
+      background: rgba(11, 11, 10, .94);
       backdrop-filter: blur(20px);
     }
 
@@ -102,8 +103,8 @@
 
     .lang-toggle {
       display: flex;
-      background: var(--bg-card);
-      border-radius: 8px;
+      background: transparent;
+      border-radius: 5px;
       overflow: hidden;
     }
 
@@ -119,7 +120,7 @@
     }
 
     .lang-btn.active {
-      background: var(--primary);
+      background: #302e29;
       color: white;
     }
 
@@ -127,81 +128,64 @@
       padding: 8px 20px;
       font-size: 13px;
       font-weight: 600;
-      color: white;
-      background: var(--primary);
+      color: #24231f;
+      background: #f1ede3;
       border: none;
-      border-radius: 8px;
+      border-radius: 5px;
       cursor: pointer;
       transition: all 0.2s;
       text-decoration: none;
     }
 
-    .nav-download:hover { background: var(--primary-hover); transform: translateY(-1px); }
+    .nav-download:hover { background: #fff; }
 
-    /* ── Hero ── */
+    /* Apresentação e assinatura */
     .hero {
-      position: relative;
-      padding: clamp(84px, 10vh, 112px) clamp(16px, 3vw, 40px) 54px;
-      text-align: center;
+      --paper: #f1ede3;
+      max-width: 1536px;
+      margin: auto;
+      padding: clamp(88px, 7vw, 104px) clamp(18px, 4vw, 64px) clamp(40px, 5vw, 72px);
     }
-    .hero-intro, .hero-demo, .hero-actions { position: relative; }
+    .hero-intro {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 32px;
+      margin-bottom: clamp(20px, 1.8vw, 28px);
+    }
     .hero-intro h1 {
-      font-size: clamp(36px, 5vw, 74px);
-      font-weight: 900;
-      line-height: 1.04;
-      letter-spacing: -.045em;
-      text-wrap: balance;
+      color: #f6f3ed;
+      font-size: clamp(44px, 5.25vw, 82px);
+      font-weight: 650;
+      line-height: .98;
+      letter-spacing: -.065em;
     }
-    .hero-intro .highlight { color: var(--primary-hover); }
+    .hero-intro h1 em {
+      font: italic 1.18em/.85 'Instrument Serif', Georgia, serif;
+      letter-spacing: -.032em;
+      white-space: nowrap;
+    }
     .hero-intro p {
-      margin: 12px auto 22px;
-      max-width: 69ch;
-      color: var(--text-secondary);
-      line-height: 1.5;
-      font-size: clamp(15px, 1.4vw, 18px);
-      text-wrap: pretty;
+      max-width: 34ch;
+      margin-bottom: 2px;
+      color: #bfbab1;
+      font-size: clamp(14px, 1.1vw, 17px);
+      line-height: 1.55;
     }
-    .hero-demo, .studio-plans { max-width: 1200px; max-width: clamp(940px, calc(166svh - 360px), 1200px); margin-inline: auto; }
-    .studio-plans {
-      position: relative;
+    .hero-layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.3fr) repeat(2, minmax(0, 1fr));
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-      padding: 10px;
-      border: 1px solid #413029;
-      border-radius: 16px;
-      background: #15110f;
-      text-align: left;
-      scroll-margin-top: 78px;
+      grid-template-columns: minmax(0, 2.7fr) minmax(298px, 1fr);
+      align-items: start;
+      gap: clamp(20px, 2.1vw, 34px);
     }
-    .studio-plans header { padding: 0 10px; }
-    .studio-plans h2 { color: var(--text); font-size: clamp(17px, 1.5vw, 22px); line-height: 1.2; }
-    .studio-plans p { margin: 4px 0 0; color: #c5b9b3; font-size: 13px; line-height: 1.4; }
-    .offer-link {
-      display: grid;
-      gap: 2px;
-      padding: 9px 16px;
-      border: 1px solid #524039;
-      border-radius: 10px;
-      background: #231c18;
-      text-decoration: none;
-      color: var(--text);
-    }
-    .offer-link strong { font-size: clamp(20px, 1.8vw, 26px); line-height: 1.15; letter-spacing: -.03em; }
-    .offer-link small { font-size: 13px; font-weight: 500; letter-spacing: 0; }
-    .offer-action { font-size: 13px; font-weight: 700; color: #ffac8d; }
-    .offer-action::after { content: " →"; }
-    .offer-link:hover, .offer-link:focus-visible { border-color: var(--primary-hover); background: #34241c; }
-    .offer-link:focus-visible { outline: 2px solid white; outline-offset: 2px; }
+    .hero-demo { min-width: 0; margin: 0; }
     .hero-player {
       position: relative;
       overflow: hidden;
       aspect-ratio: 16 / 9;
-      background: var(--bg-card);
-      border-radius: clamp(10px, 1.5vw, 20px);
-      box-shadow: 0 0 0 1px #38312e, 0 18px 56px rgba(0,0,0,.45);
+      border-radius: 12px;
+      background: #151515;
+      box-shadow: 0 0 0 1px #292823;
     }
     .hero-player a, .hero-player iframe, .hero-player img { display: block; width: 100%; height: 100%; border: 0; }
     .hero-player a { display: grid; place-items: center; }
@@ -212,29 +196,91 @@
       position: relative;
       display: grid;
       place-items: center;
-      width: clamp(58px, 7.5vw, 98px);
+      width: clamp(58px, 7vw, 92px);
       aspect-ratio: 1;
-      border: 3px solid white;
+      border: 2px solid white;
       border-radius: 50%;
-      background: rgba(25, 15, 9, .9);
-      box-shadow: 0 4px 24px rgba(0,0,0,.65);
+      color: white;
+      background: rgba(11,12,12,.83);
+      box-shadow: 0 6px 22px #0009;
       transition: transform .18s ease, background .18s ease;
     }
-    .demo-play svg { width: 40%; height: 40%; margin-left: 6%; fill: white; }
-    .hero-player a:is(:hover, :focus-visible) .demo-play { background: #c84112; transform: scale(1.07); }
+    .demo-play svg { width: 38%; height: 38%; margin-left: 5%; fill: currentColor; }
+    .hero-player a:is(:hover, :focus-visible) .demo-play { background: #a63813; transform: scale(1.06); }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-    .hero-demo figcaption {
-      display: flex; justify-content: space-between; gap: 8px; align-items: center; margin-top: 6px;
-      font-size: 13px; color: var(--text-secondary);
+    .demo-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 10px 0;
+      gap: 8px;
+      color: #b8b3aa;
+      font-size: 12px;
     }
-    .hero-demo figcaption a { color: inherit; padding: 4px 0; text-underline-offset: 3px; }
-    .hero-actions { margin: clamp(14px, 2vw, 24px) auto 0; }
+    .demo-meta a { color: inherit; text-underline-offset: 3px; }
+    .chapters { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+    .chapters a {
+      display: grid;
+      align-content: start;
+      gap: 3px;
+      min-height: 52px;
+      border-top: 1px solid #47443f;
+      padding: 9px 0 0;
+      text-decoration: none;
+      color: #eae5dc;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .chapters a:is(:hover, :focus-visible) { border-color: var(--primary-hover); color: white; }
+    .chapters time { font: 500 11px/1.4 ui-monospace, Consolas, monospace; color: #ffa077; }
+    .studio-plans {
+      min-width: 0;
+      padding: clamp(20px, 2.1vw, 32px);
+      border-radius: 12px;
+      background: var(--paper);
+      color: #201f1c;
+      scroll-margin-top: 80px;
+    }
+    .studio-plans h2 { font-size: clamp(28px, 2.45vw, 38px); font-weight: 650; line-height: 1.02; letter-spacing: -.06em; }
+    .included { list-style: none; display: grid; gap: 7px; margin: 17px 0 22px; }
+    .included li { position: relative; padding-left: 18px; color: #48453d; font-size: 14px; line-height: 1.4; }
+    .included li::before {
+      content: ''; position: absolute; left: 1px; top: .31em; width: 5px; height: 9px;
+      border: solid #935123; border-width: 0 1.5px 1.5px 0; transform: rotate(45deg);
+    }
+    .billing { min-width: 0; border: 0; }
+    .billing label {
+      display: grid; grid-template-columns: 18px 1fr auto; align-items: baseline;
+      gap: 2px 10px; padding: 14px 0; border-top: 1px solid #c9c4b9;
+      font-size: 15px; font-weight: 580; cursor: pointer;
+    }
+    .billing label:last-child { border-bottom: 1px solid #c9c4b9; }
+    .billing input { align-self: center; accent-color: #292720; width: 17px; height: 17px; margin: 0; }
+    .billing label:focus-within { outline: 2px solid #a74417; outline-offset: 2px; }
+    .billing .price { color: #1d1c18; font-size: clamp(18px, 1.55vw, 24px); line-height: 1; font-weight: 650; letter-spacing: -.045em; font-variant-numeric: tabular-nums; }
+    .billing .saving { grid-column: 2 / -1; color: #76502e; font-size: 12px; font-weight: 500; }
+    .subscribe {
+      margin-top: 18px; display: flex; justify-content: space-between; align-items: center; width: 100%;
+      padding: 14px 18px; border: 0; border-radius: 7px; color: #fff; background: #24231f;
+      font: inherit; font-size: 15px; font-weight: 650; line-height: 1.45; cursor: pointer;
+    }
+    .subscribe:hover { background: #3b352d; }
+    .subscribe svg { width: 19px; height: 19px; color: #ffad79; }
+    .studio-plans :is(a,button):focus-visible { outline: 2px solid #a74417; outline-offset: 3px; }
+    .hero-actions { margin-top: 12px; text-align: center; }
+    .hero-actions a { color: #38352d; font-size: 13px; text-underline-offset: 3px; }
+    .hero-actions p { margin: 4px 0 0; color: #514d44; font-size: 12px; line-height: 1.5; }
     .cta-mobile { display: none !important; }
     .visita-mobile .cta-mobile { display: inline-flex !important; }
     .visita-mobile [data-dl-studio], .visita-mobile [data-dl-mac-only] { display: none !important; }
-    .hero [data-dl-mac-only] a { color: var(--primary-hover); }
-    .hero .hero-meta { margin: 10px auto 0; font-size: 14px; color: var(--text-secondary); }
     #teste { scroll-margin-top: 80px; }
+    @media (max-width: 900px) {
+      .hero { max-width: 790px; }
+      .hero-layout { grid-template-columns: minmax(0,1fr); gap: 24px; }
+      .hero-intro { display: block; }
+      .hero-intro p { max-width: 52ch; margin-top: 9px; }
+    }
 
     .hero-cta {
       display: flex;
@@ -297,7 +343,6 @@
       color: var(--text-muted);
     }
 
-    .hero .hero-meta { margin: 10px 0 0; font-size: 13px; }
     .hero-meta span { margin: 0 8px; }
 
     /* ── Features ── */
@@ -1036,15 +1081,17 @@
       nav { padding: 9px 12px; }
       .nav-actions { gap: 5px; }
       .nav-download { padding: 7px 10px; font-size: 12px; }
-      .hero { padding: 78px 16px 36px; }
-      .hero-intro h1 { font-size: clamp(30px, 8vw, 42px); }
-      .hero-intro p { margin: 10px auto 16px; }
-      .studio-plans { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; padding: 8px; margin-bottom: 12px; }
-      .studio-plans header { grid-column: 1 / -1; padding: 1px 3px 3px; }
-      .studio-plans header p { margin-top: 2px; font-size: 12px; }
-      .offer-link { padding: 8px 10px; }
-      .hero .hero-cta { gap: 8px; }
-      .hero .btn-primary, .hero .btn-mac { padding: 12px 16px; }
+      .hero { padding: 80px 16px 34px; }
+      .hero-intro { margin-bottom: 18px; }
+      .hero-intro h1 { font-size: clamp(38px, 7.3vw, 54px); }
+      .hero-intro p { font-size: 14px; line-height: 1.45; }
+      .hero-layout { gap: 20px; }
+      .chapters { gap: 10px; }
+      .chapters a { font-size: 12px; }
+      .studio-plans { padding: 20px; display: grid; }
+      .studio-plans h2 { margin-bottom: 14px; }
+      .included { order: 1; margin: 17px 0 0; padding-top: 13px; border-top: 1px solid #c9c4b9; }
+      .studio-plans .hero-actions { order: 2; }
       .features { padding: 60px 16px; }
       .features-grid { grid-template-columns: 1fr; }
       .target-audience { padding: 60px 16px; }
@@ -1105,59 +1152,76 @@
   </nav>
 
   <!-- Hero -->
-  <section class="hero">
-    <div class="hero-glow"></div>
-    <div class="hero-intro">
-      <h1><span data-i18n="hero-title-1">Veja o Studio</span> <span class="highlight" data-i18n="hero-title-2">em ação</span></h1>
-      <p data-i18n="hero-desc">Da pesquisa de nicho às dez primeiras pautas de um canal sobre furacões.</p>
-    </div>
-    <section class="studio-plans" id="planos" aria-labelledby="titulo-planos">
-      <header>
-        <h2 id="titulo-planos" data-i18n="oferta-titulo">Assine o Nardoto Studio</h2>
-        <p data-i18n="oferta-inclui">Studio, Studio Lite, Flow e comunidade.</p>
-      </header>
-      <a class="offer-link" href="https://labs.nardoto.com.br/checkout-studio.html?interval=month">
-        <strong><span data-i18n="preco-mensal">R$ 197</span><small data-i18n="por-mes">/mês</small></strong>
-        <span class="offer-action" data-i18n="assinar-mensal">Assinar mensal</span>
-      </a>
-      <a class="offer-link" href="https://labs.nardoto.com.br/checkout-studio.html?interval=year">
-        <strong><span data-i18n="preco-anual">R$ 1.970</span><small data-i18n="por-ano">/ano</small></strong>
-        <span class="offer-action" data-i18n="assinar-anual">Assinar anual</span>
-      </a>
-    </section>
-    <figure class="hero-demo">
-      <div class="hero-player">
-        <a id="abrir-demo" href="https://youtu.be/3oceS0ZOlnE">
-          <img src="demo-canal-em-um-dia.webp" width="1280" height="720" alt="" fetchpriority="high">
-          <span class="demo-play" aria-hidden="true">
-            <svg viewBox="0 0 24 24" focusable="false"><path d="M4 2.7a1 1 0 0 1 1.5-.86l15.6 9.3a1 1 0 0 1 0 1.72l-15.6 9.3a1 1 0 0 1-1.5-.86z"/></svg>
-          </span>
-          <span class="sr-only" data-i18n="hero-video-play">Reproduzir a demonstração do Nardoto Studio</span>
-        </a>
-      </div>
-      <figcaption>
-        <span data-i18n="demo-tempo">Demonstração · 3 min 20 s</span>
-        <a href="https://youtu.be/3oceS0ZOlnE" data-i18n="hero-video-link">Assistir no YouTube</a>
-      </figcaption>
-      <template id="player-demo">
-        <iframe src="https://www.youtube-nocookie.com/embed/3oceS0ZOlnE?autoplay=1&amp;playsinline=1" title="Nardoto Studio · YouTube" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-      </template>
-    </figure>
-    <div class="hero-actions" id="teste">
-      <div class="hero-cta">
-        <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup.exe" data-dl-studio class="btn-primary">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-          <span data-i18n="hero-cta-download">Baixar e testar grátis</span>
-          <span style="margin-left: -6px;">(<span data-dl-os>Windows</span>)</span>
-        </a>
-        <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-primary cta-mobile" data-i18n="conta">Acessar minha conta</a>
-      </div>
-      <p class="hero-meta" data-dl-mac-only hidden>
-        <span data-i18n="dl-mac-intel">Mac com chip Intel?</span>
-        <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup-mac-x64.dmg" style="color: var(--primary); text-decoration: none;" data-i18n="dl-mac-intel-link" data-mac-repo="LoopLess-nardoto/nardoto-studio-releases" data-mac-asset="NardotoStudio-Setup-mac-x64.dmg">baixe esta versão</a>
-      </p>
-      <p class="hero-meta" data-i18n="hero-meta-trial">10 dias sem cartão. Use sua própria conta de IA.</p>
-      <p class="hero-meta cta-mobile" data-i18n="mobile-nota">Você ativa o teste no computador, com Windows ou macOS.</p>
+  <section class="hero" aria-labelledby="titulo-demo">
+    <header class="hero-intro">
+      <h1 id="titulo-demo"><span data-i18n="hero-title-1">Veja o Studio</span> <em data-i18n="hero-title-2">em ação</em></h1>
+      <p data-i18n="hero-desc">Acompanhe a criação de um canal, da pesquisa do nicho à escolha da voz, das imagens e da edição.</p>
+    </header>
+    <div class="hero-layout">
+      <figure class="hero-demo">
+        <div class="hero-player">
+          <a id="abrir-demo" href="https://youtu.be/3oceS0ZOlnE">
+            <img src="demo-canal-em-um-dia.webp" width="1280" height="720" alt="" fetchpriority="high">
+            <span class="demo-play" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><path d="M4 2.7a1 1 0 0 1 1.5-.86l15.6 9.3a1 1 0 0 1 0 1.72l-15.6 9.3a1 1 0 0 1-1.5-.86z"/></svg>
+            </span>
+            <span class="sr-only" data-i18n="hero-video-play">Reproduzir a demonstração do Nardoto Studio</span>
+          </a>
+        </div>
+        <figcaption>
+          <div class="demo-meta">
+          <span data-i18n="demo-tempo">Demonstração · 3 min 20 s</span>
+          <a href="https://youtu.be/3oceS0ZOlnE" data-i18n="hero-video-link">Assistir no YouTube</a>
+          </div>
+          <ol class="chapters">
+            <li><a href="https://youtu.be/3oceS0ZOlnE?t=22" data-inicio="22"><time datetime="PT22S">00:22</time><span data-i18n="cap-radar">Radar de nichos</span></a></li>
+            <li><a href="https://youtu.be/3oceS0ZOlnE?t=101" data-inicio="101"><time datetime="PT1M41S">01:41</time><span data-i18n="cap-canal">Criação do canal</span></a></li>
+            <li><a href="https://youtu.be/3oceS0ZOlnE?t=145" data-inicio="145"><time datetime="PT2M25S">02:25</time><span data-i18n="cap-producao">Produção do vídeo</span></a></li>
+          </ol>
+        </figcaption>
+        <template id="player-demo">
+          <iframe src="https://www.youtube-nocookie.com/embed/3oceS0ZOlnE?autoplay=1&amp;playsinline=1" title="Nardoto Studio · YouTube" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </template>
+      </figure>
+      <section class="studio-plans" id="planos" aria-labelledby="titulo-planos">
+        <h2 id="titulo-planos" data-i18n="oferta-titulo">Assine o Studio</h2>
+        <ul class="included">
+          <li data-i18n="inclui-producao">Pesquisa, roteiro, narração e edição</li>
+          <li data-i18n="inclui-apps">Studio Lite e Flow incluídos</li>
+          <li data-i18n="inclui-comunidade">Aulas e comunidade de criadores</li>
+        </ul>
+        <form action="https://labs.nardoto.com.br/checkout-studio.html" method="get" id="assinatura-studio">
+          <fieldset class="billing">
+            <legend class="sr-only" data-i18n="periodo-assinatura">Período da assinatura</legend>
+            <label>
+              <input type="radio" name="interval" value="month" checked>
+              <span data-i18n="mensal">Mensal</span>
+              <strong class="price" data-i18n="preco-mensal">R$ 197</strong>
+            </label>
+            <label>
+              <input type="radio" name="interval" value="year">
+              <span data-i18n="anual">Anual</span>
+              <strong class="price" data-i18n="preco-anual">R$ 1.970</strong>
+              <small class="saving" data-i18n="economia-anual">Economize R$ 394 por ano</small>
+            </label>
+          </fieldset>
+          <button class="subscribe" type="submit">
+            <span data-i18n="assinar-studio">Assinar o Studio</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>
+          </button>
+        </form>
+        <div class="hero-actions" id="teste">
+          <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup.exe" data-dl-studio>
+            <span data-i18n="teste-alternativa">Testar por 10 dias sem cartão</span> (<span data-dl-os>Windows</span>)
+          </a>
+          <a href="https://nardoto-labs.web.app/dashboard.html" class="cta-mobile" data-i18n="teste-alternativa">Testar por 10 dias sem cartão</a>
+          <p data-dl-mac-only hidden>
+            <span data-i18n="dl-mac-intel">Mac com chip Intel?</span>
+            <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup-mac-x64.dmg" data-i18n="dl-mac-intel-link" data-mac-repo="LoopLess-nardoto/nardoto-studio-releases" data-mac-asset="NardotoStudio-Setup-mac-x64.dmg">baixe esta versão</a>
+          </p>
+          <p class="cta-mobile" data-i18n="mobile-nota">Você ativa o teste no computador, com Windows ou macOS.</p>
+        </div>
+      </section>
     </div>
   </section>
 
@@ -1343,27 +1407,20 @@
     const translations = {
       pt: {
         "assinar": "Assinar",
-        "oferta-titulo": "Assine o Nardoto Studio",
-        "oferta-inclui": "Studio, Studio Lite, Flow e comunidade.",
+        "oferta-titulo": "Assine o Studio",
         "preco-mensal": "R$ 197",
-        "por-mes": "/mês",
-        "assinar-mensal": "Assinar mensal",
         "preco-anual": "R$ 1.970",
-        "por-ano": "/ano",
-        "assinar-anual": "Assinar anual",
         "ver-assinaturas": "Escolher minha assinatura",
         "hero-title-1": "Veja o Studio",
         "hero-title-2": "em ação",
-        "hero-desc": "Da pesquisa de nicho às dez primeiras pautas de um canal sobre furacões.",
+        "hero-desc": "Acompanhe a criação de um canal, da pesquisa do nicho à escolha da voz, das imagens e da edição.",
         "hero-video-play": "Reproduzir a demonstração do Nardoto Studio",
         "demo-tempo": "Demonstração · 3 min 20 s",
         "hero-video-link": "Assistir no YouTube",
-        "hero-cta-download": "Baixar e testar grátis",
         "conta": "Acessar minha conta",
         "planos": "Ver planos",
         "dl-mac-intel": "Mac com chip Intel?",
         "dl-mac-intel-link": "baixe esta versão",
-        "hero-meta-trial": "10 dias sem cartão. Use sua própria conta de IA.",
         "mobile-nota": "Você ativa o teste no computador, com Windows ou macOS.",
         "features-label": "Funcionalidades",
         "features-title": "O que você decide em cada vídeo",
@@ -1407,31 +1464,36 @@
         "cta-desc": "Experimente o Studio por 10 dias e produza com um assunto que você conhece.",
         "cta-btn-download": "Baixar e testar grátis",
         "nota-fundador": "Esta demonstração também foi produzida no Nardoto Studio.",
-        "assinatura": "Nardoto, criador do Studio"
+        "assinatura": "Nardoto, criador do Studio",
+        "inclui-producao": "Pesquisa, roteiro, narração e edição",
+        "inclui-apps": "Studio Lite e Flow incluídos",
+        "inclui-comunidade": "Aulas e comunidade de criadores",
+        "mensal": "Mensal",
+        "anual": "Anual",
+        "periodo-assinatura": "Período da assinatura",
+        "economia-anual": "Economize R$ 394 por ano",
+        "assinar-studio": "Assinar o Studio",
+        "teste-alternativa": "Testar por 10 dias sem cartão",
+        "cap-radar": "Radar de nichos",
+        "cap-canal": "Criação do canal",
+        "cap-producao": "Produção do vídeo"
       },
       en: {
         "assinar": "Subscribe",
-        "oferta-titulo": "Subscribe to Nardoto Studio",
-        "oferta-inclui": "Studio, Studio Lite, Flow and community access.",
+        "oferta-titulo": "Subscribe to Studio",
         "preco-mensal": "R$ 197",
-        "por-mes": "/month",
-        "assinar-mensal": "Subscribe monthly",
         "preco-anual": "R$ 1,970",
-        "por-ano": "/year",
-        "assinar-anual": "Subscribe annually",
         "ver-assinaturas": "Choose my subscription",
         "hero-title-1": "See Studio",
         "hero-title-2": "in action",
-        "hero-desc": "Follow a hurricane channel from niche research to its first ten video ideas.",
+        "hero-desc": "Watch a channel take shape, from researching a niche to choosing the voice, visuals and editing style.",
         "hero-video-play": "Play the Nardoto Studio demo",
         "demo-tempo": "Demo · 3 min 20 sec",
         "hero-video-link": "Watch on YouTube",
-        "hero-cta-download": "Download and try for free",
         "conta": "Open my account",
         "planos": "View plans",
         "dl-mac-intel": "Mac with Intel chip?",
         "dl-mac-intel-link": "get this version",
-        "hero-meta-trial": "10 days, no credit card. Use your own AI account.",
         "mobile-nota": "Activate your trial on a Windows PC or Mac.",
         "features-label": "Features",
         "features-title": "What you control in every video",
@@ -1475,7 +1537,19 @@
         "cta-desc": "Try Studio for 10 days and make a video about a subject you know.",
         "cta-btn-download": "Download and try for free",
         "nota-fundador": "This demo was made in Nardoto Studio, too.",
-        "assinatura": "Nardoto, creator of Studio"
+        "assinatura": "Nardoto, creator of Studio",
+        "inclui-producao": "Research, scripts, narration and editing",
+        "inclui-apps": "Studio Lite and Flow included",
+        "inclui-comunidade": "Classes and creator community",
+        "mensal": "Monthly",
+        "anual": "Annual",
+        "periodo-assinatura": "Billing period",
+        "economia-anual": "Save R$ 394 per year",
+        "assinar-studio": "Subscribe to Studio",
+        "teste-alternativa": "Try for 10 days, no card required",
+        "cap-radar": "Niche research",
+        "cap-canal": "Channel setup",
+        "cap-producao": "Video production"
       }
     }
 
@@ -1508,12 +1582,19 @@
         : 'Nardoto Studio - AI Video Editor'
     }
 
-    document.getElementById('abrir-demo').addEventListener('click', function (event) {
+    document.querySelector('.hero-demo').addEventListener('click', function (event) {
+      const link = event.target.closest('a')
+      if (!link || !(link.id === 'abrir-demo' || link.hasAttribute('data-inicio'))) return
       if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return
       event.preventDefault()
       const player = document.getElementById('player-demo').content.firstElementChild.cloneNode(true)
-      this.replaceWith(player)
-      player.focus()
+      if (link.dataset.inicio) {
+        const destino = new URL(player.src)
+        destino.searchParams.set('start', link.dataset.inicio)
+        player.src = destino.href
+      }
+      this.querySelector('.hero-player').replaceChildren(player)
+      player.focus({ preventScroll: true })
     })
 
     // ── Scroll animations ──
@@ -1542,6 +1623,11 @@
       var params = new URLSearchParams(window.location.search);
       var ref = params.get('ref');
       if (!ref) return;
+      var campo = document.createElement('input');
+      campo.type = 'hidden';
+      campo.name = 'ref';
+      campo.value = ref;
+      document.getElementById('assinatura-studio').appendChild(campo);
       document.querySelectorAll('a[href^="https://nardoto-labs.web.app/"], a[href^="https://labs.nardoto.com.br/"]').forEach(function(a) {
         var url = new URL(a.href);
         url.searchParams.set('ref', ref);
