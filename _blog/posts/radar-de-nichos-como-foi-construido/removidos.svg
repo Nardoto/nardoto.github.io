@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 440" role="img" aria-labelledby="t" font-family="Inter,'Segoe UI',Arial,sans-serif">
+  <title id="t">Canais marcados como removidos por mês em 2026: 796 em julho, 674 em agosto, 520 em setembro, 438 em outubro e 251 em novembro, 2.679 no total</title>
+  <rect width="1200" height="440" rx="18" fill="#141414"/>
+
+  <text x="40" y="52" fill="#fff" font-size="24" font-weight="700">Canais removidos, pelo mês em que sumiram</text>
+  <text x="40" y="80" fill="#9CA3AF" font-size="17">2.679 no total, contados no histórico da coleta em 5 de novembro de 2026</text>
+
+  <rect x="80" y="360" width="1040" height="1" fill="#2A2A2A"/>
+
+  <rect x="110" y="120" width="140" height="240" rx="8" fill="#E85A2A"/>
+  <text x="180" y="108" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">796</text>
+  <text x="180" y="392" fill="#B4B9C2" font-size="18" text-anchor="middle">julho</text>
+
+  <rect x="320" y="157" width="140" height="203" rx="8" fill="#E85A2A"/>
+  <text x="390" y="145" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">674</text>
+  <text x="390" y="392" fill="#B4B9C2" font-size="18" text-anchor="middle">agosto</text>
+
+  <rect x="530" y="203" width="140" height="157" rx="8" fill="#E85A2A"/>
+  <text x="600" y="191" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">520</text>
+  <text x="600" y="392" fill="#B4B9C2" font-size="18" text-anchor="middle">setembro</text>
+
+  <rect x="740" y="228" width="140" height="132" rx="8" fill="#E85A2A"/>
+  <text x="810" y="216" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">438</text>
+  <text x="810" y="392" fill="#B4B9C2" font-size="18" text-anchor="middle">outubro</text>
+
+  <rect x="950" y="284" width="140" height="76" rx="8" fill="#5A3A2E"/>
+  <text x="1020" y="272" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">251</text>
+  <text x="1020" y="392" fill="#B4B9C2" font-size="18" text-anchor="middle">novembro</text>
+  <text x="1020" y="416" fill="#9CA3AF" font-size="17" text-anchor="middle">mês em andamento</text>
+</svg>

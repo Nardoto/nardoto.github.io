@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" role="img" aria-labelledby="t" font-family="Inter,'Segoe UI',Arial,sans-serif">
+  <title id="t">Arquitetura do Radar de Nichos: a coleta grava o arquivo da base, o fatiamento divide em pedaços, as funções respondem ao app, e a análise roda na inteligência artificial da própria pessoa</title>
+  <defs>
+    <marker id="s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#E85A2A"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="500" rx="18" fill="#141414"/>
+
+  <rect x="40" y="70" width="240" height="190" rx="12" fill="#1A1A1A"/>
+  <text x="60" y="108" fill="#fff" font-size="21" font-weight="700">1. Coleta</text>
+  <text x="60" y="140" fill="#B4B9C2" font-size="17">servidor alugado,</text>
+  <text x="60" y="164" fill="#B4B9C2" font-size="17">o dia inteiro</text>
+  <text x="60" y="200" fill="#9CA3AF" font-size="17">API oficial (cota)</text>
+  <text x="60" y="224" fill="#9CA3AF" font-size="17">yt-dlp (sem cota)</text>
+
+  <path d="M280 165 L318 165" stroke="#E85A2A" stroke-width="2.5" fill="none" marker-end="url(#s)"/>
+
+  <rect x="330" y="70" width="240" height="190" rx="12" fill="#1A1A1A"/>
+  <text x="350" y="108" fill="#fff" font-size="21" font-weight="700">2. Arquivo da base</text>
+  <text x="350" y="140" fill="#B4B9C2" font-size="17">80,9 MB</text>
+  <text x="350" y="164" fill="#B4B9C2" font-size="17">99.845 canais</text>
+  <text x="350" y="200" fill="#9CA3AF" font-size="17">cada versão tem</text>
+  <text x="350" y="224" fill="#9CA3AF" font-size="17">um número de geração</text>
+
+  <path d="M570 165 L608 165" stroke="#E85A2A" stroke-width="2.5" fill="none" marker-end="url(#s)"/>
+
+  <rect x="620" y="70" width="240" height="190" rx="12" fill="#2A1710"/>
+  <text x="640" y="108" fill="#FF8A5C" font-size="21" font-weight="700">3. Fatias</text>
+  <text x="640" y="140" fill="#FF8A5C" font-size="17">a cada 10 minutos,</text>
+  <text x="640" y="164" fill="#FF8A5C" font-size="17">se a geração mudou</text>
+  <text x="640" y="200" fill="#FF8A5C" font-size="17">primeiras páginas</text>
+  <text x="640" y="224" fill="#FF8A5C" font-size="17">prontas + 256 lotes</text>
+
+  <path d="M860 165 L898 165" stroke="#E85A2A" stroke-width="2.5" fill="none" marker-end="url(#s)"/>
+
+  <rect x="910" y="70" width="250" height="190" rx="12" fill="#1A1A1A"/>
+  <text x="930" y="108" fill="#fff" font-size="21" font-weight="700">4. Funções</text>
+  <text x="930" y="140" fill="#B4B9C2" font-size="17">respondem ao app</text>
+  <text x="930" y="164" fill="#B4B9C2" font-size="17">lendo só a fatia</text>
+  <text x="930" y="200" fill="#9CA3AF" font-size="17">fatia de outra geração:</text>
+  <text x="930" y="224" fill="#9CA3AF" font-size="17">volta à base inteira</text>
+
+  <path d="M1035 260 L1035 318" stroke="#E85A2A" stroke-width="2.5" fill="none" marker-end="url(#s)"/>
+
+  <rect x="620" y="330" width="540" height="120" rx="12" fill="#1A1A1A"/>
+  <text x="640" y="368" fill="#fff" font-size="21" font-weight="700">5. Radar no Studio</text>
+  <text x="640" y="400" fill="#B4B9C2" font-size="17">lista, filtros, gráficos, pastas de canais salvos</text>
+  <text x="640" y="426" fill="#9CA3AF" font-size="17">usa 4,4 MB da base (3.980 canais)</text>
+
+  <path d="M620 390 L352 390" stroke="#E85A2A" stroke-width="2.5" fill="none" marker-end="url(#s)"/>
+
+  <rect x="40" y="330" width="300" height="120" rx="12" fill="#1A1A1A"/>
+  <text x="60" y="368" fill="#fff" font-size="21" font-weight="700">6. IA da própria pessoa</text>
+  <text x="60" y="400" fill="#B4B9C2" font-size="17">análise, parecidos, tema</text>
+  <text x="60" y="426" fill="#9CA3AF" font-size="17">resultado guardado por 7 dias</text>
+
+  <text x="40" y="44" fill="#9CA3AF" font-size="17">A coleta nunca fala com o app. O que liga as duas pontas é o arquivo.</text>
+</svg>

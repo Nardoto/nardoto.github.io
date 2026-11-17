@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8">
+<script>if(!/^(localhost|127.0.0.1)$/.test(location.hostname)){var g=document.createElement('script');g.async=true;g.src='https://www.googletagmanager.com/gtag/js?id=G-WSY9CWHH19';document.head.appendChild(g);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-WSY9CWHH19')}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radar de Nichos: como foi construído e o que quebrou | Blog do Nardoto Studio</title><meta name="description" content="A construção do Radar de Nichos em 20 dias: de onde vêm os canais, por que a base foi fatiada, quem paga a IA e os problemas que apareceram pelo caminho.">
+<link rel="canonical" href="https://nardoto.com.br/blog/radar-de-nichos-como-foi-construido/"><meta property="og:type" content="article"><meta property="og:url" content="https://nardoto.com.br/blog/radar-de-nichos-como-foi-construido/">
+<meta property="og:title" content="Radar de Nichos: como foi construído e o que quebrou | Blog do Nardoto Studio"><meta property="og:description" content="A construção do Radar de Nichos em 20 dias: de onde vêm os canais, por que a base foi fatiada, quem paga a IA e os problemas que apareceram pelo caminho."><meta property="og:image" content="https://nardoto.com.br/blog/radar-de-nichos-como-foi-construido/capa.jpg">
+<link rel="icon" type="image/png" href="/favicon.png"><meta name="theme-color" content="#E85A2A">
+<link rel="alternate" type="application/rss+xml" title="Blog do Nardoto" href="/blog/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/blog/blog.css"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Radar de Nichos: como foi construído e o que quebrou","description":"A construção do Radar de Nichos em 20 dias: de onde vêm os canais, por que a base foi fatiada, quem paga a IA e os problemas que apareceram pelo caminho.","datePublished":"2026-11-17","author":{"@type":"Person","name":"Tharcisio Nardoto"},"mainEntityOfPage":"https://nardoto.com.br/blog/radar-de-nichos-como-foi-construido/"}</script></head><body>
+<header class="topo"><div class="wrap"><a class="marca" href="/"><img src="/favicon.png" alt="">Nardoto</a>
+<nav class="nav"><a href="/">Apps</a><a href="/studio/">Studio</a><a href="/blog/" class="on">Blog</a></nav></div></header>
+<main><article><div class="wrap"><div class="cab"><a class="eyebrow" href="/blog/">Blog / Diário de construção</a>
+<h1>Radar de Nichos: como foi construído e o que quebrou</h1><p class="lead">A construção do Radar de Nichos em 20 dias: de onde vêm os canais, por que a base foi fatiada, quem paga a IA e os problemas que apareceram pelo caminho.</p>
+<div class="meta">Tharcisio Nardoto · 17 nov. 2026 · 8 min de leitura</div>
+<div class="tags"><a class="tag" href="/blog/tags/arquitetura/">arquitetura</a><a class="tag" href="/blog/tags/bugs/">bugs</a><a class="tag" href="/blog/tags/producao/">produção</a></div></div>
+<img class="capa" src="/blog/radar-de-nichos-como-foi-construido/capa.jpg" alt="" width="1200" height="630">
+<div class="corpo-post"><nav class="toc"><strong>Neste artigo</strong><a href="#o-desenho-quem-coleta-quem-serve-quem-pensa">O desenho: quem coleta, quem serve, quem pensa</a><a href="#a-base-que-cresceu-ate-travar">A base que cresceu até travar</a><a href="#os-canais-que-somem">Os canais que somem</a><a href="#a-lista-do-que-quebrou">A lista do que quebrou</a><a href="#o-que-eu-levaria-para-qualquer-projeto">O que eu levaria para qualquer projeto</a><a href="#referencias">Referências</a></nav>
+<div class="prose"><p>O Radar de Nichos é a parte do Nardoto Studio que procura canais novos do YouTube crescendo rápido, para quem quer escolher um assunto antes de produzir. Já contei <a href="/blog/radar-canais-salvos/">como os canais salvos são organizados</a> e <a href="/blog/radar-investigacao-nicho/">por que a decisão continua sendo de quem cria</a>. Este post é sobre a construção: de onde vêm os dados, como chegam à tela e a lista do que quebrou no caminho.</p>
+<p>O primeiro commit do Radar dentro do Studio é de 29 de outubro de 2026 (commit é cada alteração registrada no histórico do código). Vinte dias depois, o tamanho é este.</p>
+<blockquote>
+<p><strong>O que o código diz hoje (17/11/2026)</strong></p>
+<ul>
+<li><strong>126 commits</strong> tocaram arquivos do Radar desde 29/10/2026.</li>
+<li><strong>15.038 linhas</strong> de código no app, sem contar testes: 10.445 na tela, 1.260 em serviços, 1.020 na ponte com o sistema e 2.313 em scripts.</li>
+<li><strong>446 casos de teste</strong> em 74 arquivos.</li>
+</ul>
+</blockquote>
+<p>Uma ressalva antes de continuar. O código do servidor e da coleta fica em outros repositórios. Os números dessas partes vêm das anotações feitas na época de cada conserto, não de uma medição nova.</p>
+<h2 id="o-desenho-quem-coleta-quem-serve-quem-pensa">O desenho: quem coleta, quem serve, quem pensa</h2>
+<p>O Radar tem três peças, e cada uma existe por causa de um limite.</p>
+<p>A primeira é a <strong>coleta</strong>. Um servidor alugado roda o dia inteiro perguntando ao YouTube quais canais existem e quanto cresceram. Ele usa a API oficial e também o yt-dlp, uma ferramenta de código aberto que lê as páginas públicas. A API cobra em cota: uma busca custa 100 unidades, enquanto ler os números de um lote de canais custa 1. Por isso a busca pela API ficou com a menor fatia da cota (caiu de 25% para 12%) e a descoberta passou para o yt-dlp, que acha mais canais por busca e não gasta cota.</p>
+<p>A segunda é o <strong>arquivo da base</strong>. A coleta grava tudo num único arquivo, e pequenas funções na nuvem respondem às perguntas do app lendo esse arquivo. Elas conferem a geração do arquivo a cada consulta, então dado novo não exige publicar código de novo.</p>
+<p>A terceira é a <strong>inteligência artificial</strong>, e aqui a decisão foi de custo. A análise de um canal, a conferência dos canais parecidos e a busca por tema rodam na IA que a própria pessoa já tem conectada no Studio. O servidor só entrega o pedido pronto e guarda o resultado por 7 dias. Pôr uma chave de IA minha no servidor, pagando por cada clique de cada pessoa, cresceria sem controle.</p>
+<figure><a href="arquitetura.svg" target="_blank" rel="noopener"><img src="arquitetura.svg" alt="Diagrama do Radar: a coleta grava a base, a base é fatiada, as funções respondem ao app e a análise roda na IA da pessoa" loading="lazy"></a><figcaption>Figura 1. A coleta nunca fala com o app. O que liga as duas pontas é o arquivo da base, fatiado em pedaços pequenos.</figcaption></figure><h2 id="a-base-que-cresceu-ate-travar">A base que cresceu até travar</h2>
+<p>Em 3 de novembro medi o arquivo da base: 80,9 MB, com 99.845 canais. O comentário no código ainda falava em 31 MB. Cada função que acordava depois de um tempo parada baixava, lia e preparava o arquivo inteiro, e isso levava cerca de 9,2 segundos antes de responder qualquer coisa.</p>
+<p>O desperdício estava nos números. Dos 80,9 MB, só 36 MB interessavam às abas, e o Radar dentro do app usava 4,4 MB, o equivalente a 3.980 canais. A correção foi fatiar: a primeira página de cada aba já pronta, um arquivo só para o Radar do app e o restante dividido em 256 lotes pelo identificador do canal. Depois disso, as consultas com a função já acordada ficaram entre 0,4 e 0,8 segundo.</p>
+<p>Duas coisas deram errado na fatiagem. O plano era disparar o fatiamento sempre que o arquivo mudasse, mas o gatilho não funcionou no tipo de armazenamento usado. Virou uma tarefa agendada a cada 10 minutos, que só trabalha quando a geração muda. E havia o risco de servir fatia velha: a função só usa a fatia se ela for da mesma geração do arquivo. Se não for, volta para a base inteira. Lento, mas nunca desatualizado.</p>
+<figure><a href="fatias.svg" target="_blank" rel="noopener"><img src="fatias.svg" alt="Gráfico de barras: 9,2 segundos lendo a base inteira contra 0,4 a 0,8 segundo com fatias, e os tamanhos 80,9 MB, 36 MB e 4,4 MB" loading="lazy"></a><figcaption>Figura 2. O app precisava de 4,4 MB e pagava o tempo de 80,9 MB.</figcaption></figure><h2 id="os-canais-que-somem">Os canais que somem</h2>
+<p>A API do YouTube não avisa quando um canal é encerrado. Ela simplesmente deixa de devolver aquele canal no lote, sem erro. A regra que ficou: se o lote deu certo e o canal não veio, conta uma falta. Duas faltas seguidas, o canal é marcado como removido. Se voltar, a contagem zera. O registro e o histórico nunca são apagados.</p>
+<p>Rodando essa regra sobre o histórico, apareceram 2.679 canais removidos entre julho e novembro. Conferi três deles na página pública e os três tinham sido encerrados por violar as regras da plataforma.</p>
+<p>O detalhe que quase passou: as imagens de um canal encerrado saem do ar em menos de dois dias. A logo passa a dar erro, e a miniatura do vídeo vem como uma imagem cinza de 1 KB, com cara de arquivo válido. Por isso a coleta agora copia a logo e as miniaturas dos canais novos a cada rodada, 1.500 canais por vez. Dos já removidos, 183 ainda tinham a logo no ar e foram resgatados. Na tela, a capa do canal removido some, mas o título e os números ficam como registro.</p>
+<figure><a href="removidos.svg" target="_blank" rel="noopener"><img src="removidos.svg" alt="Gráfico de barras com os canais removidos por mês: 796 em julho, 674 em agosto, 520 em setembro, 438 em outubro e 251 em novembro" loading="lazy"></a><figcaption>Figura 3. Canais marcados como removidos, pelo mês em que sumiram. Novembro ainda estava em andamento na contagem.</figcaption></figure><h2 id="a-lista-do-que-quebrou">A lista do que quebrou</h2>
+<p>Os problemas menores foram muitos. Estes são os que deixaram regra no código.</p>
+<table>
+<thead>
+<tr>
+<th>Sintoma</th>
+<th>Causa</th>
+<th>Correção</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Busca lenta por tema</td>
+<td>Um processo do yt-dlp por busca: 3,5 s cada</td>
+<td>6 buscas por processo, 4 processos: 1,5 s cada</td>
+</tr>
+<tr>
+<td>Logos sumindo na análise</td>
+<td>Com 20 concorrentes, o servidor de imagens recusava os pedidos. A logo original tem até 2.560 pixels e cerca de 2 MB</td>
+<td>Pedir a versão de 88 pixels</td>
+</tr>
+<tr>
+<td>Legendas recusadas</td>
+<td>Pedir vários idiomas de uma vez estourava o limite de pedidos</td>
+<td>Pedir só o idioma original</td>
+</tr>
+<tr>
+<td>Análise sem formato</td>
+<td>Com 30 mil caracteres, o pedido à IA era cortado e ela não recebia as instruções finais</td>
+<td>Enviar por outro canal e recusar acima de 150 mil caracteres, nunca cortar</td>
+</tr>
+<tr>
+<td>&quot;Erro&quot; sem explicação</td>
+<td>A tela mostrava uma mensagem genérica da IA</td>
+<td>Separar limite de uso, falta de login e os outros erros</td>
+</tr>
+<tr>
+<td>Filtro por palavra enganava</td>
+<td>&quot;educacional&quot; dava zero canais e &quot;education&quot; dava dois, um deles de ficção</td>
+<td>Sinônimos em três idiomas e leitura de todas as páginas do recorte</td>
+</tr>
+<tr>
+<td>Cartão ilegível</td>
+<td>O painel divide a tela com o chat e o cartão espremia os vídeos</td>
+<td>O cartão mede a própria largura, e não a da janela</td>
+</tr>
+<tr>
+<td>Tela preta ao fechar</td>
+<td>Fechar o Radar levava a uma aba que não existe dentro de um projeto</td>
+<td>Lembrar a aba de onde a pessoa veio</td>
+</tr>
+</tbody>
+</table>
+<p>O do cartão ensinou mais do que parecia. Janela grande não significa painel largo: numa tela cheia, o Radar pode ocupar 665 pixels. Medir a janela dava a resposta errada. O de fechar era pior, porque quem estava produzindo um vídeo abria o Radar e não conseguia voltar.</p>
+<p>Outra descoberta veio da própria base. Os campos de variação de 7 e de 30 dias traziam valores como menos 100%, mais 5.627% ou vazio. Eles não servem para mostrar tendência. O gráfico de crescimento usa as medições que a coleta já fazia duas vezes por dia, e quando o canal é novo na base e tem poucos dias medidos, a tela diz que o que aparece é uma aproximação.</p>
+<p>Um problema segue aberto. No maior recorte da base, com 4.050 canais, a leitura chegou a 1.000 em 9,35 segundos e falhou aos 12,69. A medição completa desse caso ainda não foi feita.</p>
+<h2 id="o-que-eu-levaria-para-qualquer-projeto">O que eu levaria para qualquer projeto</h2>
+<ul>
+<li><strong>Meça o arquivo antes de confiar no comentário.</strong> O código dizia 31 MB. Eram 80,9.</li>
+<li><strong>Sirva o pedaço que a tela usa.</strong> 4,4 MB resolviam o que 80,9 MB atrasavam.</li>
+<li><strong>Prefira lento a desatualizado.</strong> A fatia só vale se for da mesma geração do arquivo.</li>
+<li><strong>Ausência também é dado.</strong> Canal que deixa de vir na resposta é informação, e some rápido.</li>
+<li><strong>Confira se a imagem é imagem.</strong> Um arquivo cinza de 1 KB passa em qualquer teste que só olha a extensão.</li>
+<li><strong>Meça o componente, não a janela.</strong> O cartão vive dentro de um painel que muda de tamanho.</li>
+<li><strong>Nunca corte um pedido à IA.</strong> Recusar com aviso é melhor que receber uma resposta sem formato.</li>
+</ul>
+<h2 id="referencias">Referências</h2>
+<ol>
+<li><a href="https://developers.google.com/youtube/v3/determine_quota_cost" target="_blank" rel="noopener">Calculadora de custo de cota, YouTube Data API</a></li>
+<li><a href="https://github.com/yt-dlp/yt-dlp" target="_blank" rel="noopener">yt-dlp, repositório do projeto</a></li>
+<li><a href="https://firebase.google.com/docs/functions/tips" target="_blank" rel="noopener">Dicas e boas práticas, Cloud Functions para Firebase</a></li>
+<li><a href="https://developer.mozilla.org/pt-BR/docs/Web/API/ResizeObserver" target="_blank" rel="noopener">ResizeObserver, MDN</a></li>
+</ol>
+<p class="assina">Escrito por Tharcisio Nardoto, engenheiro civil e criador do <a href="/studio/">Nardoto Studio</a>.</p></div></div></div></article>
+<section class="relacionados"><div class="wrap"><h2>Continue a leitura.</h2><div class="grid" style="padding-bottom:0"><a class="card" href="/blog/nardoto-editor-1-2-0-fila-de-renders/"><img src="/blog/nardoto-editor-1-2-0-fila-de-renders/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">17 nov. 2026 · 6 min de leitura</span><h2>Nardoto Editor 1.2.0: fila de renders e motion em cache</h2><p>A versão 1.2.0 do Nardoto Editor traz fila de renders, animações gravadas antes da exportação, preview estável com fotos e um jeito de o Studio saber a versão.</p><span class="ler">Ler artigo &rarr;</span></div></a><a class="card" href="/blog/mark-i-integracao-ajustes/"><img src="/blog/mark-i-integracao-ajustes/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">07 nov. 2026 · 5 min de leitura</span><h2>Mark-I: uma IA mais próxima do Studio</h2><p>O Mark-I está chegando ao Nardoto Studio em um pacote adicional, com a proposta de simplificar o uso da IA e ajudar na produção dos seus vídeos.</p><span class="ler">Ler artigo &rarr;</span></div></a><a class="card" href="/blog/personalizacao-liquid-glass/"><img src="/blog/personalizacao-liquid-glass/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">07 nov. 2026 · 4 min de leitura</span><h2>Por que estou mudando o visual do Studio</h2><p>O novo tema Liquid Glass nasce de uma preocupação antiga: deixar o Nardoto Studio mais agradável, pessoal e simples de usar durante o trabalho diário.</p><span class="ler">Ler artigo &rarr;</span></div></a></div></div></section></main>
+<footer><div class="wrap"><span>Blog do Nardoto Studio. Escrito por Tharcisio Nardoto.</span><span><a href="/">nardoto.com.br</a> · <a href="/blog/feed.xml">RSS</a></span></div></footer>
+</body></html>
