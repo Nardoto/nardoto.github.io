@@ -242,16 +242,17 @@
       content: ''; position: absolute; left: 1px; top: .31em; width: 5px; height: 9px;
       border: solid var(--primary); border-width: 0 1.5px 1.5px 0; transform: rotate(45deg);
     }
-    .billing { min-width: 0; border: 0; display: grid; gap: 8px; color-scheme: dark; }
+    .billing { min-width: 0; border: 0; display: grid; gap: 6px; color-scheme: dark; }
     .billing label {
       display: grid; grid-template-columns: 18px 1fr auto; align-items: baseline;
-      gap: 4px 9px; padding: 13px 14px; border: 1px solid var(--border); border-radius: 10px;
+      gap: 2px 9px; padding: 8px 14px; border: 1px solid var(--border); border-radius: 10px;
       background: var(--bg-elevated); font-size: 14px; font-weight: 600; cursor: pointer;
     }
     .billing label:has(input:checked) { border-color: var(--primary); background: rgba(232,90,42,.07); }
     .billing input { align-self: center; accent-color: var(--primary); width: 16px; height: 16px; margin: 0; }
     .billing label:has(input:focus-visible) { outline: 2px solid var(--text); outline-offset: 2px; }
     .billing .price { font-size: clamp(18px, 1.5vw, 23px); line-height: 1; font-weight: 800; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+    .billing .price small { font-size: 12px; font-weight: 500; letter-spacing: 0; color: var(--text-secondary); }
     .billing .saving { grid-column: 2 / -1; color: var(--primary-hover); font-size: 12px; font-weight: 500; }
     .studio-plans .subscribe {
       margin-top: 16px; display: flex; justify-content: center; align-items: center; gap: 8px; font-family: inherit;
@@ -1187,13 +1188,25 @@
             <label>
               <input type="radio" name="interval" value="month" checked>
               <span data-i18n="mensal">Mensal</span>
-              <strong class="price" data-i18n="preco-mensal">R$ 197</strong>
+              <strong class="price">R$ 197<small data-i18n="por-mes">/mês</small></strong>
+            </label>
+            <label>
+              <input type="radio" name="interval" value="quarter">
+              <span data-i18n="trimestral">Trimestral</span>
+              <strong class="price">R$ 185<small data-i18n="por-mes">/mês</small></strong>
+              <small class="saving" data-i18n="economia-trimestral">R$ 555 a cada 3 meses (-6%)</small>
+            </label>
+            <label>
+              <input type="radio" name="interval" value="semester">
+              <span data-i18n="semestral">Semestral</span>
+              <strong class="price">R$ 173<small data-i18n="por-mes">/mês</small></strong>
+              <small class="saving" data-i18n="economia-semestral">R$ 1.038 a cada 6 meses (-12%)</small>
             </label>
             <label>
               <input type="radio" name="interval" value="year">
               <span data-i18n="anual">Anual</span>
-              <strong class="price" data-i18n="preco-anual">R$ 1.970</strong>
-              <small class="saving" data-i18n="economia-anual">Economize R$ 394 por ano</small>
+              <strong class="price">R$ 161<small data-i18n="por-mes">/mês</small></strong>
+              <small class="saving" data-i18n="economia-anual">R$ 1.932 por ano (-18%)</small>
             </label>
           </fieldset>
           <button class="plan-btn plan-btn-primary subscribe" type="submit">
@@ -1399,8 +1412,9 @@
       pt: {
         "assinar": "Assinar",
         "oferta-titulo": "Assine o Studio",
-        "preco-mensal": "R$ 197",
-        "preco-anual": "R$ 1.970",
+        "por-mes": "/mês",
+        "trimestral": "Trimestral",
+        "semestral": "Semestral",
         "ver-assinaturas": "Escolher minha assinatura",
         "hero-title-1": "Veja o Studio",
         "hero-title-2": "em ação",
@@ -1462,7 +1476,9 @@
         "mensal": "Mensal",
         "anual": "Anual",
         "periodo-assinatura": "Período da assinatura",
-        "economia-anual": "Economize R$ 394 por ano",
+        "economia-trimestral": "R$ 555 a cada 3 meses (-6%)",
+        "economia-semestral": "R$ 1.038 a cada 6 meses (-12%)",
+        "economia-anual": "R$ 1.932 por ano (-18%)",
         "assinar-studio": "Assinar o Studio",
         "teste-alternativa": "Testar por 10 dias sem cartão",
         "cap-radar": "Radar de nichos",
@@ -1472,8 +1488,9 @@
       en: {
         "assinar": "Subscribe",
         "oferta-titulo": "Subscribe to Studio",
-        "preco-mensal": "R$ 197",
-        "preco-anual": "R$ 1,970",
+        "por-mes": "/mo",
+        "trimestral": "Quarterly",
+        "semestral": "Semiannual",
         "ver-assinaturas": "Choose my subscription",
         "hero-title-1": "See Studio",
         "hero-title-2": "in action",
@@ -1535,7 +1552,9 @@
         "mensal": "Monthly",
         "anual": "Annual",
         "periodo-assinatura": "Billing period",
-        "economia-anual": "Save R$ 394 per year",
+        "economia-trimestral": "R$ 555 every 3 months (-6%)",
+        "economia-semestral": "R$ 1,038 every 6 months (-12%)",
+        "economia-anual": "R$ 1,932 per year (-18%)",
         "assinar-studio": "Subscribe to Studio",
         "teste-alternativa": "Try for 10 days, no card required",
         "cap-radar": "Niche research",
