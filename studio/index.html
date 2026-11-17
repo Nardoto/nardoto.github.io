@@ -141,11 +141,62 @@
     /* ── Hero ── */
     .hero {
       position: relative;
-      padding: 160px 24px 100px;
-      text-align: center;
-      max-width: 900px;
+      display: grid;
+      grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
+      grid-template-areas: "intro video" "actions video";
+      column-gap: clamp(32px, 4vw, 72px);
+      align-content: center;
+      padding: clamp(106px, 9vw, 144px) 24px 70px;
+      max-width: 1440px;
       margin: 0 auto;
     }
+
+    .hero-intro { grid-area: intro; position: relative; }
+    .hero-actions { grid-area: actions; position: relative; }
+    .hero .hero-cta { justify-content: flex-start; }
+    .hero-demo { grid-area: video; align-self: center; min-width: 0; }
+    .hero-player {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      border-radius: 16px;
+      background: #101010;
+      box-shadow: 0 16px 56px rgba(0, 0, 0, .4);
+    }
+    .hero-player a, .hero-player iframe, .hero-player img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .hero-player:focus-within { outline: 3px solid white; outline-offset: 2px; }
+    .hero-player img { object-fit: cover; }
+    .demo-play {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      border-radius: 20px;
+      color: white;
+      background: rgba(12, 12, 12, .93);
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .demo-play::before {
+      content: "";
+      border-style: solid;
+      border-width: 6px 0 6px 10px;
+      border-color: transparent transparent transparent var(--primary-hover);
+    }
+    .hero-player a:hover .demo-play, .hero-player a:focus-visible .demo-play {
+      background: white;
+      color: #141414;
+    }
+    .hero-demo figcaption { margin-top: 8px; text-align: right; }
+    .hero-demo figcaption a { color: var(--text-secondary); font-size: 13px; }
 
     .hero-badge {
       display: inline-flex;
@@ -174,7 +225,7 @@
     }
 
     .hero h1 {
-      font-size: clamp(40px, 6vw, 68px);
+      font-size: clamp(40px, 4.2vw, 62px);
       font-weight: 900;
       line-height: 1.05;
       letter-spacing: -2px;
@@ -192,7 +243,7 @@
       font-size: 18px;
       color: var(--text-secondary);
       max-width: 560px;
-      margin: 0 auto 48px;
+      margin: 0 0 24px;
       line-height: 1.7;
     }
 
@@ -257,14 +308,16 @@
       color: var(--text-muted);
     }
 
+    .hero .hero-meta { margin: 10px 0 0; font-size: 13px; }
     .hero-meta span { margin: 0 8px; }
 
     /* ── Logo float animation ── */
     .hero-logo {
-      width: 100px;
-      height: 100px;
-      border-radius: 24px;
-      margin: 0 auto 40px;
+      display: block;
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      margin-bottom: 18px;
       box-shadow: 0 0 60px var(--primary-glow), 0 0 120px rgba(232, 90, 42, 0.1);
       animation: float 6s ease-in-out infinite;
     }
@@ -348,198 +401,6 @@
       font-size: 14px;
       color: var(--text-secondary);
       line-height: 1.6;
-    }
-
-    /* ── Workflow Carousel 3D ── */
-    .workflow {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 40px 24px 100px;
-    }
-
-    .carousel {
-      margin-top: 48px;
-      position: relative;
-    }
-
-    .carousel-stage {
-      position: relative;
-      overflow: hidden;
-      padding: 0 60px;
-    }
-
-    .carousel-track {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 580px;
-    }
-
-    .carousel-slide {
-      position: absolute;
-      width: 100%;
-      max-width: 820px;
-      background: var(--bg-card);
-      border-radius: 16px;
-      overflow: hidden;
-      transition: transform 0.65s cubic-bezier(0.25, 0.1, 0.25, 1),
-                  opacity 0.65s cubic-bezier(0.25, 0.1, 0.25, 1),
-                  filter 0.65s cubic-bezier(0.25, 0.1, 0.25, 1);
-      cursor: pointer;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-      will-change: transform, opacity;
-    }
-
-    .carousel-slide.active {
-      transform: translateX(0) scale(1);
-      opacity: 1;
-      z-index: 3;
-      cursor: default;
-      box-shadow: 0 16px 64px rgba(0,0,0,0.5), 0 0 40px rgba(232, 90, 42, 0.08);
-    }
-
-    .carousel-slide.prev {
-      transform: translateX(-68%) scale(0.88);
-      opacity: 0.6;
-      z-index: 2;
-      filter: brightness(0.55);
-    }
-
-    .carousel-slide.next {
-      transform: translateX(68%) scale(0.88);
-      opacity: 0.6;
-      z-index: 2;
-      filter: brightness(0.55);
-    }
-
-    .carousel-slide.far-prev {
-      transform: translateX(-110%) scale(0.75);
-      opacity: 0.2;
-      z-index: 1;
-      filter: brightness(0.35);
-      pointer-events: none;
-    }
-
-    .carousel-slide.far-next {
-      transform: translateX(110%) scale(0.75);
-      opacity: 0.2;
-      z-index: 1;
-      filter: brightness(0.35);
-      pointer-events: none;
-    }
-
-    .carousel-slide.hidden-left {
-      transform: translateX(-150%) scale(0.65);
-      opacity: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .carousel-slide.hidden-right {
-      transform: translateX(150%) scale(0.65);
-      opacity: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .carousel-slide.prev:hover,
-    .carousel-slide.next:hover {
-      filter: brightness(0.7);
-      opacity: 0.7;
-    }
-
-    .carousel-media {
-      position: relative;
-      background: linear-gradient(135deg, var(--bg-card), var(--bg-elevated));
-    }
-
-    .carousel-media img {
-      width: 100%;
-      display: block;
-    }
-
-    .carousel-caption {
-      padding: 20px 24px;
-      background: var(--bg-elevated);
-    }
-
-    .carousel-caption-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 6px;
-    }
-
-    .carousel-step-num {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 28px;
-      height: 28px;
-      background: var(--primary);
-      color: #fff;
-      font-size: 12px;
-      font-weight: 700;
-      border-radius: 6px;
-      flex-shrink: 0;
-    }
-
-    .carousel-caption h3 {
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: -0.3px;
-    }
-
-    .carousel-caption p {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.5;
-      margin-left: 40px;
-    }
-
-    /* Botões laterais */
-    .carousel-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 48px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(14, 14, 14, 0.9);
-      backdrop-filter: blur(8px);
-      border-radius: 50%;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.25s;
-      z-index: 10;
-    }
-
-    .carousel-nav:hover {
-      background: rgba(232, 90, 42, 0.15);
-      color: var(--primary);
-      box-shadow: 0 0 20px rgba(232, 90, 42, 0.2);
-      transform: translateY(-50%) scale(1.08);
-    }
-
-    .carousel-nav.prev { left: 0; }
-    .carousel-nav.next { right: 0; }
-
-    .carousel-footer {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      margin-top: 24px;
-    }
-
-    .carousel-counter {
-      font-size: 14px;
-      color: var(--text-secondary);
-      font-weight: 600;
-      text-align: center;
     }
 
     /* ── How it works ── */
@@ -796,180 +657,6 @@
     }
 
     footer a:hover { color: var(--primary); }
-
-    /* ── Showcase Carousel ── */
-    .showcase {
-      padding: 80px 24px 40px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .showcase-carousel {
-      position: relative;
-      margin-top: 48px;
-    }
-
-    .showcase-stage {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 480px;
-      overflow: hidden;
-      padding: 0 60px;
-    }
-
-    .showcase-slide {
-      position: absolute;
-      width: 65%;
-      max-width: 720px;
-      background: var(--bg-card);
-      border-radius: 16px;
-      overflow: hidden;
-      transition: transform 0.65s cubic-bezier(0.25, 0.1, 0.25, 1),
-                  opacity 0.65s cubic-bezier(0.25, 0.1, 0.25, 1),
-                  filter 0.65s cubic-bezier(0.25, 0.1, 0.25, 1);
-      will-change: transform, opacity;
-      cursor: pointer;
-    }
-
-    .showcase-slide.sc-active {
-      transform: translateX(0) scale(1);
-      opacity: 1;
-      z-index: 3;
-      cursor: default;
-    }
-
-    .showcase-slide.sc-prev {
-      transform: translateX(-68%) scale(0.88);
-      opacity: 0.6;
-      z-index: 2;
-      filter: brightness(0.55);
-    }
-
-    .showcase-slide.sc-next {
-      transform: translateX(68%) scale(0.88);
-      opacity: 0.6;
-      z-index: 2;
-      filter: brightness(0.55);
-    }
-
-    .showcase-slide.sc-far-prev {
-      transform: translateX(-110%) scale(0.75);
-      opacity: 0.2;
-      z-index: 1;
-      filter: brightness(0.35);
-      pointer-events: none;
-    }
-
-    .showcase-slide.sc-far-next {
-      transform: translateX(110%) scale(0.75);
-      opacity: 0.2;
-      z-index: 1;
-      filter: brightness(0.35);
-      pointer-events: none;
-    }
-
-    .showcase-slide.sc-hidden-left {
-      transform: translateX(-150%) scale(0.65);
-      opacity: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .showcase-slide.sc-hidden-right {
-      transform: translateX(150%) scale(0.65);
-      opacity: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .showcase-slide.sc-prev:hover,
-    .showcase-slide.sc-next:hover {
-      filter: brightness(0.7);
-      opacity: 0.7;
-    }
-
-    .showcase-slide img {
-      width: 100%;
-      display: block;
-    }
-
-    .showcase-slide-info {
-      padding: 16px 20px;
-      background: var(--bg-elevated);
-    }
-
-    .showcase-slide-info h3 {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 4px;
-      letter-spacing: -0.3px;
-    }
-
-    .showcase-slide-info p {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-
-    .showcase-tag {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--primary);
-      background: rgba(232, 90, 42, 0.12);
-      padding: 3px 8px;
-      border-radius: 6px;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .showcase-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 48px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(14, 14, 14, 0.9);
-      backdrop-filter: blur(8px);
-      border-radius: 50%;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.25s;
-      z-index: 10;
-      border: none;
-    }
-
-    .showcase-nav:hover {
-      background: rgba(232, 90, 42, 0.15);
-      color: var(--primary);
-      box-shadow: 0 0 20px rgba(232, 90, 42, 0.2);
-      transform: translateY(-50%) scale(1.08);
-    }
-
-    .showcase-nav.sc-prev-btn { left: 0; }
-    .showcase-nav.sc-next-btn { right: 0; }
-
-    .showcase-footer {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    .showcase-counter {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      font-variant-numeric: tabular-nums;
-    }
 
     /* ── Para quem é ── */
     .target-audience {
@@ -1372,28 +1059,28 @@
     }
 
     /* ── Responsive ── */
+    @media (max-width: 940px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas: "intro" "video" "actions";
+        max-width: 760px;
+        text-align: center;
+        row-gap: 18px;
+      }
+      .hero-logo { margin-inline: auto; }
+      .hero-intro p { margin: 0 auto; }
+      .hero .hero-cta { justify-content: center; }
+    }
     @media (max-width: 768px) {
       nav { padding: 12px 16px; }
       .nav-download { display: none; }
-      .hero { padding: 120px 16px 60px; }
-      .hero-logo { width: 72px; height: 72px; border-radius: 18px; }
+      .hero { padding: 82px 16px 48px; }
+      .hero-logo { width: 44px; height: 44px; border-radius: 12px; margin-bottom: 12px; }
+      .hero-badge { margin-bottom: 16px; }
       .hero h1 { letter-spacing: -1px; }
       .hero p { font-size: 16px; }
       .features { padding: 60px 16px; }
       .features-grid { grid-template-columns: 1fr; }
-      .workflow { padding: 20px 16px 60px; }
-      .carousel-stage { padding: 0 16px; }
-      .carousel-caption { padding: 16px 20px; }
-      .carousel-caption p { margin-left: 0; }
-      .carousel-slide.prev, .carousel-slide.next,
-      .carousel-slide.far-prev, .carousel-slide.far-next { opacity: 0; pointer-events: none; }
-      .carousel-nav { display: flex; }
-      .showcase { padding: 60px 16px; }
-      .showcase-stage { padding: 0 16px; min-height: 380px; }
-      .showcase-slide { width: 85%; }
-      .showcase-slide.sc-prev, .showcase-slide.sc-next,
-      .showcase-slide.sc-far-prev, .showcase-slide.sc-far-next { opacity: 0; pointer-events: none; }
-      .showcase-nav { display: flex; }
       .target-audience { padding: 60px 16px; }
       .target-cards { grid-template-columns: 1fr; }
       .bring-ai { padding: 60px 16px; }
@@ -1426,140 +1113,6 @@
       transform: translateY(0);
     }
 
-    /* Lightbox com zoom nas screenshots e GIFs do app */
-    .showcase-slide img,
-    .lite-carousel img,
-    .carousel-media img {
-      cursor: zoom-in;
-    }
-
-    .img-zoom {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.92);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      padding: 1rem;
-      animation: imgZoomFade 0.18s ease;
-    }
-
-    .img-zoom.is-open {
-      display: flex;
-    }
-
-    .img-zoom img {
-      max-width: 100vw;
-      max-height: 100vh;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      touch-action: pinch-zoom;
-      user-select: none;
-      -webkit-user-select: none;
-    }
-
-    .img-zoom-close {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.12);
-      border: none;
-      color: #fff;
-      font-size: 1.5rem;
-      line-height: 1;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.15s ease;
-      z-index: 10000;
-    }
-
-    .img-zoom-close:hover,
-    .img-zoom-close:focus {
-      background: rgba(255, 255, 255, 0.22);
-      outline: none;
-    }
-
-    .img-zoom-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.12);
-      border: none;
-      color: #fff;
-      font-size: 1.75rem;
-      line-height: 1;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.15s ease, opacity 0.15s ease;
-      z-index: 10000;
-      padding: 0;
-    }
-
-    .img-zoom-nav:hover,
-    .img-zoom-nav:focus {
-      background: rgba(255, 255, 255, 0.22);
-      outline: none;
-    }
-
-    .img-zoom-nav.is-hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .img-zoom-prev { left: 16px; }
-    .img-zoom-next { right: 16px; }
-
-    .img-zoom-counter {
-      position: absolute;
-      bottom: 16px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 0.85rem;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 4px 12px;
-      border-radius: 999px;
-      z-index: 10000;
-      pointer-events: none;
-    }
-
-    .img-zoom-counter.is-hidden {
-      display: none;
-    }
-
-    @keyframes imgZoomFade {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @media (max-width: 768px) {
-      .img-zoom-close {
-        top: 12px;
-        right: 12px;
-        width: 48px;
-        height: 48px;
-        font-size: 1.65rem;
-      }
-      .img-zoom-nav {
-        width: 48px;
-        height: 48px;
-        font-size: 1.5rem;
-      }
-      .img-zoom-prev { left: 8px; }
-      .img-zoom-next { right: 8px; }
-    }
   </style>
   <script defer src="../js/mac-download-link.js"></script>
   <script defer src="../js/download-studio.js"></script>
@@ -1586,39 +1139,55 @@
   <!-- Hero -->
   <section class="hero">
     <div class="hero-glow"></div>
-    <img src="logo.png" alt="Nardoto Studio" class="hero-logo">
-    <div class="hero-badge">
-      <span class="dot"></span>
-      <span data-i18n="hero-badge">Construído com tecnologia usada pelo governo dos EUA</span>
+    <div class="hero-intro">
+      <img src="logo.png" alt="Nardoto Studio" class="hero-logo">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        <span data-i18n="hero-badge">Construído com tecnologia usada pelo governo dos EUA</span>
+      </div>
+      <h1>
+        <span data-i18n="hero-title-1">Seu próximo vídeo já está pronto.</span><br>
+        <span class="highlight" data-i18n="hero-title-2">Ele só não sabe disso.</span>
+      </h1>
+      <p data-i18n="hero-desc">
+        O Studio conecta suas IAs num único fluxo: Claude escreve o roteiro, Gemini gera imagens, 11Labs ou Inworld criam as vozes. Você traz suas assinaturas. O Studio faz tudo trabalhar junto.
+      </p>
     </div>
-    <h1>
-      <span data-i18n="hero-title-1">Seu próximo vídeo já está pronto.</span><br>
-      <span class="highlight" data-i18n="hero-title-2">Ele só não sabe disso.</span>
-    </h1>
-    <p data-i18n="hero-desc">
-      O Studio conecta suas IAs num único fluxo: Claude escreve o roteiro, Gemini gera imagens, 11Labs ou Inworld criam as vozes. Você traz suas assinaturas. O Studio faz tudo trabalhar junto.
-    </p>
-    <div class="hero-cta">
-      <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup.exe" data-dl-studio class="btn-primary">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-        <span data-i18n="hero-cta-download">Baixar o Studio</span>
-        <span style="margin-left: -6px;">(<span data-dl-os>Windows</span>)</span>
-      </a>
-      <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-mac">
-        <span data-i18n="hero-cta-trial">Começar teste grátis</span>
-      </a>
+    <figure class="hero-demo">
+      <div class="hero-player">
+        <a id="abrir-demo" href="https://youtu.be/3oceS0ZOlnE">
+          <img src="demo-canal-em-um-dia.webp" width="1280" height="720" alt="" fetchpriority="high">
+          <span class="demo-play" data-i18n="hero-video-play">Assistir à demonstração</span>
+        </a>
+      </div>
+      <figcaption><a href="https://youtu.be/3oceS0ZOlnE" data-i18n="hero-video-link">Assistir no YouTube</a></figcaption>
+      <template id="player-demo">
+        <iframe src="https://www.youtube-nocookie.com/embed/3oceS0ZOlnE?autoplay=1&amp;playsinline=1" title="Nardoto Studio · YouTube" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </template>
+    </figure>
+    <div class="hero-actions">
+      <div class="hero-cta">
+        <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup.exe" data-dl-studio class="btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          <span data-i18n="hero-cta-download">Baixar o Studio</span>
+          <span style="margin-left: -6px;">(<span data-dl-os>Windows</span>)</span>
+        </a>
+        <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-mac">
+          <span data-i18n="hero-cta-trial">Começar teste grátis</span>
+        </a>
+      </div>
+      <p class="hero-meta" data-dl-mac-only hidden>
+        <span data-i18n="dl-mac-intel">Mac com chip Intel?</span>
+        <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup-mac-x64.dmg" style="color: var(--primary); text-decoration: none;" data-i18n="dl-mac-intel-link" data-mac-repo="LoopLess-nardoto/nardoto-studio-releases" data-mac-asset="NardotoStudio-Setup-mac-x64.dmg">baixe esta versão</a>
+      </p>
+      <p class="hero-meta">
+        <span data-i18n="hero-meta-trial">10 dias grátis</span>
+        <span>|</span>
+        <span>Windows 10/11 + macOS</span>
+        <span>|</span>
+        <span data-i18n="hero-meta-size">~450 MB</span>
+      </p>
     </div>
-    <p class="hero-meta" data-dl-mac-only hidden>
-      <span data-i18n="dl-mac-intel">Mac com chip Intel?</span>
-      <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup-mac-x64.dmg" style="color: var(--primary); text-decoration: none;" data-i18n="dl-mac-intel-link" data-mac-repo="LoopLess-nardoto/nardoto-studio-releases" data-mac-asset="NardotoStudio-Setup-mac-x64.dmg">baixe esta versão</a>
-    </p>
-    <p class="hero-meta">
-      <span data-i18n="hero-meta-trial">10 dias grátis</span>
-      <span>|</span>
-      <span>Windows 10/11 + macOS</span>
-      <span>|</span>
-      <span data-i18n="hero-meta-size">~450 MB</span>
-    </p>
   </section>
 
   <!-- Features -->
@@ -1719,211 +1288,6 @@
       Não vendemos facilidade. Vendemos capacidade. O Studio é pra quem quer aprender a produzir de verdade e está disposto a investir tempo pra dominar a ferramenta.
     </p>
   </section>
-
-  <!-- Workflow Carousel -->
-  <section class="workflow fade-in">
-    <div class="lite-header" style="margin-bottom: 16px;">
-      <img src="logo.png" alt="Nardoto Studio" style="width: 56px; height: 56px; border-radius: 14px;">
-      <h2 style="font-size: clamp(24px, 4vw, 36px); font-weight: 900; letter-spacing: -1.5px;">Nardoto Studio</h2>
-    </div>
-    <p class="section-label" data-i18n="workflow-label">Veja na prática</p>
-    <h2 class="section-title" data-i18n="workflow-title">Do zero ao vídeo pronto</h2>
-    <p class="section-desc" data-i18n="workflow-desc">
-      Acompanhe o fluxo completo de produção de um vídeo usando o Nardoto Studio.
-    </p>
-
-    <div class="carousel" id="workflow-carousel">
-      <div class="carousel-stage">
-        <button class="carousel-nav prev" id="carousel-prev" aria-label="Anterior">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-
-        <div class="carousel-track">
-          <div class="carousel-slide" data-step="1" data-gif="gifs/01- abrindo app e criando workspace e insisndo um projeto.gif">
-            <div class="carousel-media"><img alt="Criando workspace e inserindo projeto"></div>
-            <div class="carousel-caption">
-              <div class="carousel-caption-header"><span class="carousel-step-num">1</span><h3 data-i18n="wf1-title">Criar workspace e projeto</h3></div>
-              <p data-i18n="wf1-desc">Abra o app, crie seu workspace e insira um projeto do CapCut para começar a produção.</p>
-            </div>
-          </div>
-          <div class="carousel-slide" data-step="2" data-gif="gifs/02-começar a gerar o roteiro no claude code usando botões com prompts personalizados.gif">
-            <div class="carousel-media"><img alt="Gerando roteiro com Claude Code"></div>
-            <div class="carousel-caption">
-              <div class="carousel-caption-header"><span class="carousel-step-num">2</span><h3 data-i18n="wf2-title">Gerar roteiro com IA</h3></div>
-              <p data-i18n="wf2-desc">Use o Claude Code no chat com botões de prompts personalizados para gerar o roteiro do vídeo.</p>
-            </div>
-          </div>
-          <div class="carousel-slide" data-step="3" data-gif="gifs/03-abridno árvore de arquivo para verificar os documentos gerados pelo chat.gif">
-            <div class="carousel-media"><img alt="Verificando documentos na árvore de arquivos"></div>
-            <div class="carousel-caption">
-              <div class="carousel-caption-header"><span class="carousel-step-num">3</span><h3 data-i18n="wf3-title">Verificar documentos gerados</h3></div>
-              <p data-i18n="wf3-desc">Abra a árvore de arquivos para conferir todos os documentos que o chat gerou automaticamente.</p>
-            </div>
-          </div>
-          <div class="carousel-slide" data-step="4" data-gif="gifs/04-gerar-srt e abrindo o capcut pra ver como ficou.gif">
-            <div class="carousel-media"><img alt="Gerando SRT e conferindo no CapCut"></div>
-            <div class="carousel-caption">
-              <div class="carousel-caption-header"><span class="carousel-step-num">4</span><h3 data-i18n="wf4-title">Gerar legendas SRT</h3></div>
-              <p data-i18n="wf4-desc">Crie as legendas SRT a partir do roteiro e abra o CapCut para conferir como ficaram.</p>
-            </div>
-          </div>
-          <div class="carousel-slide" data-step="5" data-gif="gifs/05-audio-capcut.gif">
-            <div class="carousel-media"><img alt="Gerando áudio no CapCut"></div>
-            <div class="carousel-caption">
-              <div class="carousel-caption-header"><span class="carousel-step-num">5</span><h3 data-i18n="wf5-title">Gerar áudio no CapCut</h3></div>
-              <p data-i18n="wf5-desc">O Studio gera o áudio e envia direto para o CapCut. Sem etapas manuais.</p>
-            </div>
-          </div>
-          <div class="carousel-slide" data-step="6" data-gif="gifs/06-preview.gif">
-            <div class="carousel-media"><img alt="Preview do vídeo"></div>
-            <div class="carousel-caption">
-              <div class="carousel-caption-header"><span class="carousel-step-num">6</span><h3 data-i18n="wf6-title">Visualizar preview</h3></div>
-              <p data-i18n="wf6-desc">Confira o resultado parcial antes de continuar. Preview rápido direto no app.</p>
-            </div>
-          </div>
-          <div class="carousel-slide" data-step="7" data-gif="gifs/07-gerando prompt e imagens-imagens.gif">
-            <div class="carousel-media"><img alt="Gerando prompts e imagens"></div>
-            <div class="carousel-caption">
-              <div class="carousel-caption-header"><span class="carousel-step-num">7</span><h3 data-i18n="wf7-title">Gerar prompts de imagens</h3></div>
-              <p data-i18n="wf7-desc">Use o chat para gerar os prompts e criar as imagens que ilustrarão cada cena do vídeo.</p>
-            </div>
-          </div>
-          <div class="carousel-slide" data-step="8" data-gif="gifs/08-chat-respondendo a geração de prompt de imagem.gif">
-            <div class="carousel-media"><img alt="Chat gerando prompts de imagem"></div>
-            <div class="carousel-caption">
-              <div class="carousel-caption-header"><span class="carousel-step-num">8</span><h3 data-i18n="wf8-title">IA gerando imagens</h3></div>
-              <p data-i18n="wf8-desc">Acompanhe o chat respondendo e gerando cada prompt de imagem automaticamente.</p>
-            </div>
-          </div>
-          <div class="carousel-slide" data-step="9" data-gif="gifs/09-gerando imagens a partir do odcumento de prompt no flow-veo3.gif">
-            <div class="carousel-media"><img alt="Gerando imagens no Flow com VEO3"></div>
-            <div class="carousel-caption">
-              <div class="carousel-caption-header"><span class="carousel-step-num">9</span><h3 data-i18n="wf9-title">Gerar imagens no Flow</h3></div>
-              <p data-i18n="wf9-desc">Abra o Flow para gerar as imagens a partir do documento de prompts, usando VEO3 ou outras IAs.</p>
-            </div>
-          </div>
-          <div class="carousel-slide" data-step="10" data-gif="gifs/10- pesquisando e inserindo musicas do epidemoc sound na time line.gif">
-            <div class="carousel-media"><img alt="Inserindo músicas do Epidemic Sound"></div>
-            <div class="carousel-caption">
-              <div class="carousel-caption-header"><span class="carousel-step-num">10</span><h3 data-i18n="wf10-title">Inserir músicas</h3></div>
-              <p data-i18n="wf10-desc">Pesquise músicas no Epidemic Sound e insira diretamente na timeline do projeto.</p>
-            </div>
-          </div>
-          <div class="carousel-slide" data-step="11" data-gif="gifs/11-sincronizando midia com legenda e com audio.gif">
-            <div class="carousel-media"><img alt="Sincronizando mídia com legenda e áudio"></div>
-            <div class="carousel-caption">
-              <div class="carousel-caption-header"><span class="carousel-step-num">11</span><h3 data-i18n="wf11-title">Sincronizar mídias</h3></div>
-              <p data-i18n="wf11-desc">Sincronize as mídias com as legendas e o áudio. Tudo alinhado automaticamente.</p>
-            </div>
-          </div>
-          <div class="carousel-slide" data-step="12" data-gif="gifs/12-capcut-conferindo como ficou os arquivos editados no capcut.gif">
-            <div class="carousel-media"><img alt="Conferindo resultado no CapCut"></div>
-            <div class="carousel-caption">
-              <div class="carousel-caption-header"><span class="carousel-step-num">12</span><h3 data-i18n="wf12-title">Conferir no CapCut</h3></div>
-              <p data-i18n="wf12-desc">Abra o CapCut e confira como ficaram todos os arquivos editados. Vídeo pronto.</p>
-            </div>
-          </div>
-        </div>
-
-        <button class="carousel-nav next" id="carousel-next" aria-label="Próximo">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-        </button>
-      </div>
-
-      <div class="carousel-footer">
-        <span class="carousel-counter" id="carousel-counter">1 / 12</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Showcase -->
-  <section class="showcase fade-in">
-    <p class="section-label" data-i18n="showcase-label">Dentro do app</p>
-    <h2 class="section-title" data-i18n="showcase-title">Tudo integrado, tudo visual</h2>
-    <p class="section-desc" data-i18n="showcase-desc">
-      Veja as ferramentas reais do Studio em ação. Cada painel resolve uma etapa da sua produção.
-    </p>
-
-    <div class="showcase-carousel" id="showcase-carousel">
-      <div class="showcase-stage">
-        <button class="showcase-nav sc-prev-btn" id="sc-prev" aria-label="Anterior">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-
-        <div class="showcase-slide" data-sc="0">
-          <img src="screenshots/storyboard.png" alt="Storyboard com 89 cenas" loading="lazy">
-          <div class="showcase-slide-info">
-            <span class="showcase-tag" data-i18n="sc-tag-ai">IA Generativa</span>
-            <h3 data-i18n="sc1-title">Storyboard completo</h3>
-            <p data-i18n="sc1-desc">89 cenas geradas automaticamente com roteiro, imagens e estilo visual. A IA monta o vídeo inteiro.</p>
-          </div>
-        </div>
-
-        <div class="showcase-slide" data-sc="1">
-          <img src="screenshots/dialogos-tts.png" alt="Diálogos multi-voz com ElevenLabs" loading="lazy">
-          <div class="showcase-slide-info">
-            <span class="showcase-tag" data-i18n="sc-tag-voice">Vozes IA</span>
-            <h3 data-i18n="sc2-title">Diálogos multi-voz</h3>
-            <p data-i18n="sc2-desc">406 vozes ElevenLabs. Personagens com vozes distintas: narrador, protagonistas, coadjuvantes.</p>
-          </div>
-        </div>
-
-        <div class="showcase-slide" data-sc="2">
-          <img src="screenshots/epidemic-sound.png" alt="Epidemic Sound integrado" loading="lazy">
-          <div class="showcase-slide-info">
-            <span class="showcase-tag" data-i18n="sc-tag-music">Trilha sonora</span>
-            <h3 data-i18n="sc3-title">Epidemic Sound</h3>
-            <p data-i18n="sc3-desc">Pesquise e insira músicas direto na timeline. Sem sair do app.</p>
-          </div>
-        </div>
-
-        <div class="showcase-slide" data-sc="3">
-          <img src="screenshots/flow.png" alt="Flow - geração de vídeos com VEO3" loading="lazy">
-          <div class="showcase-slide-info">
-            <span class="showcase-tag" data-i18n="sc-tag-video">Vídeo IA</span>
-            <h3 data-i18n="sc4-title">Flow com VEO3</h3>
-            <p data-i18n="sc4-desc">Geração de vídeos e imagens com IA. Prompts em lote, download automático.</p>
-          </div>
-        </div>
-
-        <div class="showcase-slide" data-sc="4">
-          <img src="screenshots/gerar-imagens.png" alt="Gerador de imagens com IA" loading="lazy">
-          <div class="showcase-slide-info">
-            <span class="showcase-tag" data-i18n="sc-tag-image">Imagens</span>
-            <h3 data-i18n="sc5-title">Gerador de imagens</h3>
-            <p data-i18n="sc5-desc">Flux Kontext, resolução 2K. Gere imagens para cada cena do vídeo direto no app.</p>
-          </div>
-        </div>
-
-        <div class="showcase-slide" data-sc="5">
-          <img src="screenshots/remotion-matrix.png" alt="Remotion com tema Matrix" loading="lazy">
-          <div class="showcase-slide-info">
-            <span class="showcase-tag" data-i18n="sc-tag-render">Renderização</span>
-            <h3 data-i18n="sc6-title">Remotion + temas</h3>
-            <p data-i18n="sc6-desc">Renderize vídeos com React. Temas visuais personalizáveis: Matrix, Cyberpunk, Cinema e mais.</p>
-          </div>
-        </div>
-
-        <div class="showcase-slide" data-sc="6">
-          <img src="screenshots/loja-temas.png" alt="Loja de plugins e temas" loading="lazy">
-          <div class="showcase-slide-info">
-            <span class="showcase-tag" data-i18n="sc-tag-ext">Plugins</span>
-            <h3 data-i18n="sc7-title">Loja de temas e plugins</h3>
-            <p data-i18n="sc7-desc">12 temas visuais prontos. Instale plugins para expandir o Studio. Crie os seus próprios.</p>
-          </div>
-        </div>
-
-        <button class="showcase-nav sc-next-btn" id="sc-next" aria-label="Próximo">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-        </button>
-      </div>
-
-      <div class="showcase-footer">
-        <span class="showcase-counter" id="sc-counter">1 / 7</span>
-      </div>
-    </div>
-  </section>
-
 
   <!-- Steps -->
   <section class="steps fade-in">
@@ -2194,6 +1558,8 @@
       pt: {
         'nav-download': 'Baixar grátis',
         'hero-cta-download': 'Baixar o Studio',
+        'hero-video-play': 'Assistir à demonstração',
+        'hero-video-link': 'Assistir no YouTube',
         'hero-cta-trial': 'Começar teste grátis',
         'cta-btn-download': 'Baixar o Studio',
         'cta-dl-note': 'Instale e ative o teste dentro do app, com a sua conta.',
@@ -2232,57 +1598,6 @@
         'target3-title': 'Curioso com disposição',
         'target3-desc': 'Você nunca usou IA pra produzir vídeo mas quer aprender. O Studio tem chat inteligente, modo tutorial e acesso direto ao criador.',
         'target-note': 'Não vendemos facilidade. Vendemos capacidade. O Studio é pra quem quer aprender a produzir de verdade e está disposto a investir tempo pra dominar a ferramenta.',
-        'workflow-label': 'Veja na prática',
-        'workflow-title': 'Do zero ao vídeo pronto',
-        'workflow-desc': 'Acompanhe o fluxo completo de produção de um vídeo usando o Nardoto Studio.',
-        'wf1-title': 'Criar workspace e projeto',
-        'wf1-desc': 'Abra o app, crie seu workspace e insira um projeto do CapCut para começar a produção.',
-        'wf2-title': 'Gerar roteiro com IA',
-        'wf2-desc': 'Use o Claude Code no chat com botões de prompts personalizados para gerar o roteiro do vídeo.',
-        'wf3-title': 'Verificar documentos gerados',
-        'wf3-desc': 'Abra a árvore de arquivos para conferir todos os documentos que o chat gerou automaticamente.',
-        'wf4-title': 'Gerar legendas SRT',
-        'wf4-desc': 'Crie as legendas SRT a partir do roteiro e abra o CapCut para conferir como ficaram.',
-        'wf5-title': 'Gerar áudio no CapCut',
-        'wf5-desc': 'O Studio gera o áudio e envia direto para o CapCut. Sem etapas manuais.',
-        'wf6-title': 'Visualizar preview',
-        'wf6-desc': 'Confira o resultado parcial antes de continuar. Preview rápido direto no app.',
-        'wf7-title': 'Gerar prompts de imagens',
-        'wf7-desc': 'Use o chat para gerar os prompts e criar as imagens que ilustrarão cada cena do vídeo.',
-        'wf8-title': 'IA gerando imagens',
-        'wf8-desc': 'Acompanhe o chat respondendo e gerando cada prompt de imagem automaticamente.',
-        'wf9-title': 'Gerar imagens no Flow',
-        'wf9-desc': 'Abra o Flow para gerar as imagens a partir do documento de prompts, usando VEO3 ou outras IAs.',
-        'wf10-title': 'Inserir músicas',
-        'wf10-desc': 'Pesquise músicas no Epidemic Sound e insira diretamente na timeline do projeto.',
-        'wf11-title': 'Sincronizar mídias',
-        'wf11-desc': 'Sincronize as mídias com as legendas e o áudio. Tudo alinhado automaticamente.',
-        'wf12-title': 'Conferir no CapCut',
-        'wf12-desc': 'Abra o CapCut e confira como ficaram todos os arquivos editados. Vídeo pronto.',
-        'showcase-label': 'Dentro do app',
-        'showcase-title': 'Tudo integrado, tudo visual',
-        'showcase-desc': 'Veja as ferramentas reais do Studio em ação. Cada painel resolve uma etapa da sua produção.',
-        'sc-tag-ai': 'IA Generativa',
-        'sc-tag-voice': 'Vozes IA',
-        'sc-tag-music': 'Trilha sonora',
-        'sc-tag-video': 'Vídeo IA',
-        'sc-tag-image': 'Imagens',
-        'sc-tag-render': 'Renderização',
-        'sc-tag-ext': 'Plugins',
-        'sc1-title': 'Storyboard completo',
-        'sc1-desc': '89 cenas geradas automaticamente com roteiro, imagens e estilo visual. A IA monta o vídeo inteiro.',
-        'sc2-title': 'Diálogos multi-voz',
-        'sc2-desc': '406 vozes ElevenLabs. Personagens com vozes distintas: narrador, protagonistas, coadjuvantes.',
-        'sc3-title': 'Epidemic Sound',
-        'sc3-desc': 'Pesquise e insira músicas direto na timeline. Sem sair do app.',
-        'sc4-title': 'Flow com VEO3',
-        'sc4-desc': 'Geração de vídeos e imagens com IA. Prompts em lote, download automático.',
-        'sc5-title': 'Gerador de imagens',
-        'sc5-desc': 'Flux Kontext, resolução 2K. Gere imagens para cada cena do vídeo direto no app.',
-        'sc6-title': 'Remotion + temas',
-        'sc6-desc': 'Renderize vídeos com React. Temas visuais personalizáveis: Matrix, Cyberpunk, Cinema e mais.',
-        'sc7-title': 'Loja de temas e plugins',
-        'sc7-desc': '12 temas visuais prontos. Instale plugins para expandir o Studio. Crie os seus próprios.',
         'lt-tag-proj': 'Projetos',
         'lt-tag-sync': 'Sincronização',
         'lt-tag-media': 'Mídia',
@@ -2442,6 +1757,8 @@
       en: {
         'nav-download': 'Free download',
         'hero-cta-download': 'Download Studio',
+        'hero-video-play': 'Play the demo',
+        'hero-video-link': 'Watch on YouTube',
         'hero-cta-trial': 'Start free trial',
         'cta-btn-download': 'Download Studio',
         'cta-dl-note': 'Install it and activate the trial inside the app, with your account.',
@@ -2480,57 +1797,6 @@
         'target3-title': 'Curious with determination',
         'target3-desc': 'You\'ve never used AI to produce video but want to learn. Studio has smart chat, tutorial mode and direct access to the creator.',
         'target-note': 'We don\'t sell ease. We sell capability. Studio is for those who want to learn real production and are willing to invest time to master the tool.',
-        'workflow-label': 'See it in action',
-        'workflow-title': 'From zero to finished video',
-        'workflow-desc': 'Follow the complete production flow of a video using Nardoto Studio.',
-        'wf1-title': 'Create workspace and project',
-        'wf1-desc': 'Open the app, create your workspace and add a CapCut project to start production.',
-        'wf2-title': 'Generate script with AI',
-        'wf2-desc': 'Use Claude Code in the chat with custom prompt buttons to generate the video script.',
-        'wf3-title': 'Review generated documents',
-        'wf3-desc': 'Open the file tree to review all documents the chat generated automatically.',
-        'wf4-title': 'Generate SRT subtitles',
-        'wf4-desc': 'Create SRT subtitles from the script and open CapCut to check the result.',
-        'wf5-title': 'Generate audio in CapCut',
-        'wf5-desc': 'Studio generates audio and sends it directly to CapCut. No manual steps.',
-        'wf6-title': 'Preview',
-        'wf6-desc': 'Check the partial result before continuing. Quick preview right in the app.',
-        'wf7-title': 'Generate image prompts',
-        'wf7-desc': 'Use the chat to generate prompts and create the images that will illustrate each scene.',
-        'wf8-title': 'AI generating images',
-        'wf8-desc': 'Watch the chat respond and generate each image prompt automatically.',
-        'wf9-title': 'Generate images in Flow',
-        'wf9-desc': 'Open Flow to generate images from the prompt document, using VEO3 or other AIs.',
-        'wf10-title': 'Add music',
-        'wf10-desc': 'Search Epidemic Sound and add music directly to the project timeline.',
-        'wf11-title': 'Sync media',
-        'wf11-desc': 'Sync media with subtitles and audio. Everything aligned automatically.',
-        'wf12-title': 'Review in CapCut',
-        'wf12-desc': 'Open CapCut and review how all edited files turned out. Video ready.',
-        'showcase-label': 'Inside the app',
-        'showcase-title': 'All integrated, all visual',
-        'showcase-desc': 'See the real Studio tools in action. Each panel solves a step of your production.',
-        'sc-tag-ai': 'Generative AI',
-        'sc-tag-voice': 'AI Voices',
-        'sc-tag-music': 'Soundtrack',
-        'sc-tag-video': 'AI Video',
-        'sc-tag-image': 'Images',
-        'sc-tag-render': 'Rendering',
-        'sc-tag-ext': 'Plugins',
-        'sc1-title': 'Full storyboard',
-        'sc1-desc': '89 scenes auto-generated with script, images and visual style. The AI builds the entire video.',
-        'sc2-title': 'Multi-voice dialogues',
-        'sc2-desc': '406 ElevenLabs voices. Characters with distinct voices: narrator, protagonists, supporting cast.',
-        'sc3-title': 'Epidemic Sound',
-        'sc3-desc': 'Search and add music directly to the timeline. Without leaving the app.',
-        'sc4-title': 'Flow with VEO3',
-        'sc4-desc': 'AI video and image generation. Batch prompts, automatic download.',
-        'sc5-title': 'Image generator',
-        'sc5-desc': 'Flux Kontext, 2K resolution. Generate images for each video scene right in the app.',
-        'sc6-title': 'Remotion + themes',
-        'sc6-desc': 'Render videos with React. Customizable visual themes: Matrix, Cyberpunk, Cinema and more.',
-        'sc7-title': 'Themes & plugins store',
-        'sc7-desc': '12 ready-made visual themes. Install plugins to expand Studio. Create your own.',
         'lt-tag-proj': 'Projects',
         'lt-tag-sync': 'Sync',
         'lt-tag-media': 'Media',
@@ -2714,6 +1980,14 @@
         : 'Nardoto Studio - AI Video Editor'
     }
 
+    document.getElementById('abrir-demo').addEventListener('click', function (event) {
+      if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return
+      event.preventDefault()
+      const player = document.getElementById('player-demo').content.firstElementChild.cloneNode(true)
+      this.replaceWith(player)
+      player.focus()
+    })
+
     // ── Scroll animations ──
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -2728,167 +2002,6 @@
     // ── Detect browser language ──
     const browserLang = navigator.language?.startsWith('pt') ? 'pt' : 'en'
     if (browserLang === 'en') setLang('en')
-
-    // ── Carousel 3D ──
-    ;(function() {
-      const slides = document.querySelectorAll('.carousel-slide')
-      const counter = document.getElementById('carousel-counter')
-      const total = slides.length
-      let current = 0
-
-      function getClass(offset) {
-        if (offset === 0) return 'active'
-        if (offset === 1) return 'next'
-        if (offset === -1) return 'prev'
-        if (offset === 2) return 'far-next'
-        if (offset === -2) return 'far-prev'
-        return offset < 0 ? 'hidden-left' : 'hidden-right'
-      }
-
-      function updateSlides() {
-        slides.forEach((slide, i) => {
-          slide.classList.remove('active', 'prev', 'next', 'far-prev', 'far-next', 'hidden-left', 'hidden-right')
-          let offset = i - current
-          if (offset > total / 2) offset -= total
-          if (offset < -total / 2) offset += total
-          slide.classList.add(getClass(offset))
-
-          const img = slide.querySelector('img')
-          const gifSrc = slide.dataset.gif
-          if (!img || !gifSrc) return
-
-          if (Math.abs(offset) <= 2) {
-            // Slides visíveis (active + prev + next + far): carregar GIF
-            if (!img.src || !img.src.endsWith(gifSrc)) {
-              img.src = gifSrc
-            }
-          } else {
-            // Slides ocultos: descarregar
-            if (img.src) {
-              img.removeAttribute('src')
-            }
-          }
-        })
-
-        counter.textContent = (current + 1) + ' / ' + total
-      }
-
-      function goTo(index) {
-        current = ((index % total) + total) % total
-        updateSlides()
-      }
-
-      // Botões laterais
-      document.getElementById('carousel-prev').addEventListener('click', () => goTo(current - 1))
-      document.getElementById('carousel-next').addEventListener('click', () => goTo(current + 1))
-
-      // Click nas slides vizinhas - avança/volta conforme o lado
-      slides.forEach((slide, i) => {
-        slide.addEventListener('click', (e) => {
-          if (slide.classList.contains('active')) return
-          e.stopPropagation()
-          if (slide.classList.contains('prev') || slide.classList.contains('far-prev')) {
-            goTo(current - 1)
-          } else if (slide.classList.contains('next') || slide.classList.contains('far-next')) {
-            goTo(current + 1)
-          }
-        })
-      })
-
-      // Navegação por teclado
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') goTo(current - 1)
-        if (e.key === 'ArrowRight') goTo(current + 1)
-      })
-
-      // Swipe touch para mobile
-      let touchStartX = 0
-      let touchStartY = 0
-      const stage = document.querySelector('.carousel-stage')
-      stage.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX
-        touchStartY = e.touches[0].clientY
-      }, { passive: true })
-      stage.addEventListener('touchend', (e) => {
-        const dx = e.changedTouches[0].clientX - touchStartX
-        const dy = e.changedTouches[0].clientY - touchStartY
-        // Só navegar se swipe horizontal > 50px e maior que vertical
-        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
-          if (dx < 0) goTo(current + 1)
-          else goTo(current - 1)
-        }
-      }, { passive: true })
-
-      // Inicializar
-      updateSlides()
-    })()
-
-    // ── Showcase Carousel ──
-    ;(function() {
-      const scSlides = document.querySelectorAll('#showcase-carousel .showcase-slide')
-      const scCounter = document.getElementById('sc-counter')
-      const scTotal = scSlides.length
-      let scCurrent = 0
-
-      function scGetClass(offset) {
-        if (offset === 0) return 'sc-active'
-        if (offset === 1) return 'sc-next'
-        if (offset === -1) return 'sc-prev'
-        if (offset === 2) return 'sc-far-next'
-        if (offset === -2) return 'sc-far-prev'
-        return offset < 0 ? 'sc-hidden-left' : 'sc-hidden-right'
-      }
-
-      function scUpdate() {
-        scSlides.forEach((slide, i) => {
-          slide.classList.remove('sc-active', 'sc-prev', 'sc-next', 'sc-far-prev', 'sc-far-next', 'sc-hidden-left', 'sc-hidden-right')
-          let offset = i - scCurrent
-          if (offset > scTotal / 2) offset -= scTotal
-          if (offset < -scTotal / 2) offset += scTotal
-          slide.classList.add(scGetClass(offset))
-        })
-        scCounter.textContent = (scCurrent + 1) + ' / ' + scTotal
-      }
-
-      function scGoTo(index) {
-        scCurrent = ((index % scTotal) + scTotal) % scTotal
-        scUpdate()
-      }
-
-      document.getElementById('sc-prev').addEventListener('click', () => scGoTo(scCurrent - 1))
-      document.getElementById('sc-next').addEventListener('click', () => scGoTo(scCurrent + 1))
-
-      scSlides.forEach((slide) => {
-        slide.addEventListener('click', (e) => {
-          if (slide.classList.contains('sc-active')) return
-          e.stopPropagation()
-          if (slide.classList.contains('sc-prev') || slide.classList.contains('sc-far-prev')) {
-            scGoTo(scCurrent - 1)
-          } else if (slide.classList.contains('sc-next') || slide.classList.contains('sc-far-next')) {
-            scGoTo(scCurrent + 1)
-          }
-        })
-      })
-
-      // Swipe touch
-      let scTouchX = 0
-      let scTouchY = 0
-      const scStage = document.querySelector('#showcase-carousel .showcase-stage')
-      scStage.addEventListener('touchstart', (e) => {
-        scTouchX = e.touches[0].clientX
-        scTouchY = e.touches[0].clientY
-      }, { passive: true })
-      scStage.addEventListener('touchend', (e) => {
-        const dx = e.changedTouches[0].clientX - scTouchX
-        const dy = e.changedTouches[0].clientY - scTouchY
-        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
-          if (dx < 0) scGoTo(scCurrent + 1)
-          else scGoTo(scCurrent - 1)
-        }
-      }, { passive: true })
-
-      scUpdate()
-    })()
 
   </script>
 
@@ -2906,128 +2019,5 @@
     })();
   </script>
 
-  <!-- Lightbox de screenshots/GIFs: tela cheia + pinch-zoom mobile + navegacao -->
-  <div id="imgZoom" class="img-zoom" aria-hidden="true" role="dialog" aria-label="Imagem em tamanho real">
-    <button class="img-zoom-close" type="button" aria-label="Fechar">&times;</button>
-    <button class="img-zoom-nav img-zoom-prev" type="button" aria-label="Imagem anterior">&#8249;</button>
-    <button class="img-zoom-nav img-zoom-next" type="button" aria-label="Proxima imagem">&#8250;</button>
-    <img id="imgZoomImg" src="" alt="">
-    <div class="img-zoom-counter" id="imgZoomCounter"></div>
-  </div>
-
-  <script>
-    (function() {
-      var zoom = document.getElementById('imgZoom');
-      var zoomImg = document.getElementById('imgZoomImg');
-      var counter = document.getElementById('imgZoomCounter');
-      var closeBtn = zoom.querySelector('.img-zoom-close');
-      var prevBtn = zoom.querySelector('.img-zoom-prev');
-      var nextBtn = zoom.querySelector('.img-zoom-next');
-
-      var ZOOM_SELECTOR = '.showcase-slide img, .carousel-media img';
-      var GALLERY_SELECTOR = '#workflow-carousel, #showcase-carousel';
-
-      var currentGallery = [];
-      var currentIndex = 0;
-
-      function getGallery(img) {
-        var root = img.closest(GALLERY_SELECTOR);
-        if (!root) return [img];
-        return Array.from(root.querySelectorAll(ZOOM_SELECTOR));
-      }
-
-      function getImgSrc(img) {
-        return img.currentSrc || img.src || img.dataset.gif || '';
-      }
-
-      function showAt(idx) {
-        if (!currentGallery.length) return;
-        currentIndex = (idx + currentGallery.length) % currentGallery.length;
-        var img = currentGallery[currentIndex];
-        var src = getImgSrc(img);
-        if (!src) return;
-        zoomImg.src = src;
-        zoomImg.alt = img.alt || '';
-        if (currentGallery.length > 1) {
-          counter.textContent = (currentIndex + 1) + ' / ' + currentGallery.length;
-          counter.classList.remove('is-hidden');
-          prevBtn.classList.remove('is-hidden');
-          nextBtn.classList.remove('is-hidden');
-        } else {
-          counter.classList.add('is-hidden');
-          prevBtn.classList.add('is-hidden');
-          nextBtn.classList.add('is-hidden');
-        }
-      }
-
-      function openZoom(img) {
-        currentGallery = getGallery(img);
-        var idx = currentGallery.indexOf(img);
-        showAt(idx >= 0 ? idx : 0);
-        zoom.classList.add('is-open');
-        zoom.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-      }
-
-      function closeZoom() {
-        zoom.classList.remove('is-open');
-        zoom.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-        zoomImg.src = '';
-        currentGallery = [];
-      }
-
-      document.querySelectorAll(ZOOM_SELECTOR).forEach(function(img) {
-        img.addEventListener('click', function(e) {
-          e.stopPropagation();
-          openZoom(img);
-        });
-      });
-
-      zoom.addEventListener('click', function(e) {
-        if (e.target === zoom) closeZoom();
-      });
-
-      closeBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        closeZoom();
-      });
-
-      prevBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        showAt(currentIndex - 1);
-      });
-
-      nextBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        showAt(currentIndex + 1);
-      });
-
-      document.addEventListener('keydown', function(e) {
-        if (!zoom.classList.contains('is-open')) return;
-        if (e.key === 'Escape') closeZoom();
-        else if (e.key === 'ArrowLeft') showAt(currentIndex - 1);
-        else if (e.key === 'ArrowRight') showAt(currentIndex + 1);
-      });
-
-      // Swipe horizontal no mobile (galerias com mais de 1 imagem)
-      var touchStartX = 0;
-      var touchStartY = 0;
-      zoom.addEventListener('touchstart', function(e) {
-        if (e.touches.length !== 1) return;
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-      }, { passive: true });
-      zoom.addEventListener('touchend', function(e) {
-        if (!touchStartX || currentGallery.length < 2) return;
-        var dx = e.changedTouches[0].clientX - touchStartX;
-        var dy = e.changedTouches[0].clientY - touchStartY;
-        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
-          showAt(currentIndex + (dx < 0 ? 1 : -1));
-        }
-        touchStartX = 0;
-      }, { passive: true });
-    })();
-  </script>
 </body>
 </html>
