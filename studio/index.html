@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nardoto Studio - Produza vídeos com agentes de IA</title>
-  <meta name="description" content="A mesma tecnologia de IA usada pelo Pentágono agora produz seus vídeos. Agentes escrevem roteiros, geram vozes, criam imagens e montam seu projeto. Teste grátis.">
+  <meta name="description" content="Veja o Nardoto Studio em ação. Pesquise um nicho, escolha as pautas do canal e produza vídeos com a sua voz e o seu estilo. Teste por 10 dias sem cartão.">
   <meta name="theme-color" content="#E85A2A">
   <link rel="icon" type="image/png" href="logo.png">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Nardoto Studio - Produza vídeos com agentes de IA">
-  <meta property="og:description" content="A mesma tecnologia de IA usada pelo Pentágono agora produz seus vídeos. Teste grátis por 10 dias.">
+  <meta property="og:description" content="Assista à demonstração do Nardoto Studio e veja como transformar uma pesquisa de nicho nas primeiras pautas de um canal.">
   <meta property="og:image" content="https://nardoto.com.br/studio/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -52,8 +52,8 @@
       top: -200px;
       left: 50%;
       transform: translateX(-50%);
-      width: 800px;
-      height: 600px;
+      width: min(100%, 1000px);
+      height: 550px;
       background: radial-gradient(ellipse, var(--primary-glow) 0%, transparent 70%);
       pointer-events: none;
       z-index: 0;
@@ -111,7 +111,7 @@
       padding: 6px 12px;
       font-size: 12px;
       font-weight: 600;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       background: transparent;
       border: none;
       cursor: pointer;
@@ -141,111 +141,67 @@
     /* ── Hero ── */
     .hero {
       position: relative;
-      display: grid;
-      grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
-      grid-template-areas: "intro video" "actions video";
-      column-gap: clamp(32px, 4vw, 72px);
-      align-content: center;
-      padding: clamp(106px, 9vw, 144px) 24px 70px;
-      max-width: 1440px;
-      margin: 0 auto;
+      padding: clamp(84px, 10vh, 112px) clamp(16px, 3vw, 40px) 54px;
+      text-align: center;
     }
-
-    .hero-intro { grid-area: intro; position: relative; }
-    .hero-actions { grid-area: actions; position: relative; }
-    .hero .hero-cta { justify-content: flex-start; }
-    .hero-demo { grid-area: video; align-self: center; min-width: 0; }
+    .hero-intro, .hero-demo, .hero-actions { position: relative; }
+    .hero-intro h1 {
+      font-size: clamp(36px, 5vw, 74px);
+      font-weight: 900;
+      line-height: 1.04;
+      letter-spacing: -.045em;
+      text-wrap: balance;
+    }
+    .hero-intro .highlight { color: var(--primary-hover); }
+    .hero-intro p {
+      margin: 12px auto 22px;
+      max-width: 69ch;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      font-size: clamp(15px, 1.4vw, 18px);
+      text-wrap: pretty;
+    }
+    .hero-demo { max-width: 1200px; max-width: clamp(940px, calc(166svh - 360px), 1200px); margin: 0 auto; }
     .hero-player {
       position: relative;
       overflow: hidden;
       aspect-ratio: 16 / 9;
-      border-radius: 16px;
-      background: #101010;
-      box-shadow: 0 16px 56px rgba(0, 0, 0, .4);
+      background: var(--bg-card);
+      border-radius: clamp(10px, 1.5vw, 20px);
+      box-shadow: 0 0 0 1px #38312e, 0 18px 56px rgba(0,0,0,.45);
     }
-    .hero-player a, .hero-player iframe, .hero-player img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-    .hero-player:focus-within { outline: 3px solid white; outline-offset: 2px; }
+    .hero-player a, .hero-player iframe, .hero-player img { display: block; width: 100%; height: 100%; border: 0; }
+    .hero-player a { display: grid; place-items: center; }
+    .hero-player img, .demo-play { grid-area: 1 / 1; }
     .hero-player img { object-fit: cover; }
+    .hero-player:focus-within { outline: 3px solid white; outline-offset: 4px; }
     .demo-play {
-      position: absolute;
-      left: 12px;
-      bottom: 12px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 14px;
-      border-radius: 20px;
-      color: white;
-      background: rgba(12, 12, 12, .93);
-      font-weight: 700;
-      font-size: 14px;
-    }
-    .demo-play::before {
-      content: "";
-      border-style: solid;
-      border-width: 6px 0 6px 10px;
-      border-color: transparent transparent transparent var(--primary-hover);
-    }
-    .hero-player a:hover .demo-play, .hero-player a:focus-visible .demo-play {
-      background: white;
-      color: #141414;
-    }
-    .hero-demo figcaption { margin-top: 8px; text-align: right; }
-    .hero-demo figcaption a { color: var(--text-secondary); font-size: 13px; }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 16px;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--primary);
-      background: rgba(232, 90, 42, 0.08);
-      border-radius: 100px;
-      margin-bottom: 32px;
-    }
-
-    .hero-badge .dot {
-      width: 6px;
-      height: 6px;
-      background: var(--primary);
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: clamp(58px, 7.5vw, 98px);
+      aspect-ratio: 1;
+      border: 3px solid white;
       border-radius: 50%;
-      animation: pulse-dot 2s infinite;
+      background: rgba(25, 15, 9, .9);
+      box-shadow: 0 4px 24px rgba(0,0,0,.65);
+      transition: transform .18s ease, background .18s ease;
     }
-
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
+    .demo-play svg { width: 40%; height: 40%; margin-left: 6%; fill: white; }
+    .hero-player a:is(:hover, :focus-visible) .demo-play { background: #c84112; transform: scale(1.07); }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    .hero-demo figcaption {
+      display: flex; justify-content: space-between; gap: 8px; align-items: center; margin-top: 6px;
+      font-size: 13px; color: var(--text-secondary);
     }
-
-    .hero h1 {
-      font-size: clamp(40px, 4.2vw, 62px);
-      font-weight: 900;
-      line-height: 1.05;
-      letter-spacing: -2px;
-      margin-bottom: 24px;
-    }
-
-    .hero h1 .highlight {
-      background: linear-gradient(135deg, var(--primary), #FF8F6B);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero p {
-      font-size: 18px;
-      color: var(--text-secondary);
-      max-width: 560px;
-      margin: 0 0 24px;
-      line-height: 1.7;
-    }
+    .hero-demo figcaption a { color: inherit; padding: 4px 0; text-underline-offset: 3px; }
+    .hero-actions { margin: clamp(14px, 2vw, 24px) auto 0; }
+    .cta-mobile { display: none !important; }
+    .visita-mobile .cta-mobile { display: inline-flex !important; }
+    .visita-mobile [data-dl-studio], .visita-mobile [data-dl-mac-only] { display: none !important; }
+    .hero [data-dl-mac-only] a { color: var(--primary-hover); }
+    .hero .hero-meta { margin: 10px auto 0; font-size: 14px; color: var(--text-secondary); }
+    #teste { scroll-margin-top: 80px; }
 
     .hero-cta {
       display: flex;
@@ -310,22 +266,6 @@
 
     .hero .hero-meta { margin: 10px 0 0; font-size: 13px; }
     .hero-meta span { margin: 0 8px; }
-
-    /* ── Logo float animation ── */
-    .hero-logo {
-      display: block;
-      width: 64px;
-      height: 64px;
-      border-radius: 16px;
-      margin-bottom: 18px;
-      box-shadow: 0 0 60px var(--primary-glow), 0 0 120px rgba(232, 90, 42, 0.1);
-      animation: float 6s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-12px); }
-    }
 
     /* ── Features ── */
     .features {
@@ -1059,26 +999,15 @@
     }
 
     /* ── Responsive ── */
-    @media (max-width: 940px) {
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
-        grid-template-areas: "intro" "video" "actions";
-        max-width: 760px;
-        text-align: center;
-        row-gap: 18px;
-      }
-      .hero-logo { margin-inline: auto; }
-      .hero-intro p { margin: 0 auto; }
-      .hero .hero-cta { justify-content: center; }
-    }
     @media (max-width: 768px) {
-      nav { padding: 12px 16px; }
-      .nav-download { display: none; }
-      .hero { padding: 82px 16px 48px; }
-      .hero-logo { width: 44px; height: 44px; border-radius: 12px; margin-bottom: 12px; }
-      .hero-badge { margin-bottom: 16px; }
-      .hero h1 { letter-spacing: -1px; }
-      .hero p { font-size: 16px; }
+      nav { padding: 9px 12px; }
+      .nav-actions { gap: 5px; }
+      .nav-download { padding: 7px 10px; font-size: 12px; }
+      .hero { padding: 78px 16px 36px; }
+      .hero-intro h1 { font-size: clamp(30px, 8vw, 42px); }
+      .hero-intro p { margin: 10px auto 16px; }
+      .hero .hero-cta { gap: 8px; }
+      .hero .btn-primary, .hero .btn-mac { padding: 12px 16px; }
       .features { padding: 60px 16px; }
       .features-grid { grid-template-columns: 1fr; }
       .target-audience { padding: 60px 16px; }
@@ -1102,17 +1031,21 @@
     }
 
     /* ── Animations ── */
-    .fade-in {
+    .com-animacao .fade-in {
       opacity: 0;
       transform: translateY(24px);
       transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
-    .fade-in.visible {
+    .com-animacao .fade-in.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
+    .faq-answer a { color: var(--primary-hover); }
+    .final-cta .nota-fundador { margin: 32px 0 0; font-size: 14px; }
+    .final-cta .hero-meta { margin: 12px 0 0; font-size: 14px; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .demo-play { transition: none; } }
   </style>
   <script defer src="../js/mac-download-link.js"></script>
   <script defer src="../js/download-studio.js"></script>
@@ -1133,6 +1066,7 @@
       <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup.exe" data-dl-studio class="nav-download">
         <span data-i18n="nav-download">Baixar grátis</span>
       </a>
+      <a class="nav-download cta-mobile" href="#teste" data-i18n="teste-curto">Teste grátis</a>
     </div>
   </nav>
 
@@ -1140,112 +1074,78 @@
   <section class="hero">
     <div class="hero-glow"></div>
     <div class="hero-intro">
-      <img src="logo.png" alt="Nardoto Studio" class="hero-logo">
-      <div class="hero-badge">
-        <span class="dot"></span>
-        <span data-i18n="hero-badge">Construído com tecnologia usada pelo governo dos EUA</span>
-      </div>
-      <h1>
-        <span data-i18n="hero-title-1">Seu próximo vídeo já está pronto.</span><br>
-        <span class="highlight" data-i18n="hero-title-2">Ele só não sabe disso.</span>
-      </h1>
-      <p data-i18n="hero-desc">
-        O Studio conecta suas IAs num único fluxo: Claude escreve o roteiro, Gemini gera imagens, 11Labs ou Inworld criam as vozes. Você traz suas assinaturas. O Studio faz tudo trabalhar junto.
-      </p>
+      <h1><span data-i18n="hero-title-1">Veja o Studio</span> <span class="highlight" data-i18n="hero-title-2">em ação</span></h1>
+      <p data-i18n="hero-desc">Da pesquisa de nicho às dez primeiras pautas de um canal sobre furacões.</p>
     </div>
     <figure class="hero-demo">
       <div class="hero-player">
         <a id="abrir-demo" href="https://youtu.be/3oceS0ZOlnE">
           <img src="demo-canal-em-um-dia.webp" width="1280" height="720" alt="" fetchpriority="high">
-          <span class="demo-play" data-i18n="hero-video-play">Assistir à demonstração</span>
+          <span class="demo-play" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path d="M4 2.7a1 1 0 0 1 1.5-.86l15.6 9.3a1 1 0 0 1 0 1.72l-15.6 9.3a1 1 0 0 1-1.5-.86z"/></svg>
+          </span>
+          <span class="sr-only" data-i18n="hero-video-play">Reproduzir a demonstração do Nardoto Studio</span>
         </a>
       </div>
-      <figcaption><a href="https://youtu.be/3oceS0ZOlnE" data-i18n="hero-video-link">Assistir no YouTube</a></figcaption>
+      <figcaption>
+        <span data-i18n="demo-tempo">Demonstração · 3 min 20 s</span>
+        <a href="https://youtu.be/3oceS0ZOlnE" data-i18n="hero-video-link">Assistir no YouTube</a>
+      </figcaption>
       <template id="player-demo">
         <iframe src="https://www.youtube-nocookie.com/embed/3oceS0ZOlnE?autoplay=1&amp;playsinline=1" title="Nardoto Studio · YouTube" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </template>
     </figure>
-    <div class="hero-actions">
+    <div class="hero-actions" id="teste">
       <div class="hero-cta">
         <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup.exe" data-dl-studio class="btn-primary">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-          <span data-i18n="hero-cta-download">Baixar o Studio</span>
+          <span data-i18n="hero-cta-download">Baixar e testar grátis</span>
           <span style="margin-left: -6px;">(<span data-dl-os>Windows</span>)</span>
         </a>
-        <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-mac">
-          <span data-i18n="hero-cta-trial">Começar teste grátis</span>
-        </a>
+        <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-primary cta-mobile" data-i18n="conta">Acessar minha conta</a>
+        <a href="/#precos" class="btn-mac" data-i18n="planos">Ver planos</a>
       </div>
       <p class="hero-meta" data-dl-mac-only hidden>
         <span data-i18n="dl-mac-intel">Mac com chip Intel?</span>
         <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup-mac-x64.dmg" style="color: var(--primary); text-decoration: none;" data-i18n="dl-mac-intel-link" data-mac-repo="LoopLess-nardoto/nardoto-studio-releases" data-mac-asset="NardotoStudio-Setup-mac-x64.dmg">baixe esta versão</a>
       </p>
-      <p class="hero-meta">
-        <span data-i18n="hero-meta-trial">10 dias grátis</span>
-        <span>|</span>
-        <span>Windows 10/11 + macOS</span>
-        <span>|</span>
-        <span data-i18n="hero-meta-size">~450 MB</span>
-      </p>
+      <p class="hero-meta" data-i18n="hero-meta-trial">10 dias sem cartão. Use sua própria conta de IA.</p>
+      <p class="hero-meta cta-mobile" data-i18n="mobile-nota">Você ativa o teste no computador, com Windows ou macOS.</p>
     </div>
   </section>
 
   <!-- Features -->
   <section class="features fade-in">
     <p class="section-label" data-i18n="features-label">Funcionalidades</p>
-    <h2 class="section-title" data-i18n="features-title">Seu canal, suas regras</h2>
-    <p class="section-desc" data-i18n="features-desc">
-      Você traz suas IAs. O Studio organiza, integra e profissionaliza sua produção.
-    </p>
+    <h2 class="section-title" data-i18n="features-title">O que você decide em cada vídeo</h2>
     <div class="features-grid">
 
       <div class="feature-card">
         <div class="feature-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
         </div>
-        <h3 data-i18n="f1-title">Unificador de IAs</h3>
-        <p data-i18n="f1-desc">Traga suas assinaturas: Claude, Gemini, Codex (GPT/OpenAI), 11Labs. Tudo num único chat. Você escolhe qual IA usar pra cada tarefa.</p>
+        <h3 data-i18n="f1-title">Onde vale testar um nicho</h3>
+        <p data-i18n="f1-desc">Compare canais no Radar e veja quais temas já têm público. Na demonstração, a pesquisa parte de tornados em inglês e aponta uma oportunidade em furacões em português.</p>
       </div>
 
       <div class="feature-card">
         <div class="feature-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
         </div>
-        <h3 data-i18n="f2-title">IA que Age</h3>
-        <p data-i18n="f2-desc">A IA não só responde — ela edita arquivos, lê documentos, organiza pastas, renomeia, compara. Sem copiar e colar. Tudo direto no seu computador.</p>
+        <h3 data-i18n="f2-title">Quais pautas merecem um vídeo</h3>
+        <p data-i18n="f2-desc">A IA lê a pesquisa e sugere as primeiras pautas. Você conversa com ela, descarta as que se repetem e escolhe por qual começar.</p>
       </div>
 
       <div class="feature-card">
         <div class="feature-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76Z"/></svg>
         </div>
-        <h3 data-i18n="f3-title">Sob Demanda</h3>
-        <p data-i18n="f3-desc">Crie o que precisar: ferramentas, plugins, fluxos. Integre qualquer API de IA. O Studio se adapta ao seu canal, não o contrário.</p>
+        <h3 data-i18n="f3-title">Como o público reconhece seu canal</h3>
+        <p data-i18n="f3-desc">Escolha a voz, as imagens e o ritmo da edição. Salve essas escolhas como modelo para começar o próximo vídeo com o mesmo estilo.</p>
       </div>
 
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
-        </div>
-        <h3 data-i18n="f4-title">KPIs de Produção</h3>
-        <p data-i18n="f4-desc">Métricas de tempo por IA, diagnósticos de gargalos, desempenho. Empacote seu canal como negócio. Fácil de ensinar a novos colaboradores.</p>
-      </div>
 
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-        </div>
-        <h3 data-i18n="f5-title">Sync com CapCut</h3>
-        <p data-i18n="f5-desc">Importação em lote, posicionamento na timeline, legendas SRT automáticas. Renderização simplificada pra vídeos de IA (VEO3 e mais).</p>
-      </div>
 
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3 4 4.5 4.5 0 0 1-3-4"/><path d="M12 18v-6"/></svg>
-        </div>
-        <h3 data-i18n="f6-title">Skills e Agentes</h3>
-        <p data-i18n="f6-desc">Defina regras, tom de voz e estilo. A IA gera conteúdo seguindo suas instruções. Cada criador tem um Studio diferente.</p>
-      </div>
 
     </div>
   </section>
@@ -1253,301 +1153,140 @@
   <!-- Para quem é -->
   <section class="target-audience fade-in">
     <p class="section-label" data-i18n="target-label">Para quem é</p>
-    <h2 class="section-title" data-i18n="target-title">O Studio foi feito pra quem produz</h2>
-    <p class="section-desc" data-i18n="target-desc">
-      Três perfis. Uma ferramenta.
-    </p>
+    <h2 class="section-title" data-i18n="target-title">Em que ponto está o seu canal?</h2>
 
     <div class="target-cards">
       <div class="target-card">
         <div class="target-card-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </div>
-        <h3 data-i18n="target1-title">Criador que quer escalar</h3>
-        <p data-i18n="target1-desc">Você já produz vídeo mas gasta horas em tarefas manuais. O Studio automatiza o fluxo inteiro.</p>
+        <h3 data-i18n="target1-title">Estou começando</h3>
+        <p data-i18n="target1-desc">Use a pesquisa para encontrar um assunto que você conhece e decidir para quem vai produzir.</p>
       </div>
 
       <div class="target-card">
         <div class="target-card-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
-        <h3 data-i18n="target2-title">Operação profissional</h3>
-        <p data-i18n="target2-desc">Sua equipe já fatura com conteúdo. O Studio vira a infraestrutura da sua produção. Clientes com operações de R$ 50k a R$ 100k+ já usam.</p>
+        <h3 data-i18n="target2-title">Já publico vídeos</h3>
+        <p data-i18n="target2-desc">Guarde a voz e o formato que já funcionam no seu canal. Use o mesmo modelo para testar outra pauta.</p>
       </div>
 
       <div class="target-card">
         <div class="target-card-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
         </div>
-        <h3 data-i18n="target3-title">Curioso com disposição</h3>
-        <p data-i18n="target3-desc">Você nunca usou IA pra produzir vídeo mas quer aprender. O Studio tem chat inteligente, modo tutorial e acesso direto ao criador.</p>
+        <h3 data-i18n="target3-title">Produzo para vários canais</h3>
+        <p data-i18n="target3-desc">Separe as pesquisas, os roteiros e as escolhas de edição de cada canal. Quando voltar ao projeto, seu material está junto.</p>
       </div>
     </div>
 
-    <p class="target-note" data-i18n="target-note">
-      Não vendemos facilidade. Vendemos capacidade. O Studio é pra quem quer aprender a produzir de verdade e está disposto a investir tempo pra dominar a ferramenta.
-    </p>
   </section>
 
   <!-- Steps -->
   <section class="steps fade-in">
     <p class="section-label" data-i18n="steps-label">Como funciona</p>
-    <h2 class="section-title" data-i18n="steps-title">Pronto em 3 passos</h2>
-    <p class="section-desc" data-i18n="steps-desc">
-      Comece a criar vídeos profissionais em minutos.
-    </p>
+    <h2 class="section-title" data-i18n="steps-title">Comece com uma pauta sua</h2>
 
     <div class="steps-list">
       <div class="step">
         <div class="step-number">1</div>
         <div class="step-content">
-          <h3 data-i18n="s1-title">Baixe e instale</h3>
-          <p data-i18n="s1-desc">Instalação rápida. Crie sua conta e seus 10 dias de teste começam.</p>
+          <h3 data-i18n="s1-title">Instale no computador</h3>
+          <p data-i18n="s1-desc">Baixe a versão para Windows ou macOS e entre na sua conta para ativar o teste.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-number">2</div>
         <div class="step-content">
-          <h3 data-i18n="s2-title">Conecte suas IAs</h3>
-          <p data-i18n="s2-desc">Use suas assinaturas de Claude, Gemini, 11Labs. O Studio unifica tudo num único fluxo de trabalho.</p>
+          <h3 data-i18n="s2-title">Conecte a IA que você usa</h3>
+          <p data-i18n="s2-desc">Abra o chat do projeto e escolha a conta de IA que vai ajudar na pesquisa e no roteiro.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-number">3</div>
         <div class="step-content">
-          <h3 data-i18n="s3-title">Produza e acompanhe</h3>
-          <p data-i18n="s3-desc">Gere conteúdo, acompanhe métricas, identifique gargalos. Sua produção vira processo.</p>
+          <h3 data-i18n="s3-title">Prepare o primeiro vídeo</h3>
+          <p data-i18n="s3-desc">Escolha uma pauta, revise o plano de cenas e ouça a voz da narração antes de iniciar a produção.</p>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- Traga suas IAs -->
-  <section class="bring-ai fade-in">
-    <p class="section-label" data-i18n="bringia-label">Compatibilidade</p>
-    <h2 class="section-title" data-i18n="bringia-title">O Studio organiza. As IAs são suas.</h2>
-    <p class="section-desc" data-i18n="bringia-desc">
-      O Studio não inclui assinaturas de IA. Você usa suas próprias contas e chaves de API.
-    </p>
-
-    <table class="ai-table">
-      <thead>
-        <tr>
-          <th data-i18n="ai-th-cat">Categoria</th>
-          <th data-i18n="ai-th-services">Serviços compatíveis</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td data-i18n="ai-cat-chat">Chat / Roteiro</td>
-          <td>Claude, Gemini, Codex (GPT/OpenAI)</td>
-        </tr>
-        <tr>
-          <td data-i18n="ai-cat-voice">Vozes</td>
-          <td data-i18n="ai-voice-list">ElevenLabs, Inworld (US$10/1M chars), Google TTS, Gemini TTS</td>
-        </tr>
-        <tr>
-          <td data-i18n="ai-cat-image">Imagens</td>
-          <td data-i18n="ai-image-list">Pollinations (gratuito), Flux Kontext</td>
-        </tr>
-        <tr>
-          <td data-i18n="ai-cat-video">Vídeo</td>
-          <td>VEO3 (via Flow)</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <p class="ai-table-note" data-i18n="bringia-note">Você usa suas próprias contas e chaves de API. O Studio é o orquestrador que faz tudo trabalhar junto.</p>
-  </section>
-
 
   <!-- FAQ -->
   <section class="faq fade-in">
     <p class="section-label" data-i18n="faq-label">Perguntas frequentes</p>
-    <h2 class="section-title" data-i18n="faq-title">Dúvidas? A gente responde.</h2>
+    <h2 class="section-title" data-i18n="faq-title">Antes de baixar</h2>
 
     <div class="faq-list">
       <details class="faq-item" open>
-        <summary data-i18n="faq1-q">O Studio inclui as assinaturas de IA?</summary>
+        <summary data-i18n="duvida-ai">Preciso de uma assinatura de IA?</summary>
         <div class="faq-answer">
-          <strong data-i18n="faq1-h">Não. Você traz suas próprias IAs.</strong>
-          <p data-i18n="faq1-d1">O Studio é um orquestrador. Ele conecta Claude, Gemini, ElevenLabs, Inworld, Pollinations e outras IAs num fluxo só — mas as contas e chaves de API são suas. Isso é diferente de plataformas que cobram por uso de IA embutida e te prendem no ecossistema delas.</p>
-          <p data-i18n="faq1-d2">A vantagem: você escolhe a melhor IA pra cada tarefa. Quer trocar de provedor de voz? Troca. Quer usar uma IA gratuita pra imagens? Usa. O Studio não te limita — ele organiza.</p>
+          <p data-i18n="resposta-ai">Você conecta a conta de IA que quer usar no Studio. A assinatura dessa IA é separada. A quantidade de vídeos que você consegue produzir depende da cota do serviço, da duração dos vídeos e da edição que escolher.</p>
         </div>
       </details>
 
       <details class="faq-item">
-        <summary data-i18n="faq2-q">Qual a diferença do Studio pra outras ferramentas de automação de vídeo?</summary>
+        <summary data-i18n="duvida-teste">Como funciona o teste?</summary>
         <div class="faq-answer">
-          <strong data-i18n="faq2-h">O Studio é um orquestrador desktop, não uma plataforma web genérica.</strong>
-          <p data-i18n="faq2-d1">A maioria das ferramentas de "automação de vídeo" funciona assim: você cola um texto, ela gera um vídeo genérico com banco de imagens e voz robótica. Pronto. Zero controle. Todas as produções saem iguais.</p>
-          <p data-i18n="faq2-d2">O Studio funciona diferente. Ele roda no seu computador, se integra com o CapCut, e te dá controle total sobre cada etapa: roteiro (via Claude ou Gemini), vozes (ElevenLabs, Inworld, Google TTS), imagens (Pollinations, Flux Kontext), vídeo (VEO3), legendas SRT, sincronização automática, preview, renderização. Tudo num fluxo conectado.</p>
-          <p data-i18n="faq2-d3">Outras ferramentas fazem o vídeo por você. O Studio faz o vídeo com você — mas 10x mais rápido do que fazer manualmente. É a diferença entre fast food e um restaurante onde você monta o prato com ingredientes profissionais.</p>
+          <p data-i18n="resposta-teste">Baixe o Studio no computador, entre na sua conta e ative o teste no aplicativo. São 10 dias sem cartão para produzir com um tema seu.</p>
         </div>
       </details>
 
       <details class="faq-item">
-        <summary data-i18n="faq3-q">Preciso saber programar?</summary>
+        <summary data-i18n="duvida-aprovacao">Posso mudar o que a IA sugere?</summary>
         <div class="faq-answer">
-          <strong data-i18n="faq3-h">Não. Mas precisa ter disposição pra aprender.</strong>
-          <p data-i18n="faq3-d1">O Studio foi feito pra criadores de conteúdo, não pra programadores. A interface é visual, o chat com IA é em linguagem natural, e tem modo tutorial integrado. Mas é uma ferramenta profissional — não é um app de celular com dois botões.</p>
-          <p data-i18n="faq3-d2">Pense no Photoshop: ninguém sabe usar de primeira, mas quem aprende consegue resultados que nenhum app simples entrega. O Studio segue a mesma lógica. A curva de aprendizado existe, e quem passa por ela produz em outro nível.</p>
+          <p data-i18n="resposta-aprovacao">Sim. Você pode discutir a pesquisa no chat, tirar pautas da lista, ajustar o roteiro e revisar o plano de cenas. Quando gostar da voz e do estilo, salve essas escolhas para os próximos vídeos.</p>
         </div>
       </details>
 
       <details class="faq-item">
-        <summary data-i18n="faq4-q">Como funciona o teste grátis?</summary>
+        <summary data-i18n="duvida-sistema">Funciona no meu computador?</summary>
         <div class="faq-answer">
-          <strong data-i18n="faq4-h">10 dias completos. Sem cartão. Sem compromisso.</strong>
-          <p data-i18n="faq4-d1">Baixe, instale, crie sua conta e use por 10 dias com acesso completo a todas as funcionalidades. Não pedimos cartão de crédito, não cobramos nada. Se gostar, assine. Se não gostar, desinstale e siga em paz.</p>
-          <p data-i18n="faq4-d2">Sem remarketing agressivo, sem e-mail insistente, sem truque de escassez. A ferramenta se vende pelo que entrega.</p>
+          <p data-i18n="resposta-sistema">O Studio tem instalador para Windows e macOS. Os arquivos do projeto ficam no computador. Os recursos de IA que você conecta usam a internet.</p>
         </div>
       </details>
 
       <details class="faq-item">
-        <summary data-i18n="faq5-q">E se eu tiver dificuldade?</summary>
+        <summary data-i18n="duvida-ajuda">Por onde começo se nunca editei um vídeo?</summary>
         <div class="faq-answer">
-          <strong data-i18n="faq5-h">Três camadas de suporte: IA, tutorial e contato direto com o criador.</strong>
-          <p data-i18n="faq5-d1">O Studio tem um chat com IA integrado que entende o próprio app — você pergunta "como sincronizo mídias?" e ele te guia passo a passo. Tem modo tutorial interativo que mostra cada funcionalidade na prática.</p>
-          <p data-i18n="faq5-d2">E tem algo que nenhuma outra ferramenta oferece: acesso direto ao Nardoto (o criador). Não é bot, não é ticket, não é fila de espera. Se tiver dúvida, manda mensagem no privado. Eu uso a mesma ferramenta todo dia — sei exatamente como resolver.</p>
+          <p data-i18n="resposta-ajuda">Escolha um assunto que você conhece e peça uma pauta no chat. O Studio tem um modo tutorial para acompanhar o processo e você pode tirar dúvidas com o Nardoto.</p>
         </div>
       </details>
 
       <details class="faq-item">
-        <summary data-i18n="faq6-q">A ferramenta tem bugs?</summary>
+        <summary data-i18n="duvida-planos">Onde vejo os planos e como cancelo?</summary>
         <div class="faq-answer">
-          <strong data-i18n="faq6-h">Sim. Como todo software.</strong>
-          <p data-i18n="faq6-d1">Windows tem bugs. CapCut tem bugs. Cursor tem bugs. O Studio também tem — e seria desonesto dizer o contrário. A diferença é que o Studio está em desenvolvimento ativo, com atualizações semanais, e o criador usa a ferramenta diariamente.</p>
-          <p data-i18n="faq6-d2">Isso significa que bugs são encontrados e corrigidos rápido. Já é possível produzir vídeos completos de forma consistente — roteiro, vozes, imagens, legendas, sincronização, tudo. Mas se você espera perfeição pronta e acabada, isso não existe em nenhum software. O que existe aqui é evolução contínua e compromisso real com o produto.</p>
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary data-i18n="faq7-q">Quem já usa o Studio?</summary>
-        <div class="faq-answer">
-          <strong data-i18n="faq7-h">Criadores com operações de R$ 50k a R$ 100k+ por mês.</strong>
-          <p data-i18n="faq7-d1">O Studio é autorizado pela Channels — maior escola de canais dark do Brasil. Não é uma ferramenta experimental. É usada por quem depende de resultado pra faturar.</p>
-          <p data-i18n="faq7-d2">Os clientes que mais aproveitam são criadores que já produzem conteúdo e querem escalar sem multiplicar horas de trabalho manual. O Studio vira a infraestrutura da produção: do roteiro ao vídeo pronto no CapCut, num fluxo só.</p>
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary data-i18n="faq9-q">Posso cancelar quando quiser?</summary>
-        <div class="faq-answer">
-          <strong data-i18n="faq9-h">Sim. Sem fidelidade, sem multa, sem burocracia.</strong>
-          <p data-i18n="faq9-d1">Cancele a qualquer momento pelo painel de assinatura. Não tem contrato mínimo, não tem taxa de cancelamento, não precisa ligar pra ninguém. Se o Studio parar de fazer sentido pra você, cancela e pronto.</p>
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary data-i18n="faq10-q">Funciona no macOS?</summary>
-        <div class="faq-answer">
-          <strong data-i18n="faq10-h">Sim. A versão macOS já está disponível para testes.</strong>
-          <p data-i18n="faq10-d1">O Studio agora roda em Windows 10/11 e macOS (arm64). A versão macOS está em fase beta — já é funcional e permite produzir vídeos, mas ainda pode ter ajustes sendo feitos. O DMG está disponível na página de releases do GitHub. Baixe, instale e teste com os mesmos 10 dias grátis.</p>
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary data-i18n="faq11-q">Por que é tão caro comparado com outras ferramentas?</summary>
-        <div class="faq-answer">
-          <strong data-i18n="faq11-h">Porque não é a mesma coisa.</strong>
-          <p data-i18n="faq11-d1">Ferramentas de R$ 30-50/mês te dão um gerador de vídeo genérico: cole um texto, receba um vídeo padrão com banco de imagens. Todas as produções saem iguais. Você não tem controle sobre nada.</p>
-          <p data-i18n="faq11-d2">O Studio é infraestrutura profissional de produção. Ele integra as melhores IAs do mercado (Claude, Gemini, ElevenLabs, VEO3), se conecta direto com o CapCut, e te dá controle total sobre cada etapa. É a diferença entre alugar um estúdio e comprar uma câmera de celular.</p>
-          <p data-i18n="faq11-d3">Se você produz conteúdo profissional e cobra por isso, o Studio se paga no primeiro ou segundo vídeo. Se você está começando e não quer investir, o teste de 10 dias mostra exatamente o que você recebe pelo valor.</p>
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary data-i18n="faq12-q">Qual a diferença do chat do Studio pros chats da web (ChatGPT, Claude.ai, Gemini)?</summary>
-        <div class="faq-answer">
-          <strong data-i18n="faq12-h">Os chats da web só conversam. O chat do Studio age.</strong>
-          <p data-i18n="faq12-d1">Quando você usa o ChatGPT, Claude.ai ou Gemini no navegador, o fluxo é sempre o mesmo: você pede algo, a IA responde com texto, você copia a resposta, cola num arquivo, abre outra aba, gera a voz em outro site, baixa o áudio, abre o CapCut, importa manualmente. Cada etapa é uma aba diferente, um copiar-colar diferente. O chat web não sabe que seu projeto existe.</p>
-          <p data-i18n="faq12-d2">O chat do Studio é diferente porque ele tem acesso ao seu projeto. A IA lê seus documentos, edita arquivos direto na pasta do projeto, gera roteiros que viram legendas SRT automaticamente, cria prompts de imagem que são gerados na hora, produz áudio e envia pro CapCut. Tudo acontece dentro do app, sem copiar e colar, sem trocar de aba.</p>
-          <p data-i18n="faq12-d3">Exemplo real: você pede "escreve o roteiro desse vídeo". No ChatGPT, você recebe o texto e precisa copiar, salvar num arquivo, depois ir pra outro site gerar a voz. No Studio, a IA escreve o roteiro direto no projeto, gera o SRT, produz o áudio via ElevenLabs ou Inworld, e sincroniza com o CapCut. Um comando, todo o fluxo.</p>
-          <p data-i18n="faq12-d4">A diferença não é a IA em si — é o que ela consegue fazer conectada ao seu ambiente de produção. O Studio transforma chat em ação.</p>
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary data-i18n="faq13-q">Por que o Studio é um app desktop e não uma plataforma web?</summary>
-        <div class="faq-answer">
-          <strong data-i18n="faq13-h">Porque um site não consegue fazer o que o Studio faz.</strong>
-          <p data-i18n="faq13-d1">O Studio precisa acessar diretamente o sistema de arquivos do seu computador — ler e escrever arquivos do projeto, editar documentos, organizar pastas. Precisa se integrar nativamente com o CapCut, detectando projetos, sincronizando mídias e inserindo legendas direto na timeline. Precisa rodar processos Python locais pra automação pesada. Nada disso é possível num navegador web.</p>
-          <p data-i18n="faq13-d2">Plataformas web de vídeo com IA funcionam na nuvem: você faz upload dos seus arquivos, processa no servidor deles, e baixa o resultado. Seus dados passam pelos servidores de terceiros. Com o Studio, tudo roda no SEU computador. Seus roteiros, suas imagens, seus áudios — tudo fica com você. Sem upload pra nuvem, sem dependência de conexão pra trabalhar no projeto.</p>
-          <p data-i18n="faq13-d3">O Studio é um Electron app com mais de 500 funcionalidades integradas: chat com múltiplas IAs, renderização de vídeo via Remotion e FFmpeg, controle do CapCut via automação, geração de imagens, TTS multi-voz, KPIs de produção, loja de plugins. Esse nível de integração só é possível num app desktop. É como comparar o Google Docs com o Microsoft Office — ambos editam texto, mas um é limitado ao que o navegador permite.</p>
+          <p data-i18n="resposta-planos">Você pode comparar os planos antes de assinar e gerenciar ou cancelar sua assinatura pelo painel da sua conta.</p>
+          <a href="/#precos" data-i18n="planos">Ver planos</a>
         </div>
       </details>
     </div>
-  </section>
-
-  <!-- Posicionamento / Manifesto -->
-  <section class="manifesto fade-in">
-    <p class="section-label" data-i18n="manifesto-label">Transparência</p>
-    <h2 class="section-title" data-i18n="manifesto-title">O que você precisa saber antes de assinar</h2>
-
-    <p class="manifesto-quote" data-i18n="manifesto-quote">
-      A ferramenta existe porque eu uso ela todo dia. Não é marketing. É a infraestrutura da minha própria produção.
-    </p>
-
-    <div class="manifesto-blocks">
-      <div class="manifesto-block">
-        <h3 data-i18n="mf1-title">O Studio não é pra todo mundo</h3>
-        <p data-i18n="mf1-desc">É uma ferramenta profissional. Tem curva de aprendizado. Não é clicar dois botões e o vídeo sair pronto. Se você busca algo mais simples, existem opções no mercado — e desejamos sucesso. Quem fica, aprende a produzir de verdade.</p>
-      </div>
-
-      <div class="manifesto-block">
-        <h3 data-i18n="mf2-title">Você traz suas próprias IAs</h3>
-        <p data-i18n="mf2-desc">O Studio não inclui assinatura de Claude, Gemini, ElevenLabs ou qualquer outra IA. Ele é o orquestrador — conecta tudo num fluxo só. Você usa suas contas, suas chaves de API. Se a IA for gratuita (como Pollinations), melhor ainda. Mas o Studio não é um pacote tudo-incluso. É uma ferramenta de produção.</p>
-      </div>
-
-      <div class="manifesto-block">
-        <h3 data-i18n="mf3-title">Sim, a ferramenta tem bugs</h3>
-        <p data-i18n="mf3-desc">Todo software tem — Windows, CapCut, Cursor. O Studio está em desenvolvimento ativo. Melhora toda semana. Já permite produzir vídeos completos de forma consistente. Mas se você quer perfeição pronta, isso não existe. O que existe é evolução contínua e um criador que usa a própria ferramenta.</p>
-      </div>
-
-      <div class="manifesto-block">
-        <h3 data-i18n="mf4-title">Quem já usa</h3>
-        <p data-i18n="mf4-desc">Criadores com operações de R$ 10k a mais de R$ 100k por mês. Mais de 50 criadores já usam o Nardoto Studio hoje. Não é hype. É ferramenta de trabalho usada por quem depende de resultado.</p>
-      </div>
-
-      <div class="manifesto-block">
-        <h3 data-i18n="mf5-title">Acesso direto ao criador</h3>
-        <p data-i18n="mf5-desc">Eu sou o Nardoto. Criei o Studio, uso o Studio, e atendo quem usa. Não tem camada de suporte genérico. Tem o chat com IA integrado que entende o próprio app, tem modo tutorial, e tem meu contato direto no privado. Se tiver dúvida, fala comigo.</p>
-      </div>
-
-      <div class="manifesto-block">
-        <h3 data-i18n="mf6-title">10 dias pra decidir. Sem pressão.</h3>
-        <p data-i18n="mf6-desc">Baixe, instale, use por 10 dias completos. Sem pedir cartão. Se servir, assine. Se não servir, siga em paz. Sem remarketing, sem e-mail insistente, sem truque de escassez. A ferramenta se vende pelo que entrega.</p>
-      </div>
-    </div>
-
-    <p class="manifesto-signature" data-i18n="manifesto-sig">
-      <strong>— Nardoto</strong>, criador do Studio
-    </p>
   </section>
 
   <!-- Final CTA -->
   <section class="final-cta fade-in">
     <div class="hero-glow"></div>
-    <h2 data-i18n="cta-title">Experimente sem compromisso</h2>
-    <p data-i18n="cta-desc">10 dias grátis. Sem cartão. Converse direto com o criador.</p>
+    <h2 data-i18n="cta-title">Qual será a primeira pauta do seu canal?</h2>
+    <p data-i18n="cta-desc">Experimente o Studio por 10 dias e produza com um assunto que você conhece.</p>
     <div class="hero-cta" style="position: relative; z-index: 1;">
       <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup.exe" data-dl-studio class="btn-primary">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-        <span data-i18n="cta-btn-download">Baixar o Studio</span>
+        <span data-i18n="cta-btn-download">Baixar e testar grátis</span>
         <span style="margin-left: -6px;">(<span data-dl-os>Windows</span>)</span>
       </a>
-      <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-mac">
-        <span data-i18n="cta-btn">Começar teste grátis</span>
-      </a>
+      <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-primary cta-mobile" data-i18n="conta">Acessar minha conta</a>
+      <a href="/#precos" class="btn-mac" data-i18n="planos">Ver planos</a>
     </div>
-    <p class="hero-meta" style="position: relative; z-index: 1;" data-i18n="cta-dl-note">Instale e ative o teste dentro do app, com a sua conta.</p>
+    <p class="hero-meta cta-mobile" data-i18n="mobile-nota">Você ativa o teste no computador, com Windows ou macOS.</p>
+    <p class="nota-fundador"><span data-i18n="nota-fundador">Esta demonstração também foi produzida no Nardoto Studio.</span><br><strong data-i18n="assinatura">Nardoto, criador do Studio</strong></p>
   </section>
 
   <!-- Footer -->
   <footer>
     <p>
-      Nardoto Studio &copy; 2025 &mdash;
+      Nardoto Studio &middot;
+      <a href="https://nardoto-labs.web.app/dashboard.html" data-i18n="conta">Acessar minha conta</a> &middot;
       <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases" target="_blank" rel="noopener">GitHub</a>
     </p>
   </footer>
@@ -1556,404 +1295,129 @@
     // ── i18n ──
     const translations = {
       pt: {
-        'nav-download': 'Baixar grátis',
-        'hero-cta-download': 'Baixar o Studio',
-        'hero-video-play': 'Assistir à demonstração',
-        'hero-video-link': 'Assistir no YouTube',
-        'hero-cta-trial': 'Começar teste grátis',
-        'cta-btn-download': 'Baixar o Studio',
-        'cta-dl-note': 'Instale e ative o teste dentro do app, com a sua conta.',
-        'dl-mac-intel': 'Mac com chip Intel?',
-        'dl-mac-intel-link': 'baixe esta versão',
-        'hero-badge': 'Construído com tecnologia usada pelo governo dos EUA',
-        'hero-title-1': 'Seu próximo vídeo já está pronto.',
-        'hero-title-2': 'Ele só não sabe disso.',
-        'hero-desc': 'O Studio conecta suas IAs num único fluxo: Claude escreve o roteiro, Gemini gera imagens, 11Labs ou Inworld criam as vozes. Você traz suas assinaturas. O Studio faz tudo trabalhar junto.',
-        'hero-cta-win': 'Windows',
-        'hero-mac': 'Baixar macOS',
-        'hero-meta-trial': '10 dias grátis',
-        'hero-meta-size': '~450 MB',
-        'features-label': 'Funcionalidades',
-        'features-title': 'Seu canal, suas regras',
-        'features-desc': 'Você traz suas IAs. O Studio organiza, integra e profissionaliza sua produção.',
-        'f1-title': 'Unificador de IAs',
-        'f1-desc': 'Traga suas assinaturas: Claude, Gemini, Codex (GPT/OpenAI), 11Labs. Tudo num único chat. Você escolhe qual IA usar pra cada tarefa.',
-        'f2-title': 'IA que Age',
-        'f2-desc': 'A IA não só responde — ela edita arquivos, lê documentos, organiza pastas, renomeia, compara. Sem copiar e colar. Tudo direto no seu computador.',
-        'f3-title': 'Sob Demanda',
-        'f3-desc': 'Crie o que precisar: ferramentas, plugins, fluxos. Integre qualquer API de IA. O Studio se adapta ao seu canal, não o contrário.',
-        'f4-title': 'KPIs de Produção',
-        'f4-desc': 'Métricas de tempo por IA, diagnósticos de gargalos, desempenho. Empacote seu canal como negócio. Fácil de ensinar a novos colaboradores.',
-        'f5-title': 'Sync com CapCut',
-        'f5-desc': 'Importação em lote, posicionamento na timeline, legendas SRT automáticas. Renderização simplificada pra vídeos de IA (VEO3 e mais).',
-        'f6-title': 'Skills e Agentes',
-        'f6-desc': 'Defina regras, tom de voz e estilo. A IA gera conteúdo seguindo suas instruções. Cada criador tem um Studio diferente.',
-        'target-label': 'Para quem é',
-        'target-title': 'O Studio foi feito pra quem produz',
-        'target-desc': 'Três perfis. Uma ferramenta.',
-        'target1-title': 'Criador que quer escalar',
-        'target1-desc': 'Você já produz vídeo mas gasta horas em tarefas manuais. O Studio automatiza o fluxo inteiro.',
-        'target2-title': 'Operação profissional',
-        'target2-desc': 'Sua equipe já fatura com conteúdo. O Studio vira a infraestrutura da sua produção. Clientes com operações de R$ 50k a R$ 100k+ já usam.',
-        'target3-title': 'Curioso com disposição',
-        'target3-desc': 'Você nunca usou IA pra produzir vídeo mas quer aprender. O Studio tem chat inteligente, modo tutorial e acesso direto ao criador.',
-        'target-note': 'Não vendemos facilidade. Vendemos capacidade. O Studio é pra quem quer aprender a produzir de verdade e está disposto a investir tempo pra dominar a ferramenta.',
-        'lt-tag-proj': 'Projetos',
-        'lt-tag-sync': 'Sincronização',
-        'lt-tag-media': 'Mídia',
-        'lt-tag-export': 'Exportação',
-        'lt-tag-merge': 'Mesclar',
-        'lt-tag-preview': 'Preview',
-        'lt1-title': 'Tela inicial com projetos',
-        'lt1-desc': 'Visualize todos os projetos do CapCut com thumbnails. Abra, crie ou importe projetos rapidamente.',
-        'lt2-title': 'Sync de mídia com áudio',
-        'lt2-desc': 'Sincronize vídeos e imagens com o áudio de referência. Por áudio ou por legenda, com animações automáticas.',
-        'lt3-title': 'Inserção de mídias',
-        'lt3-desc': 'Importe vídeos, imagens e áudios em lote. Sequencial ou aleatório, com duração personalizada.',
-        'lt4-title': 'Criar e importar projetos',
-        'lt4-desc': 'Crie projetos do zero, a partir de templates, com mídias pré-carregadas ou importe ZIPs.',
-        'lt5-title': 'Mesclar projetos',
-        'lt5-desc': 'Combine múltiplos projetos CapCut em um só. Exportação em massa com timelines coloridas.',
-        'lt6-title': 'Preview com timeline',
-        'lt6-desc': 'Visualize o vídeo com legendas, áudio, efeitos de cor e timeline completa. Tudo sem abrir o CapCut.',
-        'lt-tag-capcut': 'CapCut',
-        'lt7-title': 'CapCut sincronizado',
-        'lt7-desc': 'Resultado final no CapCut: mídias, legendas e áudio alinhados na timeline. Pronto para exportar.',
-        'steps-label': 'Como funciona',
-        'steps-title': 'Pronto em 3 passos',
-        'steps-desc': 'Comece a criar vídeos profissionais em minutos.',
-        's1-title': 'Baixe e instale',
-        's1-desc': 'Instalação rápida. Crie sua conta e seus 10 dias de teste começam.',
-        's2-title': 'Conecte suas IAs',
-        's2-desc': 'Use suas assinaturas de Claude, Gemini, 11Labs. O Studio unifica tudo num único fluxo de trabalho.',
-        's3-title': 'Produza e acompanhe',
-        's3-desc': 'Gere conteúdo, acompanhe métricas, identifique gargalos. Sua produção vira processo.',
-        'bringia-label': 'Compatibilidade',
-        'bringia-title': 'O Studio organiza. As IAs são suas.',
-        'bringia-desc': 'O Studio não inclui assinaturas de IA. Você usa suas próprias contas e chaves de API.',
-        'ai-th-cat': 'Categoria',
-        'ai-th-services': 'Serviços compatíveis',
-        'ai-cat-chat': 'Chat / Roteiro',
-        'ai-cat-voice': 'Vozes',
-        'ai-voice-list': 'ElevenLabs, Inworld (US$10/1M chars), Google TTS, Gemini TTS',
-        'ai-cat-image': 'Imagens',
-        'ai-image-list': 'Pollinations (gratuito), Flux Kontext',
-        'ai-cat-video': 'Vídeo',
-        'bringia-note': 'Você usa suas próprias contas e chaves de API. O Studio é o orquestrador que faz tudo trabalhar junto.',
-        'pricing-label': 'Planos',
-        'pricing-title': 'Invista na sua produção',
-        'pricing-desc': 'Escolha o plano ideal para o seu fluxo de trabalho. Todos incluem 10 dias de teste grátis.',
-        'anchor-without-title': 'Sem o Studio',
-        'anchor-w1': 'Alternar entre abas manualmente',
-        'anchor-w2': 'Copiar/colar entre Claude, 11Labs, CapCut',
-        'anchor-w3': 'Importar arquivos um por um',
-        'anchor-w4': 'Sincronizar tudo na mão',
-        'anchor-w5': 'Horas perdidas por vídeo',
-        'anchor-with-title': 'Com o Studio',
-        'anchor-s1': 'Um fluxo. Um app.',
-        'anchor-s2': 'Chat direto com suas IAs',
-        'anchor-s3': 'Importação e sync automáticos',
-        'anchor-s4': 'Roteiro, vozes, imagens, legendas',
-        'anchor-s5': 'Produção profissional em minutos',
-        'plan-ext-name': 'Nardoto Labs',
-        'plan-ext-desc': 'Um pacote, todas as ferramentas',
-        'plan-ext-f1': 'Todas as ferramentas num só lugar',
-        'plan-ext-f2': 'VEO3 Automator incluso',
-        'plan-ext-f3': 'Atualizações constantes',
-        'plan-ext-f4': 'Studio incluso',
-        'plan-ext-btn': 'Assinar',
-        'plan-sync-name': 'Nardoto Sync',
-        'plan-sync-desc': 'Automação do CapCut. Entrada barata.',
-        'plan-sync-annual': 'Agora gratuito',
-        'plan-sync-f1': 'Sync de mídias com áudio/legenda',
-        'plan-sync-f2': 'Loop, mescla, inserção em lote',
-        'plan-sync-f3': 'Preview com timeline',
-        'plan-sync-f4': 'Sem precisar de CapCut Pro',
-        'plan-sync-btn': 'Assinar',
-        'plan-flow-name': 'Nardoto Flow',
-        'plan-flow-desc': 'Navegador dedicado pra rodar IAs em batch',
-        'plan-flow-annual': 'ou R$ 1.165/ano (17% off)',
-        'plan-flow-f1': 'VEO3 Automator em batch',
-        'plan-flow-f2': 'Suno, Google TTS',
-        'plan-flow-f3': 'YouTube grabber + transcrição',
-        'plan-flow-f4': 'Nardoflix (download por torrent)',
-        'plan-flow-btn': 'Assinar',
-        'plan-period': '/mês',
-        'pricing-note': 'Cancele quando quiser. Sem fidelidade. Pagamento seguro via Stripe.',
-        'pricing-labs-note': 'A Nardoto Labs reúne todas as ferramentas num só lugar, dentro do Nardoto Flow.',
-        'faq-label': 'Perguntas frequentes',
-        'faq-title': 'Dúvidas? A gente responde.',
-        'faq1-q': 'O Studio inclui as assinaturas de IA?',
-        'faq1-h': 'Não. Você traz suas próprias IAs.',
-        'faq1-d1': 'O Studio é um orquestrador. Ele conecta Claude, Gemini, ElevenLabs, Inworld, Pollinations e outras IAs num fluxo só — mas as contas e chaves de API são suas. Isso é diferente de plataformas que cobram por uso de IA embutida e te prendem no ecossistema delas.',
-        'faq1-d2': 'A vantagem: você escolhe a melhor IA pra cada tarefa. Quer trocar de provedor de voz? Troca. Quer usar uma IA gratuita pra imagens? Usa. O Studio não te limita — ele organiza.',
-        'faq2-q': 'Qual a diferença do Studio pra outras ferramentas de automação de vídeo?',
-        'faq2-h': 'O Studio é um orquestrador desktop, não uma plataforma web genérica.',
-        'faq2-d1': 'A maioria das ferramentas de "automação de vídeo" funciona assim: você cola um texto, ela gera um vídeo genérico com banco de imagens e voz robótica. Pronto. Zero controle. Todas as produções saem iguais.',
-        'faq2-d2': 'O Studio funciona diferente. Ele roda no seu computador, se integra com o CapCut, e te dá controle total sobre cada etapa: roteiro (via Claude ou Gemini), vozes (ElevenLabs, Inworld, Google TTS), imagens (Pollinations, Flux Kontext), vídeo (VEO3), legendas SRT, sincronização automática, preview, renderização. Tudo num fluxo conectado.',
-        'faq2-d3': 'Outras ferramentas fazem o vídeo por você. O Studio faz o vídeo com você — mas 10x mais rápido do que fazer manualmente. É a diferença entre fast food e um restaurante onde você monta o prato com ingredientes profissionais.',
-        'faq3-q': 'Preciso saber programar?',
-        'faq3-h': 'Não. Mas precisa ter disposição pra aprender.',
-        'faq3-d1': 'O Studio foi feito pra criadores de conteúdo, não pra programadores. A interface é visual, o chat com IA é em linguagem natural, e tem modo tutorial integrado. Mas é uma ferramenta profissional — não é um app de celular com dois botões.',
-        'faq3-d2': 'Pense no Photoshop: ninguém sabe usar de primeira, mas quem aprende consegue resultados que nenhum app simples entrega. O Studio segue a mesma lógica. A curva de aprendizado existe, e quem passa por ela produz em outro nível.',
-        'faq4-q': 'Como funciona o teste grátis?',
-        'faq4-h': '10 dias completos. Sem cartão. Sem compromisso.',
-        'faq4-d1': 'Baixe, instale, crie sua conta e use por 10 dias com acesso completo a todas as funcionalidades. Não pedimos cartão de crédito, não cobramos nada. Se gostar, assine. Se não gostar, desinstale e siga em paz.',
-        'faq4-d2': 'Sem remarketing agressivo, sem e-mail insistente, sem truque de escassez. A ferramenta se vende pelo que entrega.',
-        'faq5-q': 'E se eu tiver dificuldade?',
-        'faq5-h': 'Três camadas de suporte: IA, tutorial e contato direto com o criador.',
-        'faq5-d1': 'O Studio tem um chat com IA integrado que entende o próprio app — você pergunta "como sincronizo mídias?" e ele te guia passo a passo. Tem modo tutorial interativo que mostra cada funcionalidade na prática.',
-        'faq5-d2': 'E tem algo que nenhuma outra ferramenta oferece: acesso direto ao Nardoto (o criador). Não é bot, não é ticket, não é fila de espera. Se tiver dúvida, manda mensagem no privado. Eu uso a mesma ferramenta todo dia — sei exatamente como resolver.',
-        'faq6-q': 'A ferramenta tem bugs?',
-        'faq6-h': 'Sim. Como todo software.',
-        'faq6-d1': 'Windows tem bugs. CapCut tem bugs. Cursor tem bugs. O Studio também tem — e seria desonesto dizer o contrário. A diferença é que o Studio está em desenvolvimento ativo, com atualizações semanais, e o criador usa a ferramenta diariamente.',
-        'faq6-d2': 'Isso significa que bugs são encontrados e corrigidos rápido. Já é possível produzir vídeos completos de forma consistente — roteiro, vozes, imagens, legendas, sincronização, tudo. Mas se você espera perfeição pronta e acabada, isso não existe em nenhum software. O que existe aqui é evolução contínua e compromisso real com o produto.',
-        'faq7-q': 'Quem já usa o Studio?',
-        'faq7-h': 'Criadores com operações de R$ 10k a mais de R$ 100k por mês.',
-        'faq7-d1': 'Mais de 50 criadores já usam o Nardoto Studio hoje. Não é uma ferramenta experimental — é usada por quem depende de resultado pra faturar.',
-        'faq7-d2': 'Os clientes que mais aproveitam são criadores que já produzem conteúdo e querem escalar sem multiplicar horas de trabalho manual. O Studio vira a infraestrutura da produção: do roteiro ao vídeo pronto no CapCut, num fluxo só.',
-        'faq9-q': 'Posso cancelar quando quiser?',
-        'faq9-h': 'Sim. Sem fidelidade, sem multa, sem burocracia.',
-        'faq9-d1': 'Cancele a qualquer momento pelo painel de assinatura. Não tem contrato mínimo, não tem taxa de cancelamento, não precisa ligar pra ninguém. Se o Studio parar de fazer sentido pra você, cancela e pronto.',
-        'faq10-q': 'Funciona no macOS?',
-        'faq10-h': 'Sim. A versão macOS já está disponível para testes.',
-        'faq10-d1': 'O Studio agora roda em Windows 10/11 e macOS (arm64). A versão macOS está em fase beta — já é funcional e permite produzir vídeos, mas ainda pode ter ajustes sendo feitos. O DMG está disponível na página de releases do GitHub. Baixe, instale e teste com os mesmos 10 dias grátis.',
-        'faq11-q': 'Por que é tão caro comparado com outras ferramentas?',
-        'faq11-h': 'Porque não é a mesma coisa.',
-        'faq11-d1': 'Ferramentas de R$ 30-50/mês te dão um gerador de vídeo genérico: cole um texto, receba um vídeo padrão com banco de imagens. Todas as produções saem iguais. Você não tem controle sobre nada.',
-        'faq11-d2': 'O Studio é infraestrutura profissional de produção. Ele integra as melhores IAs do mercado (Claude, Gemini, ElevenLabs, VEO3), se conecta direto com o CapCut, e te dá controle total sobre cada etapa. É a diferença entre alugar um estúdio e comprar uma câmera de celular.',
-        'faq11-d3': 'Se você produz conteúdo profissional e cobra por isso, o Studio se paga no primeiro ou segundo vídeo. Se você está começando e não quer investir, o teste de 10 dias mostra exatamente o que você recebe pelo valor.',
-        'faq12-q': 'Qual a diferença do chat do Studio pros chats da web (ChatGPT, Claude.ai, Gemini)?',
-        'faq12-h': 'Os chats da web só conversam. O chat do Studio age.',
-        'faq12-d1': 'Quando você usa o ChatGPT, Claude.ai ou Gemini no navegador, o fluxo é sempre o mesmo: você pede algo, a IA responde com texto, você copia a resposta, cola num arquivo, abre outra aba, gera a voz em outro site, baixa o áudio, abre o CapCut, importa manualmente. Cada etapa é uma aba diferente, um copiar-colar diferente. O chat web não sabe que seu projeto existe.',
-        'faq12-d2': 'O chat do Studio é diferente porque ele tem acesso ao seu projeto. A IA lê seus documentos, edita arquivos direto na pasta do projeto, gera roteiros que viram legendas SRT automaticamente, cria prompts de imagem que são gerados na hora, produz áudio e envia pro CapCut. Tudo acontece dentro do app, sem copiar e colar, sem trocar de aba.',
-        'faq12-d3': 'Exemplo real: você pede "escreve o roteiro desse vídeo". No ChatGPT, você recebe o texto e precisa copiar, salvar num arquivo, depois ir pra outro site gerar a voz. No Studio, a IA escreve o roteiro direto no projeto, gera o SRT, produz o áudio via ElevenLabs ou Inworld, e sincroniza com o CapCut. Um comando, todo o fluxo.',
-        'faq12-d4': 'A diferença não é a IA em si — é o que ela consegue fazer conectada ao seu ambiente de produção. O Studio transforma chat em ação.',
-        'faq13-q': 'Por que o Studio é um app desktop e não uma plataforma web?',
-        'faq13-h': 'Porque um site não consegue fazer o que o Studio faz.',
-        'faq13-d1': 'O Studio precisa acessar diretamente o sistema de arquivos do seu computador — ler e escrever arquivos do projeto, editar documentos, organizar pastas. Precisa se integrar nativamente com o CapCut, detectando projetos, sincronizando mídias e inserindo legendas direto na timeline. Precisa rodar processos Python locais pra automação pesada. Nada disso é possível num navegador web.',
-        'faq13-d2': 'Plataformas web de vídeo com IA funcionam na nuvem: você faz upload dos seus arquivos, processa no servidor deles, e baixa o resultado. Seus dados passam pelos servidores de terceiros. Com o Studio, tudo roda no SEU computador. Seus roteiros, suas imagens, seus áudios — tudo fica com você. Sem upload pra nuvem, sem dependência de conexão pra trabalhar no projeto.',
-        'faq13-d3': 'O Studio é um Electron app com mais de 500 funcionalidades integradas: chat com múltiplas IAs, renderização de vídeo via Remotion e FFmpeg, controle do CapCut via automação, geração de imagens, TTS multi-voz, KPIs de produção, loja de plugins. Esse nível de integração só é possível num app desktop. É como comparar o Google Docs com o Microsoft Office — ambos editam texto, mas um é limitado ao que o navegador permite.',
-        'manifesto-label': 'Transparência',
-        'manifesto-title': 'O que você precisa saber antes de assinar',
-        'manifesto-quote': 'A ferramenta existe porque eu uso ela todo dia. Não é marketing. É a infraestrutura da minha própria produção.',
-        'mf1-title': 'O Studio não é pra todo mundo',
-        'mf1-desc': 'É uma ferramenta profissional. Tem curva de aprendizado. Não é clicar dois botões e o vídeo sair pronto. Se você busca algo mais simples, existem opções no mercado — e desejamos sucesso. Quem fica, aprende a produzir de verdade.',
-        'mf2-title': 'Você traz suas próprias IAs',
-        'mf2-desc': 'O Studio não inclui assinatura de Claude, Gemini, ElevenLabs ou qualquer outra IA. Ele é o orquestrador — conecta tudo num fluxo só. Você usa suas contas, suas chaves de API. Se a IA for gratuita (como Pollinations), melhor ainda. Mas o Studio não é um pacote tudo-incluso. É uma ferramenta de produção.',
-        'mf3-title': 'Sim, a ferramenta tem bugs',
-        'mf3-desc': 'Todo software tem — Windows, CapCut, Cursor. O Studio está em desenvolvimento ativo. Melhora toda semana. Já permite produzir vídeos completos de forma consistente. Mas se você quer perfeição pronta, isso não existe. O que existe é evolução contínua e um criador que usa a própria ferramenta.',
-        'mf4-title': 'Quem já usa',
-        'mf4-desc': 'Criadores com operações de R$ 10k a mais de R$ 100k por mês. Mais de 50 criadores já usam o Nardoto Studio hoje. Não é hype. É ferramenta de trabalho usada por quem depende de resultado.',
-        'mf5-title': 'Acesso direto ao criador',
-        'mf5-desc': 'Eu sou o Nardoto. Criei o Studio, uso o Studio, e atendo quem usa. Não tem camada de suporte genérico. Tem o chat com IA integrado que entende o próprio app, tem modo tutorial, e tem meu contato direto no privado. Se tiver dúvida, fala comigo.',
-        'mf6-title': '10 dias pra decidir. Sem pressão.',
-        'mf6-desc': 'Baixe, instale, use por 10 dias completos. Sem pedir cartão. Se servir, assine. Se não servir, siga em paz. Sem remarketing, sem e-mail insistente, sem truque de escassez. A ferramenta se vende pelo que entrega.',
-        'manifesto-sig': '— Nardoto, criador do Studio',
-        'cta-title': 'Experimente sem compromisso',
-        'cta-desc': '10 dias grátis. Sem cartão. Converse direto com o criador.',
-        'cta-btn': 'Começar teste grátis',
+        "nav-download": "Baixar grátis",
+        "teste-curto": "Teste grátis",
+        "hero-title-1": "Veja o Studio",
+        "hero-title-2": "em ação",
+        "hero-desc": "Da pesquisa de nicho às dez primeiras pautas de um canal sobre furacões.",
+        "hero-video-play": "Reproduzir a demonstração do Nardoto Studio",
+        "demo-tempo": "Demonstração · 3 min 20 s",
+        "hero-video-link": "Assistir no YouTube",
+        "hero-cta-download": "Baixar e testar grátis",
+        "conta": "Acessar minha conta",
+        "planos": "Ver planos",
+        "dl-mac-intel": "Mac com chip Intel?",
+        "dl-mac-intel-link": "baixe esta versão",
+        "hero-meta-trial": "10 dias sem cartão. Use sua própria conta de IA.",
+        "mobile-nota": "Você ativa o teste no computador, com Windows ou macOS.",
+        "features-label": "Funcionalidades",
+        "features-title": "O que você decide em cada vídeo",
+        "f1-title": "Onde vale testar um nicho",
+        "f1-desc": "Compare canais no Radar e veja quais temas já têm público. Na demonstração, a pesquisa parte de tornados em inglês e aponta uma oportunidade em furacões em português.",
+        "f2-title": "Quais pautas merecem um vídeo",
+        "f2-desc": "A IA lê a pesquisa e sugere as primeiras pautas. Você conversa com ela, descarta as que se repetem e escolhe por qual começar.",
+        "f3-title": "Como o público reconhece seu canal",
+        "f3-desc": "Escolha a voz, as imagens e o ritmo da edição. Salve essas escolhas como modelo para começar o próximo vídeo com o mesmo estilo.",
+        "target-label": "Para quem é",
+        "target-title": "Em que ponto está o seu canal?",
+        "target1-title": "Estou começando",
+        "target1-desc": "Use a pesquisa para encontrar um assunto que você conhece e decidir para quem vai produzir.",
+        "target2-title": "Já publico vídeos",
+        "target2-desc": "Guarde a voz e o formato que já funcionam no seu canal. Use o mesmo modelo para testar outra pauta.",
+        "target3-title": "Produzo para vários canais",
+        "target3-desc": "Separe as pesquisas, os roteiros e as escolhas de edição de cada canal. Quando voltar ao projeto, seu material está junto.",
+        "steps-label": "Como funciona",
+        "steps-title": "Comece com uma pauta sua",
+        "s1-title": "Instale no computador",
+        "s1-desc": "Baixe a versão para Windows ou macOS e entre na sua conta para ativar o teste.",
+        "s2-title": "Conecte a IA que você usa",
+        "s2-desc": "Abra o chat do projeto e escolha a conta de IA que vai ajudar na pesquisa e no roteiro.",
+        "s3-title": "Prepare o primeiro vídeo",
+        "s3-desc": "Escolha uma pauta, revise o plano de cenas e ouça a voz da narração antes de iniciar a produção.",
+        "faq-label": "Perguntas frequentes",
+        "faq-title": "Antes de baixar",
+        "duvida-ai": "Preciso de uma assinatura de IA?",
+        "resposta-ai": "Você conecta a conta de IA que quer usar no Studio. A assinatura dessa IA é separada. A quantidade de vídeos que você consegue produzir depende da cota do serviço, da duração dos vídeos e da edição que escolher.",
+        "duvida-teste": "Como funciona o teste?",
+        "resposta-teste": "Baixe o Studio no computador, entre na sua conta e ative o teste no aplicativo. São 10 dias sem cartão para produzir com um tema seu.",
+        "duvida-aprovacao": "Posso mudar o que a IA sugere?",
+        "resposta-aprovacao": "Sim. Você pode discutir a pesquisa no chat, tirar pautas da lista, ajustar o roteiro e revisar o plano de cenas. Quando gostar da voz e do estilo, salve essas escolhas para os próximos vídeos.",
+        "duvida-sistema": "Funciona no meu computador?",
+        "resposta-sistema": "O Studio tem instalador para Windows e macOS. Os arquivos do projeto ficam no computador. Os recursos de IA que você conecta usam a internet.",
+        "duvida-ajuda": "Por onde começo se nunca editei um vídeo?",
+        "resposta-ajuda": "Escolha um assunto que você conhece e peça uma pauta no chat. O Studio tem um modo tutorial para acompanhar o processo e você pode tirar dúvidas com o Nardoto.",
+        "duvida-planos": "Onde vejo os planos e como cancelo?",
+        "resposta-planos": "Você pode comparar os planos antes de assinar e gerenciar ou cancelar sua assinatura pelo painel da sua conta.",
+        "cta-title": "Qual será a primeira pauta do seu canal?",
+        "cta-desc": "Experimente o Studio por 10 dias e produza com um assunto que você conhece.",
+        "cta-btn-download": "Baixar e testar grátis",
+        "nota-fundador": "Esta demonstração também foi produzida no Nardoto Studio.",
+        "assinatura": "Nardoto, criador do Studio"
       },
       en: {
-        'nav-download': 'Free download',
-        'hero-cta-download': 'Download Studio',
-        'hero-video-play': 'Play the demo',
-        'hero-video-link': 'Watch on YouTube',
-        'hero-cta-trial': 'Start free trial',
-        'cta-btn-download': 'Download Studio',
-        'cta-dl-note': 'Install it and activate the trial inside the app, with your account.',
-        'dl-mac-intel': 'Mac with Intel chip?',
-        'dl-mac-intel-link': 'get this version',
-        'hero-badge': 'Built with technology used by the US government',
-        'hero-title-1': 'Your next video is already done.',
-        'hero-title-2': 'It just doesn\'t know it yet.',
-        'hero-desc': 'Studio connects your AIs in a single flow: Claude writes the script, Gemini generates images, 11Labs or Inworld create the voices. You bring your subscriptions. Studio makes everything work together.',
-        'hero-cta-win': 'Windows',
-        'hero-mac': 'Baixar macOS',
-        'hero-meta-trial': '10-day trial',
-        'hero-meta-size': '~450 MB',
-        'features-label': 'Features',
-        'features-title': 'Your channel, your rules',
-        'features-desc': 'You bring your AIs. Studio organizes, integrates and professionalizes your production.',
-        'f1-title': 'AI Unifier',
-        'f1-desc': 'Bring your subscriptions: Claude, Gemini, Codex (GPT/OpenAI), 11Labs. All in one chat. You choose which AI to use for each task.',
-        'f2-title': 'AI that Acts',
-        'f2-desc': "The AI doesn't just respond — it edits files, reads documents, organizes folders, renames, compares. No copy-paste. Everything directly on your computer.",
-        'f3-title': 'On Demand',
-        'f3-desc': 'Create whatever you need: tools, plugins, workflows. Integrate any AI API. Studio adapts to your channel, not the other way around.',
-        'f4-title': 'Production KPIs',
-        'f4-desc': 'Time metrics per AI, bottleneck diagnostics, performance. Package your channel as a business. Easy to onboard new collaborators.',
-        'f5-title': 'CapCut Sync',
-        'f5-desc': 'Batch import, timeline positioning, auto SRT subtitles. Simplified rendering for AI-generated videos (VEO3 and more).',
-        'f6-title': 'Skills & Agents',
-        'f6-desc': 'Define rules, tone of voice and style. The AI generates content following your instructions. Every creator has a different Studio.',
-        'target-label': 'Who is it for',
-        'target-title': 'Studio is built for producers',
-        'target-desc': 'Three profiles. One tool.',
-        'target1-title': 'Creator looking to scale',
-        'target1-desc': 'You already produce videos but spend hours on manual tasks. Studio automates the entire flow.',
-        'target2-title': 'Professional operation',
-        'target2-desc': 'Your team already makes money with content. Studio becomes your production infrastructure. Clients with R$ 50k to R$ 100k+ operations already use it.',
-        'target3-title': 'Curious with determination',
-        'target3-desc': 'You\'ve never used AI to produce video but want to learn. Studio has smart chat, tutorial mode and direct access to the creator.',
-        'target-note': 'We don\'t sell ease. We sell capability. Studio is for those who want to learn real production and are willing to invest time to master the tool.',
-        'lt-tag-proj': 'Projects',
-        'lt-tag-sync': 'Sync',
-        'lt-tag-media': 'Media',
-        'lt-tag-export': 'Export',
-        'lt-tag-merge': 'Merge',
-        'lt-tag-preview': 'Preview',
-        'lt1-title': 'Home screen with projects',
-        'lt1-desc': 'View all CapCut projects with thumbnails. Open, create or import projects quickly.',
-        'lt2-title': 'Media sync with audio',
-        'lt2-desc': 'Sync videos and images with reference audio. By audio or subtitle, with automatic animations.',
-        'lt3-title': 'Media insertion',
-        'lt3-desc': 'Import videos, images and audio in batch. Sequential or random, with custom duration.',
-        'lt4-title': 'Create and import projects',
-        'lt4-desc': 'Create projects from scratch, from templates, with preloaded media or import ZIPs.',
-        'lt5-title': 'Merge projects',
-        'lt5-desc': 'Combine multiple CapCut projects into one. Mass export with colored timelines.',
-        'lt6-title': 'Preview with timeline',
-        'lt6-desc': 'Preview video with subtitles, audio, color effects and full timeline. All without opening CapCut.',
-        'lt-tag-capcut': 'CapCut',
-        'lt7-title': 'CapCut synced',
-        'lt7-desc': 'Final result in CapCut: media, subtitles and audio aligned on the timeline. Ready to export.',
-        'steps-label': 'How it works',
-        'steps-title': 'Ready in 3 steps',
-        'steps-desc': 'Start creating professional videos in minutes.',
-        's1-title': 'Download and install',
-        's1-desc': 'Quick installation. Create your account and your 10-day trial begins.',
-        's2-title': 'Connect your AIs',
-        's2-desc': 'Use your Claude, Gemini, 11Labs subscriptions. Studio unifies everything into a single workflow.',
-        's3-title': 'Produce and track',
-        's3-desc': 'Generate content, track metrics, identify bottlenecks. Your production becomes a process.',
-        'bringia-label': 'Compatibility',
-        'bringia-title': 'Studio orchestrates. The AIs are yours.',
-        'bringia-desc': 'Studio does not include AI subscriptions. You use your own accounts and API keys.',
-        'ai-th-cat': 'Category',
-        'ai-th-services': 'Compatible services',
-        'ai-cat-chat': 'Chat / Script',
-        'ai-cat-voice': 'Voices',
-        'ai-voice-list': 'ElevenLabs, Inworld (US$10/1M chars), Google TTS, Gemini TTS',
-        'ai-cat-image': 'Images',
-        'ai-image-list': 'Pollinations (free), Flux Kontext',
-        'ai-cat-video': 'Video',
-        'bringia-note': 'You use your own accounts and API keys. Studio is the orchestrator that makes everything work together.',
-        'pricing-label': 'Pricing',
-        'pricing-title': 'Invest in your production',
-        'pricing-desc': 'Choose the plan that fits your workflow. All plans include a 10-day free trial.',
-        'anchor-without-title': 'Without Studio',
-        'anchor-w1': 'Switch between tabs manually',
-        'anchor-w2': 'Copy/paste between Claude, 11Labs, CapCut',
-        'anchor-w3': 'Import files one by one',
-        'anchor-w4': 'Sync everything by hand',
-        'anchor-w5': 'Hours lost per video',
-        'anchor-with-title': 'With Studio',
-        'anchor-s1': 'One flow. One app.',
-        'anchor-s2': 'Chat directly with your AIs',
-        'anchor-s3': 'Automatic import and sync',
-        'anchor-s4': 'Script, voices, images, subtitles',
-        'anchor-s5': 'Professional production in minutes',
-        'plan-ext-name': 'Nardoto Labs',
-        'plan-ext-desc': 'One bundle, all the tools',
-        'plan-ext-f1': 'All tools in one place',
-        'plan-ext-f2': 'VEO3 Automator included',
-        'plan-ext-f3': 'Constant updates',
-        'plan-ext-f4': 'Studio included',
-        'plan-ext-btn': 'Subscribe',
-        'plan-sync-name': 'Nardoto Sync',
-        'plan-sync-desc': 'CapCut automation. Affordable entry.',
-        'plan-sync-annual': 'Now free',
-        'plan-sync-f1': 'Media sync with audio/subtitles',
-        'plan-sync-f2': 'Loop, merge, batch insertion',
-        'plan-sync-f3': 'Preview with timeline',
-        'plan-sync-f4': 'No CapCut Pro required',
-        'plan-sync-btn': 'Subscribe',
-        'plan-flow-name': 'Nardoto Flow',
-        'plan-flow-desc': 'Dedicated browser for batch AI workflows',
-        'plan-flow-annual': 'or R$ 1,165/year (17% off)',
-        'plan-flow-f1': 'VEO3 Automator in batch',
-        'plan-flow-f2': 'Suno, Google TTS',
-        'plan-flow-f3': 'YouTube grabber + transcription',
-        'plan-flow-f4': 'Nardoflix (torrent downloads)',
-        'plan-flow-btn': 'Subscribe',
-        'plan-period': '/mo',
-        'pricing-note': 'Cancel anytime. No commitment. Secure payments via Stripe.',
-        'pricing-labs-note': 'Nardoto Labs brings all the tools together in one place, inside Nardoto Flow.',
-        'faq-label': 'FAQ',
-        'faq-title': 'Questions? We answer.',
-        'faq1-q': 'Does Studio include AI subscriptions?',
-        'faq1-h': 'No. You bring your own AIs.',
-        'faq1-d1': 'Studio is an orchestrator. It connects Claude, Gemini, ElevenLabs, Inworld, Pollinations and other AIs in one flow — but the accounts and API keys are yours. This is different from platforms that charge for embedded AI usage and lock you into their ecosystem.',
-        'faq1-d2': 'The advantage: you choose the best AI for each task. Want to switch voice providers? Switch. Want to use a free AI for images? Use it. Studio doesn\'t limit you — it organizes.',
-        'faq2-q': 'What\'s the difference between Studio and other video automation tools?',
-        'faq2-h': 'Studio is a desktop orchestrator, not a generic web platform.',
-        'faq2-d1': 'Most "video automation" tools work like this: you paste text, it generates a generic video with stock images and robotic voice. Done. Zero control. All productions look the same.',
-        'faq2-d2': 'Studio works differently. It runs on your computer, integrates with CapCut, and gives you full control over each step: script (via Claude or Gemini), voices (ElevenLabs, Inworld, Google TTS), images (Pollinations, Flux Kontext), video (VEO3), SRT subtitles, automatic sync, preview, rendering. All in one connected flow.',
-        'faq2-d3': 'Other tools make the video for you. Studio makes the video with you — but 10x faster than doing it manually. It\'s the difference between fast food and a restaurant where you build the dish with professional ingredients.',
-        'faq3-q': 'Do I need to know how to code?',
-        'faq3-h': 'No. But you need willingness to learn.',
-        'faq3-d1': 'Studio was made for content creators, not programmers. The interface is visual, the AI chat uses natural language, and there\'s an integrated tutorial mode. But it\'s a professional tool — not a mobile app with two buttons.',
-        'faq3-d2': 'Think of Photoshop: nobody knows how to use it right away, but those who learn achieve results no simple app can deliver. Studio follows the same logic. The learning curve exists, and those who get through it produce at another level.',
-        'faq4-q': 'How does the free trial work?',
-        'faq4-h': '10 full days. No credit card. No commitment.',
-        'faq4-d1': 'Download, install, create your account and use for 10 days with full access to all features. We don\'t ask for a credit card, we don\'t charge anything. If you like it, subscribe. If not, uninstall and go in peace.',
-        'faq4-d2': 'No aggressive remarketing, no pushy emails, no scarcity tricks. The tool sells itself by what it delivers.',
-        'faq5-q': 'What if I have difficulty?',
-        'faq5-h': 'Three support layers: AI, tutorial and direct contact with the creator.',
-        'faq5-d1': 'Studio has an integrated AI chat that understands the app itself — you ask "how do I sync media?" and it guides you step by step. There\'s an interactive tutorial mode that shows each feature in practice.',
-        'faq5-d2': 'And there\'s something no other tool offers: direct access to Nardoto (the creator). It\'s not a bot, not a ticket, not a queue. If you have a question, send a private message. I use the same tool every day — I know exactly how to solve it.',
-        'faq6-q': 'Does the tool have bugs?',
-        'faq6-h': 'Yes. Like every software.',
-        'faq6-d1': 'Windows has bugs. CapCut has bugs. Cursor has bugs. Studio does too — and it would be dishonest to say otherwise. The difference is that Studio is in active development, with weekly updates, and the creator uses the tool daily.',
-        'faq6-d2': 'This means bugs are found and fixed fast. It\'s already possible to produce complete videos consistently — script, voices, images, subtitles, sync, everything. But if you expect ready-made perfection, that doesn\'t exist in any software. What exists here is continuous evolution and real commitment to the product.',
-        'faq7-q': 'Who already uses Studio?',
-        'faq7-h': 'Creators with operations from R$ 10k to over R$ 100k per month.',
-        'faq7-d1': 'More than 50 creators already use Nardoto Studio today. It\'s not an experimental tool — it\'s used by people who depend on results to make money.',
-        'faq7-d2': 'The clients who benefit most are creators who already produce content and want to scale without multiplying hours of manual work. Studio becomes the production infrastructure: from script to finished video in CapCut, in one flow.',
-        'faq9-q': 'Can I cancel anytime?',
-        'faq9-h': 'Yes. No commitment, no fine, no red tape.',
-        'faq9-d1': 'Cancel at any time through the subscription dashboard. No minimum contract, no cancellation fee, no need to call anyone. If Studio stops making sense for you, cancel and that\'s it.',
-        'faq10-q': 'Does it work on macOS?',
-        'faq10-h': 'Yes. The macOS version is now available for testing.',
-        'faq10-d1': 'Studio now runs on Windows 10/11 and macOS (arm64). The macOS version is in beta — it\'s functional and allows producing videos, but adjustments may still be in progress. The DMG is available on the GitHub releases page. Download, install and test with the same 10-day free trial.',
-        'faq11-q': 'Why is it so expensive compared to other tools?',
-        'faq11-h': 'Because it\'s not the same thing.',
-        'faq11-d1': 'R$ 30-50/mo tools give you a generic video generator: paste text, get a standard video with stock images. All productions look the same. You have zero control.',
-        'faq11-d2': 'Studio is professional production infrastructure. It integrates the best AIs on the market (Claude, Gemini, ElevenLabs, VEO3), connects directly with CapCut, and gives you full control over every step. It\'s the difference between renting a studio and buying a phone camera.',
-        'faq11-d3': 'If you produce professional content and charge for it, Studio pays for itself in the first or second video. If you\'re starting out and don\'t want to invest, the 10-day trial shows exactly what you get for the price.',
-        'faq12-q': 'What\'s the difference between Studio\'s chat and web chats (ChatGPT, Claude.ai, Gemini)?',
-        'faq12-h': 'Web chats just talk. Studio\'s chat acts.',
-        'faq12-d1': 'When you use ChatGPT, Claude.ai or Gemini in the browser, the flow is always the same: you ask for something, the AI responds with text, you copy the response, paste it into a file, open another tab, generate voice on another site, download the audio, open CapCut, import manually. Each step is a different tab, a different copy-paste. The web chat doesn\'t know your project exists.',
-        'faq12-d2': 'Studio\'s chat is different because it has access to your project. The AI reads your documents, edits files directly in the project folder, generates scripts that become SRT subtitles automatically, creates image prompts that are generated on the spot, produces audio and sends it to CapCut. Everything happens inside the app, without copy-paste, without switching tabs.',
-        'faq12-d3': 'Real example: you ask "write the script for this video". In ChatGPT, you get the text and need to copy, save to a file, then go to another site to generate voice. In Studio, the AI writes the script directly in the project, generates the SRT, produces audio via ElevenLabs or Inworld, and syncs with CapCut. One command, the entire flow.',
-        'faq12-d4': 'The difference is not the AI itself — it\'s what it can do connected to your production environment. Studio turns chat into action.',
-        'faq13-q': 'Why is Studio a desktop app and not a web platform?',
-        'faq13-h': 'Because a website can\'t do what Studio does.',
-        'faq13-d1': 'Studio needs direct access to your computer\'s file system — reading and writing project files, editing documents, organizing folders. It needs to natively integrate with CapCut, detecting projects, syncing media and inserting subtitles directly into the timeline. It needs to run local Python processes for heavy automation. None of this is possible in a web browser.',
-        'faq13-d2': 'Web-based AI video platforms work in the cloud: you upload your files, process on their servers, and download the result. Your data passes through third-party servers. With Studio, everything runs on YOUR computer. Your scripts, your images, your audio — everything stays with you. No cloud uploads, no connection dependency to work on your project.',
-        'faq13-d3': 'Studio is an Electron app with over 500 integrated features: chat with multiple AIs, video rendering via Remotion and FFmpeg, CapCut control via automation, image generation, multi-voice TTS, production KPIs, plugin store. This level of integration is only possible in a desktop app. It\'s like comparing Google Docs to Microsoft Office — both edit text, but one is limited to what the browser allows.',
-        'manifesto-label': 'Transparency',
-        'manifesto-title': 'What you need to know before subscribing',
-        'manifesto-quote': 'This tool exists because I use it every day. It\'s not marketing. It\'s the infrastructure of my own production.',
-        'mf1-title': 'Studio is not for everyone',
-        'mf1-desc': 'It\'s a professional tool. It has a learning curve. It\'s not clicking two buttons and having a video come out. If you\'re looking for something simpler, there are options on the market — and we wish them success. Those who stay learn to produce for real.',
-        'mf2-title': 'You bring your own AIs',
-        'mf2-desc': 'Studio does not include subscriptions to Claude, Gemini, ElevenLabs or any other AI. It\'s the orchestrator — connects everything in one flow. You use your accounts, your API keys. If the AI is free (like Pollinations), even better. But Studio is not an all-inclusive package. It\'s a production tool.',
-        'mf3-title': 'Yes, the tool has bugs',
-        'mf3-desc': 'Every software does — Windows, CapCut, Cursor. Studio is in active development. Improves every week. It already allows producing complete videos consistently. But if you want ready-made perfection, that doesn\'t exist. What exists is continuous evolution and a creator who uses his own tool.',
-        'mf4-title': 'Who already uses it',
-        'mf4-desc': 'Creators with operations from R$ 10k to over R$ 100k per month. More than 50 creators already use Nardoto Studio today. It\'s not hype. It\'s a work tool used by those who depend on results.',
-        'mf5-title': 'Direct access to the creator',
-        'mf5-desc': 'I\'m Nardoto. I built Studio, I use Studio, and I support those who use it. There\'s no generic support layer. There\'s an integrated AI chat that understands the app itself, tutorial mode, and my direct private contact. If you have a question, talk to me.',
-        'mf6-title': '10 days to decide. No pressure.',
-        'mf6-desc': 'Download, install, use for 10 full days. No credit card required. If it works for you, subscribe. If not, go in peace. No remarketing, no pushy emails, no scarcity tricks. The tool sells itself by what it delivers.',
-        'manifesto-sig': '— Nardoto, Studio creator',
-        'cta-title': 'Try it, no strings attached',
-        'cta-desc': '10 days free. No credit card. Talk directly with the creator.',
-        'cta-btn': 'Start free trial',
+        "nav-download": "Free download",
+        "teste-curto": "Free trial",
+        "hero-title-1": "See Studio",
+        "hero-title-2": "in action",
+        "hero-desc": "Follow a hurricane channel from niche research to its first ten video ideas.",
+        "hero-video-play": "Play the Nardoto Studio demo",
+        "demo-tempo": "Demo · 3 min 20 sec",
+        "hero-video-link": "Watch on YouTube",
+        "hero-cta-download": "Download and try for free",
+        "conta": "Open my account",
+        "planos": "View plans",
+        "dl-mac-intel": "Mac with Intel chip?",
+        "dl-mac-intel-link": "get this version",
+        "hero-meta-trial": "10 days, no credit card. Use your own AI account.",
+        "mobile-nota": "Activate your trial on a Windows PC or Mac.",
+        "features-label": "Features",
+        "features-title": "What you control in every video",
+        "f1-title": "Find a niche worth testing",
+        "f1-desc": "Compare channels in the Radar to see which topics already have an audience. In the demo, a search for tornado videos in English leads to an idea for hurricane videos in Portuguese.",
+        "f2-title": "Pick the ideas worth producing",
+        "f2-desc": "The AI reads the research and suggests topics. Discuss them in chat, drop the ones that overlap and choose which one to make first.",
+        "f3-title": "Give the channel a recognizable style",
+        "f3-desc": "Choose the voice, visuals and editing pace. Save those choices as a template so your next video starts with the same style.",
+        "target-label": "Who is it for",
+        "target-title": "Where are you with your channel?",
+        "target1-title": "I’m starting a channel",
+        "target1-desc": "Use the research to find a topic you know and decide who you want to make videos for.",
+        "target2-title": "I already publish videos",
+        "target2-desc": "Keep the voice and format that already work for your channel. Use that template to try a new topic.",
+        "target3-title": "I produce for several channels",
+        "target3-desc": "Keep each channel’s research, scripts and editing choices together. When you return to a project, everything is in one place.",
+        "steps-label": "How it works",
+        "steps-title": "Start with a topic of your own",
+        "s1-title": "Install on your computer",
+        "s1-desc": "Download the Windows or macOS version and sign in to activate your trial.",
+        "s2-title": "Connect the AI you use",
+        "s2-desc": "Open the project chat and choose the AI account you want to use for research and writing.",
+        "s3-title": "Prepare your first video",
+        "s3-desc": "Pick a topic, review the scene plan and preview the narration voice before starting production.",
+        "faq-label": "FAQ",
+        "faq-title": "Before you download",
+        "duvida-ai": "Do I need an AI subscription?",
+        "resposta-ai": "Connect the AI account you want to use in Studio. Any subscription for that AI is separate. How many videos you can produce depends on your usage allowance, video length and editing choices.",
+        "duvida-teste": "How does the trial work?",
+        "resposta-teste": "Download Studio to your computer, sign in and activate the trial in the app. You get 10 days to try it with your own topic. No credit card required.",
+        "duvida-aprovacao": "Can I change what the AI suggests?",
+        "resposta-aprovacao": "Yes. Discuss the research in chat, remove topics, edit the script and review the scene plan. Once you like a voice and style, save those choices for your next videos.",
+        "duvida-sistema": "Will it run on my computer?",
+        "resposta-sistema": "Studio has installers for Windows and macOS. Project files stay on your computer. The AI services you connect use the internet.",
+        "duvida-ajuda": "Where should I start if I’ve never edited a video?",
+        "resposta-ajuda": "Pick a subject you know and ask for an outline in chat. Studio includes a guided tutorial, and you can ask Nardoto for help.",
+        "duvida-planos": "Where can I see the plans or cancel?",
+        "resposta-planos": "Compare plans before subscribing. You can manage or cancel your subscription from your account dashboard.",
+        "cta-title": "What will your first video be about?",
+        "cta-desc": "Try Studio for 10 days and make a video about a subject you know.",
+        "cta-btn-download": "Download and try for free",
+        "nota-fundador": "This demo was made in Nardoto Studio, too.",
+        "assinatura": "Nardoto, creator of Studio"
       }
     }
+
+    const celular = navigator.userAgentData?.mobile || /Android|iPhone|iPad|iPod|Mobi/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+    document.documentElement.classList.toggle('visita-mobile', Boolean(celular))
 
     let currentLang = 'pt'
 
@@ -1964,6 +1428,7 @@
       // Update toggle buttons
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.lang === lang)
+        btn.setAttribute('aria-pressed', String(btn.dataset.lang === lang))
       })
 
       // Update all translatable elements
@@ -1997,11 +1462,14 @@
       })
     }, { threshold: 0.1 })
 
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el))
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('com-animacao')
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el))
+    }
 
     // ── Detect browser language ──
     const browserLang = navigator.language?.startsWith('pt') ? 'pt' : 'en'
-    if (browserLang === 'en') setLang('en')
+    setLang(browserLang)
 
   </script>
 
