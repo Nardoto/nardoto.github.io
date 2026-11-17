@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 440" role="img" aria-labelledby="t" font-family="Inter,'Segoe UI',Arial,sans-serif">
+  <title id="t">Fila de renders: pedidos da timeline e da tela inicial entram na fila com uma foto do projeto, o editor exporta um por vez e o arquivo sai na pasta de cada vídeo</title>
+  <defs>
+    <marker id="s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#E85A2A"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="440" rx="18" fill="#141414"/>
+
+  <text x="40" y="52" fill="#fff" font-size="24" font-weight="700">De onde vem o pedido</text>
+  <rect x="40" y="80" width="300" height="110" rx="12" fill="#1A1A1A"/>
+  <text x="62" y="120" fill="#fff" font-size="20" font-weight="600">Botão Exportar</text>
+  <text x="62" y="150" fill="#B4B9C2" font-size="17">com outro render rodando</text>
+  <text x="62" y="174" fill="#9CA3AF" font-size="17">entra na fila</text>
+
+  <rect x="40" y="220" width="300" height="110" rx="12" fill="#1A1A1A"/>
+  <text x="62" y="260" fill="#fff" font-size="20" font-weight="600">Tela inicial</text>
+  <text x="62" y="290" fill="#B4B9C2" font-size="17">vários vídeos marcados,</text>
+  <text x="62" y="314" fill="#9CA3AF" font-size="17">sem abrir nenhum</text>
+
+  <path d="M340 135 L458 190" stroke="#E85A2A" stroke-width="2.5" fill="none" marker-end="url(#s)"/>
+  <path d="M340 275 L458 222" stroke="#E85A2A" stroke-width="2.5" fill="none" marker-end="url(#s)"/>
+
+  <text x="470" y="52" fill="#fff" font-size="24" font-weight="700">Fila de renders</text>
+  <rect x="470" y="80" width="330" height="250" rx="12" fill="#1A1A1A"/>
+  <rect x="490" y="100" width="290" height="62" rx="10" fill="#2A1710"/>
+  <text x="508" y="127" fill="#FF8A5C" font-size="18" font-weight="600">1. Renderizando</text>
+  <text x="508" y="150" fill="#FF8A5C" font-size="17">foto do projeto no pedido</text>
+  <rect x="490" y="174" width="290" height="62" rx="10" fill="#222"/>
+  <text x="508" y="201" fill="#fff" font-size="18" font-weight="600">2. Na fila</text>
+  <text x="508" y="224" fill="#9CA3AF" font-size="17">foto do projeto no pedido</text>
+  <rect x="490" y="248" width="290" height="62" rx="10" fill="#222"/>
+  <text x="508" y="275" fill="#fff" font-size="18" font-weight="600">3. Na fila</text>
+  <text x="508" y="298" fill="#9CA3AF" font-size="17">foto do projeto no pedido</text>
+
+  <path d="M800 205 L898 205" stroke="#E85A2A" stroke-width="2.5" fill="none" marker-end="url(#s)"/>
+
+  <text x="910" y="52" fill="#fff" font-size="24" font-weight="700">Saída</text>
+  <rect x="910" y="130" width="250" height="150" rx="12" fill="#1A1A1A"/>
+  <text x="932" y="172" fill="#fff" font-size="20" font-weight="600">Um por vez</text>
+  <text x="932" y="204" fill="#B4B9C2" font-size="17">o arquivo de vídeo sai</text>
+  <text x="932" y="228" fill="#B4B9C2" font-size="17">na pasta de cada vídeo</text>
+  <text x="932" y="258" fill="#9CA3AF" font-size="17">o próximo começa sozinho</text>
+
+  <text x="40" y="392" fill="#9CA3AF" font-size="17">A foto do projeto é tirada na hora do pedido: editar o vídeo depois não muda o que já está na fila.</text>
+</svg>

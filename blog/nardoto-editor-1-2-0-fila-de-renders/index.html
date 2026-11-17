@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8">
+<script>if(!/^(localhost|127.0.0.1)$/.test(location.hostname)){var g=document.createElement('script');g.async=true;g.src='https://www.googletagmanager.com/gtag/js?id=G-WSY9CWHH19';document.head.appendChild(g);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-WSY9CWHH19')}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nardoto Editor 1.2.0: fila de renders e motion em cache | Blog do Nardoto Studio</title><meta name="description" content="A versão 1.2.0 do Nardoto Editor traz fila de renders, animações gravadas antes da exportação, preview estável com fotos e um jeito de o Studio saber a versão.">
+<link rel="canonical" href="https://nardoto.com.br/blog/nardoto-editor-1-2-0-fila-de-renders/"><meta property="og:type" content="article"><meta property="og:url" content="https://nardoto.com.br/blog/nardoto-editor-1-2-0-fila-de-renders/">
+<meta property="og:title" content="Nardoto Editor 1.2.0: fila de renders e motion em cache | Blog do Nardoto Studio"><meta property="og:description" content="A versão 1.2.0 do Nardoto Editor traz fila de renders, animações gravadas antes da exportação, preview estável com fotos e um jeito de o Studio saber a versão."><meta property="og:image" content="https://nardoto.com.br/blog/nardoto-editor-1-2-0-fila-de-renders/capa.jpg">
+<link rel="icon" type="image/png" href="/favicon.png"><meta name="theme-color" content="#E85A2A">
+<link rel="alternate" type="application/rss+xml" title="Blog do Nardoto" href="/blog/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/blog/blog.css"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Nardoto Editor 1.2.0: fila de renders e motion em cache","description":"A versão 1.2.0 do Nardoto Editor traz fila de renders, animações gravadas antes da exportação, preview estável com fotos e um jeito de o Studio saber a versão.","datePublished":"2026-11-17","author":{"@type":"Person","name":"Tharcisio Nardoto"},"mainEntityOfPage":"https://nardoto.com.br/blog/nardoto-editor-1-2-0-fila-de-renders/"}</script></head><body>
+<header class="topo"><div class="wrap"><a class="marca" href="/"><img src="/favicon.png" alt="">Nardoto</a>
+<nav class="nav"><a href="/">Apps</a><a href="/studio/">Studio</a><a href="/blog/" class="on">Blog</a></nav></div></header>
+<main><article><div class="wrap"><div class="cab"><a class="eyebrow" href="/blog/">Blog / Diário de construção</a>
+<h1>Nardoto Editor 1.2.0: fila de renders e motion em cache</h1><p class="lead">A versão 1.2.0 do Nardoto Editor traz fila de renders, animações gravadas antes da exportação, preview estável com fotos e um jeito de o Studio saber a versão.</p>
+<div class="meta">Tharcisio Nardoto · 17 nov. 2026 · 6 min de leitura</div>
+<div class="tags"><a class="tag" href="/blog/tags/render/">render</a><a class="tag" href="/blog/tags/video/">vídeo</a><a class="tag" href="/blog/tags/arquitetura/">arquitetura</a></div></div>
+<img class="capa" src="/blog/nardoto-editor-1-2-0-fila-de-renders/capa.jpg" alt="" width="1200" height="630">
+<div class="corpo-post"><nav class="toc"><strong>Neste artigo</strong><a href="#varios-videos-uma-fila">Vários vídeos, uma fila</a><a href="#animacoes-gravadas-antes">Animações gravadas antes</a><a href="#onde-o-tempo-da-exportacao-ia-embora">Onde o tempo da exportação ia embora</a><a href="#o-preview-que-ficava-borrado-sozinho">O preview que ficava borrado sozinho</a><a href="#um-programa-sem-numero-de-versao">Um programa sem número de versão</a><a href="#o-que-surpreendeu-na-publicacao">O que surpreendeu na publicação</a><a href="#o-que-vem-depois">O que vem depois</a></nav>
+<div class="prose"><p>O Nardoto Editor é o editor de vídeo que o Nardoto Studio usa para montar a timeline (a linha do tempo com narração, imagens e música). A versão 1.0.0 saiu em 10 de outubro de 2026. A 1.2.0 saiu em 17 de novembro, com 16 commits entre uma e outra. Commit é cada alteração registrada no histórico do código. O último deles concentra o trabalho: 20 arquivos, 1.011 linhas novas e 100 removidas.</p>
+<p>Quase tudo nesta versão responde à mesma pergunta: o que acontece quando há vários vídeos para exportar, e não um só.</p>
+<h2 id="varios-videos-uma-fila">Vários vídeos, uma fila</h2>
+<p>Até a 1.0.0, pedir uma exportação com outra em andamento não tinha um bom destino. Agora o pedido entra numa fila de renders (render é o processo de transformar a timeline num arquivo de vídeo). O botão Exportar avisa quantos estão esperando, a janela de andamento lista os próximos na ordem e dá para tirar da fila um vídeo que ainda não começou.</p>
+<p>Um detalhe pesou no desenho: cada item guarda uma foto do projeto no momento do pedido. Sem isso, editar o projeto aberto enquanto ele espera mudaria o que sai no arquivo. Com a foto, o vídeo exportado é o que existia quando a pessoa clicou.</p>
+<p>A tela inicial também entrou na fila. Dá para marcar vários vídeos e mandar renderizar todos sem abrir nenhum. O arquivo de cada um sai na pasta do próprio vídeo, com as escolhas da última exportação.</p>
+<figure><a href="fila.svg" target="_blank" rel="noopener"><img src="fila.svg" alt="Diagrama da fila de renders: pedidos entram com uma foto do projeto e saem um por vez" loading="lazy"></a><figcaption>Figura 1. Cada pedido leva uma foto do projeto. O editor exporta um por vez e o arquivo sai na pasta de cada vídeo.</figcaption></figure><h2 id="animacoes-gravadas-antes">Animações gravadas antes</h2>
+<p>As animações em motion graphics são páginas desenhadas por código. Na exportação, o editor precisava esperar um navegador embutido desenhar cada quadro. Num vídeo com 20 animações, só essa montagem de cena custava 74 segundos.</p>
+<p>A saída foi gravar cada animação como um arquivo de vídeo comum, um cache (uma cópia pronta, guardada para não refazer o trabalho). A exportação lê esse arquivo em vez de desenhar de novo. A prévia e a miniatura que o Studio mostra saem do mesmo cache, sem um segundo render.</p>
+<p>A primeira tentativa foi pior do que não fazer nada. Gravar na hora da exportação as animações que faltavam levou 5 minutos e 30 segundos, contra 4 minutos e 45 segundos desenhando ao vivo. Por isso a exportação só aproveita o cache que já existe no disco. Quem grava é a produção, em segundo plano, ao terminar cada animação. O que não ficou pronto segue desenhado ao vivo, como antes.</p>
+<h2 id="onde-o-tempo-da-exportacao-ia-embora">Onde o tempo da exportação ia embora</h2>
+<p>Para saber o que acelerar, a exportação ganhou um cronômetro por etapa, gravado num arquivo de registro a cada 10 segundos. Sem ele não dava para dizer se a lentidão vinha da montagem da cena, da placa de vídeo, do codificador ou da mixagem do áudio. As mudanças vieram dessas medições.</p>
+<table>
+<thead>
+<tr>
+<th>Mudança</th>
+<th>O que foi medido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H.264 pela placa de vídeo (NVENC) antes do codificador em software</td>
+<td>71 quadros por segundo contra 25, em 1080p a 30 quadros</td>
+</tr>
+<tr>
+<td>Áudio mixado e codificado numa linha de execução própria</td>
+<td>Cerca de 30 segundos a menos numa exportação de 12 minutos e 37 segundos</td>
+</tr>
+<tr>
+<td>Quadros decodificados com antecedência</td>
+<td>10 quadros adiantados, eram 2</td>
+</tr>
+<tr>
+<td>Animações lidas do cache</td>
+<td>Fim dos 74 segundos de montagem de cena no vídeo com 20 animações</td>
+</tr>
+</tbody>
+</table>
+<p>Quando a placa de vídeo falha no meio do caminho, o editor troca o codificador pelo equivalente em software, com as configurações de qualidade do próprio codificador. As da placa não valem para ele.</p>
+<figure><a href="medidas.svg" target="_blank" rel="noopener"><img src="medidas.svg" alt="Gráfico de barras: codificador da placa de vídeo a 71 quadros por segundo contra 25 em software, e 5 min 30 s gravando o cache na hora contra 4 min 45 s desenhando ao vivo" loading="lazy"></a><figcaption>Figura 2. O codificador da placa de vídeo quase triplica a velocidade. Gravar o cache na hora da exportação saiu mais lento que desenhar ao vivo.</figcaption></figure><h2 id="o-preview-que-ficava-borrado-sozinho">O preview que ficava borrado sozinho</h2>
+<p>Numa timeline só de fotos, o preview em qualidade automática descia para 25% e ficava subindo e descendo, borrado e lento. A medição mostrou de 40 a 490 milissegundos por quadro no modo automático, contra menos de 1 milissegundo em qualidade total. A máquina dava conta; o problema era o próprio ajuste.</p>
+<p>As fotos ficam em cache por arquivo e por tamanho. Mudar a escala troca o tamanho, então os quadros seguintes releem e redimensionam todas as fotos. O ajuste automático via esses quadros lentos, concluía que a máquina não acompanhava e mudava a escala de novo. Cada mudança provocava a próxima. A correção tem uma linha de regra: depois de trocar a escala, os 6 quadros seguintes não contam.</p>
+<h2 id="um-programa-sem-numero-de-versao">Um programa sem número de versão</h2>
+<p>O executável do editor não carrega a versão num lugar que outro programa consiga ler sem abri-lo. Até aqui, o Studio reconhecia um editor antigo procurando no arquivo uma opção de linha de comando que só as versões novas têm. Funciona para separar &quot;monta vídeo&quot; de &quot;não monta&quot;, mas não para dizer &quot;saiu uma versão nova&quot;.</p>
+<p>A partir da 1.2.0, o instalador grava um arquivo de texto com a versão ao lado do executável. O Studio lê esse arquivo e, quando a instalação ficou para trás, avisa no começo da produção e ao abrir o editor, sem travar nada. Instalação sem o arquivo conta como anterior.</p>
+<h2 id="o-que-surpreendeu-na-publicacao">O que surpreendeu na publicação</h2>
+<p>O número 1.1.0 foi pulado. Ele já tinha sido usado num instalador de teste que nunca foi publicado, e reaproveitar o número deixaria duas coisas diferentes com o mesmo nome.</p>
+<p>Trocar a versão custou uma recompilação completa: 362 arquivos de código, pouco mais de meia hora. O pacote final tem 1.860 arquivos e 350 MB, que viram um instalador de 104 MB. O teste antes de publicar foi extrair o instalador e rodar o editor sem janela, num ambiente sem as ferramentas de desenvolvimento. Ele respondeu como versão 1.2.0, com as 9 ferramentas de controle disponíveis. Instalação completa numa máquina limpa ainda não foi feita.</p>
+<p>O susto veio do Mac. O Studio baixa o editor por um link fixo que aponta sempre para a publicação mais recente. A 1.2.0 só tem instalador de Windows, então o link do Mac passaria a dar erro. A solução foi reenviar na publicação nova o mesmo arquivo de Mac da 1.0.0, e dizer isso nas notas.</p>
+<h2 id="o-que-vem-depois">O que vem depois</h2>
+<p>O editor ainda não se atualiza sozinho, e o aviso de versão nova depende de uma atualização do Studio para chegar a quem usa. O Mac continua na 1.0.0. A história do render por dentro, com a placa de vídeo e o FFmpeg, está em <a href="/blog/render-do-editor-gpu-e-ffmpeg/">O render do Editor: GPU no Windows, FFmpeg no Mac</a>.</p>
+<p class="assina">Escrito por Tharcisio Nardoto, engenheiro civil e criador do <a href="/studio/">Nardoto Studio</a>.</p></div></div></div></article>
+<section class="relacionados"><div class="wrap"><h2>Continue a leitura.</h2><div class="grid" style="padding-bottom:0"><a class="card" href="/blog/mark-i-integracao-ajustes/"><img src="/blog/mark-i-integracao-ajustes/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">07 nov. 2026 · 5 min de leitura</span><h2>Mark-I: uma IA mais próxima do Studio</h2><p>O Mark-I está chegando ao Nardoto Studio em um pacote adicional, com a proposta de simplificar o uso da IA e ajudar na produção dos seus vídeos.</p><span class="ler">Ler artigo &rarr;</span></div></a><a class="card" href="/blog/personalizacao-liquid-glass/"><img src="/blog/personalizacao-liquid-glass/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">07 nov. 2026 · 4 min de leitura</span><h2>Por que estou mudando o visual do Studio</h2><p>O novo tema Liquid Glass nasce de uma preocupação antiga: deixar o Nardoto Studio mais agradável, pessoal e simples de usar durante o trabalho diário.</p><span class="ler">Ler artigo &rarr;</span></div></a><a class="card" href="/blog/radar-investigacao-nicho/"><img src="/blog/radar-investigacao-nicho/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">07 nov. 2026 · 6 min de leitura</span><h2>O Radar de Nichos e a decisão de quem cria</h2><p>Como estou reunindo pesquisa de canais, análise do próprio canal no YouTube e conhecimento prático no Studio, sem tirar a decisão de quem cria.</p><span class="ler">Ler artigo &rarr;</span></div></a></div></div></section></main>
+<footer><div class="wrap"><span>Blog do Nardoto Studio. Escrito por Tharcisio Nardoto.</span><span><a href="/">nardoto.com.br</a> · <a href="/blog/feed.xml">RSS</a></span></div></footer>
+</body></html>
