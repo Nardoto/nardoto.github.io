@@ -161,7 +161,40 @@
       font-size: clamp(15px, 1.4vw, 18px);
       text-wrap: pretty;
     }
-    .hero-demo { max-width: 1200px; max-width: clamp(940px, calc(166svh - 360px), 1200px); margin: 0 auto; }
+    .hero-demo, .studio-plans { max-width: 1200px; max-width: clamp(940px, calc(166svh - 360px), 1200px); margin-inline: auto; }
+    .studio-plans {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) repeat(2, minmax(0, 1fr));
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding: 10px;
+      border: 1px solid #413029;
+      border-radius: 16px;
+      background: #15110f;
+      text-align: left;
+      scroll-margin-top: 78px;
+    }
+    .studio-plans header { padding: 0 10px; }
+    .studio-plans h2 { color: var(--text); font-size: clamp(17px, 1.5vw, 22px); line-height: 1.2; }
+    .studio-plans p { margin: 4px 0 0; color: #c5b9b3; font-size: 13px; line-height: 1.4; }
+    .offer-link {
+      display: grid;
+      gap: 2px;
+      padding: 9px 16px;
+      border: 1px solid #524039;
+      border-radius: 10px;
+      background: #231c18;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .offer-link strong { font-size: clamp(20px, 1.8vw, 26px); line-height: 1.15; letter-spacing: -.03em; }
+    .offer-link small { font-size: 13px; font-weight: 500; letter-spacing: 0; }
+    .offer-action { font-size: 13px; font-weight: 700; color: #ffac8d; }
+    .offer-action::after { content: " →"; }
+    .offer-link:hover, .offer-link:focus-visible { border-color: var(--primary-hover); background: #34241c; }
+    .offer-link:focus-visible { outline: 2px solid white; outline-offset: 2px; }
     .hero-player {
       position: relative;
       overflow: hidden;
@@ -1006,6 +1039,10 @@
       .hero { padding: 78px 16px 36px; }
       .hero-intro h1 { font-size: clamp(30px, 8vw, 42px); }
       .hero-intro p { margin: 10px auto 16px; }
+      .studio-plans { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; padding: 8px; margin-bottom: 12px; }
+      .studio-plans header { grid-column: 1 / -1; padding: 1px 3px 3px; }
+      .studio-plans header p { margin-top: 2px; font-size: 12px; }
+      .offer-link { padding: 8px 10px; }
       .hero .hero-cta { gap: 8px; }
       .hero .btn-primary, .hero .btn-mac { padding: 12px 16px; }
       .features { padding: 60px 16px; }
@@ -1063,10 +1100,7 @@
         <button class="lang-btn active" data-lang="pt" onclick="setLang('pt')">PT</button>
         <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
       </div>
-      <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup.exe" data-dl-studio class="nav-download">
-        <span data-i18n="nav-download">Baixar grátis</span>
-      </a>
-      <a class="nav-download cta-mobile" href="#teste" data-i18n="teste-curto">Teste grátis</a>
+      <a class="nav-download" href="#planos" data-i18n="assinar">Assinar</a>
     </div>
   </nav>
 
@@ -1077,6 +1111,20 @@
       <h1><span data-i18n="hero-title-1">Veja o Studio</span> <span class="highlight" data-i18n="hero-title-2">em ação</span></h1>
       <p data-i18n="hero-desc">Da pesquisa de nicho às dez primeiras pautas de um canal sobre furacões.</p>
     </div>
+    <section class="studio-plans" id="planos" aria-labelledby="titulo-planos">
+      <header>
+        <h2 id="titulo-planos" data-i18n="oferta-titulo">Assine o Nardoto Studio</h2>
+        <p data-i18n="oferta-inclui">Studio, Studio Lite, Flow e comunidade.</p>
+      </header>
+      <a class="offer-link" href="https://labs.nardoto.com.br/checkout-studio.html?interval=month">
+        <strong><span data-i18n="preco-mensal">R$ 197</span><small data-i18n="por-mes">/mês</small></strong>
+        <span class="offer-action" data-i18n="assinar-mensal">Assinar mensal</span>
+      </a>
+      <a class="offer-link" href="https://labs.nardoto.com.br/checkout-studio.html?interval=year">
+        <strong><span data-i18n="preco-anual">R$ 1.970</span><small data-i18n="por-ano">/ano</small></strong>
+        <span class="offer-action" data-i18n="assinar-anual">Assinar anual</span>
+      </a>
+    </section>
     <figure class="hero-demo">
       <div class="hero-player">
         <a id="abrir-demo" href="https://youtu.be/3oceS0ZOlnE">
@@ -1103,7 +1151,6 @@
           <span style="margin-left: -6px;">(<span data-dl-os>Windows</span>)</span>
         </a>
         <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-primary cta-mobile" data-i18n="conta">Acessar minha conta</a>
-        <a href="/#precos" class="btn-mac" data-i18n="planos">Ver planos</a>
       </div>
       <p class="hero-meta" data-dl-mac-only hidden>
         <span data-i18n="dl-mac-intel">Mac com chip Intel?</span>
@@ -1258,7 +1305,7 @@
         <summary data-i18n="duvida-planos">Onde vejo os planos e como cancelo?</summary>
         <div class="faq-answer">
           <p data-i18n="resposta-planos">Você pode comparar os planos antes de assinar e gerenciar ou cancelar sua assinatura pelo painel da sua conta.</p>
-          <a href="/#precos" data-i18n="planos">Ver planos</a>
+          <a href="#planos" data-i18n="planos">Ver planos</a>
         </div>
       </details>
     </div>
@@ -1270,13 +1317,13 @@
     <h2 data-i18n="cta-title">Qual será a primeira pauta do seu canal?</h2>
     <p data-i18n="cta-desc">Experimente o Studio por 10 dias e produza com um assunto que você conhece.</p>
     <div class="hero-cta" style="position: relative; z-index: 1;">
-      <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup.exe" data-dl-studio class="btn-primary">
+      <a href="#planos" class="btn-primary" data-i18n="ver-assinaturas">Escolher minha assinatura</a>
+      <a href="https://github.com/LoopLess-nardoto/nardoto-studio-releases/releases/latest/download/NardotoStudio-Setup.exe" data-dl-studio class="btn-mac">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
         <span data-i18n="cta-btn-download">Baixar e testar grátis</span>
         <span style="margin-left: -6px;">(<span data-dl-os>Windows</span>)</span>
       </a>
-      <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-primary cta-mobile" data-i18n="conta">Acessar minha conta</a>
-      <a href="/#precos" class="btn-mac" data-i18n="planos">Ver planos</a>
+      <a href="https://nardoto-labs.web.app/dashboard.html" class="btn-mac cta-mobile" data-i18n="conta">Acessar minha conta</a>
     </div>
     <p class="hero-meta cta-mobile" data-i18n="mobile-nota">Você ativa o teste no computador, com Windows ou macOS.</p>
     <p class="nota-fundador"><span data-i18n="nota-fundador">Esta demonstração também foi produzida no Nardoto Studio.</span><br><strong data-i18n="assinatura">Nardoto, criador do Studio</strong></p>
@@ -1295,8 +1342,16 @@
     // ── i18n ──
     const translations = {
       pt: {
-        "nav-download": "Baixar grátis",
-        "teste-curto": "Teste grátis",
+        "assinar": "Assinar",
+        "oferta-titulo": "Assine o Nardoto Studio",
+        "oferta-inclui": "Studio, Studio Lite, Flow e comunidade.",
+        "preco-mensal": "R$ 197",
+        "por-mes": "/mês",
+        "assinar-mensal": "Assinar mensal",
+        "preco-anual": "R$ 1.970",
+        "por-ano": "/ano",
+        "assinar-anual": "Assinar anual",
+        "ver-assinaturas": "Escolher minha assinatura",
         "hero-title-1": "Veja o Studio",
         "hero-title-2": "em ação",
         "hero-desc": "Da pesquisa de nicho às dez primeiras pautas de um canal sobre furacões.",
@@ -1355,8 +1410,16 @@
         "assinatura": "Nardoto, criador do Studio"
       },
       en: {
-        "nav-download": "Free download",
-        "teste-curto": "Free trial",
+        "assinar": "Subscribe",
+        "oferta-titulo": "Subscribe to Nardoto Studio",
+        "oferta-inclui": "Studio, Studio Lite, Flow and community access.",
+        "preco-mensal": "R$ 197",
+        "por-mes": "/month",
+        "assinar-mensal": "Subscribe monthly",
+        "preco-anual": "R$ 1,970",
+        "por-ano": "/year",
+        "assinar-anual": "Subscribe annually",
+        "ver-assinaturas": "Choose my subscription",
         "hero-title-1": "See Studio",
         "hero-title-2": "in action",
         "hero-desc": "Follow a hurricane channel from niche research to its first ten video ideas.",
@@ -1479,7 +1542,7 @@
       var params = new URLSearchParams(window.location.search);
       var ref = params.get('ref');
       if (!ref) return;
-      document.querySelectorAll('a[href*="nardoto-labs.web.app"]').forEach(function(a) {
+      document.querySelectorAll('a[href^="https://nardoto-labs.web.app/"], a[href^="https://labs.nardoto.com.br/"]').forEach(function(a) {
         var url = new URL(a.href);
         url.searchParams.set('ref', ref);
         a.href = url.toString();
