@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8">
+<script>if(!/^(localhost|127.0.0.1)$/.test(location.hostname)){var g=document.createElement('script');g.async=true;g.src='https://www.googletagmanager.com/gtag/js?id=G-WSY9CWHH19';document.head.appendChild(g);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-WSY9CWHH19')}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nardoto IDE 3.0: vidro, temas clássicos e um chat que descansa | Blog do Nardoto Studio</title><meta name="description" content="A versão 3.0 do Nardoto IDE traz o tema Liquid Glass, os temas Windows XP e 2000, seis sons de fim de tarefa e uma conversa mais fácil de ler no dia a dia.">
+<link rel="canonical" href="https://nardoto.com.br/blog/nardoto-ide-3-0/"><meta property="og:type" content="article"><meta property="og:url" content="https://nardoto.com.br/blog/nardoto-ide-3-0/">
+<meta property="og:title" content="Nardoto IDE 3.0: vidro, temas clássicos e um chat que descansa | Blog do Nardoto Studio"><meta property="og:description" content="A versão 3.0 do Nardoto IDE traz o tema Liquid Glass, os temas Windows XP e 2000, seis sons de fim de tarefa e uma conversa mais fácil de ler no dia a dia."><meta property="og:image" content="https://nardoto.com.br/blog/nardoto-ide-3-0/capa.jpg">
+<link rel="icon" type="image/png" href="/favicon.png"><meta name="theme-color" content="#E85A2A">
+<link rel="alternate" type="application/rss+xml" title="Blog do Nardoto" href="/blog/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/blog/blog.css"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Nardoto IDE 3.0: vidro, temas clássicos e um chat que descansa","description":"A versão 3.0 do Nardoto IDE traz o tema Liquid Glass, os temas Windows XP e 2000, seis sons de fim de tarefa e uma conversa mais fácil de ler no dia a dia.","datePublished":"2026-11-20","author":{"@type":"Person","name":"Tharcisio Nardoto"},"mainEntityOfPage":"https://nardoto.com.br/blog/nardoto-ide-3-0/"}</script></head><body>
+<header class="topo"><div class="wrap"><a class="marca" href="/"><img src="/favicon.png" alt="">Nardoto</a>
+<nav class="nav"><a href="/">Apps</a><a href="/studio/">Studio</a><a href="/blog/" class="on">Blog</a></nav></div></header>
+<main><article><div class="wrap"><div class="cab"><a class="eyebrow" href="/blog/">Blog / Diário de construção</a>
+<h1>Nardoto IDE 3.0: vidro, temas clássicos e um chat que descansa</h1><p class="lead">A versão 3.0 do Nardoto IDE traz o tema Liquid Glass, os temas Windows XP e 2000, seis sons de fim de tarefa e uma conversa mais fácil de ler no dia a dia.</p>
+<div class="meta">Tharcisio Nardoto · 20 nov. 2026 · 5 min de leitura</div>
+<div class="tags"><a class="tag" href="/blog/tags/electron/">electron</a><a class="tag" href="/blog/tags/workflow/">workflow</a><a class="tag" href="/blog/tags/ia/">ia</a></div></div>
+<img class="capa" src="/blog/nardoto-ide-3-0/capa.jpg" alt="" width="1200" height="630">
+<div class="corpo-post"><nav class="toc"><strong>Neste artigo</strong><a href="#o-visual-vidro-e-nostalgia">O visual: vidro e nostalgia</a><a href="#um-som-para-quando-a-tarefa-termina">Um som para quando a tarefa termina</a><a href="#o-que-deu-errado">O que deu errado</a><a href="#um-chat-que-cansa-menos">Um chat que cansa menos</a><a href="#o-resto-da-lista">O resto da lista</a><a href="#o-preco-do-vidro">O preço do vidro</a></nav>
+<div class="prose"><p>O Nardoto IDE chegou à versão 3.0. É o editor de código que nasceu do chat do Studio: um lugar para conversar com as IAs (Claude, Codex, Antigravity, Grok e Mark-I) enquanto elas trabalham nos meus projetos. A versão pula da 2.7 direto para a 3.0: por fora, é quase um IDE novo.</p>
+<p>Foram dois commits desde a versão anterior, mas grandes: 243 arquivos alterados e cerca de 9.400 linhas novas. Só os temas visuais respondem por 124 desses arquivos.</p>
+<figure><a href="numeros.svg" target="_blank" rel="noopener"><img src="numeros.svg" alt="Resumo em números da versão 3.0" loading="lazy"></a><figcaption>Figura 1. A versão 3.0 em números, contados no git do projeto.</figcaption></figure><h2 id="o-visual-vidro-e-nostalgia">O visual: vidro e nostalgia</h2>
+<p>A maior novidade é o tema <strong>Liquid Glass</strong>, o mesmo que <a href="/blog/personalizacao-liquid-glass/">comecei a fazer no Studio</a>. As janelas viram superfícies de vidro sobre um fundo que a pessoa escolhe: são 95 imagens prontas, 12 vídeos animados ou uma foto própria. Dá para trocar a cor de destaque e escolher entre o estilo &quot;Vidro suave&quot; e o &quot;Líquido&quot;.</p>
+<p>Do outro lado, entraram dois temas clássicos: <strong>Windows XP</strong> e <strong>Windows 2000</strong>. São o oposto do vidro: leves, sem animação e sem desfoque, bons para computador mais fraco. O XP ainda toca o som de inicialização do Windows quando é escolhido.</p>
+<p>Também dá para escolher o estilo dos ícones (Circuito, Heroicons Solid, Solar ou Lucide), e o navegador interno ganhou um painel próprio, com abas separadas das abas de arquivo.</p>
+<h2 id="um-som-para-quando-a-tarefa-termina">Um som para quando a tarefa termina</h2>
+<p>Quando deixo uma IA trabalhando e vou fazer outra coisa, o IDE toca um som ao terminar. Antes havia um só. Agora são seis: Sopro, Sino, Gota, Marimba, Acorde e o alerta do MSN, que entrou a pedido e ficou ótimo.</p>
+<p>Cinco deles não são arquivos de áudio. São gerados por código na hora, com o Web Audio do navegador: cada nota é uma soma de ondas puras (senoides), e o &quot;sino&quot; usa as proporções de frequência de um sino de verdade. Só o MSN vem de um arquivo.</p>
+<h2 id="o-que-deu-errado">O que deu errado</h2>
+<p><strong>O chiado.</strong> O Sopro e o Sino saíram com um chiado no fim. A causa era o eco artificial: para não carregar um arquivo de áudio, ele é feito com ruído branco que vai sumindo, e nos sons longos esse ruído aparecia. A correção foi passar o eco por um filtro que corta os agudos acima de 1.800 Hz e tirar do sino a nota mais aguda, perto de 5.200 Hz.</p>
+<figure><a href="som.svg" target="_blank" rel="noopener"><img src="som.svg" alt="Caminho do som com o filtro no eco" loading="lazy"></a><figcaption>Figura 2. O som seco vai direto para a saída; o eco passa por um filtro antes de chegar lá.</figcaption></figure><p><strong>O quadrado em volta da mensagem.</strong> No Liquid Glass, toda mensagem minha aparecia dentro de um retângulo largo. A regra do tema queria pintar o balão da mensagem, mas mirava na linha inteira da conversa. Bastou apontar para o balão.</p>
+<p><strong>Os testes que não rodavam.</strong> Na hora de fechar a versão, nenhum teste automático rodava, nem os antigos. Parecia instalação quebrada. Era a letra do disco: aberto pelo editor, o caminho chegava como <code>c:\</code> minúsculo, e a ferramenta de teste (Vitest) carregava duas cópias de si mesma, uma para <code>c:</code> e outra para <code>C:</code>. Rodando a partir de <code>C:</code> maiúsculo, 2.465 testes passaram. Antes de publicar, ainda corrigi 5 testes que tinham ficado para trás.</p>
+<h2 id="um-chat-que-cansa-menos">Um chat que cansa menos</h2>
+<p>Passo horas lendo respostas das IAs, e comecei a sentir que ler no chat do VS Code era mais tranquilo que no meu. Não conseguia dizer por quê. Medi o texto do IDE e comparei com o do VS Code.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Nardoto IDE (antes)</th>
+<th>Chat do VS Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fonte</td>
+<td>Public Sans, larga e de traço grosso</td>
+<td>Segoe UI, mais estreita e fina</td>
+</tr>
+<tr>
+<td>Cor do texto</td>
+<td>quase branco</td>
+<td>cinza-claro</td>
+</tr>
+<tr>
+<td>Fundo</td>
+<td>papel de parede com textura</td>
+<td>cinza liso</td>
+</tr>
+<tr>
+<td>Tamanho</td>
+<td>13 px</td>
+<td>13 px</td>
+</tr>
+</tbody>
+</table>
+<p>O tamanho era o mesmo. A diferença estava no peso da letra. Montei uma comparação na tela real do IDE, trocando uma coisa de cada vez, e a fonte foi o que mais mudou a sensação. A conversa agora usa a fonte do sistema (a Segoe UI no Windows, a do próprio Mac no macOS). O papel de parede e a cor ficaram como estavam, porque eu gosto deles.</p>
+<p>A conversa também passou a ocupar a largura toda, com uma margem confortável dos lados, e a pergunta fixada no topo ganhou o mesmo estilo do balão, com troca suave entre uma mensagem e outra.</p>
+<h2 id="o-resto-da-lista">O resto da lista</h2>
+<ul>
+<li>O Mark-I ganhou botão fixo na barra de IAs, com a logo certa, e a IA escolhida aparece num botão destacado na cor dela.</li>
+<li>As contas do Claude, do Codex e do Antigravity mostram o plano de cada uma, que dá para ajustar à mão.</li>
+<li>No Antigravity, o agente não apaga nada sem autorização, e uma conversa pesada demais recomeça com um resumo, para voltar a responder rápido.</li>
+<li>As ações do agente aparecem em português simples, como &quot;Leu index.js&quot; e &quot;Editou App.tsx&quot;.</li>
+<li>A Produtividade mostra o trabalho no código: linhas escritas e removidas, arquivos e commits.</li>
+<li>Correções: o Ctrl+A seleciona só a área onde se clicou (antes pegava a janela inteira), o botão Reduzir chat funciona com o centro vazio e a lista lateral das Configurações fica parada enquanto o conteúdo rola.</li>
+</ul>
+<h2 id="o-preco-do-vidro">O preço do vidro</h2>
+<p>O instalador cresceu de 120 MB para 179 MB. A diferença é quase toda o pacote de fundos e vídeos do Liquid Glass. Achei que valia: são as imagens que fazem o tema funcionar sem internet.</p>
+<p>A atualização chega sozinha para quem já tem o IDE instalado.</p>
+<p class="assina">Escrito por Tharcisio Nardoto, engenheiro civil e criador do <a href="/studio/">Nardoto Studio</a>.</p></div></div></div></article>
+<section class="relacionados"><div class="wrap"><h2>Continue a leitura.</h2><div class="grid" style="padding-bottom:0"><a class="card" href="/blog/mark-i-integracao-ajustes/"><img src="/blog/mark-i-integracao-ajustes/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">07 nov. 2026 · 5 min de leitura</span><h2>Mark-I: uma IA mais próxima do Studio</h2><p>O Mark-I está chegando ao Nardoto Studio em um pacote adicional, com a proposta de simplificar o uso da IA e ajudar na produção dos seus vídeos.</p><span class="ler">Ler artigo &rarr;</span></div></a><a class="card" href="/blog/personalizacao-liquid-glass/"><img src="/blog/personalizacao-liquid-glass/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">07 nov. 2026 · 4 min de leitura</span><h2>Por que estou mudando o visual do Studio</h2><p>O novo tema Liquid Glass nasce de uma preocupação antiga: deixar o Nardoto Studio mais agradável, pessoal e simples de usar durante o trabalho diário.</p><span class="ler">Ler artigo &rarr;</span></div></a><a class="card" href="/blog/radar-investigacao-nicho/"><img src="/blog/radar-investigacao-nicho/capa.jpg" alt="" loading="lazy" width="1200" height="630">
+<div class="corpo"><span class="meta">07 nov. 2026 · 6 min de leitura</span><h2>O Radar de Nichos e a decisão de quem cria</h2><p>Como estou reunindo pesquisa de canais, análise do próprio canal no YouTube e conhecimento prático no Studio, sem tirar a decisão de quem cria.</p><span class="ler">Ler artigo &rarr;</span></div></a></div></div></section></main>
+<footer><div class="wrap"><span>Blog do Nardoto Studio. Escrito por Tharcisio Nardoto.</span><span><a href="/">nardoto.com.br</a> · <a href="/blog/feed.xml">RSS</a></span></div></footer>
+</body></html>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" role="img" aria-labelledby="t">
+  <title id="t">A versão 3.0 do Nardoto IDE em números: 243 arquivos alterados, 95 fundos em imagem, 12 vídeos animados, 6 sons de fim de tarefa e 2.465 testes passando.</title>
+  <rect width="1200" height="400" rx="18" fill="#141414"/>
+  <text x="60" y="78" font-family="Inter,'Segoe UI',Arial,sans-serif" font-size="30" font-weight="700" fill="#fff">Nardoto IDE 3.0 em números</text>
+  <text x="60" y="114" font-family="Inter,'Segoe UI',Arial,sans-serif" font-size="19" fill="#9CA3AF">Contados no git e na rodada de testes antes de publicar</text>
+  <g font-family="Inter,'Segoe UI',Arial,sans-serif">
+    <rect x="60" y="150" width="200" height="190" rx="14" fill="#2A1710"/>
+    <text x="160" y="236" text-anchor="middle" font-size="56" font-weight="700" fill="#FF8A5C">243</text>
+    <text x="160" y="282" text-anchor="middle" font-size="19" fill="#B4B9C2">arquivos</text>
+    <text x="160" y="308" text-anchor="middle" font-size="19" fill="#B4B9C2">alterados</text>
+
+    <rect x="280" y="150" width="200" height="190" rx="14" fill="#1A1A1A"/>
+    <text x="380" y="236" text-anchor="middle" font-size="56" font-weight="700" fill="#fff">95</text>
+    <text x="380" y="282" text-anchor="middle" font-size="19" fill="#B4B9C2">fundos em</text>
+    <text x="380" y="308" text-anchor="middle" font-size="19" fill="#B4B9C2">imagem</text>
+
+    <rect x="500" y="150" width="200" height="190" rx="14" fill="#1A1A1A"/>
+    <text x="600" y="236" text-anchor="middle" font-size="56" font-weight="700" fill="#fff">12</text>
+    <text x="600" y="282" text-anchor="middle" font-size="19" fill="#B4B9C2">vídeos</text>
+    <text x="600" y="308" text-anchor="middle" font-size="19" fill="#B4B9C2">animados</text>
+
+    <rect x="720" y="150" width="200" height="190" rx="14" fill="#1A1A1A"/>
+    <text x="820" y="236" text-anchor="middle" font-size="56" font-weight="700" fill="#fff">6</text>
+    <text x="820" y="282" text-anchor="middle" font-size="19" fill="#B4B9C2">sons de fim</text>
+    <text x="820" y="308" text-anchor="middle" font-size="19" fill="#B4B9C2">de tarefa</text>
+
+    <rect x="940" y="150" width="200" height="190" rx="14" fill="#1A1A1A"/>
+    <text x="1040" y="236" text-anchor="middle" font-size="56" font-weight="700" fill="#fff">2.465</text>
+    <text x="1040" y="282" text-anchor="middle" font-size="19" fill="#B4B9C2">testes</text>
+    <text x="1040" y="308" text-anchor="middle" font-size="19" fill="#B4B9C2">passando</text>
+  </g>
+</svg>
