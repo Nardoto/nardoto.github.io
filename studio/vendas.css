@@ -1,9 +1,9 @@
-  /* Galeria em carrossel 3D: o vídeo do centro fica de frente e grande, os vizinhos giram para trás nas laterais */
+  /* A escala e a opacidade dão profundidade às capas laterais. */
   #videos { overflow: hidden; }
-  .carrossel { --w: min(1040px, calc(100vw - 40px), calc(64vh * 16 / 9)); position: relative; perspective: 2000px; }
-  .galeria { display: grid; justify-items: center; transform-style: preserve-3d; touch-action: pan-y; }
-  .filme { grid-area: 1 / 1; width: var(--w); background: var(--card); border-radius: 16px; overflow: hidden; cursor: pointer; transform-origin: center; transition: transform .7s cubic-bezier(.22,.8,.24,1), opacity .7s, filter .7s, box-shadow .7s; box-shadow: 0 30px 60px -30px rgba(0,0,0,.9); -webkit-box-reflect: below 6px linear-gradient(transparent 82%, rgba(255,255,255,.07)); }
-  .filme.ativo { cursor: default; box-shadow: 0 40px 90px -30px rgba(0,0,0,.95), 0 0 0 1px rgba(232,90,42,.35), 0 0 60px -10px rgba(232,90,42,.25); }
+  .carrossel { --w: min(1040px, calc(100vw - 40px), calc(64vh * 16 / 9)); position: relative; isolation: isolate; }
+  .galeria { display: grid; justify-items: center; touch-action: pan-y; }
+  .filme { grid-area: 1 / 1; width: var(--w); background: var(--card); border-radius: 16px; overflow: hidden; cursor: pointer; transition: transform .7s cubic-bezier(.22,.8,.24,1), opacity .7s; }
+  .filme.ativo { cursor: default; outline: 1px solid rgba(232,90,42,.35); }
   .filme:not(.ativo) .player, .filme:not(.ativo) a { pointer-events: none; }
   .filme:not(.ativo) > div { opacity: .4; }
   .player { position: relative; display: block; width: 100%; aspect-ratio: 16/9; border: 0; padding: 0; background: #050505; cursor: pointer; }

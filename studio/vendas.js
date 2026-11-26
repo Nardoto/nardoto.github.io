@@ -8,12 +8,12 @@
     var prox = document.querySelector(".seta.prox");
     var linkExterno = document.getElementById("filme-youtube");
     var atual = 0, n = filmes.length;
-    // Posição de cada vídeo conforme a distância até o do centro (d): vai para o lado, afunda e gira.
-    var POSES = [
-      { x: 0, z: 0, gira: 0, op: 1, luz: 1 },
-      { x: 58, z: -260, gira: 42, op: .75, luz: .55 },
-      { x: 92, z: -520, gira: 52, op: .35, luz: .35 },
-      { x: 110, z: -700, gira: 58, op: 0, luz: .2 }
+    const movimentoReduzido = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const posicoes = [
+      { x: 0, largura: 1, altura: 1, opacidade: 1 },
+      { x: 53, largura: .69, altura: .88, opacidade: .48 },
+      { x: 78, largura: .49, altura: .77, opacidade: .18 },
+      { x: 95, largura: .4, altura: .7, opacidade: 0 }
     ];
 
     var miniaturas = filmes.map(function (filme, i) {
@@ -38,16 +38,15 @@
         b.setAttribute("aria-pressed", String(j === i));
       });
       var b = miniaturas[i]; // rola só a fita, sem mexer na página
-      fita.scrollTo({ left: b.offsetLeft - (fita.clientWidth - b.offsetWidth) / 2, behavior: "smooth" });
+      fita.scrollTo({ left: b.offsetLeft - (fita.clientWidth - b.offsetWidth) / 2, behavior: movimentoReduzido.matches ? "instant" : "smooth" });
       contador.textContent = (i + 1) + " / " + n;
       filmes.forEach(function (filme, j) {
         var d = ((j - i) % n + n + Math.floor(n / 2)) % n - Math.floor(n / 2); // em loop: o último fica à esquerda do primeiro
-        var p = POSES[Math.min(Math.abs(d), POSES.length - 1)], lado = d < 0 ? -1 : 1;
-        filme.style.transform = "translateX(" + (lado * p.x) + "%) translateZ(" + p.z + "px) rotateY(" + (-lado * p.gira) + "deg)";
-        filme.style.opacity = p.op;
-        filme.style.filter = "brightness(" + p.luz + ")";
+        const posicao = posicoes[Math.min(Math.abs(d), posicoes.length - 1)];
+        filme.style.transform = `translateX(${Math.sign(d) * posicao.x}%) scale(${posicao.largura}, ${posicao.altura})`;
+        filme.style.opacity = posicao.opacidade;
         filme.style.zIndex = 10 - Math.abs(d);
-        filme.style.visibility = p.op ? "visible" : "hidden";
+        filme.style.visibility = posicao.opacidade ? "visible" : "hidden";
         filme.classList.toggle("ativo", d === 0);
         filme.querySelector(".player").tabIndex = d === 0 ? 0 : -1;
       });
